@@ -1,0 +1,365 @@
+.vacanciesbody-container {
+    width: 100%;
+    
+   
+
+    &-wrapper {
+        width: 100%;
+        max-width: 1280px;
+        display: flex;
+        margin: 0px auto;
+        padding: 10px 40px;
+        gap:20px;
+        
+        &-leftside {
+            width: 30%;
+            padding: 25px;
+            background-color: #F6F3F1;
+            display: flex;
+            flex-direction: column;
+            border-radius: 5px;
+
+            h2{
+                font-size: 18px;
+                font-family: Montserrat;
+                font-weight: 700;
+            }
+
+            h3 {
+                font-size: 16px;
+                font-family: Montserrat;
+                font-weight: 700;
+                margin-top: 25px;
+            }
+
+            &-inputfield {
+                width: 100%;
+                display: flex;
+                position: relative;
+                margin-top: 10px;
+                
+
+                input {
+                    width: 100%;
+                    padding: 10px;
+                    background-color: white;
+                    border: none;
+                    margin-top: 10px;
+                    height: 3rem;
+                }
+
+
+                &-searchicon {
+                    position: absolute;
+                    color:#eeb856;
+                    bottom: 0;
+                    right: 2%;
+                    top: 38%;
+                }
+            }
+
+
+          
+            &-checkboxfield {
+                margin-top: 15px;
+                display: flex;
+                gap:5px;
+                align-items: center;
+
+                input {
+                    width: 18px;
+                        height: 18px;
+                }
+
+                span {
+                    font-size: 14px;
+                    font-family: Montserrat;
+                    font-weight: 500;
+                  }
+            }
+          
+        }
+
+        &-rightside {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+
+            &-divwow {
+                width: 100%;
+                margin-top: 15px;
+
+                h6{
+                    font-family: $font;
+                    font-size: 18px;
+                    font-weight: 600;
+                    position: relative;
+                    padding-bottom: 5px;
+                }
+            
+                h6::after {
+                    content: "";
+                    bottom: 0;
+                    background: #EEB856;
+                    width: 27%;
+                    height: 4px;
+                    position: absolute;
+                    display: block;
+                    left: 0%;
+                  }
+            }
+
+
+            &-wrapper {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                align-items: center;
+                padding-bottom: 15px;
+                border-bottom: 0.5px solid #D4D4D4 ;
+
+                h2 {
+                    width: 50%;
+                    font-size: 14px;
+                    font-family: Montserrat;
+                    font-weight: 400;
+                }
+
+                &-dropDown {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    gap:8px;
+                    width: 50%;
+
+                    span {
+                        
+                        font-size: 14px;
+                        font-family: Montserrat;
+                        font-weight: 400;
+                      
+
+                    }
+
+                    &-items {
+                        width: 35%;
+                        font-size: 14px;
+                        font-family: Montserrat;
+
+
+                        .css-1s2u09g-control {
+                            background-color: #F6F3F1!important;
+                        }
+
+                      
+
+                       
+                        .css-tlfecz-indicatorContainer {
+
+                            svg {
+                                color:#EEB856;
+                            }
+                        }
+                    }
+                   
+                }
+            }
+
+            &-jobpost {
+                margin-top: 30px;
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                gap:40px;
+
+                &-data {
+                    display: flex;
+                    width: 45%;
+                    flex-direction: column;
+                    gap:5px;
+
+                    h1 {
+                        font-size: 20px;
+                        font-family: Montserrat;
+                        font-weight: 400;
+                        line-height: 26px;
+                    }
+
+                    h2 {
+                        font-size: 16px;
+                        font-family: Montserrat;
+                        font-weight: 400;
+                        line-height: 24px;
+                    }
+
+                    h3,h4 ,h6, h5{
+                        
+                        font-size: 14px;
+                        font-family: Montserrat;
+                        font-weight: 500;
+                        line-height: 24px;
+                    }
+
+                    
+
+                    &-share {
+                        display: flex;
+                        gap:5px;
+                        position: relative;
+
+
+                        span {
+                            font-size: 16px;
+                            font-family: Montserrat;
+                            font-weight: 600;
+                            line-height: 24px;
+                            padding-bottom: 15px;
+                        }
+
+                        span::after {
+                            content: "";
+                            bottom: 0;
+                            background: #eeb856;
+                            width:33%;
+                            height: 4px;
+                            position: absolute;
+                            display: block;
+                            left:0%;
+                          }
+                    }
+                }
+            }
+
+        }
+
+    }
+}
+
+@media only screen and (max-width: 850px)   { 
+ .vacanciesbody-container {
+        &-wrapper {
+           flex-direction: column;
+           &-leftside {
+            width: 100%;
+            flex-direction: row;
+            flex-wrap: wrap;
+            div:first-child {
+                flex: 0 0 100%;
+            }div:nth-child(2) {
+                flex: 0 0 50%;
+            }div:nth-child(3) {
+                flex: 0 0 50%;
+            }
+           }
+           &-rightside {
+            width: 100%;
+           }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 425px) { 
+
+    .vacanciesbody-container {
+
+        &-wrapper {
+            // width: 100%;
+            // padding: 20px 10px 60px 10px;
+            // gap:15px;
+
+            &-leftside {
+                padding: 10px;
+
+                h2 {
+                    font-size: 15px;
+                }
+
+                &-checkboxfield {
+                    span {
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 425px) and (min-width: 280px) { 
+    .vacanciesbody-container {
+        &-wrapper {
+            width: 100%;
+            padding:15px;
+
+            &-leftside {
+                width: 100%;
+
+              
+            }
+
+            &-rightside {
+                width: 100%;
+
+                &-wrapper {
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                    h2 {
+                        width: 100%;
+                    }
+
+                    &-dropDown {
+                            margin-top: 5px;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 5px;
+                            width: 100%;
+                    }
+
+                    &-btn {
+                        margin-top: 15px;
+                        position: relative;
+                        padding-bottom: 6px;
+
+
+                        span {
+                            font-family: Montserrat;
+                            font-weight: bold;
+                            font-size: 14px;
+
+                        }
+
+                        span::after {
+                            content: "";
+                            bottom: 0;
+                            background: #eeb856;
+                            width: 100%;
+                            height: 4px;
+                            position: absolute;
+                            display: block;
+                            left: 0%;
+                          }
+                    }
+                }
+
+                &-jobpost {
+                    gap:30px;
+                    flex-direction: column;
+                    flex-wrap: nowrap;
+                    padding-bottom: 50px;
+
+                    &-data {
+                        width: 100%;
+                    }
+                    
+                }
+            }
+           
+
+}
+
+}
+
+
+
+}

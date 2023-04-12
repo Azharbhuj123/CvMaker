@@ -1,0 +1,119 @@
+.primary-input {
+    p {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    &-input {
+        width: 20rem;
+        height: 3rem;
+        background-color: #F6F3F1;
+        margin-top: 0.5rem;
+        border-radius: 10px;
+        border: 0px;
+        padding-left: 1rem;
+        text-align: start;
+    }
+
+    &-date {
+        width: 15rem;
+        height: 3rem;
+        background-color: #F6F3F1;
+        margin-top: 0.5rem;
+        border-radius: 10px;
+
+
+        border: 0px;
+        padding-left: 1rem;
+        text-align: start;
+    }
+
+    &-spanheading {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    &-inputDescription {
+        width: 20rem;
+        height: 6rem;
+        background-color: #F6F3F1;
+        margin-top: 0.5rem;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+
+        border: 0px;
+
+        padding: 1rem;
+        resize: none;
+    }
+}
+
+
+.headinput-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+
+    span {
+        font-family: Montserrat;
+        font-size: 12px;
+        font-weight: 900;
+        color: #0A1B28;
+    }
+
+    input {
+
+        width: 100%;
+        background-color: #F6F3F1;
+        border-radius: 5px;
+        border: none;
+        padding: 20px;
+        text-align: start;
+    }
+}
+
+.date-container {
+    flex-direction: row;
+}
+.headinput-container-secondary{
+    margin-top: 1rem;
+    input{
+        
+        width: 100%;
+        background-color: white;
+        border-radius: 5px;
+        border: none;
+        padding: 20px;
+        text-align: start;
+    }
+}
+
+.date-input {
+    border: none;
+    box-sizing: border-box;
+    outline: 0;
+    padding: 0.75rem;
+    position: relative;
+    width: 100%;
+  }
+  
+  input[type='date']::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+  }
+  
+  .quill {
+    background-color: white;
+  }

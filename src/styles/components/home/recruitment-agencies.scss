@@ -1,0 +1,140 @@
+.ra-container {
+  width: 100%;
+  background-color: #0a1b28;
+  padding-bottom: 80px;
+
+  &-wrapper {
+    width: 100%;
+    max-width: 1280px;
+    padding: 10px 60px;
+    margin: 0px auto;
+
+    &-heading {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 80px;
+
+      h1 {
+        font-family: Montserrat;
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 50px;
+        color: #ffffff;
+        width: 70%;
+        text-align: center;
+      }
+    }
+
+    &-slider {
+      width: 100%;
+      gap: 10px;
+
+      &-slides {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        // margin-top: 20px;
+        // transform: scale(0.9);
+
+        h1 {
+          font-family: Montserrat;
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 50px;
+          color: #ffffff;
+
+          text-align: center;
+        }
+
+        button {
+          cursor: pointer;
+          background-color: #eeb856;
+          color: #000000;
+          padding: 10px;
+          font-size: 14px;
+          font-family: Montserrat;
+          font-weight: bold;
+          padding-left: 2rem;
+          padding-right: 2rem;
+          border-radius: 5px;
+          border: none;
+        }
+
+        &-imgdiv {
+          img {
+            width: 20rem;
+            height: 26rem;
+            gap: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
+  .ra-container {
+    &-wrapper {
+      width: 100%;
+      max-width: 1024px;
+      padding: 30px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 428px) {
+  .ra-container {
+    &-wrapper {
+      width: 100%;
+      padding: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 428px) and (min-width: 280px) {
+  .ra-container {
+    &-wrapper {
+      width: 100%;
+      padding: 20px;
+
+      &-heading {
+        h1 {
+          width: 100%;
+          font-size: 28px;
+        }
+      }
+
+      &-slider {
+        padding-top: 50px;
+      }
+    }
+  }
+}
+.react-multi-carousel-track {
+  gap: 3px;
+}
+.react-multi-carousel-list {
+  position: initial;
+}
+
+@media only screen and (max-width: 320px) and (min-width: 279px) {
+  .cvm-container-wrapper-imgdiv-bgSet {
+    height: 17rem !important;
+  }
+}
+
+@media only screen and (max-width: 428px) and (min-width: 321px) {
+  .cvm-container-wrapper-imgdiv-bgSet {
+    height: 20rem !important;
+  }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 768px) {
+  .cvm-container-wrapper-imgdiv-bgSet {
+    height: 22rem !important;
+  }
+}

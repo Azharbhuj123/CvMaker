@@ -1,0 +1,89 @@
+.cvmaker-hero-container {
+    width: 100%;
+    background-color:#F6F3F1;
+    padding-top: 70px;
+    padding-bottom: 50px;
+
+
+    &-wrapper {
+        width: 100%;
+        max-width: 1280px;
+        margin: 0px auto;
+        padding: 10px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+
+        h1 {
+            font-size: 34px;
+            font-family: 'Montserrat';
+            font-weight: bold;
+            text-align: center;
+            line-height: 70px;
+            padding-bottom: 5px;
+        }
+        h1::after {
+            content: "";
+            bottom: 0;
+            background: #eeb856;
+            width: 10%;
+            height: 4px;
+            position: absolute;
+            display: block;
+            left: 45%;
+          }
+
+    }
+}
+
+// @media only screen and (max-width: 1024px) and (min-width: 768px) {
+//     .cvmaker-hero-container {
+
+//        &-wrapper {
+//            width:1024px;
+//            padding: 30px;
+
+
+//        }
+//     }
+// }
+
+@media only screen and (max-width: 768px) and (min-width: 428px) {
+    .cvmaker-hero-container {
+
+       &-wrapper {
+        //    width:100%;
+        //    padding: 30px;
+
+
+       }
+    }
+}
+
+@media only screen and (max-width: 428px) and (min-width: 375px) {
+    .cvmaker-hero-container {
+
+    //    &-wrapper {
+    //        width:100%;
+    //        padding: 20px;
+
+
+    //    }
+    }
+}
+
+@media only screen and (max-width: 375px) and (min-width: 280px) {
+    .cvmaker-hero-container {
+
+       &-wrapper {
+        //    width:100%;
+        //    padding: 20px;
+
+         h1 {
+             font-size: 30px;
+         }
+       }
+    }
+}

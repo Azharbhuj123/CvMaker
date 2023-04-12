@@ -1,0 +1,200 @@
+.cvmaker-body-container {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 80px;
+
+
+    &-wrapper {
+        width: 1280px;
+        margin: 0px auto;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+
+
+            &-maindiv {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                gap:20px;
+                
+
+                &-set {
+                    width: 22%;
+                    padding: 12px;
+                    display: flex;
+                    gap:15px;
+                    align-items: center;
+                    background-color: #F6F3F1 ;
+
+                    span {
+                        font-family: Montserrat;
+                        font-size: 14px;
+                        line-height: 18px;
+                        font-weight: 600;
+                    }
+
+
+                    .spanset {
+                        padding-left: 1rem;
+                        padding-right: 1rem;
+                        background-color: #EEB856;
+                        padding: 10px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 5px;
+
+                        span {
+                            font-family: Montserrat;
+                            font-size: 14px;
+                            line-height: 18px;
+                            font-weight: 400;
+                        }
+                    }
+                }
+            }
+
+            &-cvformat {
+                width: 100%;
+                padding-top: 40px;
+                display: flex;
+                flex-wrap: wrap;
+                gap:20px;
+                
+
+
+                &-maindiv {
+                    width: 30%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    background-color: #F6F3F1;
+                    padding: 20px;
+                    position: relative;
+                    gap:10px;
+                    border-radius: 5px;
+                    cursor: pointer;
+
+                    h1 {
+                        font-size: 18px;
+                        font-family: Montserrat;
+                        font-weight: 600;
+                        line-height: 22px;
+                    }
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    button {
+                        background-color: #eeb856;
+                        color: #000000;
+                        padding: 10px;
+                        font-size: 14px;
+                        font-family: Montserrat;
+                        font-weight: bold;
+                        padding-left: 2rem;
+                        padding-right: 2rem;
+                        border-radius: 5px;
+                        border: none;
+                        bottom: 13%;
+                        position: absolute;
+                    }
+
+                }
+            }
+    }
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
+    .cvmaker-body-container {
+
+       &-wrapper {
+           width:1024px;
+           padding: 30px;
+
+
+       }
+    }
+}
+
+
+@media only screen and (max-width:768px) and (min-width: 428px) {
+    .cvmaker-body-container {
+
+       &-wrapper {
+           width:100%;
+           padding: 30px;
+
+
+           &-maindiv {
+               
+            &-set {
+                width: 30%;
+            }
+           }
+
+           &-cvformat {
+
+            &-maindiv {
+                width: 48%;
+            }
+           }
+
+       }
+    }
+}
+
+@media only screen and (max-width:428px) and (min-width:375px) {
+    .cvmaker-body-container {
+
+       &-wrapper {
+           width:100%;
+           padding: 15px;
+
+
+           &-maindiv {
+               
+            &-set {
+                width: 47%;
+            }
+           }
+
+           &-cvformat {
+
+            &-maindiv {
+                width: 100%;
+            }
+           }
+
+       }
+    }
+}
+
+@media only screen and (max-width:375px) and (min-width:280px) {
+    .cvmaker-body-container {
+
+       &-wrapper {
+           width:100%;
+           padding: 15px;
+
+
+           &-maindiv {
+               
+            &-set {
+                width: 100%;
+            }
+           }
+
+           &-cvformat {
+
+            &-maindiv {
+                width: 100%;
+            }
+           }
+
+       }
+    }
+}

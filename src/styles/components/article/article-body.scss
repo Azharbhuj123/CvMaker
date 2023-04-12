@@ -1,0 +1,266 @@
+.articlebody-container {
+        width: 100%;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        
+        &-wrapper {
+            width: 1280px;
+            margin: 0px auto;
+            display: flex;
+
+            &-left {
+                 width: 25%;
+                 display: flex;
+                 flex-direction: column;
+                 gap:10px;
+                 padding: 10px;
+                 h6 {
+                     font-family: Montserrat;
+                     font-size: 14px;
+                     font-weight: 600;
+                     line-height: 26px;
+                 }
+
+                 &-heading {
+                     width: 90%;
+                     padding: 12px;
+                     background-color: #F6F3F1;
+                     display: flex;
+                     flex-direction: column;
+                     gap:8px;
+
+                     h5 {
+                        color: #EEB856;
+                        font-family: Montserrat;
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 26px;
+                    
+
+
+                        strong{
+                            margin-left: 3px;
+                        font-family: Montserrat;
+                        font-size: 14px;
+                        font-weight: 500;
+                        line-height: 26px;
+                        color:#0A1B28;
+                        }
+                     }
+
+                 }
+                 
+            }
+
+            &-content {
+                width: 50%;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+
+                p {
+                   font-family: Montserrat;
+                   font-size: 17px;
+                   line-height: 26px;
+                   font-weight: 400; 
+                }
+
+                &-headingtwo {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    margin-top: 10px;
+                    gap:10px;
+
+                    h2 {
+                        font-family: Montserrat;
+                        font-size: 28px;
+                        font-weight: bold;
+                        line-height: 50px;
+
+                    }
+
+                    p {
+                        font-family: Montserrat;
+                        font-size: 17px;
+                        line-height: 26px;
+                        font-weight: 400; 
+                     }
+                }
+
+                
+                &-headingthree {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    margin-top: 2px;
+                    gap:2px;
+
+                    h3 {
+                        font-family: Montserrat;
+                        font-size: 22px;
+                        font-weight: bold;
+                        line-height: 50px;
+
+                    }
+
+                    p {
+                        font-family: Montserrat;
+                        font-size: 17px;
+                        line-height: 26px;
+                        font-weight: 400; 
+                     }
+                }
+
+                &-headingfour {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    margin-top: 2px;
+                    gap:2px;
+
+                    h3 {
+                        font-family: Montserrat;
+                        font-size: 22px;
+                        font-weight: bold;
+                        line-height: 50px;
+
+                    }
+
+                    p {
+                        font-family: Montserrat;
+                        font-size: 17px;
+                        line-height: 26px;
+                        font-weight: 400; 
+                     }
+                }
+
+                &-headingfive {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    margin-top: 20px;
+                    gap:10px;
+
+                    img {
+                        width: 100%;
+                        
+                    }
+
+                    h4 {
+                        font-family: Montserrat;
+                        font-size: 28px;
+                        font-weight: bold;
+                        line-height: 50px;
+
+                    }
+
+                    p {
+                        font-family: Montserrat;
+                        font-size: 17px;
+                        line-height: 26px;
+                        font-weight: 400; 
+                     }
+                }
+                
+           }
+
+           &-right {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            gap:5px;
+
+            h2 {
+                font-family: Montserrat;
+                font-size: 14px;
+                line-height: 26px;
+                font-weight: 600; 
+            }
+            &-icons {
+               
+               display: flex;
+               gap:8px;
+
+               img {
+                   width: 20px;
+               }
+            }
+            
+       }
+        }
+}   
+
+
+
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
+    .articlebody-container {
+  
+       &-wrapper {
+           width:1024px;
+           padding: 25px;
+       }
+
+       
+    }
+  }
+
+  
+@media only screen and (max-width: 768px) and (min-width: 428px) {
+    .articlebody-container {
+  
+       &-wrapper {
+           width:100%;
+           padding: 15px;
+
+           &-left {
+
+
+            &-heading {
+
+                h5 {
+
+                    strong {
+                        font-size:12px;
+                    }
+                }
+            }
+               
+           }
+       }
+
+       
+    }
+  }
+
+
+  
+
+@media only screen and (max-width: 428px) and (min-width: 280px) {
+    .articlebody-container {
+  
+       &-wrapper {
+           width:100%;
+           padding: 15px;
+           flex-direction: column;
+
+           &-left {
+               width: 100%;
+
+               &-heading {
+                   width: 100%;
+               }
+           }
+           &-content {
+            width: 100%;
+        }
+
+        &-right {
+            width: 100%;
+        }
+       }
+
+       
+    }
+  }

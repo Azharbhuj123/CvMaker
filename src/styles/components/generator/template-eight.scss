@@ -1,0 +1,204 @@
+.template-eight-container {
+  width: 100%;
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  background-color: white;
+
+  margin-top: 0rem;
+  &-header {
+    height: 15rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    position: relative;
+    &-wrapper {
+      position: absolute;
+      width: 70%;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #b19c7d;
+      padding: 1.5rem 1rem 1.5rem 1rem;
+      background-color: white;
+//.
+      h1 {
+        font-family: Roboto;
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        color: #b19c7d;
+      }
+      p {
+        font-family: Roboto-Light;
+        color: #b19c7d;
+        font-size: 0.95rem;
+        font-weight: 200;
+        text-align: center;
+      }
+    }
+  }
+  &-content {
+    background-color: #fff;
+    // padding: 0rem 1rem 1rem 1rem;
+    display: flex;
+    width: 100%;
+    gap: 3rem;
+    &-left {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      // justify-content: center;
+      align-items: center;
+      gap: 10px;
+      background-color: #eeeae4;
+
+      &-heading {
+        font-family: Roboto;
+        width: 80%;
+        font-size: 1.3rem;
+        text-align: left;
+        border-bottom: 3px solid #b19c7d;
+        text-transform: uppercase;
+        padding-bottom: 0.7rem;
+        color: #b19c7d;
+      }
+
+      &-subheading {
+        font-family: Roboto;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        padding-bottom: 0.7rem;
+      }
+      &-point {
+        font-family: Roboto;
+        font-size: 0.8rem;
+      }
+      &-content {
+        display: flex;
+        padding-top: 5px;
+        flex-direction: column;
+        width: 80%;
+        word-break: break-all;
+
+        h3 {
+          font-family: Roboto;
+          font-size: 0.95rem;
+          font-weight: bold;
+          margin-top: 5px;
+          text-transform: uppercase;
+        }
+        h4 {
+          font-size: 0.95rem;
+          font-weight: 400;
+          margin-top: 25px;
+          border-bottom: dashed;
+          padding-bottom: 5px;
+        }
+        p {
+          font-family: Roboto;
+          font-size: 0.8rem;
+          font-weight: 600;
+          // color: grey;
+          text-align: left;
+          width: 80%;
+          margin-top: 5px;
+        }
+        span {
+          height: 0.6rem;
+        }
+      }
+    }
+    &-right {
+      width: 70%;
+      &-heading {
+        font-family: Roboto;
+        font-size: 1.3rem;
+        text-align: left;
+        border-bottom: 3px solid #b19c7d;
+
+        padding-bottom: 0.7rem;
+        color: #b19c7d;
+      }
+      &-content {
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+        font-family: Roboto;
+
+        padding-bottom: 10px;
+        h3 {
+          font-family: Roboto;
+          font-size: 0.8rem;
+          font-weight: 600;
+        }
+        p {
+          font-family: Roboto;
+          word-break: break-word;
+          font-size: 0.8rem;
+          line-height: 18px;
+          color: black;
+          margin-top: 5px;
+        }
+        span {
+          height: 0.6rem;
+        }
+      }
+    }
+  }
+}
+
+.coursesdiv {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+
+  h2 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: black;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+
+    h3 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: black;
+    }
+  }
+}
+
+@media only screen and (max-width: 428px) and (min-width: 280px) {
+  .template-eight-container-content-right {
+    width: 50%;
+  }
+  .template-eight-container-content-left {
+    width: 50%;
+  }
+  .template-eight-container-content {
+    gap: 1rem;
+  }
+  .template-eight-container-content-left-heading {
+    font-size: 0.9rem;
+  }
+  .template-eight-container-content-right-heading {
+    font-size: 0.9rem;
+  }
+  .template-eight-container-content-left-content h3 {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
+  .template-eight-container-header {
+    gap: 0;
+  }
+} ;

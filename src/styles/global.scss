@@ -1,0 +1,27 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #ffffff;
+}
+
+$font: "Montserrat";
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assests/fonts/Montserrat.ttf");
+}
+*::-webkit-scrollbar {
+}
+@font-face {
+  font-family: "Myriad Pro";
+  src: url("../assests/fonts/myriad-pro/MYRIADPRO-REGULAR.OTF");
+}

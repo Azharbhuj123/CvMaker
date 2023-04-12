@@ -1,0 +1,16 @@
+.add-detail-container {
+    width: 180px;
+    display: flex;
+    background-color: #F6F3F1;
+    padding: 10px;
+    gap: 1px;
+    align-items: center;
+    border-radius: 5px;
+
+    span {
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: 600;
+        color: #0A1B28;
+    }
+}

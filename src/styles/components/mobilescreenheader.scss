@@ -1,0 +1,126 @@
+.mobilescreenheader-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  position: relative;
+
+  img {
+    width: 40%;
+  }
+
+  &-bar {
+    background-color: white;
+    position: absolute;
+    right: 0rem;
+    width: 100%;
+    z-index: 9999;
+    height: 100vh;
+    top: 100%;
+    display: flex;
+    // padding: 3rem;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    transition: 0.5s;
+    gap: 20px;
+    span {
+      font-size: 16px;
+      font-family: Montserrat;
+      font-weight: 500;
+    }
+
+    button:nth-of-type(1) {
+      width: 50%;
+      background-color: #eeb856;
+      color: #000000;
+      padding: 10px;
+      font-size: 14px;
+      font-family: Montserrat;
+      font-weight: bold;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button:nth-of-type(2) {
+      width: 50%;
+      background-color: #fff;
+      color: #000000;
+      padding: 10px;
+      font-size: 14px;
+      font-family: Montserrat;
+      font-weight: bold;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      border-radius: 5px;
+
+      border: 1px solid #dbd5d5;
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
+  .mobilescreenheader-container  {
+      padding: 15px 10px;
+    img {
+      width: 22%;
+    }
+
+    #closebtn {
+      font-size: 5rem;
+      width: 90px;
+      height: 100%;
+   }
+
+   #burerbtn {
+    font-size: 5rem;
+    width: 90px;
+    height: 100%;
+   }
+  }
+}
+
+
+@media only screen and (max-width: 768px) and (min-width: 428px) {
+  .mobilescreenheader-container  {
+      padding: 15px 10px;
+    img {
+      width: 25%;
+    }
+
+    #closebtn {
+      font-size: 6rem;
+      width: 100px;
+      height: 100%;
+   }
+
+   #burerbtn {
+    font-size: 6rem;
+    width: 100px;
+    height: 100%;
+   }
+  }
+}
+@media only screen and (max-width: 428px) and (min-width: 280px) {
+  .mobilescreenheader-container  {
+    padding: 15px 10px;
+  img {
+    width: 40%;
+  }
+
+  #closebtn {
+    font-size: 9rem;
+    width: 150px;
+    height: 100%;
+ }
+
+ #burerbtn {
+  font-size: 9rem;
+  width: 150px;
+  height: 100%;
+ }
+}
+}

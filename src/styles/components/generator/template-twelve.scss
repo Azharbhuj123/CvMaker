@@ -1,0 +1,614 @@
+.templatetwelve-container {
+    width: 85%;
+    display: flex;
+    padding: 40px;
+    height: fit-content;
+
+
+    &-leftside {
+        padding: 20px;
+        width: 40%;
+        background-color: DodgerBlue;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        // :after {
+
+        //     position: absolute;
+        //      right: 0;
+        //  width: 100px;
+        //      height: 100px;
+        //  background-color: red;
+        //  }
+        &-profile {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            z-index: 9999;
+
+            img {
+                border-radius: 50%;
+                // width: 100%;
+                width: 150px;
+                height: 150px;
+            }
+
+            h1 {
+                font-family: Montserrat;
+                font-size: 10px;
+                font-weight: bold;
+                color: white;
+                text-transform: uppercase;
+            }
+
+            h2 {
+                font-family: Montserrat;
+                font-size: 10px;
+                font-weight: 600;
+                text-transform: uppercase;
+                color: white;
+            }
+        }
+
+        &-address {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+
+
+            h3 {
+                font-family: Montserrat;
+                font-size: 8px;
+                font-weight: bold;
+                color: white;
+                text-transform: uppercase;
+            }
+
+            h2 {
+                margin-top: 6px;
+                font-family: Montserrat;
+                font-size: 10px;
+                font-weight: 400;
+                color: white;
+                text-transform: uppercase;
+            }
+
+            h4 {
+
+
+                font-family: Montserrat;
+                font-size: 10px;
+                font-weight: 400;
+                color: white;
+                text-transform: uppercase;
+
+            }
+
+        }
+
+        &-progress {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            margin-top: 10px;
+            gap: 15px;
+
+            h2 {
+                font-family: Montserrat;
+                font-size: 10px;
+                font-weight: bold;
+                color: white;
+                text-transform: uppercase;
+            }
+
+            .progress-bar {
+
+                p {
+                    font-family: Montserrat;
+                    font-size: 10px;
+                    font-weight: bold;
+                    color: white;
+                }
+
+                &-fuel {
+                    height: 0.2rem;
+
+                    &-wrapper {
+                        height: 0.2rem;
+                    }
+                }
+            }
+
+
+
+
+
+        }
+
+    }
+
+
+    &-rightside {
+        padding: 15px 30px;
+
+        width: 70%;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+
+        &-profilepara {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            gap: 5px;
+
+            span {
+                font-family: Montserrat;
+                font-size: 10px;
+                font-weight: bold;
+                color: black;
+                text-transform: uppercase;
+            }
+
+            p {
+
+                font-family: Montserrat;
+                font-size: 10px;
+                font-weight: 400;
+                color: black;
+
+
+            }
+        }
+
+        &-workexp {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+
+            h3 {
+                margin-bottom: -2px;
+            }
+
+            &-linebr {
+                width: 70%;
+                border-bottom: 1px solid #000;
+                margin-left: -2px;
+            }
+        }
+
+        &-workhistory {
+            margin-top: 15px;
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+
+
+            span {
+                font-family: Montserrat;
+                font-size: 10px;
+                font-weight: bold;
+                color: black;
+                text-transform: uppercase;
+            }
+
+
+            &-headings {
+                display: flex;
+                width: 100%;
+                flex-direction: column;
+                margin-top: 3px;
+
+
+
+                h2 {
+                    margin-top: 5px;
+                    font-family: Montserrat;
+                    font-size: 10px;
+                    font-weight: bold;
+                    color: black;
+
+                }
+
+                h3 {
+
+                    font-family: Montserrat;
+                    font-size: 10px;
+                    font-weight: bold;
+                    color: grey;
+
+                }
+
+                ul {
+                    margin-top: 3px;
+                    list-style: none;
+                    margin-left: 5px;
+
+                    li::before {
+                        content: "•";
+                        color: black;
+                        margin-right: 3px;
+                        width: 1em;
+                    }
+
+                    li {
+                        font-family: Montserrat;
+                        font-size: 10px;
+                        font-weight: 400;
+                        color: black;
+                    }
+
+
+                }
+            }
+        }
+
+        &-education {
+            margin-top: 10px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            span {
+                font-family: Montserrat;
+                font-size: 10px;
+                font-weight: bold;
+                color: black;
+                text-transform: uppercase;
+            }
+
+            &-head {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 5px;
+
+
+                h1 {
+                    margin-top: 5px;
+                    font-family: Montserrat;
+                    font-size: 10px;
+                    font-weight: 600;
+                    color: black;
+
+                }
+
+                h5 {
+                    font-family: Montserrat;
+                    font-size: 10px;
+                    font-weight: bold;
+                    color: grey;
+                }
+            }
+        }
+
+        &-refrence {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+
+            span {
+                font-family: Montserrat;
+                font-size: 10px;
+                font-weight: bold;
+                color: black;
+                text-transform: uppercase;
+            }
+
+            &-head2 {
+                justify-content: space-between;
+                width: 45%;
+                margin-top: 5px;
+
+                h1 {
+                    margin-top: 5px;
+                    font-family: Montserrat;
+                    font-size: 10px;
+                    font-weight: 600;
+                    color: black;
+
+                }
+
+                h5 {
+                    font-family: Montserrat;
+                    font-size: 10px;
+                    font-weight: bold;
+                    color: grey;
+                }
+            }
+
+            &-head {
+                // display: flex;
+                justify-content: space-between;
+                width: 100%;
+                margin-top: 5px;
+
+
+                h1 {
+                    margin-top: 5px;
+                    font-family: Montserrat;
+                    font-size: 10px;
+                    font-weight: 600;
+                    color: black;
+
+                }
+
+                h5 {
+                    font-family: Montserrat;
+                    font-size: 10px;
+                    font-weight: bold;
+                    color: grey;
+                }
+            }
+        }
+    }
+}
+
+.profile {
+    font-size: 10px;
+    padding: 5px;
+    color: white;
+    padding-bottom: 5px;
+
+    &-bodyy {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid white;
+        padding: 5px;
+    }
+}
+
+.profile-parent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+.profile-left-below {
+    color: white;
+    font-size: 11px;
+
+    padding: 3px;
+}
+
+.arrow-right {
+    position: absolute;
+    top: 0;
+    right: -20px;
+    width: 0;
+    height: 0;
+    border-top: 60px solid transparent;
+    border-bottom: 60px solid transparent;
+    margin-left: 85%;
+    z-index: 100;
+    border-left: 60px solid DodgerBlue;
+}
+
+@media only screen and (max-width: 428px) and (min-width: 280px) {
+
+    .templatetwelve-container-leftside-profile img {
+
+        width: 90px;
+    }
+
+    .arrow-right {
+
+        border-top: 35px solid transparent;
+        border-bottom: 35px solid transparent;
+        margin-left: 70%;
+    }
+
+    .templatetwelve-container-rightside-profilepara p {
+        font-size: 9px;
+    }
+
+    .boxed-title {
+        font-size: 11px;
+        color: white;
+    }
+
+    .templatetwelve-container-leftside-address {
+        width: 110%;
+    }
+
+    .templatetwelve-container-leftside {
+        padding: 10px;
+    }
+
+    .profile {
+        font-size: 8px;
+    }
+
+    .templatetwelve-container-rightside-refrence-head {
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .loader {
+        width: 95% !important;
+    }
+
+    .icon-section {
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .icons {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .icons-heading {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px !important;
+    }
+}
+
+.profile-bodyy {
+    word-break: break-all;
+}
+
+@media only screen and (max-width: 1440px) and (min-width: 1440px) {
+
+    .arrow-right {
+        margin-left: 90%;
+    }
+}
+
+@media only screen and (max-width: 2560px) and (min-width: 2560px) {
+
+    .arrow-right {
+        margin-left: 96%;
+    }
+
+    .templatetwelve-container-leftside {
+        width: 30%;
+    }
+
+    .templatetwelve-container-rightside {
+        width: 70%;
+    }
+}
+
+.bullet-container {
+    // /* margin-top: 500px; */
+    // width: 100%;
+    // max-width: 1280px;
+    // margin: 200px auto;
+    margin-top: 20px;
+}
+
+.heading-style {
+    color: white;
+    border-bottom: 1px solid white;
+    padding: 2px;
+    font-size: 10px;
+}
+
+.heading-style2 {
+
+    color: white;
+    border-bottom: 1px solid white;
+    padding: 2px;
+    font-size: 10px;
+
+}
+
+.heading-style3 {
+
+    color: white;
+    padding: 2px;
+    padding-top: 30px;
+    font-size: 10px;
+
+}
+
+.border-div {
+
+    border-left: 1px solid black;
+    height: 100%;
+    position: relative;
+
+}
+
+.table-bullets {
+
+    position: absolute;
+    top: -15px;
+    left: -3.5px;
+    height: 20px;
+    font-size: 22px;
+
+}
+
+.single-yr-work {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+
+    p {
+        margin-top: 5px;
+        font-size: 10px;
+    }
+}
+
+.year {
+    width: 30%;
+
+    p {
+        font-size: 12px;
+    }
+}
+
+.yr-exp-divider {
+    /* height: 100%; */
+    width: 5%;
+    // display: flex;
+    // justify-content: center;
+}
+
+.work-exp-details {
+    width: 65%;
+
+    h5 {
+        font-size: 12px;
+        color: #77c3ec;
+    }
+
+    h4 {
+        font-size: 14px;
+    }
+
+}
+
+.work-exp {
+    background-color: white;
+}
+
+.dot-line {
+    height: 100%;
+    width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dot-line .dot {
+    width: 7px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #000;
+}
+
+.dot-line .line-ver {
+    height: 100%;
+    border-right: 1px solid #000;
+}
+
+.progress-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.templatetwelve-container-rightside-workexp-linebr1 {
+    width: 50%;
+    border-bottom: 2px solid #000;
+    margin-left: -2px;
+}

@@ -1,0 +1,310 @@
+.templateeleven-container {
+  width: 100%;
+  display: flex;
+  // padding: 25px;
+  height: fit-content;
+  flex-direction: column;
+  background-color: white;
+  padding-bottom: 2rem;
+  justify-content: center;
+  align-items: center;
+
+  &-header {
+    padding-top: 0rem;
+    width: 100%;
+    display: flex;
+    gap: 5px;
+
+    &-leftside {
+      width: 6%;
+      background-color: rgb(237, 125, 49);
+      height: 6.5rem;
+    }
+
+    &-rightside {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px;
+
+      h2 {
+        font-family: Calibri;
+        letter-spacing: 4px;
+        font-size: 32px;
+        font-weight: 600;
+  word-break: break-all
+
+        span {
+          font-family: Calibri;
+          letter-spacing: 4px;
+          font-size: 32px;
+          font-weight: 600;
+          color: grey;
+  word-break: break-all
+
+        }
+      }
+      
+
+      span {
+        font-family: Calibri;
+        font-size: 32px;
+        font-weight: 600;
+  word-break: break-all;
+  color: gray;
+  
+
+      }
+
+      p {
+        font-family: Calibri;
+        font-size: 13px;
+        font-weight: 500;
+  word-break: break-all
+
+      }
+    }
+  }
+
+  &-body {
+    width: 88%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &-about {
+      padding-top: 0.5rem;
+      // padding-left: 1rem;
+      padding-right: 0.5rem;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      h3 {
+        font-family: Calibri;
+        font-size: 18px;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 5px;
+  word-break: break-all
+
+      }
+
+      h3::after {
+        content: "";
+        bottom: 0;
+        background: rgb(237, 125, 49);
+        width: 7%;
+        height: 4px;
+        position: absolute;
+        display: block;
+        left: 0%;
+  word-break: break-all
+
+      }
+
+      p {
+        font-family: Calibri;
+        font-size: 13px;
+        font-weight: 500;
+        padding-bottom: 5px;
+        border-bottom: 1px solid;
+  word-break: break-all
+
+      }
+    }
+
+    &-workexperience {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      h3 {
+        font-family: Calibri;
+        font-size: 18px;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 5px;
+  word-break: break-all
+
+      }
+
+      h3::after {
+        content: "";
+        bottom: 0;
+        background: rgb(237, 125, 49);
+        width: 7%;
+        height: 4px;
+        position: absolute;
+        display: block;
+        left: 0%;
+      }
+
+      h4 {
+        font-family: Calibri;
+        font-size: 15px;
+        font-weight: 600;
+  word-break: break-all
+
+      }
+
+      div {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      h5 {
+        font-family: Calibri;
+        font-size: 12px;
+        font-weight: 500;
+        padding-bottom: 5px;
+        border-bottom: 1px solid;
+  word-break: break-all
+
+      }
+      span {
+        font-family: Calibri;
+      }
+    }
+  }
+
+  &-bottomdiv {
+    padding-top: 0.5rem;
+    // padding-left: 1rem;
+    // padding-right: 0.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      font-family: Calibri-Bold;
+      font-size: 18px;
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 5px;
+  word-break: break-all
+
+    }
+
+    h3::after {
+      content: "";
+      bottom: 0;
+      background: rgb(237, 125, 49);
+      width: 7%;
+      height: 4px;
+      position: absolute;
+      display: block;
+      left: 0%;
+  word-break: break-all
+
+    }
+
+    &-leftside {
+      margin-top: 20px;
+      display: flex;
+      width: 100%;
+
+      gap: 20px;
+
+      h2 {
+        font-family: Calibri;
+        font-size: 16px;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 5px;
+        width: 30%;
+        text-transform: uppercase;
+  word-break: break-all
+
+      }
+
+      &-nameprogress {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        h4 {
+          font-family: Calibri;
+          font-size: 13px;
+          // font-weight: 600;
+  word-break: break-all
+
+        }
+
+        .progress-bar {
+          margin: 0px;
+          width: 80%;
+        }
+
+        .progress-bar-fuel {
+          margin: 0px;
+        }
+      }
+    }
+  }
+
+  &-bottom-side {
+    width: 100%;
+    display: flex;
+    width: 88%;
+
+    &-left {
+      width: 70%;
+    }
+    &-right {
+      width: 30%;
+      border-left: 1px solid grey;
+      font-family: Calibri;
+  word-break: break-all
+
+    }
+  }
+}
+
+.settingdiv {
+  font-family: Calibri-Bold;
+  font-weight: lighter;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  word-break: break-all
+}
+
+.studyingdiv {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 1441px) and (min-width: 1024px) {
+  .templateeleven-container-header-rightside p {
+    word-break: break-all;
+  }
+  .templateeleven-container-body-about {
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .templateeleven-container-body-workexperience {
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .templateeleven-container-bottomdiv {
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .templateeleven-container-bottomdiv-leftside {
+    width: 100%;
+  }
+}

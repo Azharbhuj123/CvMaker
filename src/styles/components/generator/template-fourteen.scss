@@ -1,0 +1,388 @@
+.template-fourteen-container {
+  width: 100%;
+  display: flex;
+  height: fit-content;
+  background-color: white;
+  // margin-top: 3rem;
+
+  &-left {
+    width: 60%;
+
+    &-heading {
+      background-color: rgb(75, 172, 198);
+      height: 10rem;
+      padding: 2rem;
+
+      h1 {
+        font-family: Calibri;
+        color: #fff;
+        font-size: 2rem;
+        word-break: break-all;
+      }
+
+      p {
+        font-family: Calibri;
+        color: #fff;
+        padding-top: 10px;
+        font-size: 1.25em;
+        word-break: break-all;
+      }
+      span {
+        font-family: Calibri;
+        color: #fff;
+        font-size: 0.9rem;
+        word-break: break-all;
+      }
+    }
+
+    &-content {
+      padding: 1rem 1rem 0rem 1rem;
+
+      &-heading {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+
+        div {
+          width: 1rem;
+          height: 2rem;
+          background-color: rgb(75, 172, 198);
+        }
+        h1 {
+          font-family: Calibri;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  &-right {
+    width: 40%;
+    background-color: rgb(237, 231, 231);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-wrap: break-word;
+
+    &-profile {
+      margin-top: 20px;
+
+      div {
+        width: 12rem;
+        height: 12rem;
+        background-color: grey;
+        border-radius: 10rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        div {
+          width: 11rem;
+          height: 11rem;
+          background-color: grey;
+          border-radius: 10rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          div {
+            width: 10rem;
+            height: 10rem;
+            background-color: rgb(237, 231, 231);
+            border-radius: 10rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            div {
+              width: 9rem;
+              height: 9rem;
+              background-color: grey;
+              border-radius: 10rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
+            img {
+              width: 100%;
+              height: 100%;
+              border-radius: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    &-content {
+      // template-fourteen-container-right
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      overflow-wrap: break-word;
+      width: 100%;
+
+      align-items: center;
+      flex-direction: column;
+
+      h2 {
+        letter-spacing: 2px;
+        font-size: 22px;
+        font-family: Calibri-Bold;
+        border-bottom: 5px solid rgb(75, 172, 198);
+        margin-top: 1rem;
+        padding-bottom: 0.3rem;
+        width: auto;
+        word-break: break-all;
+      }
+
+      p {
+        font-family: Calibri;
+        font-size: 12px;
+        margin-top: 1rem;
+        padding-bottom: 0.3rem;
+        text-align: center;
+        word-break: break-all;
+      }
+
+      h4 {
+        color: grey;
+        font-size: 16px;
+        word-break: break-all;
+      }
+
+      h3 {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 12px;
+        word-break: break-all;
+      }
+
+      h6 {
+        margin-top: 5px;
+        color: grey;
+        padding-left: 10px;
+        font-size: 14px;
+        word-break: break-all;
+      }
+
+      &-element {
+        font-family: Calibri;
+        display: flex;
+        gap: 0.5rem;
+        width: 100%;
+        overflow-wrap: break-word;
+        align-items: center;
+
+        div {
+          width: 2rem;
+          height: 2rem;
+          background-color: rgb(75, 172, 198);
+          border-radius: 3rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        p {
+          font-family: Calibri;
+          font-size: 14px;
+          text-align: center;
+          margin-bottom: 0.5rem;
+          width: 80%;
+          word-break: break-all;
+        }
+
+        &-reference {
+          width: 100%;
+          flex-direction: column;
+
+          &-box {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            overflow-wrap: break-word;
+            &-left {
+              width: 30%;
+
+              h3 {
+                font-size: 16px;
+                font-family: Calibri;
+                word-break: break-all;
+              }
+            }
+            &-right {
+              width: 70%;
+              p {
+                text-align: left;
+                font-size: 14px;
+                font-family: Calibri;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &-spacing {
+    height: 1rem;
+  }
+
+  .job-title {
+    margin: 1rem;
+    p {
+      text-transform: uppercase;
+      font-family: Calibri;
+      color: grey;
+      word-break: break-all;
+    }
+    span {
+      font-family: Calibri;
+      color: grey;
+      font-size: 1rem;
+      word-break: break-all;
+    }
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        font-weight: bold;
+        word-break: break-all;
+      }
+      span {
+       
+        font-size: 1rem;
+    color: grey;
+        word-break: break-all;
+        font-family: Calibri;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 320px) and (min-width: 280px) {
+  .template-fourteen-container-right-profile div {
+    width: 0rem;
+  }
+
+  .template-fourteen-container-right-profile div div {
+    width: 0rem;
+  }
+
+  .template-fourteen-container-right-profile div div div div {
+    width: 6rem;
+  }
+
+  .template-fourteen-container-right-content-element p {
+    font-size: 10px;
+  }
+
+  .template-fourteen-container-right-content-element {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .heading {
+    font-size: 15px;
+  }
+
+  .template-fourteen-container-left-content {
+    padding: 1rem;
+  }
+
+  .job-title {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 1rem !important;
+  }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 320px) {
+  .template-fourteen-container-right-profile div {
+    width: 0rem;
+  }
+
+  .template-fourteen-container-right-profile div div {
+    width: 0rem;
+  }
+
+  .template-fourteen-container-right-profile div div div div {
+    width: 6rem;
+  }
+
+  .template-fourteen-container-right-content-element p {
+    font-size: 10px;
+  }
+
+  .template-fourteen-container-right-content-element {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .heading {
+    font-size: 15px;
+  }
+
+  .template-fourteen-container-left-content {
+    padding: 1rem;
+  }
+
+  .job-title {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 1rem !important;
+  }
+}
+@media only screen and (max-width: 1024px) and (min-width: 769px) {
+  .template-fourteen-container-left-heading h1 {
+    font-size: 1.5rem;
+  }
+  .template-fourteen-container-left-heading p {
+    font-size: 1rem;
+  }
+  .template-fourteen-container-left-content-heading h1 {
+    font-size: 0.9rem;
+  }
+  .template-fourteen-container .job-title-header p {
+    font-size: 0.7rem;
+  }
+  .template-fourteen-container .job-title-header span {
+    font-size: 0.7rem;
+  }
+  .template-fourteen-container span {
+    font-size: 0.5rem;
+  }
+
+  .containers-container {
+    padding-top: 0px !important;
+    padding-left: 10px !important;
+    padding-bottom: 0px !important;
+    padding-right: 0px !important;
+    .gdpr-image {
+      font-size: 8px;
+
+      width: 60%;
+    }
+  }
+
+  .template-fourteen-container-right-profile div {
+    height: 11rem;
+    width: 11rem;
+  }
+}
+.gdpr-image {
+  display: flex;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 400;
+  color: #0a1b28;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  gap: 10px;
+}

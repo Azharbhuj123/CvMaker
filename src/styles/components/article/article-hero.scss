@@ -1,0 +1,159 @@
+.article-container {
+    width: 100%;
+    background-color: #F6F3F1;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    
+
+
+
+    &-wrapper {
+        width: 1280px;
+        margin: 0px auto;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        flex-direction: column;
+
+        h1 {
+            font-family: Montserrat;
+            font-size: 45px;
+            text-align: center;
+            font-weight: bold;
+            line-height: 65px;
+            width: 70%;
+            padding-bottom: 20px;
+        }
+
+        h1::after {
+            content: "";
+            bottom: 0;
+            background: #eeb856;
+            width: 10%;
+            height: 4px;
+            position: absolute;
+            display: block;
+            left: 45%;
+          }
+
+
+    }
+
+    
+    &-date {
+        padding-top: 20px;
+        width: 1280px;
+        margin: 0px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap:10px;
+
+
+
+    }
+}
+
+
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
+    .article-container {
+  
+       &-wrapper {
+           width:1024px;
+           padding: 10px;
+       }
+
+       &-date {
+        width:1024px;
+        padding: 10px; 
+       }
+    }
+  }
+  
+
+  @media only screen and (max-width: 768px) and (min-width: 428px) {
+    .article-container {
+  
+       &-wrapper {
+           width:100%;
+           padding: 10px;
+
+           h1 {
+            font-size: 30px;
+            line-height: 35px;
+            width:70%;
+            padding-bottom: 10px;
+        }
+
+        h1::after {
+            left: 42%;
+            width: 15%;
+        }
+       }
+
+       &-date {
+        width:100%;
+        padding: 10px; 
+       }
+    }
+  }
+
+
+  @media only screen and (max-width: 428px) and (min-width: 320px) {
+    .article-container {
+  
+       &-wrapper {
+           width:100%;
+           padding: 10px;
+
+           h1 {
+               font-size: 30px;
+               line-height: 35px;
+               width:80%;
+               padding-bottom: 10px;
+           }
+
+           h1::after {
+               left:36%;
+               width:27%;
+           }
+       }
+
+       &-date {
+        width:100%;
+        padding: 10px; 
+       }
+    }
+  }
+  
+
+  @media only screen and (max-width: 320px) and (min-width: 280px) {
+    .article-container {
+  
+       &-wrapper {
+           width:100%;
+           padding: 10px;
+
+           h1 {
+               font-size: 22px;
+               line-height: 35px;
+               width:80%;
+               padding-bottom: 5px;
+           }
+
+           h1::after {
+            left: 32%;
+            width: 35%;
+           }
+       }
+
+       &-date {
+        width:100%;
+        padding: 10px; 
+       }
+    }
+  }
+  
+  

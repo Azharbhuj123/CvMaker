@@ -1,0 +1,404 @@
+.jobwiningresume-container {
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 80px;
+
+  &-wrapper {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 60px;
+    flex-direction: column;
+
+    &-heading {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+
+      h1::after {
+        content: "";
+        bottom: 0;
+        background: #eeb856;
+        width: 15%;
+        height: 4px;
+        position: absolute;
+        display: block;
+        left: 44%;
+      }
+
+      h1 {
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 50px;
+        font-family: Montserrat;
+        text-align: center;
+        padding-bottom: 20px;
+      }
+    }
+
+    &-content {
+      width: 100%;
+      display: flex;
+      margin-top: 80px;
+
+      &-heading {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        &-btn {
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          margin-top: 12px;
+
+          button {
+            cursor: pointer;
+            background-color: #eeb856;
+            color: #000000;
+            padding: 10px;
+            font-size: 14px;
+            font-family: Montserrat;
+            font-weight: bold;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            border-radius: 5px;
+            border: none;
+          }
+        }
+
+        span {
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 19px;
+          font-family: Montserrat;
+          color: #eeb856;
+        }
+
+        h1 {
+          font-size: 34px;
+          font-weight: bold;
+          line-height: 45px;
+          font-family: Montserrat;
+          color: #0a1b28;
+          width: 70%;
+        }
+
+        p {
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 28px;
+          font-family: Montserrat;
+          color: #0a1b28;
+          width: 75%;
+        }
+
+        &-tickdiv {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          img {
+            width: 25px;
+          }
+
+          h6 {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 22px;
+            font-family: Montserrat;
+            color: #0a1b28;
+            width: 44%;
+
+            #strongfont {
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 22px;
+              font-family: Montserrat;
+              color: #0a1b28;
+            }
+          }
+        }
+      }
+
+      &-imgdiv {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &-bg {
+          display: flex;
+          width: 70%;
+          height: 100%;
+          align-items: center;
+          justify-content: center;
+          // background-color: #f6f3f1;
+          // background-image: url("/assests/images/section.jpg");
+          background-size: 100%;
+          background-repeat: no-repeat;
+
+          h1 {
+            font-size: 40px;
+            font-weight: bold;
+            line-height: 50px;
+            font-family: Montserrat;
+            text-align: center;
+            color: #0a1b28;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
+  .jobwiningresume-container {
+    &-wrapper {
+      width: 100%;
+      max-width: 1024px;
+      padding: 30px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 450px) {
+  .jobwiningresume-container {
+    &-wrapper {
+      width: 100%;
+      padding: 20px;
+
+      &-heading {
+        width: 100%;
+        h1 {
+          width: 100%;
+          font-size: 22px;
+          line-height: 40px;
+        }
+      }
+
+      &-content {
+        height: auto;
+        flex-direction: column-reverse;
+        &-heading {
+          gap: 40px;
+          width: 100%;
+          &-btn {
+            justify-content: center;
+          }
+
+          h1 {
+            width: 100%;
+          }
+
+          p {
+            width: 100%;
+          }
+
+          &-tickdiv {
+            h6 {
+              width: 100%;
+            }
+          }
+        }
+
+        &-imgdiv {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          &-bg {
+            background-repeat: no-repeat;
+            height: 400px;
+            width: 60%;
+            h1 {
+              font-size: 34px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 449px) and (min-width: 375px) {
+  .jobwiningresume-container {
+    &-wrapper {
+      width: 100%;
+      padding: 20px;
+
+      &-heading {
+        width: 100%;
+
+        h1::after {
+          width: 35%;
+          left: 35%;
+        }
+
+        h1 {
+          font-size: 22px;
+          line-height: 40px;
+        }
+      }
+
+      &-content {
+        flex-direction: column-reverse;
+        gap: 30px;
+
+        &-heading {
+          width: 100%;
+
+          h1 {
+            width: 100%;
+          }
+
+          p {
+            width: 100%;
+          }
+
+          &-tickdiv {
+            h6 {
+              width: 100%;
+            }
+          }
+        }
+
+        &-imgdiv {
+          width: 100%;
+
+          &-bg {
+            width: 90%;
+
+            h1 {
+              font-size: 34px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .jobwiningresume-container-wrapper-content-heading-btn {
+    justify-content: center;
+    margin-top: 10px;
+    button {
+      width: 280px;
+      height: 45px;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) and (min-width: 320px) {
+  .jobwiningresume-container {
+    &-wrapper {
+      width: 100%;
+      padding: 20px;
+
+      &-heading {
+        width: 100%;
+
+        h1 {
+          font-size: 28px;
+          line-height: 40px;
+        }
+      }
+
+      &-content {
+        flex-direction: column-reverse;
+        gap: 30px;
+
+        &-heading {
+          width: 100%;
+
+          h1 {
+            width: 100%;
+          }
+
+          p {
+            width: 100%;
+          }
+
+          &-tickdiv {
+            h6 {
+              width: 100%;
+            }
+          }
+        }
+
+        &-imgdiv {
+          width: 100%;
+
+          &-bg {
+            width: 90%;
+
+            h1 {
+              font-size: 34px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 320px) and (min-width: 280px) {
+  .jobwiningresume-container {
+    &-wrapper {
+      width: 100%;
+      padding: 20px;
+
+      &-heading {
+        width: 100%;
+
+        h1 {
+          font-size: 28px;
+          line-height: 40px;
+        }
+      }
+
+      &-content {
+        flex-direction: column;
+        gap: 30px;
+
+        &-heading {
+          width: 100%;
+
+          h1 {
+            width: 100%;
+            font-size: 25px;
+            line-height: 35px;
+          }
+
+          p {
+            width: 100%;
+          }
+
+          &-tickdiv {
+            h6 {
+              width: 100%;
+            }
+          }
+        }
+
+        &-imgdiv {
+          width: 100%;
+
+          &-bg {
+            width: 95%;
+            height: 350px;
+
+            h1 {
+              font-size: 28px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

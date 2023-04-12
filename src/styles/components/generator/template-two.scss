@@ -1,0 +1,466 @@
+.templatetwo-container {
+    width: 100%;
+    display: flex;
+    padding: 0px;
+    height: fit-content;
+    padding-left: 10px;
+
+    &-leftside {
+        padding: 20px;
+        width: 30%;
+        background-color: #305250;
+        display: flex;
+        flex-direction: column;
+
+
+        &-profile {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+
+            img {
+                border-radius: 50%;
+                width: 150px;
+            }
+
+            h1 {
+                font-family: Montserrat;
+                font-size: 16px;
+                font-weight: bold;
+                color: white;
+                text-transform: uppercase;
+                overflow-wrap: break-word;
+                text-align: center;
+            }
+
+            h2 {
+                font-family: Montserrat;
+                font-size: 14px;
+                font-weight: 600;
+                text-transform: uppercase;
+                color: white;
+                text-align: center;
+                overflow-wrap: break-word;
+            }
+        }
+
+        &-address {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+
+
+            h3 {
+                font-family: Montserrat;
+                font-size: 14px;
+                font-weight: bold;
+                color: white;
+                text-transform: uppercase;
+                text-align: center;
+
+            }
+
+            h2 {
+                margin-top: 6px;
+                font-family: Montserrat;
+                font-size: 12px;
+                font-weight: 400;
+                color: white;
+                text-transform: uppercase;
+                text-align: center;
+
+            }
+
+            h4 {
+
+
+                font-family: Montserrat;
+                font-size: 12px;
+                font-weight: 400;
+                color: white;
+                text-transform: uppercase;
+
+            }
+
+        }
+
+        &-progress {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            margin-top: 15px;
+            gap: 15px;
+
+            h2 {
+                font-family: Montserrat;
+                font-size: 14px;
+                font-weight: bold;
+                color: white;
+                text-transform: uppercase;
+            }
+
+            .progress-bar {
+
+                p {
+                    font-family: Montserrat;
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: white;
+                }
+
+                &-fuel {
+                    height: 0.2rem;
+
+                    &-wrapper {
+                        height: 0.2rem;
+                    }
+                }
+            }
+
+
+
+
+
+        }
+
+    }
+
+
+    &-rightside {
+        padding: 20px;
+        padding-top: 30px;
+        width: 70%;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+
+        &-profilepara {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            gap: 5px;
+
+            span {
+                font-family: Montserrat;
+                font-size: 16px;
+                font-weight: bold;
+                color: black;
+                text-transform: uppercase;
+            }
+
+            p {
+
+                font-family: Montserrat;
+                font-size: 12px;
+                font-weight: 400;
+                color: black;
+
+
+            }
+        }
+
+        &-workhistory {
+            margin-top: 15px;
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+
+
+            span {
+                font-family: Montserrat;
+                font-size: 16px;
+                font-weight: bold;
+                color: black;
+                text-transform: uppercase;
+            }
+
+
+            &-headings {
+                display: flex;
+                width: 100%;
+                flex-direction: column;
+                margin-top: 3px;
+
+
+
+                h2 {
+                    margin-top: 5px;
+                    font-family: Montserrat;
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: black;
+
+                }
+
+                h3 {
+
+                    font-family: Montserrat;
+                    font-size: 13px;
+                    font-weight: bold;
+                    color: grey;
+
+                }
+
+                ul {
+                    margin-top: 3px;
+                    list-style: none;
+                    margin-left: 5px;
+
+                    li::before {
+                        content: "•";
+                        color: black;
+                        margin-right: 3px;
+                        width: 1em;
+                    }
+
+                    li {
+                        font-family: Montserrat;
+                        font-size: 11px;
+                        font-weight: 400;
+                        color: black;
+                    }
+
+
+                }
+            }
+        }
+
+        &-education {
+            margin-top: 15px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            span {
+                font-family: Montserrat;
+                font-size: 16px;
+                font-weight: bold;
+                color: black;
+                text-transform: uppercase;
+            }
+
+            &-head {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 5px;
+
+
+                h1 {
+                    margin-top: 5px;
+                    font-family: Montserrat;
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: black;
+
+                }
+
+                h5 {
+                    font-family: Montserrat;
+                    font-size: 11px;
+                    font-weight: bold;
+                    color: grey;
+                }
+            }
+        }
+
+        &-refrence {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+
+            span {
+                font-family: Montserrat;
+                font-size: 16px;
+                font-weight: bold;
+                color: black;
+                text-transform: uppercase;
+            }
+
+            &-head {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 5px;
+
+
+                h1 {
+                    margin-top: 5px;
+                    font-family: Montserrat;
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: black;
+
+                }
+
+                h5 {
+                    font-family: Montserrat;
+                    font-size: 11px;
+                    font-weight: bold;
+                    color: grey;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 320px) and (min-width: 280px) {
+    .templatetwo-container-leftside{
+        width: 40%;
+    }
+    .templatetwo-container-rightside{
+        width: 75%;
+    }
+    .templatetwo-container-leftside-profile h1 {
+        font-size: 10px;
+
+    }
+    .templatetwo-container-leftside-address h3{
+        font-size: 10px;
+    }
+    .templatetwo-container-leftside-address h2 {
+        font-size: 8px;
+    }
+    .templatetwo-container-leftside-progress h2 {
+        font-size: 8px;
+
+    }
+    .templatetwo-container-rightside {
+        padding: 10px;
+        padding-top: 10px;
+    }
+    .templatetwo-container-rightside-workhistory span {
+        font-size: 14px;
+    }
+    .templatetwo-container-rightside-workhistory-headings h2 {
+        font-size: 14px;
+    }
+    .templatetwo-container-rightside-education span{
+        font-size: 14px;
+    }
+    .templatetwo-container-rightside-refrence span{
+        font-size: 14px;
+
+    }
+    .templatetwo-container-leftside-profile img {
+        width: 85px;
+    }
+    .templatetwo-container-leftside-profile h2 {
+        display: flex;
+        flex-wrap: wrap;
+        overflow-wrap: anywhere;
+        font-size: 8px;
+    }
+}
+@media only screen and (max-width: 376px) and (min-width: 375px) {
+    .templatetwo-container-leftside{
+        width: 40%;
+    }
+    .templatetwo-container-rightside{
+        width: 75%;
+    }
+    .templatetwo-container-leftside-profile h1 {
+        font-size: 10px;
+
+    }
+    .templatetwo-container-leftside-address h3{
+        font-size: 10px;
+    }
+    .templatetwo-container-leftside-address h2 {
+        font-size: 8px;
+    }
+    .templatetwo-container-leftside-progress h2 {
+        font-size: 8px;
+
+    }
+    .templatetwo-container-rightside {
+        padding: 10px;
+        padding-top: 10px;
+    }
+    .templatetwo-container-rightside-workhistory span {
+        font-size: 12px;
+    }
+    .templatetwo-container-rightside-workhistory-headings h2 {
+        font-size: 12px;
+    }
+    .templatetwo-container-rightside-education span{
+        font-size: 12px;
+    }
+    .templatetwo-container-rightside-refrence span{
+        font-size: 12px;
+
+    }
+    .templatetwo-container-leftside-profile img {
+        width: 100px;
+    }
+    .templatetwo-container-leftside-profile h2 {
+        display: flex;
+        flex-wrap: wrap;
+        overflow-wrap: anywhere;
+        font-size: 9px;
+    }
+
+}
+
+@media only screen and (max-width: 428px) and (min-width: 425px) {
+    .templatetwo-container-leftside{
+        width: 40%;
+    }
+    .templatetwo-container-rightside{
+        width: 75%;
+    }
+    .templatetwo-container-leftside-profile h1 {
+        font-size: 12px;
+
+    }
+    .templatetwo-container-leftside-address h3{
+        font-size: 12px;
+    }
+    .templatetwo-container-leftside-address h2 {
+        font-size: 10px;
+    }
+    .templatetwo-container-leftside-progress h2 {
+        font-size: 10px;
+
+    }
+    .templatetwo-container-rightside {
+        padding: 10px;
+        padding-top: 10px;
+    }
+    .templatetwo-container-rightside-workhistory span {
+        font-size: 14px;
+    }
+    .templatetwo-container-rightside-workhistory-headings h2 {
+        font-size: 14px;
+    }
+    .templatetwo-container-rightside-education span{
+        font-size: 14px;
+    }
+    .templatetwo-container-rightside-refrence span{
+        font-size: 14px;
+
+    }
+    .templatetwo-container-leftside-profile img {
+        width: 120px;
+    }
+    .templatetwo-container-leftside-profile h2 {
+        display: flex;
+        flex-wrap: wrap;
+        overflow-wrap: anywhere;
+        font-size: 10px;
+    }
+
+}
+@media only screen and (max-width: 1024px) and (min-width: 1024px) {
+    .templatetwo-container-leftside-profile img {
+                            width: 115px;
+                            height: 80px;
+    }
+}
+

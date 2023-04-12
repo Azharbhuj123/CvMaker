@@ -1,0 +1,117 @@
+@import './styles/global.scss';
+@import './styles/utils.scss';
+
+//Components
+@import './styles/components/accordian.scss';
+@import './styles/components/header.scss';
+@import './styles/components/footer.scss';
+@import './styles/components/home/hero.scss';
+@import './styles/components/home/jobwiningresume.scss';
+@import './styles/components/home/easysteps.scss';
+@import './styles/components/home/recruitment-agencies.scss';
+@import './styles/components/home/fixthecv.scss';
+@import './styles/components/home/cvmaler.scss';
+@import './styles/components/home/illustration.scss';
+@import './styles/components/home/faq.scss';
+@import './styles/components/blog/blog-hero.scss';
+
+@import './styles/components/generator/progress-bar.scss';
+@import './styles/components/generator/primary-input.scss';
+@import './styles/components/button/primary-button.scss';
+
+@import './styles/components/generator/cv-form.scss';
+
+@import './styles/components/generator/add-detail.scss';
+
+@import './styles/components/generator/generator-accordian.scss';
+@import './styles/pages/textEditor.scss';
+
+//Pages
+@import './styles/pages/generator.scss';
+@import './styles/components/blog/blog-card.scss';
+@import './styles/components/article/article-hero.scss';
+@import './styles/components/article/article-body.scss';
+@import './styles/components/cvmaker/cvmaker-hero.scss';
+@import './styles/components/cvmaker/cvmaker-body.scss';
+
+//Template
+@import './styles/components/generator/template-two.scss';
+@import './styles/components/generator/template-three.scss';
+@import './styles/components/generator/template-four.scss';
+@import './styles/components/generator/template-six.scss';
+@import './styles/components/generator/template-five.scss';
+@import './styles/components/generator/template-seven.scss';
+@import './styles/components/generator/template-eight.scss';
+@import './styles/components/generator/template-nine.scss';
+@import './styles/components/generator/template-ten.scss';
+@import './styles/components/generator/template-thirteen.scss';
+@import './styles/components/generator/template-ten.scss';
+@import './styles/components/generator/template-eleven.scss';
+@import './styles/components/generator/template-twelve.scss';
+@import './styles/components/generator/template-fourteen.scss';
+
+@import './styles/components/generator/template-thirteen.scss';
+//AboutUs
+
+@import './styles/components/aboutus/aboutus-hero.scss';
+@import './styles/components/aboutus/aboutus-body.scss';
+
+//Vacancies
+
+@import './styles//components/vacancies/vacancies-body.scss';
+
+//MobileScreenHeader and footer
+@import './styles/components/mobilescreenheader.scss';
+@import './styles/components/mobilescreenfooter.scss';
+
+@font-face {
+  font-family: 'Oswald';
+  src: local('Oswald'),
+    url('./assests/fonts/oswald/Oswald-Regular.ttf') format('truetype');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+}
+
+@font-face {
+  font-family: 'Oswald-Bold';
+  src: local('Oswald-Bold'),
+    url('./assests/fonts/oswald/Oswald-Bold.ttf') format('truetype');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto'),
+    url('./assests/fonts/roboto/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto-Bold';
+  src: local('Roboto-Bold'),
+    url('./assests/fonts/roboto/Roboto-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto-Light';
+  src: local('Roboto-Light'),
+    url('./assests/fonts/roboto/Roboto-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Calibri';
+  src: local('Calibri'),
+    url('./assests/fonts/Calibri-Font/Calibri/Calibri.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Calibri-Bold';
+  src: local('Calibri-Bold'),
+    url('./assests/fonts/Calibri-Font/Calibri/calibrib.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Myriad-Pro-Light';
+  src: local('Myriad-Pro-Light'),
+    url('./assests/fonts/myriad-pro/MyriadPro-Light.otf') format('truetype');
+}

@@ -1,0 +1,21 @@
+.textEditor {
+    &-wrapper-class {
+        margin-top: 20px;
+        border: 1px solid rgb(246, 243, 241);
+        width: 100%;
+    }
+
+    &-editor-class {
+        background-color: rgb(246, 243, 241);
+        padding: 5px;
+        border-radius: 5px;
+        width: 100%;
+
+    }
+
+    &-toolbar-class {
+        width: 100%;
+        border: 1px solid rgb(246, 243, 241);
+        width: 100%;
+    }
+}

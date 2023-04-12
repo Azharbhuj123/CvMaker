@@ -1,0 +1,17 @@
+.progress-bar{
+    h1{
+        font-size: 1rem;
+        color: black;
+    }
+    &-fuel{
+        width:95%;
+        height:.5rem;
+        // background-color:#191970;
+        margin-top: .5rem;
+        &-wrapper{
+            width:80%;
+            height:.5rem;
+            background-color:#303846;
+        }
+    }
+}

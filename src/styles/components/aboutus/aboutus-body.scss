@@ -1,0 +1,188 @@
+.aboutus-body-container {
+    width: 100%;
+    background-color: white;
+   
+    padding-top: 60px;
+    padding-bottom: 80px;
+
+
+    &-wrapper {
+        width: 1280px;
+        margin: 0px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+
+        &-intro {
+            width: 65%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            p {
+          
+                font-family: Montserrat;
+                font-size: 17px;
+                line-height: 26px;
+                font-weight: 500;
+            }
+        }
+
+        &-heading {
+            width: 65%;
+            display: flex;
+            flex-direction: column;
+
+            h2 {
+                font-family: Montserrat;
+                font-size: 28px;
+                line-height: 70px;
+                font-weight: bold;
+            }
+
+            p {
+          
+                font-family: Montserrat;
+                font-size: 17px;
+                line-height: 26px;
+                font-weight: 500;
+            }
+        }
+
+        &-shortheading {
+            width: 65%;
+            display: flex;
+            flex-direction: column;
+            ul{
+                padding:  10px 10px 10px 40px;
+                li{
+                    margin-top: 10px;
+                }
+            }
+            h3 {
+                font-family: Montserrat;
+                font-size: 22px;
+                line-height: 70px;
+                font-weight: bold;
+
+            }
+
+            p {
+          
+                font-family: Montserrat;
+                font-size: 17px;
+                line-height: 26px;
+                font-weight: 500;
+            }
+        }
+
+        
+    }
+}
+
+
+@media only screen and (max-width: 1024px) and (min-width: 768px) { 
+    .aboutus-body-container {
+        &-wrapper {
+            width:1024px;
+            padding: 10px;
+ 
+ 
+        }
+    }
+
+}
+
+
+
+@media only screen and (max-width: 768px) and (min-width:428px) { 
+    .aboutus-body-container {
+        padding-top: 20px;
+        &-wrapper {
+            width:100%;
+            padding: 10px;
+
+
+            &-intro {
+                width: 75%;
+
+            }
+
+            &-heading {
+                width:75%;
+            }
+
+            &-shortheading {
+                width: 75%;
+            }
+ 
+ 
+        }
+    }
+
+}
+
+
+@media only screen and (max-width: 428px) and (min-width:320px) { 
+    .aboutus-body-container {
+        padding-top: 20px;
+        &-wrapper {
+            width:100%;
+            padding: 20px;
+
+
+            &-intro {
+                width: 100%;
+
+            }
+
+            &-heading {
+                width:100%;
+            }
+
+            &-shortheading {
+                width: 100%;
+            }
+ 
+ 
+        }
+    }
+
+}
+
+
+@media only screen and (max-width: 320px) and (min-width:280px) { 
+    .aboutus-body-container {
+        padding-top: 20px;
+        &-wrapper {
+            width:100%;
+            padding: 20px;
+
+
+            &-intro {
+                width: 100%;
+
+            }
+
+            &-heading {
+                width:100%;
+
+                h2 {
+                    font-size: 22px;
+                }
+            }
+
+            &-shortheading {
+                width: 100%;
+
+                h3 {
+                    font-size: 15px;
+                }
+            }
+ 
+ 
+        }
+    }
+
+}

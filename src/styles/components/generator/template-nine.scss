@@ -1,0 +1,306 @@
+.template-nine-container {
+  width: 100%;
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  background-color: white;
+  // height: 100%;
+  overflow-wrap: break-word;
+
+  // margin-top:3rem;
+
+  &-mainheading {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    // border-bottom: 0.5px solid rgba(191, 191, 191, 0.543);
+    align-items: center;
+
+    &-subheading {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+
+      span {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        color: #808080;
+        font-weight: 400;
+        font-weight: bold;
+      }
+
+      // span:nth-child(2){
+      //     font-family: monospace;
+      //     font-size: 15px;
+      //     color: #808080;
+      //     font-weight: 400;
+      //     font-weight: bold;
+      //     margin-top:0.5rem;
+      // }
+    }
+
+    h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 50px;
+    }
+
+    h2 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 25px;
+      color: #808080;
+      font-weight: 400;
+    }
+  }
+
+  &-wrapper {
+    width: 100%;
+    display: flex;
+
+    &-leftside {
+      min-height: 1035px;
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background-color: #203864;
+      height: 100%;
+
+      &-nameBox {
+        width: 100%;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 4rem;
+        margin-bottom: 2rem;
+        gap: 10px;
+        h2 {
+          text-align: center;
+          font-family: "Times New Roman", Times, serif;
+        }
+        h3 {
+          text-align: center;
+          font-family: "Times New Roman", Times, serif;
+        }
+      }
+
+      &-heading {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        gap: 15px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-left: 5px;
+        h1 {
+          font-family: "Times New Roman";
+          font-size: 26px;
+          position: relative;
+          padding-bottom: 5px;
+          // align-self: center;
+          text-decoration: none;
+          color: white;
+        }
+
+        &-head {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          align-items: flex-start;
+          flex-wrap: wrap;
+          flex-direction: column;
+          word-break: break-all;
+          padding-left: 10px;
+
+          h2 {
+            font-family: Times;
+            font-size: 15px;
+            color: white;
+            padding: 10px 0px;
+          }
+
+          h4 {
+            font-family: Calibri;
+            font-size: 15px;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+          }
+
+          span {
+            font-family: Calibri;
+            font-size: 14px;
+            color: white;
+          }
+
+          // span:nth-child(2) {
+          //     font-family: monospace;
+          //     font-size: 15px;
+          //     color: black;
+          //     font-weight: 400;
+          //     margin-left: 2rem;
+          //     margin-top: 10px;
+
+          // }
+        }
+      }
+
+      &-progress {
+        display: flex;
+        width: 80%;
+        flex-direction: column;
+        text-align: left;
+        gap: 2px;
+        color: white;
+        padding: 20px 0px;
+        margin-left: 10px;
+
+        h1 {
+          font-family: "Times New Roman";
+          font-size: 26px;
+          font-weight: 600;
+          color: white;
+          text-decoration: none;
+          width: 100%;
+        }
+
+        h2 {
+          font-family: "Times New Roman";
+          font-size: 22px;
+          font-weight: 300;
+          color: white;
+          position: relative;
+          align-self: center;
+          text-decoration: none;
+          padding: 10px 0px;
+          width: 100%;
+        }
+
+        .progress-bar {
+          margin-top: 15px;
+
+          p {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            color: white;
+            font-weight: bolder;
+          }
+
+          &-fuel {
+            height: 0.2rem;
+
+            &-wrapper {
+              height: 0.2rem;
+            }
+          }
+        }
+      }
+    }
+
+    &-rightside {
+      width: 70%;
+      padding: 12px;
+
+      &-wrapper {
+        display: flex;
+        width: 90%;
+
+        div {
+          h1 {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 22px;
+            color: black;
+            font-weight: bold;
+            position: relative;
+            padding-bottom: 5px;
+
+            text-decoration: none;
+          }
+
+          p {
+            font-family: Calibri;
+            font-size: 1.2rem;
+            color: black;
+            font-weight: 600;
+            word-break: break-all;
+          }
+        }
+
+        &-line {
+          width: 150px;
+          height: 4px;
+          background-color: black;
+        }
+
+        &-line2 {
+          width: 50px;
+          height: 4px;
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          background-color: black;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 428px) and (min-width: 280px) {
+  .template-nine-container-wrapper-leftside-heading h1 {
+    font-size: 14px;
+  }
+
+  .template-nine-container-wrapper-leftside-heading {
+    padding: 5px;
+    padding-left: 5px;
+  }
+
+  .template-nine-container-wrapper-leftside-heading-head h2 {
+    font-size: 8px;
+  }
+
+  .template-nine-container-wrapper-leftside-heading-head span {
+    font-size: 8px;
+  }
+
+  .template-nine-container-wrapper-leftside-progress h2 {
+    font-size: 11px;
+  }
+
+  .template-nine-container-wrapper-leftside-progress .progress-bar p {
+    font-size: 10px;
+  }
+
+  .template-nine-container-wrapper-leftside-progress {
+    width: 90%;
+    padding-left: 5px;
+  }
+
+  .template-nine-container-wrapper-leftside-heading-head h4 {
+    font-size: 10px;
+  }
+
+  .template-nine-container-wrapper-rightside {
+    padding: 0;
+  }
+
+  .template-nine-container-wrapper-rightside-wrapper {
+    gap: 0.5rem;
+  }
+
+  .template-nine-container-wrapper-rightside-wrapper div h1 {
+    font-size: 15px;
+  }
+
+  .template-nine-container-mainheading {
+    display: none;
+  }
+
+  .template-nine-container-wrapper-leftside-heading-head {
+    width: 100%;
+  }
+}

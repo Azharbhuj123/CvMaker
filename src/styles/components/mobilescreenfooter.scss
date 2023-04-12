@@ -1,0 +1,98 @@
+.mobilescreenfooter-container {
+    width: 100%;
+    background-color: #0A1B28;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+
+
+    &-imgdiv {
+       padding-top: 15px;
+       padding-bottom: 8px;
+        width: 100%;
+        display: flex;
+    }
+
+    &-navlinks {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+       
+
+
+        &-headone {
+           
+            display: flex;
+            flex-direction: column;
+           justify-content: center;
+           gap:5px;
+
+                h2 {
+                font-family: Montserrat;
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 19px;
+                color: #ffffff;
+            }
+            span {
+                font-family: Montserrat;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 19px;
+                color: #ffffff;
+                }
+
+
+        }
+
+        &-headtwo {
+           
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap:5px;
+ 
+                 h2 {
+                 font-family: Montserrat;
+                 font-weight: bold;
+                 font-size: 16px;
+                 line-height: 19px;
+                 color: #ffffff;
+             }
+             span {
+                 font-family: Montserrat;
+                 font-weight: 600;
+                 font-size: 16px;
+                 line-height: 19px;
+                 color: #ffffff;
+                 }
+        }
+
+        &-headthree {
+           
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap:5px;
+ 
+                 h2 {
+                 font-family: Montserrat;
+                 font-weight: bold;
+                 font-size: 16px;
+                 line-height: 19px;
+                 color: #ffffff;
+             }
+             span {
+                 font-family: Montserrat;
+                 font-weight: 600;
+                 font-size: 16px;
+                 line-height: 19px;
+                 color: #ffffff;
+                 }
+        }
+    }
+
+
+}
