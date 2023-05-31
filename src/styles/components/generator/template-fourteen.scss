@@ -118,7 +118,7 @@
       // template-fourteen-container-right
       padding: 2rem;
       display: flex;
-      justify-content: center;
+      // justify-content: center;
       overflow-wrap: break-word;
       width: 100%;
 
@@ -231,10 +231,10 @@
   .job-title {
     margin: 1rem;
     p {
-      text-transform: uppercase;
       font-family: Calibri;
       color: grey;
       word-break: break-all;
+      // text-transform: uppercase;
     }
     span {
       font-family: Calibri;
@@ -251,9 +251,8 @@
         word-break: break-all;
       }
       span {
-       
         font-size: 1rem;
-    color: grey;
+        color: grey;
         word-break: break-all;
         font-family: Calibri;
       }

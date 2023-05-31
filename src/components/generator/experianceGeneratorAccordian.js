@@ -60,8 +60,10 @@ const ExperianceGeneratorAccordian = ({
     return (
       <div className='custominputdiv'>
         <label onClick={props.onClick} ref={ref}>
+          {/* {console.log(props.value?.length, 'dateee valueee')} */}
           {props.value || props.placeholder}
         </label>
+
         <div className='custominputdiv-iconsdiv'>
           <BiCalendarAlt size={15} onClick={props.onClick} />
         </div>
@@ -182,7 +184,6 @@ const ExperianceGeneratorAccordian = ({
                     checked={experiance[accordianIndex]?.toggle}
                     className='react-switch'
                   />
-
                   <span>Nåværende studiested</span>
                 </div>
               </DatePicker>

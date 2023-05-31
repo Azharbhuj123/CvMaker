@@ -71,7 +71,7 @@
         font-family: Roboto;
         font-size: 1.1rem;
         text-transform: uppercase;
-        padding-bottom: 0.7rem;
+        // padding-bottom: 0.7rem;
       }
       &-point {
         font-family: Roboto;
@@ -101,14 +101,14 @@
         p {
           font-family: Roboto;
           font-size: 0.8rem;
-          font-weight: 600;
+          font-weight: 300;
           // color: grey;
           text-align: left;
           width: 80%;
           margin-top: 5px;
         }
         span {
-          height: 0.6rem;
+          height: 0.8rem;
         }
       }
     }

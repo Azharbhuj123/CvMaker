@@ -111,7 +111,6 @@ const Generator = (props) => {
             </div>
             <div
               className='generator-container-right'
-              style={{ height: '90%' }}
             >
               <div
                 style={{

@@ -339,13 +339,13 @@ const CvForm = (props) => {
         </div>
         <div className='cv-form-wrapper-inputheading'>
           <HeadInput
-            // value={basicInformation.firstName}
+            value={basicInformation.firstName}
             onChange={(e) => changeBasicInfo(e.target.value, 'firstName')}
             heading='Fornavn'
             inputPlaceholder='fornavn'
           />
           <HeadInput
-            // value={basicInformation.lastName}
+            value={basicInformation.lastName}
             onChange={(e) => {
               changeBasicInfo(e.target.value, 'lastName')
             }}
@@ -356,7 +356,7 @@ const CvForm = (props) => {
       </div>
       <div className='cv-form-numberpost'>
         <HeadInput
-          // value={basicInformation.email}
+          value={basicInformation.email}
           onChange={(e) => {
             changeBasicInfo(e.target.value, 'email')
           }}
@@ -399,10 +399,10 @@ const CvForm = (props) => {
               className='headinput-container date-container'
               value={basicInformation.DOB}
               onFocus={() => {
-                console.log('ppp')
+                // console.log('ppp')
               }}
               onChange={(date) => {
-                console.log(date.target.value, 'lll')
+                // console.log(date.target.value, 'lll')
                 changeBasicInfo(date.target.value, 'DOB')
               }}
               yearDropdownItemNumber={100}
@@ -493,12 +493,30 @@ const CvForm = (props) => {
         </div>
       </div>
 
-      <div style={{ width: '100%', paddingTop: '15px' }}>
+      <div
+        style={{
+          width: '100%',
+          paddingTop: '15px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
+        }}
+      >
         <span
           onClick={() => console.log(profileData)}
           className='profile-heading'
         >
-          Profil
+          Profiltekst
+        </span>
+
+        <span
+          style={{
+            fontFamily: 'Montserrat',
+            fontSize: '14px',
+            fontWeight: '600',
+          }}
+        >
+          Inkluder 2-4 linjer om deg selv og din arbeidserfaringer
         </span>
         {/* <Editor
  // 2nd copy

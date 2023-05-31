@@ -147,18 +147,22 @@ const TemplateSix = () => {
               />
             </div>
           </div>
-          {profileData !== '<p><br></p>' && (
+          {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
             <div className='template-six-container-profile'>
               <h2 style={{ textTransform: 'uppercase' }}>Profil</h2>
               {/* <p>{cvData?.profile}</p> */}
               <p
+                style={{ fontFamily: 'Arial', fontSize: '12px' }}
                 dangerouslySetInnerHTML={{
                   __html: profileData,
                 }}
               ></p>
             </div>
           )}
-          <div className='template-six-container-content'>
+          <div
+            className='template-six-container-content'
+            style={{ minHeight: '920px' }}
+          >
             <div className='template-six-container-content-heading-box'>
               <div className='template-six-container-content-heading-box-leftSide'>
                 <p>ERFARING</p>
@@ -172,10 +176,15 @@ const TemplateSix = () => {
               >
                 <div className='template-six-container-content-heading-box-leftSide'>
                   <h3>
-                    {moment(item.startDate).format('YYYY')} {' - '}
+                    {item.startDate.length === 0
+                      ? 'Startdato'
+                      : moment(item.startDate).format('YYYY MM')}{' '}
+                    {' - '}
                     {item.toggle
                       ? 'dags dato'
-                      : moment(item.endDate).format('YYYY')}
+                      : item.endDate.length === 0
+                      ? ' Sluttdato'
+                      : moment(item?.endDate).format('YYYY-MM')}
                   </h3>
                 </div>
                 <div className='template-six-container-content-heading-box-rightSide'>
@@ -183,6 +192,7 @@ const TemplateSix = () => {
                     {item?.jobTitle}, {item?.employer}
                   </h3>
                   <div
+                    style={{ fontFamily: 'Arial', fontSize: '17px' }}
                     dangerouslySetInnerHTML={{
                       __html: item?.additionalInformation,
                     }}
@@ -206,12 +216,17 @@ const TemplateSix = () => {
                   className='template-six-container-content-heading-box-leftSide'
                 >
                   <h3 style={{ marginLeft: '0px' }}>
-                    {moment(item.startDate).format('YYYY')} {' - '}
+                    {item.startDate.length === 0
+                      ? 'Startdato'
+                      : moment(item.startDate).format('YYYY MM')}{' '}
+                    {' - '}
                   </h3>
                   <h3 style={{ marginLeft: '0px' }}>
                     {item.toggle
                       ? 'dags dato'
-                      : moment(item.endDate).format('YYYY')}
+                      : item.endDate.length === 0
+                      ? ' Sluttdato'
+                      : moment(item?.endDate).format('YYYY-MM')}
                   </h3>
                 </div>
                 <div className='template-six-container-content-heading-box-rightSide'>
@@ -219,6 +234,7 @@ const TemplateSix = () => {
                     {item?.study}, {item.school}
                   </h3>
                   <div
+                    style={{ fontFamily: 'Arial', fontSize: '17px' }}
                     dangerouslySetInnerHTML={{
                       __html: item?.additionalInformation,
                     }}
@@ -242,10 +258,10 @@ const TemplateSix = () => {
                     >
                       <div className='template-six-container-content-heading-box-leftSide'>
                         <h3>
-                          {moment(item.startDate).format('YYYY')} {' - '}
+                          {moment(item.startDate).format('YYYY MM')} {' - '}
                           {item.toggle
                             ? 'dags dato'
-                            : moment(item.endDate).format('YYYY')}
+                            : moment(item.endDate).format('YYYY MM')}
                         </h3>
                       </div>
                       <div className='template-six-container-content-heading-box-rightSide'>
@@ -253,7 +269,11 @@ const TemplateSix = () => {
                           {item?.jobTitle} - {item?.employer}
                         </h3>
 
-                        <p>{item.additionalInformation}</p>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: item?.additionalInformation,
+                          }}
+                        ></div>
                       </div>
                     </div>
                   )
@@ -347,7 +367,7 @@ const TemplateSix = () => {
                           <h3>
                             {item?.name} - {item?.companyName}
                           </h3>
-                          <p>Kontakt: {item?.email}</p>
+                          <p>{item?.email}</p>
                         </>
                       )}
                     </div>

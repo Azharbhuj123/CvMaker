@@ -10,6 +10,7 @@ import {
   Experiance_Data,
   getRefToggle,
   referenceData,
+  getInternships,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import { editReference } from '../../Redux/actions/CvGeneratorAction'
 
@@ -41,13 +42,12 @@ const ReferenceGeneratorAccordian = ({
     const { value } = e.target
     const prefix = 'Telefon: '
     let emailValue
-
     if (value === '') {
       emailValue = null
     } else if (value.startsWith(prefix)) {
       emailValue = value
     } else {
-      emailValue = prefix + value
+      emailValue = prefix
     }
 
     handleChange('email', emailValue)
@@ -92,7 +92,7 @@ const ReferenceGeneratorAccordian = ({
           // value={basicInformation.firstName}
           onChange={handleInputChange}
           heading={'Telefonnummer'}
-          inputPlaceholder={!toggleData ? '' : null}
+          inputPlaceholder={!toggleData ? 'Telefon ' : null}
           disabled={toggleData}
         />
       </div>

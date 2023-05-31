@@ -111,7 +111,10 @@ const TemplateThree = () => {
           <h2>{cvData.jobTitle}</h2>
         </div>
         <div className='template-three-container-wrapper'>
-          <div className='template-three-container-wrapper-leftside'>
+          <div
+            className='template-three-container-wrapper-leftside'
+            style={{ minHeight: '920px' }}
+          >
             <div className='template-three-container-wrapper-leftside-heading'>
               <h1>DETALJER</h1>
               {cvData.physicalAddress === '' ? null : (
@@ -244,10 +247,15 @@ const TemplateThree = () => {
             </div> */}
           </div>
           <div className='template-three-container-wrapper-rightside'>
-            {profileData !== '<p><br></p>' && (
+            {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
               <div className='template-three-container-wrapper-rightside-heading'>
                 <h3 style={{ textTransform: 'uppercase' }}>Profil</h3>
                 <div
+                  style={{
+                    fontFamily: 'Roboto',
+                    fontSize: '13px',
+                    fontWeight: '500',
+                  }}
                   dangerouslySetInnerHTML={{
                     __html: profileData,
                   }}
@@ -262,22 +270,40 @@ const TemplateThree = () => {
               </h3>
               {experianceData?.map((item) => (
                 <div className='template-three-container-wrapper-rightside-heading-subhead'>
-                  <h2 style={{fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.8rem'}}> {item?.jobTitle + ' - ' + item?.employer}</h2>
+                  <h2
+                    style={{
+                      fontFamily: 'Roboto',
+                      fontWeight: 'bold',
+                      fontSize: '0.8rem',
+                    }}
+                  >
+                    {' '}
+                    {item?.jobTitle + ' - ' + item?.employer}
+                  </h2>
                   <div
                     style={{ display: 'flex', marginTop: '4px', gap: '2px' }}
                   >
                     <span style={{ fontFamily: 'Roboto', fontWeight: '400' }}>
-                      {moment(item?.startDate).format('YYYY') + ' -  '}
+                      {item.startDate.length === 0
+                        ? 'Startdato -'
+                        : moment(item?.startDate).format('YYYY MM') + ' -  '}
                     </span>
 
                     <span style={{ fontFamily: 'Roboto', fontWeight: '400' }}>
-                      {item.toggle
+                    {item.toggle
                         ? 'dags dato'
-                        : moment(item?.endDate).format('YYYY')}
+                        : item.endDate.length === 0
+                        ? ' Sluttdato'
+                        : moment(item?.endDate).format('YYYY-MM')}
                     </span>
                   </div>
 
                   <div
+                    style={{
+                      fontFamily: 'Roboto',
+                      fontSize: '13px',
+                      fontWeight: '500',
+                    }}
                     dangerouslySetInnerHTML={{
                       __html: item?.additionalInformation,
                     }}
@@ -294,23 +320,40 @@ const TemplateThree = () => {
 
               {educationData?.map((item) => (
                 <div className='template-three-container-wrapper-rightside-heading-subhead'>
-                  <h2 style={{fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.8rem'}}>{item?.study + ' - ' + item?.school}</h2>
+                  <h2
+                    style={{
+                      fontFamily: 'Roboto',
+                      fontWeight: 'bold',
+                      fontSize: '0.8rem',
+                    }}
+                  >
+                    {item?.study + ' - ' + item?.school}
+                  </h2>
 
                   <div
                     style={{ display: 'flex', marginTop: '4px', gap: '2px' }}
                   >
                     <span style={{ fontFamily: 'Roboto', fontWeight: '400' }}>
-                      {moment(item?.startDate).format('YYYY') + ' - '}
+                      {item.startDate.length === 0
+                        ? 'Startdato -'
+                        : moment(item?.startDate).format('YYYY MM') + ' - '}
                     </span>
 
                     <span style={{ fontFamily: 'Roboto', fontWeight: '400' }}>
-                      {item.toggle
+                    {item.toggle
                         ? 'dags dato'
-                        : moment(item?.endDate).format('YYYY')}
+                        : item.endDate.length === 0
+                        ? ' Sluttdato'
+                        : moment(item?.endDate).format('YYYY-MM')}
                     </span>
                   </div>
 
                   <div
+                    style={{
+                      fontFamily: 'Roboto',
+                      fontSize: '13px',
+                      fontWeight: '500',
+                    }}
                     dangerouslySetInnerHTML={{
                       __html: item?.additionalInformation,
                     }}
@@ -337,16 +380,26 @@ const TemplateThree = () => {
                       style={{ display: 'flex', marginTop: '4px', gap: '2px' }}
                     >
                       <p style={{ fontFamily: 'Roboto', fontWeight: '400' }}>
-                        {moment(item?.startDate).format('YYYY') + ' - '}
+                        {moment(item?.startDate).format('YYYY MM') + ' - '}
                       </p>
 
                       <p style={{ fontFamily: 'Roboto', fontWeight: '400' }}>
-                        {item.toggle
-                          ? 'dags dato'
-                          : moment(item?.endDate).format('YYYY')}
+                      {item.toggle
+                        ? 'dags dato'
+                        : item.endDate.length === 0
+                        ? ' Sluttdato'
+                        : moment(item?.endDate).format('YYYY-MM')}
                       </p>
                     </div>
-                    <span>{item?.additionalInformation}</span>
+                    <span style={{
+                      fontFamily: 'Roboto',
+                      fontSize: '13px',
+                      fontWeight: '500',
+                    }}
+                      dangerouslySetInnerHTML={{
+                        __html: item?.additionalInformation,
+                      }}
+                    ></span>
                   </div>
                 ))}
               </div>

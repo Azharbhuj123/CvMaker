@@ -11,6 +11,7 @@ import moment from 'moment'
 import {
   Education_DATA,
   Experiance_Data,
+  getInternships,
   getPresentDate,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import {
@@ -19,6 +20,7 @@ import {
   editEducation,
   removeEducationData,
   updateEducationToggle,
+  addIn
 } from '../../Redux/actions/CvGeneratorAction'
 import { forwardRef } from 'react'
 import ReactQuill from 'react-quill'
@@ -34,7 +36,7 @@ const GeneratorAccordian = ({
 }) => {
   const [institute, setInstitute] = useState('')
   const [degree, setDegree] = useState('')
-  const [endDate, setEndDate] = useState()
+  const [endDate, setEndDate] = useState('')
   const [startDate, setStartDate] = useState(new Date())
   const [abc, setAbc] = useState('')
   const [editable, setEditable] = useState(true)
@@ -146,7 +148,7 @@ const GeneratorAccordian = ({
             {/* <input
               type={"month"}
               dateFormat="MM/yyyy"
-              value={education[accordianIndex]?.startDate}
+              value={education[accordianIndex]?.startDate}generator-accordian-inputanddate
               selected={startDate}
               placeholderText="mm/yyyy"
               onChange={(date) => handleChange("startDate", date.target.value)}

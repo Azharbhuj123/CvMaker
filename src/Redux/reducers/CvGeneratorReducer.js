@@ -4,9 +4,9 @@ const initialState = {
     footerEnabler: true,
   },
   cvData: {
-    firstName: "Forvnavn",
-    lastName: "Eternavn",
-    email: "johndeo@example.com",
+    firstName: "Fornavn",
+    lastName: "Etternavn",
+    email: "",
     jobTitle: "",
     physicalAddress: "",
     country: "",

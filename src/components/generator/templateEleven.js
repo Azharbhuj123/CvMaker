@@ -150,16 +150,22 @@ const TemplateEleven = () => {
         </div>
 
         <div className='templateeleven-container-body'>
-          {profileData !== '<p><br></p>' && (
-            <div className='templateeleven-container-body-about'>
-              <h3>PROFIL</h3>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: profileData,
-                }}
-              ></div>
-            </div>
-          )}
+          {/* {profileData !== '<p><br></p>' && ( */}
+          <div className='templateeleven-container-body-about'>
+            <h3>OM MEG</h3>
+            <div
+              style={{
+                fontFamily: 'Calibri',
+                fontSize: '12px',
+                borderBottom: '1px solid',
+                paddingBottom: '5px',
+              }}
+              dangerouslySetInnerHTML={{
+                __html: profileData,
+              }}
+            ></div>
+          </div>
+          {/* )} */}
           <div
             style={{ paddingTop: '0.5rem' }}
             className='templateeleven-container-body-workexperience'
@@ -179,6 +185,13 @@ const TemplateEleven = () => {
                     </span>
                   </div>
                   <div
+                    style={{
+                      fontFamily: 'Calibri',
+                      fontSize: '12px',
+                      flexDirection: 'column',
+                      borderBottom: '1px solid',
+                      paddingBottom: '5px',
+                    }}
                     dangerouslySetInnerHTML={{
                       __html: item?.additionalInformation,
                     }}
@@ -206,9 +219,19 @@ const TemplateEleven = () => {
                         {item.toggle ? 'dags dato' : item?.endDate}
                       </span>
                     </div>
-                    <h5>
-                      {'● '}
-                      {item?.additionalInformation}
+                    <h5
+                      dangerouslySetInnerHTML={{
+                        __html: item?.additionalInformation,
+                      }}
+                      style={{
+                        fontFamily: 'Calibri',
+                        fontSize: '12px',
+                        fontWeight: '500',
+                        borderBottom: '1px solid',
+                      }}
+                    >
+                      {/* {'● '} */}
+                      {/* {item?.additionalInformation} */}
                     </h5>
                   </>
                 )
@@ -216,7 +239,10 @@ const TemplateEleven = () => {
             </div>
           ) : null}
         </div>
-        <div className='templateeleven-container-bottom-side'>
+        <div
+          className='templateeleven-container-bottom-side'
+          style={{ minHeight: '800px' }}
+        >
           <div className='templateeleven-container-bottom-side-left'>
             <div className='templateeleven-container-bottomdiv'>
               <h3>PROFESJONELL EKSPERTISE</h3>
@@ -310,11 +336,13 @@ const TemplateEleven = () => {
                       }}
                     >
                       <h4>
-                        {moment(item?.startDate).format('MM YYYY') + ' - '}
+                        {item.startDate.length === 0
+                          ? 'Startdato -'
+                          : moment(item?.startDate).format('MM YYYY') + ' - '}
                       </h4>
                       <h4>
-                        {item.toggle
-                          ? 'dags dato'
+                        {item.endDate.length === 0
+                          ? 'sluttdato -'
                           : moment(item?.endDate).format('MM YYYY')}
                       </h4>
                     </div>

@@ -130,14 +130,23 @@
           font-family: Arial;
           font-size: 17px;
         }
+        ol {
+        }
+        li {
+          margin-top: 5px;
+          margin-left: 2rem;
+          font-family: Arial;
+          font-size: 17px;
+          word-break: break-all;
+        }
         ul {
           list-style-type: circle;
           font-family: Arial;
           li {
             margin-top: 5px;
-            margin-left: 5rem;
+            margin-left: 2rem;
             font-family: Arial;
-            font-size: 20px;
+            font-size: 17px;
             word-break: break-all;
           }
         }
@@ -163,7 +172,6 @@
   .template-six-container-profile p {
     padding-bottom: 1rem;
   }
-
   .template-six-container-content-left {
     width: 80%;
   }

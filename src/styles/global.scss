@@ -25,3 +25,17 @@ $font: "Montserrat";
   font-family: "Myriad Pro";
   src: url("../assests/fonts/myriad-pro/MYRIADPRO-REGULAR.OTF");
 }
+
+ol{
+  margin-left: 40px;
+}
+ul{
+  margin-left: 40px;
+}
+
+div > ul {
+  margin-left: 40px;
+}
+// .template-eight-container-content-right-content{
+//   font-weight: 300;
+// }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import CvMaler from "../components/home/cvmaler";
 import { useSelector, useDispatch } from "react-redux";
 import EasySteps from "../components/home/easysteps";

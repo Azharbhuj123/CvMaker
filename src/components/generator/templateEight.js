@@ -17,7 +17,6 @@ import {
 } from '../../Redux/reducers/CvGeneratorReducer'
 import moment from 'moment'
 import { useSelector } from 'react-redux'
-
 import ProgressBar from './progressBar'
 import EndreMaalButton from '../endreMaalButton/EndreMaalButton'
 import { sendFileToBackend } from '../../helper/helperFunctions'
@@ -99,7 +98,11 @@ const TemplateEight = (props) => {
       >
         <div className='template-eight-container-header'>
           <div
-            style={{ width: '30%', height: '100%', backgroundColor: '#eeeae4' }}
+            style={{
+              width: '30%',
+              minHeight: '240px',
+              backgroundColor: '#eeeae4',
+            }}
           ></div>
           <div style={{ width: '70%', height: '100%' }}></div>
           <div className='template-eight-container-header-wrapper'>
@@ -109,10 +112,13 @@ const TemplateEight = (props) => {
             </div>
           </div>
         </div>
-        <div className='template-eight-container-content'>
+        <div
+          className='template-eight-container-content'
+          style={{ height: 'inherit' }}
+        >
           <div
             className='template-eight-container-content-left'
-            style={{ height: '51rem' }}
+            style={{ minHeight: '815px' }}
           >
             <h1 className='template-eight-container-content-left-heading'>
               DETALJER
@@ -171,10 +177,17 @@ const TemplateEight = (props) => {
                           dashed='dotted'
                           color='white'
                         />
+
                         <br />
+                        <span />
                       </>
                     ) : (
-                      <p style={{fontFamily: 'Roboto-Bold', fontWeight: '300'}} key={index}>{item?.name}</p>
+                      <p
+                        style={{ fontFamily: 'Roboto-Bold', fontWeight: '300' }}
+                        key={index}
+                      >
+                        {item?.name}
+                      </p>
                     )}
                   </>
                 )
@@ -187,73 +200,78 @@ const TemplateEight = (props) => {
               <h1 className='template-eight-container-content-left-heading'>
                 ANNET
               </h1>
-              <h3 className='template-eight-container-content-left-subheading'>
-                Språk
-              </h3>
-              {lanuages?.map((item, index) => (
-                <h7
-                  className='template-eight-container-content-left-point'
-                  key={index}
-                >
-                  {item?.name} {item?.value}
-                </h7>
-              ))}
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <h3 className='template-eight-container-content-left-subheading'>
+                  Språk
+                </h3>
+                {lanuages?.map((item, index) => (
+                  <h7
+                    className='template-eight-container-content-left-point'
+                    key={index}
+                  >
+                    {item?.name} {item?.value}
+                  </h7>
+                ))}
 
-              {accordiansEnabled.Hobbyer === true ? (
-                <>
-                  <br />
-                  <h3>Hobby</h3>
-                  <h7>
-                    {hobbies?.map((item, index) => (
-                      <span
+                {accordiansEnabled.Hobbyer === true ? (
+                  <>
+                    <span style={{ height: '0.8rem' }}> </span>
+                    <h3>Hobby</h3>
+                    <h7>
+                      {hobbies?.map((item, index) => (
+                        <span
+                          key={index}
+                          className='template-eight-container-content-left-point'
+                        >
+                          {index === hobbies.length - 1
+                            ? item?.name + '.'
+                            : item?.name + ', '}
+                        </span>
+                      ))}
+                    </h7>
+                  </>
+                ) : null}
+                {accordiansEnabled.Kurs === true ? (
+                  <>
+                    <span style={{ height: '0.8rem' }}> </span>
+                    <h3>Kurs</h3>
+                    {courses?.map((item, index) => (
+                      <h7
                         key={index}
                         className='template-eight-container-content-left-point'
                       >
-                        {index === hobbies.length - 1
+                        {index === courses.length - 1
                           ? item?.name + '.'
                           : item?.name + ', '}
-                      </span>
+                      </h7>
                     ))}
-                  </h7>
-                </>
-              ) : null}
-              {accordiansEnabled.Kurs === true ? (
-                <>
-                  <br />
-                  <h3>Kurs</h3>
-                  {courses?.map((item, index) => (
-                    <h7
-                      key={index}
-                      className='template-eight-container-content-left-point'
-                    >
-                      {index === courses.length - 1
-                        ? item?.name + '.'
-                        : item?.name + ', '}
-                    </h7>
-                  ))}
-                </>
-              ) : null}
+                  </>
+                ) : null}
+              </div>
             </div>
           </div>
           <div className='template-eight-container-content-right'>
+            {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
+              <>
+                <h1 className='template-eight-container-content-right-heading'>
+                  PROFIL
+                </h1>
+
+                <div
+                  className='template-eight-container-content-right-content'
+                  style={{ fontSize: '0.8rem', fontWeight: '300' }}
+                >
+                  <div
+                    // style={{ fontWeight: '300' }}
+                    dangerouslySetInnerHTML={{
+                      __html: profileData,
+                    }}
+                  ></div>
+                 
                   
-            {profileData!=="<p><br></p>" &&
-            <>
-            <h1 className='template-eight-container-content-right-heading'>
-              PROFIL
-            </h1>
-            
-            <div className='template-eight-container-content-right-content'>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: profileData,
-                }}
-              ></div>
-              <span />
-              <span />
-            </div>
-            </>
-            }      
+                </div>
+              </>
+            )}
 
             <h1 className='template-eight-container-content-right-heading'>
               ARBEIDSERFARING
@@ -261,19 +279,36 @@ const TemplateEight = (props) => {
             <div className='template-eight-container-content-right-content'>
               {experianceData?.map((item, index) => (
                 <>
-                  <p key={index} style={{ fontFamily: 'Roboto', fontWeight: 'bold' }}>
+                  <p
+                    key={index}
+                    style={{ fontFamily: 'Roboto', fontWeight: 'bold' }}
+                  >
                     {item?.jobTitle + ' - ' + item?.employer}
                   </p>
                   <div style={{ display: 'flex' }}>
-                    <p>{moment(item?.startDate).format('YYYY') + ' - '}</p>
-
                     <p>
+                      {item.startDate?.length === 0
+                        ? 'Startdato -'
+                        : moment(item?.startDate).format('YYYY-MM') + ' - '}
+                    </p>
+                    <p>
+                      {/* {item.endDate.length === 0
+                        ? ' Sluttdato'
+                        : moment(item?.endDate).format('YYYY-MM')}
+                        {item.toggle
+                        ? 'dags dato'
+                        : moment(item?.endDate).format('YYYY')
+                        } */}
+
                       {item.toggle
                         ? 'dags dato'
-                        : moment(item?.endDate).format('YYYY')}
+                        : item.endDate.length === 0
+                        ? ' Sluttdato'
+                        : moment(item?.endDate).format('YYYY-MM')}
                     </p>
                   </div>
                   <div
+                    style={{ fontSize: '0.8rem' }}
                     dangerouslySetInnerHTML={{
                       __html: item?.additionalInformation,
                     }}
@@ -304,17 +339,22 @@ const TemplateEight = (props) => {
                   ) : null}
 
                   <div style={{ display: 'flex' }}>
-                    <p>{moment(item?.startDate).format('YYYY') + ' - '}</p>
+                    <p>
+                      {item.startDate?.length === 0
+                        ? 'Startdato -'
+                        : moment(item?.startDate).format('YYYY-MM') + ' - '}
+                    </p>
 
                     <p>
                       {item.toggle
                         ? 'dags dato'
-                        : moment(item?.endDate).format('YYYY')}
+                        : item.endDate.length === 0
+                        ? ' Sluttdato'
+                        : moment(item?.endDate).format('YYYY-MM')}
                     </p>
                   </div>
-
-                 
                   <div
+                    style={{ fontSize: '0.8rem' }}
                     dangerouslySetInnerHTML={{
                       __html: item?.additionalInformation,
                     }}
@@ -336,16 +376,25 @@ const TemplateEight = (props) => {
                       {item?.jobTitle + ' - ' + item?.employer}
                     </p>
                     <div style={{ display: 'flex' }}>
-                      <p>{moment(item?.startDate).format('YYYY') + ' - '}</p>
+                      <p>
+                        {item.startDate.length === 0
+                          ? 'Startdato -'
+                          : moment(item?.startDate).format('YYYY-MM') + ' - '}
+                      </p>
 
                       <p>
                         {item.toggle
                           ? 'dags dato'
-                          : moment(item?.endDate).format('YYYY')}
+                          : item.endDate.length === 0
+                          ? 'Sluttdato'
+                          : moment(item?.endDate).format('YYYY-MM')}
                       </p>
                     </div>
-
-                    <p>{item?.additionalInformation}</p>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: item?.additionalInformation,
+                      }}
+                    ></p>
                   </div>
                 ))}
               </>

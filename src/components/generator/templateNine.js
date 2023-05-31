@@ -24,6 +24,7 @@ import {
   sendPrintedDocument,
 } from '../../helper/helperFunctions'
 import moment from 'moment'
+
 const TemplateNine = () => {
   let printButtonRef = useRef()
   const cvData = useSelector(CV_DATA)
@@ -201,7 +202,7 @@ const TemplateNine = () => {
           </div>
           <div className='template-nine-container-wrapper-rightside'>
             {/* <FaUserAlt/> */}
-            {profileData !== '<p><br></p>' && (
+            {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
               <div className='template-nine-container-wrapper-rightside-wrapper'>
                 <div style={{ width: '100%' }}>
                   <h1>PROFIL </h1>
@@ -236,10 +237,16 @@ const TemplateNine = () => {
                         {item.toggle ? 'dags dato' : item?.endDate}
                       </p>
                       <div
-                    dangerouslySetInnerHTML={{
-                      __html: item?.additionalInformation,
-                    }}
-                  ></div>
+                        style={{
+                          fontFamily: 'Calibri',
+                          fontSize: '1.2rem',
+                          color: 'black',
+                          fontWeight: '600',
+                        }}
+                        dangerouslySetInnerHTML={{
+                          __html: item?.additionalInformation,
+                        }}
+                      ></div>
                       <br />
                     </div>
                   )
@@ -263,12 +270,16 @@ const TemplateNine = () => {
                           {item?.jobTitle} - {item?.employer}
                         </p>
                         <p style={{ color: 'gray', marginBottom: '10px' }}>
-                          {moment(item?.startDate).format('MM YYYY')} -{' '}
+                          {moment(item?.startDate).format('YYYY-MM')} -{' '}
                           {item.toggle
                             ? 'dags dato'
-                            : moment(item?.endDate).format('MM YYYY')}
+                            : moment(item?.endDate).format('YYYY-MM')}
                         </p>
-                        <p>{item?.additionalInformation}</p>
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: item?.additionalInformation,
+                          }}
+                        ></p>
                         <br />
                       </div>
                     )
@@ -313,6 +324,12 @@ const TemplateNine = () => {
                         </p>
                       </div>
                       <div
+                        style={{
+                          fontFamily: 'Calibri',
+                          fontSize: '1.2rem',
+                          color: 'black',
+                          fontWeight: '600',
+                        }}
                         dangerouslySetInnerHTML={{
                           __html: item?.additionalInformation,
                         }}

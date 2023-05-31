@@ -151,7 +151,10 @@ const TemplateFive = () => {
           </div>
         </div>
         <div className='template-five-container-wrapper'>
-          <div className='template-five-container-wrapper-leftside'>
+          <div
+            className='template-five-container-wrapper-leftside'
+            style={{ minHeight: '890px' }}
+          >
             <div className='template-five-container-wrapper-leftside-heading'>
               <h1>•DETALJER•</h1>
               {cvData?.DOB == '' ? null : (
@@ -291,7 +294,7 @@ const TemplateFive = () => {
           </div>
           <div className='template-five-container-wrapper-rightside'>
             {/* <FaUserAlt/> */}
-            {profileData !== '<p><br></p>' && (
+            {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
               <div className='template-five-container-wrapper-rightside-wrapper'>
                 <div>
                   <FaUserAlt
@@ -334,6 +337,7 @@ const TemplateFive = () => {
                     style={{
                       overflowWrap: 'anywhere',
                       position: 'relative',
+                      fontSize: '15px',
                     }}
                     key={index}
                   >
@@ -349,20 +353,25 @@ const TemplateFive = () => {
                     </p>
                     <div style={{ display: 'flex', gap: '5px' }}>
                       <p style={{ color: 'grey' }}>
-                        {moment(item?.startDate).format('MM/YYYY') + ' - '}
+                        {item.startDate.length === 0
+                          ? 'Startdato -'
+                          : moment(item?.startDate).format('MM/YYYY') + ' - '}
                       </p>
                       <p style={{ color: 'grey' }}>
-                        {item.toggle
-                          ? 'dags dato'
-                          : moment(item?.endDate).format('MM/YYYY')}
+                      {item.toggle
+                        ? 'dags dato'
+                        : item.endDate.length === 0
+                        ? ' Sluttdato'
+                        : moment(item?.endDate).format('YYYY-MM')}
                       </p>
                     </div>
 
                     <div
-                    dangerouslySetInnerHTML={{
-                      __html: item?.additionalInformation,
-                    }}
-                  ></div>
+                      style={{ fontSize: '15px', fontFamily: 'Oswald' }}
+                      dangerouslySetInnerHTML={{
+                        __html: item?.additionalInformation,
+                      }}
+                    ></div>
                     <br />
                   </div>
                 ))}
@@ -404,15 +413,23 @@ const TemplateFive = () => {
                       </p>
                       <div style={{ display: 'flex', gap: '5px' }}>
                         <p style={{ color: 'grey' }}>
-                          {moment(item?.startDate).format('MM/YYYY') + ' - '}
+                          {item.startDate.length === 0
+                            ? 'Startdato -'
+                            : moment(item?.startDate).format('MM/YYYY') + ' - '}
                         </p>
                         <p style={{ color: 'grey' }}>
-                          {item.toggle
-                            ? 'dags dato'
-                            : moment(item?.endDate).format('MM/YYYY')}
+                        {item.toggle
+                        ? 'dags dato'
+                        : item.endDate.length === 0
+                        ? ' Sluttdato'
+                        : moment(item?.endDate).format('YYYY-MM')}
                         </p>
                       </div>
-                      <p>{item?.additionalInformation}</p>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: item?.additionalInformation,
+                        }}
+                      ></p>
                       <br />
                     </div>
                   ))}
@@ -455,16 +472,21 @@ const TemplateFive = () => {
                     </p>
                     <div style={{ display: 'flex', gap: '5px' }}>
                       <p style={{ color: 'grey' }}>
-                        {moment(item?.startDate).format('MM/YYYY') + ' - '}
+                        {item.startDate.length === 0
+                          ? 'Startdato -'
+                          : moment(item?.startDate).format('MM/YYYY') + ' - '}
                       </p>
                       <p style={{ color: 'grey' }}>
-                        {item.toggle
-                          ? 'dags dato'
-                          : moment(item?.endDate).format('MM/YYYY')}
+                      {item.toggle
+                        ? 'dags dato'
+                        : item.endDate.length === 0
+                        ? ' Sluttdato'
+                        : moment(item?.endDate).format('YYYY-MM')}
                       </p>
                     </div>
 
                     <div
+                      style={{ fontSize: '15px', fontFamily: 'Oswald' }}
                       dangerouslySetInnerHTML={{
                         __html: item?.additionalInformation,
                       }}

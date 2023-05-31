@@ -8,6 +8,7 @@ import moment from "moment";
 import {
   Education_DATA,
   Experiance_Data,
+  getInternships,
 } from "../../Redux/reducers/CvGeneratorReducer";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {

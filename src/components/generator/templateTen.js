@@ -88,7 +88,7 @@ const TemplateTen = () => {
               : pageWidth === true
               ? '95%'
               : '95%',
-          height: 'inherit',
+          minHeight: '1030px',
           margin: displayTemplate === true ? '0px' : '10px',
           padding: displayTemplate === true ? '0px' : '10px',
         }}
@@ -148,7 +148,9 @@ const TemplateTen = () => {
               <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying'>
                 <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head'>
                   {item.startDate === '' ? (
-                    <span>Startdato - sluttdato</span>
+                    <span style={{ fontFamily: 'Myriad Pro' }}>
+                      Startdato - sluttdato
+                    </span>
                   ) : (
                     <div
                       style={{
@@ -171,11 +173,19 @@ const TemplateTen = () => {
                     <h4 style={{ fontFamily: 'Myriad Pro' }}>
                       {item?.study + ', ' + item?.school}
                     </h4>
-                   <div
-                    dangerouslySetInnerHTML={{
-                      __html: item?.additionalInformation,
-                    }}
-                  ></div>
+                    <div
+                      style={{
+                        fontFamily: 'Myriad Pro',
+                        fontSize: '14px',
+                        color: 'black',
+                        wordBreak: 'break-all',
+                        textAlign: 'left',
+                        fontWeight: '400',
+                      }}
+                      dangerouslySetInnerHTML={{
+                        __html: item?.additionalInformation,
+                      }}
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -216,10 +226,18 @@ const TemplateTen = () => {
                       {item?.jobTitle} {', ' + item?.employer}
                     </h4>
                     <div
-                    dangerouslySetInnerHTML={{
-                      __html: item?.additionalInformation,
-                    }}
-                  ></div>
+                      style={{
+                        fontFamily: 'Myriad Pro',
+                        fontSize: '14px',
+                        color: 'black',
+                        wordBreak: 'break-all',
+                        textAlign: 'left',
+                        fontWeight: '400',
+                      }}
+                      dangerouslySetInnerHTML={{
+                        __html: item?.additionalInformation,
+                      }}
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -259,8 +277,13 @@ const TemplateTen = () => {
                       <h4 style={{ fontFamily: 'Myriad Pro' }}>
                         {item?.jobTitle} {', ' + item?.employer}{' '}
                       </h4>
-                      <p style={{ fontFamily: 'Myriad Pro' }}>
-                        {item?.additionalInformation}
+                      <p
+                        style={{ fontFamily: 'Myriad Pro' }}
+                        dangerouslySetInnerHTML={{
+                          __html: item?.additionalInformation,
+                        }}
+                      >
+                        {/* {item?.additionalInformation} */}
                       </p>
                     </div>
                   </div>
@@ -269,42 +292,11 @@ const TemplateTen = () => {
             </div>
           ) : null}
 
-          <div className='templateten-container-headingwrapper-mainheading'>
-            <div className='templateten-container-headingwrapper-mainheading-borderdiv'>
-              <h1>Annet</h1>
-            </div>
-            <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying'>
-              <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head'>
-                <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-heading'>
-                  <span
-                    style={{
-                      fontSize: '16px',
-                      fontFamily: 'Myriad Pro',
-                      justifyContent: 'flex-start',
-                    }}
-                  >
-                    Språk
-                  </span>
-                </div>
-
-                <div className='divsetlangandcourse'>
-                  {languages?.map((item) => (
-                    <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-right'>
-                      <h4
-                        style={{
-                          fontFamily: 'Myriad Pro',
-                          fontWeight: 500,
-                          fontSize: '14px',
-                        }}
-                      >
-                        {item?.name} {item?.value}
-                      </h4>
-                    </div>
-                  ))}
-                </div>
+          <div>
+            <div className='templateten-container-headingwrapper-mainheading'>
+              <div className='templateten-container-headingwrapper-mainheading-borderdiv'>
+                <h1>Annet</h1>
               </div>
-            </div>
-            {accordiansEnabled.Kurs === true ? (
               <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying'>
                 <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head'>
                   <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-heading'>
@@ -312,17 +304,16 @@ const TemplateTen = () => {
                       style={{
                         fontSize: '16px',
                         fontFamily: 'Myriad Pro',
+                        justifyContent: 'flex-start',
                       }}
                     >
-                      Kurs
+                      Språk
                     </span>
                   </div>
+
                   <div className='divsetlangandcourse'>
-                    {courses?.map((item, index) => (
-                      <div
-                        key={index}
-                        className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-right'
-                      >
+                    {languages?.map((item) => (
+                      <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-right'>
                         <h4
                           style={{
                             fontFamily: 'Myriad Pro',
@@ -330,127 +321,167 @@ const TemplateTen = () => {
                             fontSize: '14px',
                           }}
                         >
-                          {item?.name}
+                          {item?.name} {item?.value}
                         </h4>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
-            ) : null}
-
-            <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying'>
-              <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head'>
-                <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-heading'>
-                  <span style={{ fontSize: '16px', fontFamily: 'Myriad Pro' }}>
-                    Ferdigheter
-                  </span>
-                </div>
-                <div className='divsetlangandcourse'>
-                  <p>
-                    {properties?.map((item, index) => (
-                      <span style={{ fontSize: '14px' }} key={index}>
-                        {index === properties.length - 1
-                          ? item.name + ' .'
-                          : item.name + ', '}
-                      </span>
-                    ))}
-                  </p>
-                </div>
-              </div>
-            </div>
-            {accordiansEnabled.Hobbyer === true ? (
-              <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head'>
-                <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-heading'>
-                  <span style={{ fontSize: '16px', fontFamily: 'Myriad Pro' }}>
-                    Hobby
-                  </span>
-                </div>
-                <div className='divsetlangandcourse'>
-                  <p>
-                    {hobbies?.map((item, index) => (
-                      <span style={{ fontSize: '14px' }} key={index}>
-                        {index === hobbies.length - 1
-                          ? item.name + ' .'
-                          : item.name + ', '}
-                      </span>
-                    ))}
-                  </p>
-                </div>
-              </div>
-            ) : null}
-            {cvData.drivingLicense === '' ? null : (
-              // <div className="templateten-container-headingwrapper-mainheading-borderdiv-studying">
-              //   <div className="templateten-container-headingwrapper-mainheading-borderdiv-studying-head">
-              //     <div className="templateten-container-headingwrapper-mainheading-borderdiv-studying-head-heading">
-              //       <p
-              //         style={{
-              //           fontSize: "16px",
-              //           fontFamily: "Myriad Pro",
-              //         }}
-              //       >
-              //         Førerkort
-              //       </p>
-              //     </div>
-              //     <div className="divsetlangandcourse">
-              //       <p>{cvData.drivingLicense}</p>
-              //     </div>
-              //   </div>
-              // </div>
-
-              <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head'>
-                <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-heading'>
-                  <span style={{ fontSize: '16px', fontFamily: 'Myriad Pro' }}>
-                    Førerkort
-                  </span>
-                </div>
-                <div className='divsetlangandcourse'>
-                  <p>{cvData.drivingLicense}</p>
-                </div>
-              </div>
-            )}
-          </div>
-          {accordiansEnabled.Referanser === true ? (
-            <div className='templateten-container-headingwrapper-mainheading'>
-              <div className='templateten-container-headingwrapper-mainheading-borderdiv'>
-                <h1>Referanser</h1>
-              </div>
-
-              {toggleData ? (
+              {accordiansEnabled.Kurs === true ? (
                 <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying'>
-                  <span>Oppgis ved forespørsel</span>
-                </div>
-              ) : (
-                <>
-                  {refrence?.map((item, index) => (
-                    <div
-                      key={index}
-                      className='templateten-container-headingwrapper-mainheading-borderdiv-studying'
-                    >
-                      <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head'>
-                        <span
-                          style={{
-                            fontSize: '16px',
-                            fontFamily: 'Myriad Pro',
-                            width: '120px',
-                          }}
+                  <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head'>
+                    <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-heading'>
+                      <span
+                        style={{
+                          fontSize: '16px',
+                          fontFamily: 'Myriad Pro',
+                        }}
+                      >
+                        Kurs
+                      </span>
+                    </div>
+                    <div className='divsetlangandcourse'>
+                      {courses?.map((item, index) => (
+                        <div
+                          key={index}
+                          className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-right'
                         >
-                          {item?.name}
-                        </span>
-                        <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-right'>
-                          <h4 style={{ fontFamily: 'Myriad-Pro-Light' }}>
-                            {item.email !== ''
-                              ? item?.companyName + ', ' + item?.email
-                              : item?.companyName}
+                          <h4
+                            style={{
+                              fontFamily: 'Myriad Pro',
+                              fontWeight: 500,
+                              fontSize: '14px',
+                            }}
+                          >
+                            {item?.name}
                           </h4>
                         </div>
-                      </div>
+                      ))}
                     </div>
-                  ))}
-                </>
+                  </div>
+                </div>
+              ) : null}
+
+              <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying'>
+                <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head'>
+                  <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-heading'>
+                    <span
+                      style={{ fontSize: '16px', fontFamily: 'Myriad Pro' }}
+                    >
+                      Ferdigheter
+                    </span>
+                  </div>
+                  <div className='divsetlangandcourse'>
+                    <p>
+                      {properties?.map((item, index) => (
+                        <span style={{ fontSize: '14px' }} key={index}>
+                          {index === properties.length - 1
+                            ? item.name + ' .'
+                            : item.name + ', '}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {accordiansEnabled.Hobbyer === true ? (
+                <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head'>
+                  <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-heading'>
+                    <span
+                      style={{ fontSize: '16px', fontFamily: 'Myriad Pro' }}
+                    >
+                      Hobby
+                    </span>
+                  </div>
+                  <div className='divsetlangandcourse'>
+                    <p>
+                      {hobbies?.map((item, index) => (
+                        <span style={{ fontSize: '14px' }} key={index}>
+                          {index === hobbies.length - 1
+                            ? item.name + ' .'
+                            : item.name + ', '}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                </div>
+              ) : null}
+              {cvData.drivingLicense === '' ? null : (
+                // <div className="templateten-container-headingwrapper-mainheading-borderdiv-studying">
+                //   <div className="templateten-container-headingwrapper-mainheading-borderdiv-studying-head">
+                //     <div className="templateten-container-headingwrapper-mainheading-borderdiv-studying-head-heading">
+                //       <p
+                //         style={{
+                //           fontSize: "16px",
+                //           fontFamily: "Myriad Pro",
+                //         }}
+                //       >
+                //         Førerkort
+                //       </p>
+                //     </div>
+                //     <div className="divsetlangandcourse">
+                //       <p>{cvData.drivingLicense}</p>
+                //     </div>
+                //   </div>
+                // </div>
+
+                <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head'>
+                  <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-heading'>
+                    <span
+                      style={{ fontSize: '16px', fontFamily: 'Myriad Pro' }}
+                    >
+                      Førerkort
+                    </span>
+                  </div>
+                  <div className='divsetlangandcourse'>
+                    <p>{cvData.drivingLicense}</p>
+                  </div>
+                </div>
               )}
             </div>
-          ) : null}
+            {accordiansEnabled.Referanser === true ? (
+              <div className='templateten-container-headingwrapper-mainheading'>
+                <div className='templateten-container-headingwrapper-mainheading-borderdiv'>
+                  <h1>Referanser</h1>
+                </div>
+
+                {toggleData ? (
+                  <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying'>
+                    <span>Oppgis ved forespørsel</span>
+                  </div>
+                ) : (
+                  <>
+                    {refrence?.map((item, index) => (
+                      <div
+                        key={index}
+                        className='templateten-container-headingwrapper-mainheading-borderdiv-studying'
+                      >
+                        <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head'>
+                          <span
+                            style={{
+                              fontSize: '16px',
+                              fontFamily: 'Myriad Pro',
+                              width: '120px',
+                            }}
+                          >
+                            {item?.name}
+                          </span>
+                          <div className='templateten-container-headingwrapper-mainheading-borderdiv-studying-head-right'>
+                            <h4 style={{ fontFamily: 'Myriad-Pro-Light' }}>
+                              {item.email !== ''
+                                ? item?.companyName + ', ' + item?.email
+                                : item?.companyName}
+                            </h4>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
       <div

@@ -33,36 +33,29 @@
         letter-spacing: 4px;
         font-size: 32px;
         font-weight: 600;
-  word-break: break-all
-
-        span {
+        word-break: break-all span {
           font-family: Calibri;
           letter-spacing: 4px;
           font-size: 32px;
           font-weight: 600;
           color: grey;
-  word-break: break-all
-
+          word-break: break-all;
         }
       }
-      
 
       span {
         font-family: Calibri;
         font-size: 32px;
         font-weight: 600;
-  word-break: break-all;
-  color: gray;
-  
-
+        word-break: break-all;
+        color: gray;
       }
 
       p {
         font-family: Calibri;
         font-size: 13px;
         font-weight: 500;
-  word-break: break-all
-
+        word-break: break-all;
       }
     }
   }
@@ -89,12 +82,11 @@
         font-weight: 600;
         position: relative;
         padding-bottom: 5px;
-  word-break: break-all
-
+        word-break: break-all;
       }
 
       h3::after {
-        content: "";
+        content: '';
         bottom: 0;
         background: rgb(237, 125, 49);
         width: 7%;
@@ -102,18 +94,16 @@
         position: absolute;
         display: block;
         left: 0%;
-  word-break: break-all
-
+        word-break: break-all;
       }
 
       p {
         font-family: Calibri;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 500;
         padding-bottom: 5px;
-        border-bottom: 1px solid;
-  word-break: break-all
-
+        // border-bottom: 1px solid;
+        word-break: break-all;
       }
     }
 
@@ -129,12 +119,11 @@
         font-weight: 600;
         position: relative;
         padding-bottom: 5px;
-  word-break: break-all
-
+        word-break: break-all;
       }
 
       h3::after {
-        content: "";
+        content: '';
         bottom: 0;
         background: rgb(237, 125, 49);
         width: 7%;
@@ -146,30 +135,29 @@
 
       h4 {
         font-family: Calibri;
-        font-size: 15px;
+        font-size: 12px;
         font-weight: 600;
-  word-break: break-all
-
+        word-break: break-all;
       }
 
       div {
         width: 100%;
         display: flex;
-        align-items: center;
         justify-content: space-between;
       }
 
-      h5 {
+      p {
+        // border-bottom: 1px solid;
         font-family: Calibri;
         font-size: 12px;
         font-weight: 500;
         padding-bottom: 5px;
-        border-bottom: 1px solid;
-  word-break: break-all
-
+        word-break: break-all;
       }
       span {
         font-family: Calibri;
+        font-size: 15px;
+        font-weight: 500;
       }
     }
   }
@@ -188,12 +176,11 @@
       font-weight: 600;
       position: relative;
       padding-bottom: 5px;
-  word-break: break-all
-
+      word-break: break-all;
     }
 
     h3::after {
-      content: "";
+      content: '';
       bottom: 0;
       background: rgb(237, 125, 49);
       width: 7%;
@@ -201,8 +188,7 @@
       position: absolute;
       display: block;
       left: 0%;
-  word-break: break-all
-
+      word-break: break-all;
     }
 
     &-leftside {
@@ -220,8 +206,7 @@
         padding-bottom: 5px;
         width: 30%;
         text-transform: uppercase;
-  word-break: break-all
-
+        word-break: break-all;
       }
 
       &-nameprogress {
@@ -234,8 +219,7 @@
           font-family: Calibri;
           font-size: 13px;
           // font-weight: 600;
-  word-break: break-all
-
+          word-break: break-all;
         }
 
         .progress-bar {
@@ -262,8 +246,7 @@
       width: 30%;
       border-left: 1px solid grey;
       font-family: Calibri;
-  word-break: break-all
-
+      word-break: break-all;
     }
   }
 }
@@ -276,7 +259,7 @@
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  word-break: break-all
+  word-break: break-all;
 }
 
 .studyingdiv {
