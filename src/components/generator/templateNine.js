@@ -26,6 +26,23 @@ import {
 import moment from 'moment'
 
 const TemplateNine = () => {
+  const [childHeight,setChildHeight]=useState(1055)
+  const [page,setPage]=useState(1)
+  var parentElement = document.getElementById('parent')?.offsetHeight;
+   useEffect(()=>{
+        if(parentElement>1055 && page!==2){
+          setChildHeight(childHeight+1055)
+          setPage(2)
+        }
+        else if(parentElement<=1055){
+          setChildHeight(1055)
+          setPage(1)
+        }
+        else{
+          setChildHeight(childHeight)
+        }
+   },[parentElement])
+
   let printButtonRef = useRef()
   const cvData = useSelector(CV_DATA)
   const toggleData = useSelector(getRefToggle)
@@ -87,6 +104,8 @@ const TemplateNine = () => {
         overflowWrap: 'break-word',
         flexDirection: 'column',
         marginTop: '0px',
+        paddingLeft: '10px',
+        paddingTop: '10px'
       }}
     >
       <div
@@ -98,14 +117,16 @@ const TemplateNine = () => {
               : pageWidth === true
               ? '95%'
               : '95%',
-          margin: displayTemplate === true ? '0px' : '10px',
+          margin: displayTemplate === true ? '0px' : '0px',
           // padding: displayTemplate === true ? "0px" : "10px",
         }}
         ref={(el) => (pdfComponent = el)}
         className='template-nine-container'
       >
-        <div className='template-nine-container-wrapper'>
-          <div className='template-nine-container-wrapper-leftside'>
+        <div className='template-nine-container-wrapper' id='parent'>
+          <div className='template-nine-container-wrapper-leftside'
+          style={{ minHeight: childHeight}}
+          >
             <div className='template-nine-container-wrapper-leftside-nameBox'>
               <h2>{cvData.firstName + ' ' + cvData.lastName}</h2>
               <h3>{cvData.jobTitle}</h3>

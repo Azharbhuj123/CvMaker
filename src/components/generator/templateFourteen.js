@@ -30,7 +30,24 @@ import {
   sendFileToBackend,
   sendPrintedDocument,
 } from '../../helper/helperFunctions'
+
 const TemplateFourteen = (props) => {
+  const [childHeight,setChildHeight]=useState(1055)
+  const [page,setPage]=useState(1)
+  var parentElement = document.getElementById('parent')?.offsetHeight;
+   useEffect(()=>{
+        if(parentElement>1085 && page!==2){
+          setChildHeight(childHeight+1055)
+          setPage(2)
+        }
+        else if(parentElement<=1055){
+          setChildHeight(1055)
+          setPage(1)
+        }
+        else{
+          setChildHeight(childHeight)
+        }
+   },[parentElement])
   console.log(props, 'props in 6')
   const [displayTemplate, setDisplayTemplate, pageWidth, setPageWidth] =
     useOutletContext()
@@ -112,6 +129,7 @@ const TemplateFourteen = (props) => {
           // padding: displayTemplate === true ? "0px" : "10px",
         }}
         className='template-fourteen-container'
+        id='parent'
       >
         <div className='template-fourteen-container-left'>
           <div className='template-fourteen-container-left-heading'>
@@ -313,7 +331,7 @@ const TemplateFourteen = (props) => {
 
         <div
           className='template-fourteen-container-right'
-          style={{ minHeight: '1055px' }}
+          style={{ minHeight: childHeight}}
         >
           <div className='template-fourteen-container-right-profile'>
             <div>

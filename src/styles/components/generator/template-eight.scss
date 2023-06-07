@@ -1,11 +1,12 @@
 .template-eight-container {
   width: 100%;
   display: flex;
-  height: fit-content;
+  // height: fit-content;
+  height: 100%;
   flex-direction: column;
   background-color: white;
-
   margin-top: 0rem;
+
   &-header {
     height: 15rem;
     width: 100%;

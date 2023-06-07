@@ -21,7 +21,47 @@ import ProgressBar from './progressBar'
 import EndreMaalButton from '../endreMaalButton/EndreMaalButton'
 import { sendFileToBackend } from '../../helper/helperFunctions'
 import { useState } from 'react'
+
 const TemplateEight = (props) => {
+  const storedChildHeight = localStorage.getItem('childHeight');
+  const [childHeight, setChildHeight] = useState(815);
+  const [page, setPage] = useState(1);
+  var parentElement = document.getElementById('parent')?.offsetHeight;
+
+  setTimeout(() => {
+    let updatedHeight = parentElement
+    let contentPosition = document.getElementById('parent').scrollHeight
+    console.log(updatedHeight, childHeight,contentPosition,"hhhhh");
+  }, 100);
+
+  // useEffect(() => {
+  //        localStorage.setItem('childHeight', childHeight);
+  //   if (parentElement > 1055 && page !== 2) {
+  //      setChildHeight(Number(childHeight) + 1055);
+  //      setPage(2);
+  //   } else if (parentElement <= 1055 && page == 2) {
+  //     setChildHeight(815);
+  //     setPage(1);
+  //   } else {
+  //     setChildHeight(childHeight);
+  //   }
+  // }, [parentElement]);
+ 
+  useEffect(()=>{
+    if(parentElement>1055 && page!==2){
+      setChildHeight(childHeight+1055)
+      setPage(2)
+    }
+    else if(parentElement==1055){
+      setChildHeight(815)
+      setPage(1)
+    }
+    else{
+      setChildHeight(childHeight)
+    }
+},[parentElement])
+console.log(parentElement,"oooooooooooooooooooooo")
+
   let pdfComponent = useRef()
   let printButtonRef = useRef()
   const [displayTemplate, setDisplayTemplate, pageWidth, setPageWidth] =
@@ -93,8 +133,11 @@ const TemplateEight = (props) => {
               ? '100%'
               : '100%',
         }}
-        ref={(el) => (pdfComponent = el)}
+        ref={(el) => (
+          pdfComponent = el
+  )}
         className='template-eight-container'
+        id="parent"
       >
         <div className='template-eight-container-header'>
           <div
@@ -116,9 +159,15 @@ const TemplateEight = (props) => {
           className='template-eight-container-content'
           style={{ height: 'inherit' }}
         >
+          {/* {console.log('Container Height', containerHeight )} */}
           <div
             className='template-eight-container-content-left'
-            style={{ minHeight: '815px' }}
+            // id="child"
+            style={{ minHeight: childHeight}}
+            //  ref={templateContentLeftRef}
+            //  style={{
+            //   minHeight: containerHeight > 1055 ? '1055px' : '815px',
+            // }}
           >
             <h1 className='template-eight-container-content-left-heading'>
               DETALJER
@@ -183,7 +232,10 @@ const TemplateEight = (props) => {
                       </>
                     ) : (
                       <p
-                        style={{ fontFamily: 'Roboto-Bold', fontWeight: '300' }}
+                        style={{
+                          fontFamily: 'Roboto-Bold',
+                          fontWeight: '300',
+                        }}
                         key={index}
                       >
                         {item?.name}
@@ -250,6 +302,7 @@ const TemplateEight = (props) => {
               </div>
             </div>
           </div>
+
           <div className='template-eight-container-content-right'>
             {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
               <>
@@ -267,8 +320,6 @@ const TemplateEight = (props) => {
                       __html: profileData,
                     }}
                   ></div>
-                 
-                  
                 </div>
               </>
             )}
@@ -426,6 +477,7 @@ const TemplateEight = (props) => {
           </div>
         </div>
       </div>
+
       <div
         style={{
           display: 'flex',

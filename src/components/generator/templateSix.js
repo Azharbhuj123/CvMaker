@@ -95,7 +95,8 @@ const TemplateSix = () => {
                 : pageWidth === true
                 ? '720px'
                 : '100%',
-            height: '100%',
+            // height: '100%',
+            minHeight: '1035px',
             margin: displayTemplate === true ? '10px' : '12px',
             padding: displayTemplate === true ? '10px' : '12px',
             display: 'block',
@@ -161,7 +162,6 @@ const TemplateSix = () => {
           )}
           <div
             className='template-six-container-content'
-            style={{ minHeight: '920px' }}
           >
             <div className='template-six-container-content-heading-box'>
               <div className='template-six-container-content-heading-box-leftSide'>
