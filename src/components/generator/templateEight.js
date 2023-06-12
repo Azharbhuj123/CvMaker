@@ -24,7 +24,7 @@ import { useState } from 'react'
 
 const TemplateEight = (props) => {
   const storedChildHeight = localStorage.getItem('childHeight');
-  const [childHeight, setChildHeight] = useState(815);
+  const [childHeight, setChildHeight] = useState(882);
   const [page, setPage] = useState(1);
   var parentElement = document.getElementById('parent')?.offsetHeight;
 
@@ -48,12 +48,12 @@ const TemplateEight = (props) => {
   // }, [parentElement]);
  
   useEffect(()=>{
-    if(parentElement>1055 && page!==2){
-      setChildHeight(childHeight+1055)
+    if(parentElement>1122 && page!==2){
+      setChildHeight(childHeight+1122)
       setPage(2)
     }
-    else if(parentElement==1055){
-      setChildHeight(815)
+    else if(parentElement==1122){
+      setChildHeight(882)
       setPage(1)
     }
     else{
@@ -525,6 +525,7 @@ console.log(parentElement,"oooooooooooooooooooooo")
                 border: '1px solid #F6F3F1',
                 backgroundColor: '#eeb856',
                 margin: '10px',
+                cursor: 'pointer',
               }}
             >
               Last ned CV

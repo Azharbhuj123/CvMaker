@@ -165,7 +165,7 @@ export const sendFileToBackend = async (input, email, mobileScreenFlag) => {
       image: { type: 'png', quality: 0.98 },
       enableLinks: true,
       html2canvas: {
-        scale: 2,
+        scale: window.devicePixelRatio,
         removeContainer: true,
         dpi: 92,
         putOnlyUsedFonts: true,

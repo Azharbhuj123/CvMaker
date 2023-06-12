@@ -32,16 +32,16 @@ import {
 } from '../../helper/helperFunctions'
 
 const TemplateFourteen = (props) => {
-  const [childHeight,setChildHeight]=useState(1055)
+  const [childHeight,setChildHeight]=useState(1122)
   const [page,setPage]=useState(1)
   var parentElement = document.getElementById('parent')?.offsetHeight;
    useEffect(()=>{
-        if(parentElement>1085 && page!==2){
-          setChildHeight(childHeight+1055)
+        if(parentElement>1122 && page!==2){
+          setChildHeight(childHeight+1121)
           setPage(2)
         }
-        else if(parentElement<=1055){
-          setChildHeight(1055)
+        else if(parentElement<=1122){
+          setChildHeight(1122)
           setPage(1)
         }
         else{
@@ -556,6 +556,7 @@ const TemplateFourteen = (props) => {
                 border: '1px solid #F6F3F1',
                 backgroundColor: '#eeb856',
                 margin: '10px',
+                cursor: 'pointer',
               }}
             >
               Last ned CV
