@@ -100,12 +100,12 @@ const TemplateNine = () => {
             : pageWidth === true
             ? '100%'
             : '100%',
-        alignItems: 'center',
+        alignItems: 'center',                                
         overflowWrap: 'break-word',
         flexDirection: 'column',
-        marginTop: '0px',
-        paddingLeft: '10px',
-        paddingTop: '10px'
+        margin: '10px',
+        padding: '10px',
+        padding: '10px'
       }}
     >
       <div
@@ -115,8 +115,8 @@ const TemplateNine = () => {
             displayTemplate === true
               ? '928px'
               : pageWidth === true
-              ? '95%'
-              : '95%',
+              ? '100%'
+              : '100%',
           margin: displayTemplate === true ? '0px' : '0px',
           // padding: displayTemplate === true ? "0px" : "10px",
         }}

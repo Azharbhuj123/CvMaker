@@ -75,13 +75,15 @@ const TemplateSix = () => {
     <div
       style={{
         // width: displayTemplate === true ? "100%" : pageWidth === true ? "100%" : "95%",
-        width: '95%',
+        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         overflowWrap: 'break-word',
         flexDirection: 'column',
         height: '96%',
-        marginTop: '10px',
+        // marginTop: '10px',
+        margin: '10px',
+        padding: '10px'
       }}
     >
       <div className='template-six-container' style={{ height: 'inherit' }}>

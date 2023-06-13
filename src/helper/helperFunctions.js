@@ -27,6 +27,7 @@ export const sendFileToBackend = async (input, email, mobileScreenFlag) => {
         format: 'a4',
         orientation: 'portrait',
         compress: true,
+        // margin: [0.104, 0.104, 0.104, 0.104]
       },
       // pagebreak: { mode: ["avoid-all", "css", "legacy"] },
     }

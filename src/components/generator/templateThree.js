@@ -81,13 +81,15 @@ const TemplateThree = () => {
           displayTemplate === true
             ? '928px'
             : pageWidth === true
-            ? '95%'
-            : '95% ',
+            ? '100%'
+            : '100% ',
         alignItems: 'center',
         overflowWrap: 'break-word',
         // paddingLeft: "10px",
         flexDirection: 'column',
         height: '100%',
+        padding: '10px',
+        margin: '10px'
       }}
     >
       <div
@@ -101,8 +103,8 @@ const TemplateThree = () => {
               ? '100%'
               : '100%',
           height: 'inherit',
-          margin: displayTemplate === true ? '0px' : '10px',
-          padding: displayTemplate === true ? '0px' : '10px',
+          // margin: displayTemplate === true ? '0px' : '10px',
+          // padding: displayTemplate === true ? '0px' : '10px',
         }}
         className='template-three-container'
       >

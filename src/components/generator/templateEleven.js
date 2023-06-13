@@ -82,13 +82,15 @@ const TemplateEleven = () => {
           displayTemplate === true
             ? '928px'
             : pageWidth === true
-            ? '95%'
-            : '95%',
+            ? '100%'
+            : '100%',
         alignItems: 'center',
         overflowWrap: 'break-word',
         flexDirection: 'column',
-        marginTop: '10px',
+        // marginTop: '10px',
         height: '100%',
+        margin: '10px',
+        padding: '10px'
       }}
     >
       <div

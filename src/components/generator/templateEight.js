@@ -113,12 +113,13 @@ console.log(parentElement,"oooooooooooooooooooooo")
     <div
       style={{
         display: 'flex',
-        width: '90%',
+        width: '100%',
         alignItems: 'center',
         overflowWrap: 'break-word',
         flexDirection: 'column',
         marginTop: '10px',
         paddingLeft: '10px',
+        paddingRight: '10px',
         height: '100%',
       }}
     >

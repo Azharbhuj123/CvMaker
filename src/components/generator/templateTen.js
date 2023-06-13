@@ -75,8 +75,10 @@ const TemplateTen = () => {
         alignItems: 'center',
         overflowWrap: 'break-word',
         flexDirection: 'column',
-        marginTop: '10px',
+        // marginTop: '10px',
         height: '100%',
+        margin: '10px',
+        padding: '10px',
       }}
     >
       <div
@@ -86,8 +88,8 @@ const TemplateTen = () => {
             displayTemplate === true
               ? '928px'
               : pageWidth === true
-              ? '95%'
-              : '95%',
+              ? '100%'
+              : '100%',
           minHeight: '1030px',
           margin: displayTemplate === true ? '0px' : '10px',
           padding: displayTemplate === true ? '0px' : '10px',

@@ -125,6 +125,8 @@ const TemplateFive = () => {
         overflowWrap: 'break-word',
         flexDirection: 'column',
         height: '100%',
+        margin: '10px',
+        padding: '10px',
       }}
       onClick={() => console.log(screenShot, '<==========  screenShot')}
     >
@@ -138,8 +140,8 @@ const TemplateFive = () => {
             displayTemplate === true
               ? '928px'
               : pageWidth === true
-              ? '95%'
-              : '95%',
+              ? '100%'
+              : '100%',
           margin: displayTemplate === true ? '0px' : '10px',
           padding: displayTemplate === true ? '0px' : '10px',
         }}
@@ -358,11 +360,11 @@ const TemplateFive = () => {
                           : moment(item?.startDate).format('MM/YYYY') + ' - '}
                       </p>
                       <p style={{ color: 'grey' }}>
-                      {item.toggle
-                        ? 'dags dato'
-                        : item.endDate.length === 0
-                        ? ' Sluttdato'
-                        : moment(item?.endDate).format('YYYY-MM')}
+                        {item.toggle
+                          ? 'dags dato'
+                          : item.endDate.length === 0
+                          ? ' Sluttdato'
+                          : moment(item?.endDate).format('YYYY-MM')}
                       </p>
                     </div>
 
@@ -418,11 +420,11 @@ const TemplateFive = () => {
                             : moment(item?.startDate).format('MM/YYYY') + ' - '}
                         </p>
                         <p style={{ color: 'grey' }}>
-                        {item.toggle
-                        ? 'dags dato'
-                        : item.endDate.length === 0
-                        ? ' Sluttdato'
-                        : moment(item?.endDate).format('YYYY-MM')}
+                          {item.toggle
+                            ? 'dags dato'
+                            : item.endDate.length === 0
+                            ? ' Sluttdato'
+                            : moment(item?.endDate).format('YYYY-MM')}
                         </p>
                       </div>
                       <p
@@ -477,11 +479,11 @@ const TemplateFive = () => {
                           : moment(item?.startDate).format('MM/YYYY') + ' - '}
                       </p>
                       <p style={{ color: 'grey' }}>
-                      {item.toggle
-                        ? 'dags dato'
-                        : item.endDate.length === 0
-                        ? ' Sluttdato'
-                        : moment(item?.endDate).format('YYYY-MM')}
+                        {item.toggle
+                          ? 'dags dato'
+                          : item.endDate.length === 0
+                          ? ' Sluttdato'
+                          : moment(item?.endDate).format('YYYY-MM')}
                       </p>
                     </div>
 
