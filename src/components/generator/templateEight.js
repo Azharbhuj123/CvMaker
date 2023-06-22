@@ -62,7 +62,6 @@ const TemplateEight = (props) => {
   const courses = useSelector(coursesData)
   const lanuages = useSelector(languageData)
   const toggleData = useSelector(getRefToggle)
-  const [clicked, setIsClicked] = useState(false)
   const { ProfilText } = props
   // if (displayTemplate && displayTemplate === true ) {
   //   console.log(
@@ -78,7 +77,6 @@ const TemplateEight = (props) => {
       displayTemplate
     )
   }
-  console.log("test")
 
   useEffect(() => {
     console.log('re render!!!', docRef.current)
@@ -115,12 +113,6 @@ const TemplateEight = (props) => {
     document: {
       width: '100%',
       height: '100vh',
-    },
-    documentViewer:{
-      width: '100%',
-      height: '100vh',
-      // position: 'absolute',
-      // zIndex: '9',
     },
     // templateEight: {
     //   display: 'flex',
@@ -220,9 +212,6 @@ const TemplateEight = (props) => {
       textAlign: 'left',
       width: ' 80%',
       marginTop: 5,
-    },
-    documentHide: {
-      display: 'none',
     },
     skillSectionContentLine: {
       width: '95%',
@@ -337,7 +326,7 @@ const TemplateEight = (props) => {
   })
 
   const DataToRender = () => (
-    <Document style={clicked ? styles.document : styles.documentHide}>
+    <Document style={styles.document}>
       <Page size='A4' style={styles.page}>
         {/* <View>
         {' '}
@@ -694,9 +683,6 @@ const TemplateEight = (props) => {
       </div>
       <div>
         <PDFDownloadLink
-          onClick={() => {
-            setIsClicked(true)
-          }}
           document={
             <DataToRender
               style={{
@@ -712,24 +698,6 @@ const TemplateEight = (props) => {
             error ? 'Loading document...' : 'Download now!'
           }
         </PDFDownloadLink>
-        <Text onClick={() => setIsChecked(true)}>Preview</Text>
-
-        {clicked && (
-          <View
-          // style={{height:"100%",width:"100%",padding:"20px"}}
-          >
-            <Text
-              onClick={() => {
-                setIsClicked(false)
-              }}
-            >
-              close
-            </Text>
-            <PDFViewer style={styles.documentViewer}>
-              <DataToRender />
-            </PDFViewer>
-          </View>
-        )}
       </div>
     </>
   )
