@@ -78,6 +78,7 @@ const TemplateEight = (props) => {
       displayTemplate
     )
   }
+  console.log("test")
 
   useEffect(() => {
     console.log('re render!!!', docRef.current)
