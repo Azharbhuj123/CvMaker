@@ -24,25 +24,23 @@ import {
   sendPrintedDocument,
 } from '../../helper/helperFunctions'
 import moment from 'moment'
+import TimesNewRomanRegular from '../../assests/fonts/Times New Roman/timesnewroman.ttf'
+import TimesNewRomanBold from '../../assests/fonts/Times New Roman/timesnewromanbold.ttf'
+import CalibriRegular from '../../assests/fonts/Calibri-Font/Calibri/Calibri.ttf'
+import CalibriBold from '../../assests/fonts/Calibri-Font/Calibri/calibrib.ttf'
+import {
+  Document,
+  PDFDownloadLink,
+  PDFViewer,
+  Page,
+  Text,
+  View,
+  Font,
+  StyleSheet,
+} from '@react-pdf/renderer'
+import Html from 'react-pdf-html'
 
 const TemplateNine = () => {
-  const [childHeight,setChildHeight]=useState(1122)
-  const [page,setPage]=useState(1)
-  var parentElement = document.getElementById('parent')?.offsetHeight;
-   useEffect(()=>{
-        if(parentElement>1122 && page!==2){
-          setChildHeight(childHeight+1122)
-          setPage(2)
-        }
-        else if(parentElement<=1122){
-          setChildHeight(1122)
-          setPage(1)
-        }
-        else{
-          setChildHeight(childHeight)
-        }
-   },[parentElement])
-
   let printButtonRef = useRef()
   const cvData = useSelector(CV_DATA)
   const toggleData = useSelector(getRefToggle)
@@ -91,305 +89,462 @@ const TemplateNine = () => {
       printButtonRef.current.click()
     }
   }, [displayTemplate])
-  return (
-    <div
-      style={{
-        width:
-          displayTemplate === true
-            ? '928px'
-            : pageWidth === true
-            ? '100%'
-            : '100%',
-        alignItems: 'center',                                
-        overflowWrap: 'break-word',
-        flexDirection: 'column',
-        margin: '10px',
-        padding: '10px',
-        padding: '10px'
-      }}
-    >
-      <div
-        style={{
-          display: 'block',
-          width:
-            displayTemplate === true
-              ? '928px'
-              : pageWidth === true
-              ? '100%'
-              : '100%',
-          margin: displayTemplate === true ? '0px' : '0px',
-          // padding: displayTemplate === true ? "0px" : "10px",
-        }}
-        ref={(el) => (pdfComponent = el)}
-        className='template-nine-container'
-      >
-        <div className='template-nine-container-wrapper' id='parent'>
-          <div className='template-nine-container-wrapper-leftside'
-          style={{ minHeight: childHeight}}
-          >
-            <div className='template-nine-container-wrapper-leftside-nameBox'>
-              <h2>{cvData.firstName + ' ' + cvData.lastName}</h2>
-              <h3>{cvData.jobTitle}</h3>
-            </div>
-            <div className='template-nine-container-wrapper-leftside-heading'>
-              <div className='template-nine-container-wrapper-leftside-heading-head'>
-                <h1>Detaljer</h1>
-                <h2>ADRESSE</h2>
-                <span> {cvData?.physicalAddress}</span>
-              </div>
-              <div className='template-nine-container-wrapper-leftside-heading-head'>
-                <h2>Telefon</h2>
-                <span> {cvData?.phone}</span>
-                <h2>E-post</h2>
-                <span>{cvData?.email}</span>
-                <h2>Fødselsdato</h2>
-                <span>{moment(cvData?.DOB).format('DD,MM,YYYY')}</span>
-                <h2>Postnummer </h2>
-                <span>{cvData?.zipCode}</span>
-                {cvData.drivingLicense !== '' ? (
-                  <>
-                    <h2> Førerkort</h2>
-                    <span>{cvData?.drivingLicense}</span>
-                  </>
-                ) : null}
-              </div>
-            </div>
-            <div className='template-nine-container-wrapper-leftside-progress'>
-              <h1>Ferdigheter</h1>
-              <p> </p>
-              {progressData.map((item, index) => {
+
+  Font.register({
+    family: 'Times New Roman',
+    fonts: [{ src: TimesNewRomanRegular }, { src: TimesNewRomanBold }],
+  })
+
+  Font.register({
+    family: 'Calibri',
+    fonts: [{ src: CalibriRegular }, { src: CalibriBold }],
+  })
+
+  const styles = StyleSheet.create({
+    page: {
+      flexDirection: 'row',
+    },
+    document: {
+      width: '100%',
+      height: '100vh',
+    },
+    pageLeftSection: {
+      backgroundColor: '#203864',
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'relative',
+      width: '30%',
+      color: 'white',
+      // fontFamily: 'Times New Roman',
+    },
+    titleBox: {
+      width: '100%',
+      color: 'white',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
+      marginTop: 32,
+      marginBottom: 16,
+      gap: 10,
+    },
+    titleBoxTitle: {
+      textAlign: 'center',
+      fontFamily: 'Times New Roman',
+      fontSize: 18,
+      marginBlockStart: 18,
+      marginBlockEnd: 18,
+      marginInlineStart: 0,
+      marginInlineEnd: 0,
+      fontWeight: 'bold',
+    },
+    titleBoxSubitle: {
+      textAlign: 'center',
+      fontFamily: 'Times New Roman',
+      fontSize: 14,
+      marginBlockStart: 16,
+      marginBlockEnd: 16,
+      marginInlineStart: 0,
+      marginInlineEnd: 0,
+      fontWeight: 700,
+    },
+    detailSection: {
+      width: '70%',
+      display: 'flex',
+      flexDirection: 'column',
+      padding: 5,
+      gap: 14,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      paddingLeft: 5,
+    },
+    detail: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      alignItems: 'flex-start',
+      flexWrap: 'wrap',
+      wordBreak: 'break-all',
+      paddingLeft: 10,
+    },
+    detailTitle: {
+      fontFamily: 'Times New Roman',
+      fontWeight: 900,
+      fontSize: 20,
+      position: 'relative',
+      paddingBottom: 5,
+      textDecoration: 'none',
+    },
+    addressTitle: {
+      fontFamily: 'Times New Roman',
+      fontWeight: 900,
+      fontSize: 14,
+      paddingVertical: 10,
+      paddingHorizontal: 0,
+    },
+    addressText: {
+      fontFamily: 'Calibri',
+      fontSize: 12,
+    },
+    skillSection: {
+      display: 'flex',
+      width: '80%',
+      flexdirection: 'column',
+      textAlign: 'left',
+      gap: 2,
+      color: 'white',
+      paddingVertical: 20,
+      paddingHorizontal: 0,
+      marginLeft: 10,
+    },
+    skillTitle: {
+      fontFamily: 'Times New Roman',
+      fontSize: 20,
+      fontWeight: 700,
+      textDecoration: 'none',
+      width: '100%',
+    },
+    skillProgressBar: {
+      marginTop: 14,
+    },
+    skillProgressBarText: {
+      fontFamily: 'Calibri',
+      fontSize: 14,
+      fontWeight: 900,
+    },
+    skillProgressBarLine: {
+      backgroundColor: 'rgb(59, 88, 141)',
+      height: 1,
+      width: '95%',
+      marginTop: 8,
+    },
+    skillProgressBarLineWrapper: {
+      paddingTop: 10,
+      fontFamily: 'Calibri',
+      fontSize: 14,
+      color: 'white',
+      fontWeight: 700,
+    },
+    languageSection: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      alignItems: 'flex-start',
+      flexWrap: 'wrap',
+      wordbreak: 'break-all',
+      paddingLeft: 10,
+    },
+    languageTitle: {
+      fontFamily: 'Times New Roman',
+      fontSize: 20,
+      fontWeight: 700,
+      color: 'white',
+      paddingVertical: 10,
+      paddingHorizontal: 0,
+    },
+    languageText: {
+      fontFamily: 'Calibri',
+      fontSize: 12,
+      color: 'white',
+    },
+    pageRightSection: {
+      width: '70%',
+      padding: 12,
+    },
+    profileSectionWrapper: {
+      display: 'flex',
+      width: '90%',
+    },
+    profileTitle: {
+      fontFamily: 'Times New Roman',
+      fontSize: 20,
+      color: 'black',
+      fontWeight: 'bold',
+      position: 'relative',
+      paddingBottom: 5,
+      textDecoration: 'none',
+    },
+    profilePara: {
+      fontFamily: 'Calibri',
+      fontSize: 14,
+      color: 'black',
+      fontWeight: 700,
+      wordBreak: 'break-all',
+    },
+    experienceSectionWrapper: {
+      display: 'flex',
+      width: '90%',
+      marginTop: 12,
+    },
+    experienceFrom: {
+      fontFamily: 'Calibri',
+      fontSize: 14,
+      fontWeight: 700,
+      color: 'black',
+      wordBreak: 'break-all',
+    },
+    experienceDate: {
+      fontFamily: 'Calibri',
+      fontSize: 14,
+      fontWeight: 700,
+      marginBottom: 8,
+      wordBreak: 'break-all',
+      color: 'gray',
+    },
+    referenceText: {
+      fontFamily: 'Calibri',
+      fontSize: 14,
+      color: 'black',
+      fontWeight: 900,
+      wordBreak: 'break-all',
+      marginTop: 8,
+    },
+  })
+
+  const DataToRender = () => (
+    <Document style={styles.document}>
+      <Page size='A4' style={styles.page}>
+        <View style={styles.pageLeftSection}>
+          <View style={styles.titleBox}>
+            <Text style={styles.titleBoxTitle}>
+              {cvData.firstName + ' ' + cvData.lastName}
+            </Text>
+            <Text style={styles.titleBoxSubitle}>{cvData.jobTitle}</Text>
+          </View>
+
+          <View style={styles.detailSection}>
+            <View style={styles.detail}>
+              <Text style={styles.detailTitle}>Detaljer</Text>
+              <Text style={styles.addressTitle}>ADRESSE</Text>
+              <Text style={styles.addressText}>{cvData?.physicalAddress}</Text>
+              {/* </View>
+
+            <View style={styles.detail}> */}
+              <Text style={styles.addressTitle}>Telefon</Text>
+              <Text style={styles.addressText}>{cvData?.phone}</Text>
+
+              <Text style={styles.addressTitle}>E-post</Text>
+              <Text style={styles.addressText}>{cvData?.email}</Text>
+
+              <Text style={styles.addressTitle}>Fødselsdato</Text>
+              <Text style={styles.addressText}>
+                {moment(cvData?.DOB).format('DD,MM,YYYY')}
+              </Text>
+
+              <Text style={styles.addressTitle}>Postnummer</Text>
+              <Text style={styles.addressText}>{cvData?.zipCode}</Text>
+              {cvData.drivingLicense !== '' ? (
+                <>
+                  <Text style={styles.addressTitle}> Førerkort </Text>
+                  <Text style={styles.addressText}>liscence</Text>
+                </>
+              ) : null}
+            </View>
+          </View>
+
+          <View style={styles.skillSection}>
+            <Text style={styles.skillTitle}>Ferdigheter</Text>
+            {progressData.map((item, index) => {
+              return (
+                <View style={styles.skillProgressBar} key={index}>
+                  {cvData?.displayProgressBar === true ? (
+                    <ProgressBar
+                      height={'1px'}
+                      title={item?.name}
+                      backgroundcolor='#ffffff'
+                      color='#ffffff'
+                      percentage={item.value}
+                      wrapperColor='#3b588d'
+                    />
+                  ) : (
+                    <Text style={styles.skillProgressBarLineWrapper}>
+                      {item?.name}
+                    </Text>
+                  )}
+                </View>
+              )
+            })}
+          </View>
+
+          <View style={styles.languageSection}>
+            <Text style={styles.languageTitle}>Språk</Text>
+            {languages.map((item, index) => {
+              return (
+                <>
+                  <Text style={styles.languageText} key={index}>
+                    {item?.name + item?.value}
+                  </Text>
+                </>
+              )
+            })}
+          </View>
+
+          {accordiansEnabled.Hobbyer === true ? (
+            <View style={styles.languageSection}>
+              <Text style={styles.languageTitle}>Hobby</Text>
+              {hobbies.map((item, index) => {
                 return (
-                  <div
-                    key={index}
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                    }}
-                  >
-                    {cvData?.displayProgressBar === true ? (
-                      <ProgressBar
-                        height={'1px'}
-                        title={item?.name}
-                        backgroundcolor='#ffffff'
-                        color='#ffffff'
-                        percentage={item.value}
-                        wrapperColor='#3b588d'
-                      />
-                    ) : (
-                      <p
-                        style={{
-                          paddingTop: '10px',
-                          fontFamily: 'Arial, Helvetica, sans-serif',
-                          fontSize: '15px',
-                          color: 'white',
-                          fontWeight: 600,
-                        }}
-                      >
-                        {item?.name}
-                      </p>
-                    )}
-                  </div>
+                  <>
+                    <Text style={styles.languageText} key={index}>
+                      {item?.name}
+                    </Text>
+                  </>
                 )
               })}
-            </div>
-            <div className='template-nine-container-wrapper-leftside-heading-head'>
-              <h2 style={{ fontSize: '22px' }}>Språk</h2>
-              {languages.map((item, index) => {
-                return <span key={index}>{item?.name + item?.value}</span>
+            </View>
+          ) : null}
+
+          {accordiansEnabled.Kurs === true ? (
+            <View style={styles.languageSection}>
+              <Text style={styles.languageTitle}>Kurs</Text>
+              {courses.map((item, index) => {
+                return (
+                  <>
+                    <Text style={styles.languageText} key={index}>
+                      {item?.name}
+                    </Text>
+                  </>
+                )
               })}
+            </View>
+          ) : null}
+        </View>
 
-              <span> {cvData.address}</span>
-            </div>
-            {accordiansEnabled.Hobbyer === true ? (
-              <div className='template-nine-container-wrapper-leftside-heading-head'>
-                <h2 style={{ fontSize: '22px' }}>Hobby</h2>
-                {hobbies.map((item, index) => {
-                  return <span key={index}>{item?.name}</span>
-                })}
+        <View style={styles.pageRightSection}>
+          {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
+            <>
+              <View style={styles.profileSection}>
+                <View style={styles.profileSectionWrapper}>
+                  <Text style={styles.profileTitle}>PROFIL</Text>
+                  <View>
+                    <Text style={styles.profilePara}>
+                      {profileData.replace(/(<([^>]+)>)/gi, '')}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </>
+          )}
 
-                <span> {cvData.address}</span>
-              </div>
-            ) : null}
-            {accordiansEnabled.Kurs === true ? (
-              <div className='template-nine-container-wrapper-leftside-heading-head'>
-                <h2 style={{ fontSize: '22px' }}>Kurs</h2>
-                {courses.map((item, index) => {
-                  return <span key={index}>{item?.name}</span>
-                })}
+          <View style={styles.experienceSectionWrapper}>
+            <Text style={styles.profileTitle}>Arbeidserfaring</Text>
+            {experianceData.map((item, index) => {
+              return (
+                <>
+                  <View key={index}>
+                    <Text style={styles.experienceFrom}>
+                      {' '}
+                      {item?.jobTitle} - {item?.employer}
+                    </Text>
+                    <Text style={styles.experienceDate}>
+                      {' '}
+                      {item?.startDate} -{' '}
+                      {item.toggle ? 'dags dato' : item?.endDate}
+                    </Text>
+                    <View>
+                      <Text style={styles.profilePara}>
+                        {item.additionalInformation.replace(
+                          /(<([^>]+)>)/gi,
+                          ''
+                        )}
+                      </Text>
+                    </View>
+                  </View>
+                </>
+              )
+            })}
+          </View>
 
-                <span> {cvData.address}</span>
-              </div>
-            ) : null}
-          </div>
-          <div className='template-nine-container-wrapper-rightside'>
-            {/* <FaUserAlt/> */}
-            {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
-              <div className='template-nine-container-wrapper-rightside-wrapper'>
-                <div style={{ width: '100%' }}>
-                  <h1>PROFIL </h1>
-                  <p>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: profileData,
-                      }}
-                    ></div>
-                  </p>
-                </div>
-              </div>
-            )}
-            <br />
-            <div className='template-nine-container-wrapper-rightside-wrapper'>
-              <div>
-                <h1>Arbeidserfaring</h1>
-                {experianceData.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                      }}
-                    >
-                      <p>
-                        {item?.jobTitle} - {item?.employer}
-                      </p>
-                      <p style={{ color: 'gray' }}>
-                        {item?.startDate} -{' '}
-                        {item.toggle ? 'dags dato' : item?.endDate}
-                      </p>
-                      <div
-                        style={{
-                          fontFamily: 'Calibri',
-                          fontSize: '1.2rem',
-                          color: 'black',
-                          fontWeight: '600',
-                        }}
-                        dangerouslySetInnerHTML={{
-                          __html: item?.additionalInformation,
-                        }}
-                      ></div>
-                      <br />
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-            {accordiansEnabled.Praksisplasser === true ? (
-              <div className='template-nine-container-wrapper-rightside-wrapper'>
-                <div>
-                  <h1>Praksisplasser</h1>
-                  {internships.map((item, index) => {
+          {accordiansEnabled.Praksisplasser === true ? (
+            <View style={styles.experienceSectionWrapper}>
+              <Text style={styles.profileTitle}>Praksisplasser</Text>
+              {internships.map((item, index) => {
+                return (
+                  <>
+                    {' '}
+                    <View key={index}>
+                      <Text style={styles.experienceFrom}>
+                        {' '}
+                        {item?.jobTitle} - {item?.employer}{' '}
+                      </Text>
+                      <Text style={styles.experienceDate}>
+                        {moment(item?.startDate).format('YYYY-MM')} -{' '}
+                        {item.toggle
+                          ? 'dags dato'
+                          : moment(item?.endDate).format('YYYY-MM')}
+                      </Text>
+                      <View>
+                        <Text style={styles.profilePara}>
+                          {item.additionalInformation.replace(
+                            /(<([^>]+)>)/gi,
+                            ''
+                          )}
+                        </Text>
+                      </View>
+                    </View>
+                  </>
+                )
+              })}
+            </View>
+          ) : null}
+
+          <View style={styles.experienceSectionWrapper}>
+            <Text style={styles.profileTitle}>Utdanning</Text>
+            {educationData.map((item, index) => {
+              return (
+                <>
+                  <View key={index}>
+                    <Text style={styles.experienceFrom}>
+                      {' '}
+                      {item?.study} - {item?.school}
+                    </Text>
+                    <Text style={styles.experienceDate}>
+                      {' '}
+                      {item?.startDate + ' -'}{' '}
+                      {item.toggle ? 'dags dato' : item?.endDate}{' '}
+                    </Text>
+                    <View>
+                      <Text style={styles.profilePara}>
+                        {item.additionalInformation.replace(
+                          /(<([^>]+)>)/gi,
+                          ''
+                        )}
+                      </Text>
+                    </View>
+                  </View>
+                </>
+              )
+            })}
+          </View>
+
+          {accordiansEnabled.Referanser === true ? (
+            <View style={styles.experienceSectionWrapper}>
+              <Text style={styles.profileTitle}>REFERANSER</Text>
+              {toggleData ? (
+                <Text style={{ fontWeight: 'bold' }}>
+                  Oppgis ved forespørsel
+                </Text>
+              ) : (
+                <>
+                  {references.map((item, index) => {
                     return (
-                      <div
-                        key={index}
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                        }}
-                      >
-                        <p>
-                          {item?.jobTitle} - {item?.employer}
-                        </p>
-                        <p style={{ color: 'gray', marginBottom: '10px' }}>
-                          {moment(item?.startDate).format('YYYY-MM')} -{' '}
-                          {item.toggle
-                            ? 'dags dato'
-                            : moment(item?.endDate).format('YYYY-MM')}
-                        </p>
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: item?.additionalInformation,
-                          }}
-                        ></p>
-                        <br />
-                      </div>
+                      <Text style={styles.referenceText} key={index}>
+                        {item?.name} ,{item?.companyName} - {item?.email}
+                      </Text>
                     )
                   })}
-                </div>
-              </div>
-            ) : null}
+                </>
+              )}
+            </View>
+          ) : null}
+        </View>
+      </Page>
+    </Document>
+  )
 
-            <div className='template-nine-container-wrapper-rightside-wrapper'>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <h1>Utdanning</h1>
-                {educationData.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                      }}
-                    >
-                      <p>
-                        {item?.study} - {item?.school}
-                      </p>
-                      <div
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          marginBottom: '10px',
-                          gap: '4px',
-                        }}
-                      >
-                        <p style={{ color: 'gray' }}>
-                          {item?.startDate + ' -'}
-                        </p>
-                        <p style={{ color: 'gray' }}>
-                          {item.toggle ? 'dags dato' : item?.endDate}
-                        </p>
-                      </div>
-                      <div
-                        style={{
-                          fontFamily: 'Calibri',
-                          fontSize: '1.2rem',
-                          color: 'black',
-                          fontWeight: '600',
-                        }}
-                        dangerouslySetInnerHTML={{
-                          __html: item?.additionalInformation,
-                        }}
-                      ></div>
-                      <br />
-                    </div>
-                  )
-                })}
-                {accordiansEnabled.Referanser === true ? (
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '10px',
-                    }}
-                  >
-                    <h1>REFERANSER </h1>
-                    {toggleData ? (
-                      <p style={{ fontWeight: 'bold' }}>
-                        Oppgis ved forespørsel
-                      </p>
-                    ) : (
-                      <>
-                        {references.map((item, index) => {
-                          return (
-                            <p style={{ fontWeight: 'bold' }} key={index}>
-                              {item?.name} ,{item?.companyName} - {item?.email}
-                            </p>
-                          )
-                        })}
-                      </>
-                    )}
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  return (
+    <>
+      <DataToRender />
       <div
         style={{
           display: 'flex',
@@ -416,11 +571,11 @@ const TemplateNine = () => {
             </Link>
           </span>
         </div>
-        <ReactToPrint
+        {/* <ReactToPrint
           trigger={() => (
             <button
               ref={printButtonRef}
-              // disabled={!isChecked }
+              // disabled={!isChecked}
               style={{
                 marginTop: '10px',
                 display: 'flex',
@@ -445,18 +600,36 @@ const TemplateNine = () => {
           )}
           documentTitle={cvData.saveAs}
           content={() => pdfComponent}
-          onBeforeGetContent={async () => {
-            await setPageWidth(true)
+          onBeforeGetContent={() => {
+            setPageWidth(true)
           }}
-          onAfterPrint={async () => {
+          onAfterPrint={() => {
             sendPrintedDocument()
-            setPageWidth(false)
             setDisplayTemplate(false)
             setChangeOccured(!changeOccured)
           }}
-        />
+        /> */}
       </div>
-    </div>
+      <div>
+      <PDFDownloadLink
+          document={
+            <DataToRender
+              style={{
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'red',
+              }}
+            />
+          }
+          filename='FORM.pdf'
+        >
+          {({ blob, url, loading, error }) =>
+            loading ? 'Loading document...' : 'Download now!'
+          }
+        </PDFDownloadLink>{' '}
+      </div>
+    </>
   )
 }
+
 export default TemplateNine

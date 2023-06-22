@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useOutletContext, Link } from 'react-router-dom'
 import ReactToPrint from 'react-to-print'
 import {
@@ -20,56 +20,38 @@ import { useSelector } from 'react-redux'
 import ProgressBar from './progressBar'
 import EndreMaalButton from '../endreMaalButton/EndreMaalButton'
 import { sendFileToBackend } from '../../helper/helperFunctions'
-import { useState } from 'react'
+import robotoBold from '../../assests/fonts/roboto/Roboto-Bold.ttf'
+import robotoItalic from '../../assests/fonts/roboto/Roboto-Italic.ttf'
+import robotoRegular from '../../assests/fonts/roboto/Roboto-Regular.ttf'
+import robotoBoldItalic from '../../assests/fonts/roboto/Roboto-BoldItalic.ttf'
+import {
+  Document,
+  PDFDownloadLink,
+  PDFViewer,
+  Page,
+  Text,
+  View,
+  Font,
+  StyleSheet,
+} from '@react-pdf/renderer'
+import { Html } from 'react-pdf-html'
 
 const TemplateEight = (props) => {
-  const storedChildHeight = localStorage.getItem('childHeight');
-  const [childHeight, setChildHeight] = useState(882);
-  const [page, setPage] = useState(1);
-  var parentElement = document.getElementById('parent')?.offsetHeight;
-
-  setTimeout(() => {
-    let updatedHeight = parentElement
-    let contentPosition = document.getElementById('parent').scrollHeight
-    console.log(updatedHeight, childHeight,contentPosition,"hhhhh");
-  }, 100);
-
-  // useEffect(() => {
-  //        localStorage.setItem('childHeight', childHeight);
-  //   if (parentElement > 1055 && page !== 2) {
-  //      setChildHeight(Number(childHeight) + 1055);
-  //      setPage(2);
-  //   } else if (parentElement <= 1055 && page == 2) {
-  //     setChildHeight(815);
-  //     setPage(1);
-  //   } else {
-  //     setChildHeight(childHeight);
-  //   }
-  // }, [parentElement]);
- 
-  useEffect(()=>{
-    if(parentElement>1122 && page!==2){
-      setChildHeight(childHeight+1122)
-      setPage(2)
-    }
-    else if(parentElement==1122){
-      setChildHeight(882)
-      setPage(1)
-    }
-    else{
-      setChildHeight(childHeight)
-    }
-},[parentElement])
-console.log(parentElement,"oooooooooooooooooooooo")
+  useEffect(() => {
+    let data = document.getElementsByClassName('template-eight-container')
+    console.log(typeof data.namedItem, 'uiuiuiui')
+  }, [])
 
   let pdfComponent = useRef()
   let printButtonRef = useRef()
+  let docRef = useRef()
   const [displayTemplate, setDisplayTemplate, pageWidth, setPageWidth] =
     useOutletContext()
   const cvData = useSelector(CV_DATA)
   const educationData = useSelector(Education_DATA)
   const experianceData = useSelector(Experiance_Data)
   const hobbies = useSelector(getHobbies)
+  const [data, setData] = useState(null)
   const [isChecked, setIsChecked] = useState(false)
   const [changeOccured, setChangeOccured] = useState(true)
   const accordiansEnabled = useSelector(getAdditionalAccordian)
@@ -80,6 +62,7 @@ console.log(parentElement,"oooooooooooooooooooooo")
   const courses = useSelector(coursesData)
   const lanuages = useSelector(languageData)
   const toggleData = useSelector(getRefToggle)
+  const [clicked, setIsClicked] = useState(false)
   const { ProfilText } = props
   // if (displayTemplate && displayTemplate === true ) {
   //   console.log(
@@ -97,7 +80,7 @@ console.log(parentElement,"oooooooooooooooooooooo")
   }
 
   useEffect(() => {
-    console.log('re render!!!')
+    console.log('re render!!!', docRef.current)
   }, [changeOccured])
 
   useEffect(() => {
@@ -109,109 +92,322 @@ console.log(parentElement,"oooooooooooooooooooooo")
     }
   }, [displayTemplate])
 
-  return (
-    <div
-      style={{
-        display: 'flex',
-        width: '100%',
-        alignItems: 'center',
-        overflowWrap: 'break-word',
-        flexDirection: 'column',
-        marginTop: '10px',
-        paddingLeft: '10px',
-        paddingRight: '10px',
-        height: '100%',
-      }}
-    >
-      <div
-        style={{
-          // display: displayTemplate === true ? "none" : "block",
-          display: 'block',
-          width:
-            displayTemplate === true
-              ? '928px'
-              : pageWidth === true
-              ? '100%'
-              : '100%',
-        }}
-        ref={(el) => (
-          pdfComponent = el
-  )}
-        className='template-eight-container'
-        id="parent"
-      >
-        <div className='template-eight-container-header'>
-          <div
-            style={{
-              width: '30%',
-              minHeight: '240px',
-              backgroundColor: '#eeeae4',
-            }}
-          ></div>
-          <div style={{ width: '70%', height: '100%' }}></div>
-          <div className='template-eight-container-header-wrapper'>
-            <div>
-              <h1>{cvData?.firstName + ' ' + cvData?.lastName}</h1>
-              <p>{cvData.jobTitle}</p>
-            </div>
-          </div>
-        </div>
-        <div
-          className='template-eight-container-content'
-          style={{ height: 'inherit' }}
-        >
-          {/* {console.log('Container Height', containerHeight )} */}
-          <div
-            className='template-eight-container-content-left'
-            // id="child"
-            style={{ minHeight: childHeight}}
-            //  ref={templateContentLeftRef}
-            //  style={{
-            //   minHeight: containerHeight > 1055 ? '1055px' : '815px',
-            // }}
-          >
-            <h1 className='template-eight-container-content-left-heading'>
-              DETALJER
-            </h1>
-            <div className='template-eight-container-content-left-content'>
-              {cvData.physicalAddress !== '' ? <h3>ADRESSE</h3> : null}
-              {cvData.physicalAddress !== '' ? (
-                <p>{cvData?.physicalAddress}</p>
-              ) : null}
-              {cvData?.physicalAddress !== '' ? <span /> : null}
+  Font.register({
+    family: 'Roboto',
+    fonts: [
+      { src: robotoRegular },
+      { src: robotoBold, fontWeight: 'bold' },
+      { src: robotoItalic, fontStyle: 'italic' },
+      { src: robotoBoldItalic, fontStyle: 'italic', fontWeight: 'bold' },
+    ],
+  })
 
-              {cvData.country !== '' ? <h3>By</h3> : null}
-              {cvData.country !== '' ? <p>{cvData?.country}</p> : null}
-              {cvData?.country !== '' ? <span /> : null}
+  const styles = StyleSheet.create({
+    page: {
+      flexDirection: 'row',
+    },
+    section: {
+      margin: 10,
+      padding: 10,
+      flexGrow: 1,
+    },
+    document: {
+      width: '100%',
+      height: '100vh',
+    },
+    documentViewer:{
+      width: '100%',
+      height: '100vh',
+      // position: 'absolute',
+      // zIndex: '9',
+    },
+    // templateEight: {
+    //   display: 'flex',
+    //   gap: 32,
+    //   width: '100%',
+    // },
+    pageLeftSection: {
+      backgroundColor: 'rgb(238, 234, 228)',
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 10,
+      width: '30%',
+    },
+    mainTitleSection: {
+      alignItems: 'center',
+      backgroundColor: '#fff',
+      display: 'flex',
+      justifyContent: 'center',
+      paddingVertical: 16,
+      paddingHorizontal: 16,
+      position: 'absolute',
+      width: '70%',
+      top: 30,
+      left: '15%',
+      border: ' 3px solid #b19c7d',
+      color: '#b19c7d',
+    },
+    mainTitle: {
+      color: '#b19c7d',
+      fontFamily: 'Roboto',
+      fontSize: 40,
+      fontWeight: 700,
+      textAlign: 'center',
+    },
+    mainSubTitle: {
+      color: '#b19c7d',
+      fontFamily: 'Roboto',
+      fontSize: 12,
+      fontWeight: 200,
+      textAlign: 'center',
+    },
+    detailSection: {
+      marginTop: 150,
+      borderBottom: '3px solid #b19c7d',
+      color: '#b19c7d',
+      fontFamily: 'Roboto',
+      fontWeight: 700,
+      fontSize: 16,
+      paddingBottom: 8,
+      textAlign: 'left',
+      textTransform: 'uppercase',
+      width: '80%',
+    },
+    detailSectionContent: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '80%',
+      wordBreak: 'break-all',
+    },
+    detailSectionContentAdress: {
+      fontSize: 13,
+      fontFamily: 'Roboto',
+      fontWeight: 600,
+      marginTop: 15,
+      textTransform: 'uppercase',
+    },
+    detailSectionContentAddressText: {
+      fontFamily: 'Roboto',
+      fontSize: 10,
+      fontWeight: 200,
+      // marginTop: 5,
+      textAlign: 'left',
+      width: '80%',
+      wordBreak: 'break-all',
+    },
+    skillSection: {
+      marginTop: 16,
+      borderBottom: '3px solid #b19c7d',
+      color: '#b19c7d',
+      fontFamily: 'Roboto',
+      fontSize: 16,
+      fontWeight: 700,
+      paddingBottom: 8,
+      textAlign: 'left',
+      textTransform: 'uppercase',
+      width: '80%',
+    },
+    skillSectionContent: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    skillSectionContentText: {
+      fontFamily: 'Roboto',
+      fontSize: 10,
+      fontWeight: 200,
+      textAlign: 'left',
+      width: ' 80%',
+      marginTop: 5,
+    },
+    documentHide: {
+      display: 'none',
+    },
+    skillSectionContentLine: {
+      width: '95%',
+      height: 3,
+      marginBottom: 15,
+      marginTop: 8,
+    },
+    skillSectionContentLines: {
+      width: '100%',
+      borderTopWidth: 0,
+      borderBottomWidth: 2,
+      borderBottomColor: 'rgb(177, 156, 105)',
+      borderStyle: 'dashed',
+    },
+    othersSection: {
+      borderBottom: '3px solid #b19c7d',
+      color: '#b19c7d',
+      fontFamily: 'Roboto',
+      fontSize: 16,
+      fontWeight: 700,
+      paddingBottom: 8,
+      textAlign: 'left',
+      textTransform: 'uppercase',
+      width: '80%',
+    },
+    languageSection: {
+      fontSize: 13,
+      fontFamily: 'Roboto',
+      fontWeight: 700,
+      marginTop: 5,
+      textTransform: 'uppercase',
+    },
+    languageSectionText: {
+      fontFamily: 'Roboto',
+      fontSize: 10,
+      fontWeight: 200,
+      display: 'flex',
+      wordBreak: 'break-all',
+    },
+    hobbySection: {
+      fontSize: 13,
+      fontFamily: 'Roboto',
+      fontWeight: 700,
+      textTransform: 'uppercase',
+      marginTop: 15,
+    },
+    pageRightSection: {
+      marginLeft: 32,
+      width: '70%',
+    },
+    profileSection: {
+      borderBottom: '3px solid #b19c7d',
+      color: '#b19c7d',
+      fontFamily: 'Roboto',
+      fontSize: 16,
+      fontWeight: 700,
+      textAlign: 'left',
+      marginTop: 150,
+      paddingBottom: 8,
+    },
+    profileSectionText: {
+      color: '#000',
+      fontFamily: 'Roboto',
+      fontSize: 10,
+      fontWeight: 200,
+      marginTop: 15,
+      wordBreak: 'break-word',
+    },
+    experienceSection: {
+      borderBottom: '3px solid #b19c7d',
+      color: '#b19c7d',
+      fontFamily: 'Roboto',
+      fontSize: 16,
+      fontWeight: 700,
+      textAlign: 'left',
+      paddingBottom: 8,
+      marginTop: 15,
+    },
+    experienceSectionContent: {
+      display: 'flex',
+      flexDirection: 'column',
+      fontFamily: 'Roboto',
+      marginTop: 15,
+    },
+    experienceSectionContentText: {
+      color: '#000',
+      fontFamily: 'Roboto',
+      fontWeight: 600,
+      fontSize: 10,
+      wordBreak: 'break-word',
+    },
+    experienceSectionContentDate: {
+      display: 'flex',
+    },
+    experienceSectionContentDateText: {
+      color: '#000',
+      fontFamily: 'Roboto',
+      fontSize: 10,
+      fontWeight: 200,
+      wordBreak: 'break-word',
+      marginTop: 5,
+    },
+    experienceSectionContentPara: {},
+    experienceSectionContentParaText: {
+      color: '#000',
+      fontFamily: 'Roboto',
+      fontSize: 10,
+      fontWeight: 200,
+      wordBreak: 'break-word',
+      marginTop: 5,
+    },
+  })
 
-              {cvData?.zipCode !== '' ? <h3>Post kode</h3> : null}
-              {cvData?.zipCode !== '' ? <p>{cvData?.zipCode}</p> : null}
-              {cvData?.zipCode !== '' ? <span /> : null}
+  const DataToRender = () => (
+    <Document style={clicked ? styles.document : styles.documentHide}>
+      <Page size='A4' style={styles.page}>
+        {/* <View>
+        {' '}
+        style={styles.templateEight} */}
+        <View style={styles.pageLeftSection}>
+          <Text style={styles.detailSection}>DETALJER</Text>
+          <View style={styles.detailSectionContent}>
+            {cvData.physicalAddress !== '' ? (
+              <Text style={styles.detailSectionContentAdress}>ADRESSE</Text>
+            ) : null}
+            {cvData.physicalAddress !== '' ? (
+              <Text
+                style={styles.detailSectionContentAddressText}
+                styles={{ wordBreak: 'break-word' }}
+              >
+                {cvData?.physicalAddress}
+              </Text>
+            ) : null}
 
-              {cvData?.drivingLicense ? <h3>Førerkort</h3> : null}
-              {cvData?.drivingLicense ? <p>{cvData?.drivingLicense}</p> : null}
-              {cvData?.drivingLicense ? <span /> : null}
+            {cvData.country !== '' ? (
+              <Text style={styles.detailSectionContentAdress}>By</Text>
+            ) : null}
+            {cvData.country !== '' ? (
+              <Text style={styles.detailSectionContentAddressText}>
+                {cvData?.country}
+              </Text>
+            ) : null}
 
-              <h3>E-POST</h3>
-              <p>{cvData?.email}</p>
-              <span />
-              <h3>TELEFON</h3>
-              <p>{cvData?.phone}</p>
-              <span />
+            {cvData?.zipCode !== '' ? (
+              <Text style={styles.detailSectionContentAdress}>POST KODE</Text>
+            ) : null}
+            {cvData?.zipCode !== '' ? (
+              <Text style={styles.detailSectionContentAddressText}>
+                {cvData?.zipCode}
+              </Text>
+            ) : null}
 
-              {/* <p>{(cvData?.DOB)}</p> */}
-              {cvData?.DOB == '' ? null : (
-                <>
-                  <h3>Fødselsdato</h3>
-                  <p> {moment(cvData?.DOB).format('DD,MM,YYYY')}</p>
-                </>
-              )}
-            </div>
+            {cvData?.drivingLicense ? (
+              <Text style={styles.detailSectionContentAdress}>FØRERKORT</Text>
+            ) : null}
+            {cvData?.drivingLicense ? (
+              <Text style={styles.detailSectionContentAddressText}>
+                {cvData?.drivingLicense}
+              </Text>
+            ) : null}
 
-            <div className='template-eight-container-content-left-content'>
-              <h1 className='template-eight-container-content-left-heading'>
-                FERDIGHETER
-              </h1>
+            <Text style={styles.detailSectionContentAdress}>E-Post</Text>
+            <Text style={styles.detailSectionContentAddressText}>
+              {cvData?.email}
+            </Text>
+
+            <Text style={styles.detailSectionContentAdress}>TELEFON</Text>
+            <Text style={styles.detailSectionContentAddressText}>
+              {cvData?.phone}
+            </Text>
+
+            {cvData?.DOB == '' ? null : (
+              <>
+                <Text style={styles.detailSectionContentAdress}>
+                  FØDSELSDATO
+                </Text>
+                <Text style={styles.detailSectionContentAddressText}>
+                  {moment(cvData?.DOB).format('DD,MM,YYYY')}
+                </Text>
+              </>
+            )}
+          </View>
+
+          <View style={styles.detailSectionContent}>
+            <Text style={styles.skillSection}>FERDIGHETER</Text>
+            <View style={styles.skillSectionContent}>
               {skillData?.map((item, index) => {
                 return (
                   <>
@@ -227,258 +423,209 @@ console.log(parentElement,"oooooooooooooooooooooo")
                           dashed='dotted'
                           color='white'
                         />
-
-                        <br />
-                        <span />
                       </>
                     ) : (
-                      <p
-                        style={{
-                          fontFamily: 'Roboto-Bold',
-                          fontWeight: '300',
-                        }}
-                        key={index}
-                      >
+                      <Text style={styles.skillSectionContentText} key={index}>
                         {item?.name}
-                      </p>
+                      </Text>
                     )}
                   </>
                 )
               })}
-            </div>
-            <div
-              style={{ paddingBottom: '1rem' }}
-              className='template-eight-container-content-left-content'
-            >
-              <h1 className='template-eight-container-content-left-heading'>
-                ANNET
-              </h1>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <h3 className='template-eight-container-content-left-subheading'>
-                  Språk
-                </h3>
-                {lanuages?.map((item, index) => (
-                  <h7
-                    className='template-eight-container-content-left-point'
-                    key={index}
-                  >
-                    {item?.name} {item?.value}
-                  </h7>
-                ))}
+            </View>
+          </View>
 
-                {accordiansEnabled.Hobbyer === true ? (
-                  <>
-                    <span style={{ height: '0.8rem' }}> </span>
-                    <h3>Hobby</h3>
-                    <h7>
-                      {hobbies?.map((item, index) => (
-                        <span
-                          key={index}
-                          className='template-eight-container-content-left-point'
-                        >
-                          {index === hobbies.length - 1
-                            ? item?.name + '.'
-                            : item?.name + ', '}
-                        </span>
-                      ))}
-                    </h7>
-                  </>
-                ) : null}
-                {accordiansEnabled.Kurs === true ? (
-                  <>
-                    <span style={{ height: '0.8rem' }}> </span>
-                    <h3>Kurs</h3>
-                    {courses?.map((item, index) => (
-                      <h7
-                        key={index}
-                        className='template-eight-container-content-left-point'
-                      >
-                        {index === courses.length - 1
-                          ? item?.name + '.'
-                          : item?.name + ', '}
-                      </h7>
-                    ))}
-                  </>
-                ) : null}
-              </div>
-            </div>
-          </div>
+          <View style={styles.detailSectionContent}>
+            <Text style={styles.othersSection}>ANNET</Text>
+            <Text style={styles.languageSection}> SPRÅK </Text>
+            {lanuages?.map((item, index) => (
+              <Text style={styles.languageSectionText} key={index}>
+                {item?.name} {item?.value}
+              </Text>
+            ))}
 
-          <div className='template-eight-container-content-right'>
-            {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
+            {accordiansEnabled.Hobbyer === true ? (
               <>
-                <h1 className='template-eight-container-content-right-heading'>
-                  PROFIL
-                </h1>
-
-                <div
-                  className='template-eight-container-content-right-content'
-                  style={{ fontSize: '0.8rem', fontWeight: '300' }}
-                >
-                  <div
-                    // style={{ fontWeight: '300' }}
-                    dangerouslySetInnerHTML={{
-                      __html: profileData,
-                    }}
-                  ></div>
-                </div>
+                <Text style={styles.hobbySection}> HOBBY</Text>
+                <View style={{ display: 'flex' }}>
+                  {hobbies?.map((item, index) => (
+                    <Text style={styles.languageSectionText} key={index}>
+                      {index === hobbies.length - 1
+                        ? item?.name + '.'
+                        : item?.name + ', '}
+                    </Text>
+                  ))}
+                </View>
               </>
-            )}
+            ) : null}
 
-            <h1 className='template-eight-container-content-right-heading'>
-              ARBEIDSERFARING
-            </h1>
-            <div className='template-eight-container-content-right-content'>
-              {experianceData?.map((item, index) => (
-                <>
-                  <p
-                    key={index}
-                    style={{ fontFamily: 'Roboto', fontWeight: 'bold' }}
-                  >
-                    {item?.jobTitle + ' - ' + item?.employer}
-                  </p>
-                  <div style={{ display: 'flex' }}>
-                    <p>
-                      {item.startDate?.length === 0
-                        ? 'Startdato -'
-                        : moment(item?.startDate).format('YYYY-MM') + ' - '}
-                    </p>
-                    <p>
-                      {/* {item.endDate.length === 0
-                        ? ' Sluttdato'
-                        : moment(item?.endDate).format('YYYY-MM')}
-                        {item.toggle
-                        ? 'dags dato'
-                        : moment(item?.endDate).format('YYYY')
-                        } */}
-
-                      {item.toggle
-                        ? 'dags dato'
-                        : item.endDate.length === 0
-                        ? ' Sluttdato'
-                        : moment(item?.endDate).format('YYYY-MM')}
-                    </p>
-                  </div>
-                  <div
-                    style={{ fontSize: '0.8rem' }}
-                    dangerouslySetInnerHTML={{
-                      __html: item?.additionalInformation,
-                    }}
-                  ></div>
-                  {/* <p>⋅ Gode kommunikasjons- og kundeservice ferdigheter </p>
-                <p> ⋅ Det viktigste jeg har lært av jobben </p>{" "}
-                <p>⋅ Den største utfordringen jeg har kommet over på jobb</p>
-                <p> . Hva du kan forvente av meg</p> */}
-                </>
-              ))}
-              <span />
-              <span />
-            </div>
-            <h1 className='template-eight-container-content-right-heading'>
-              UTDANNING
-            </h1>
-            {educationData?.map((item, index) => {
-              return (
-                <div
-                  keys={index}
-                  className='template-eight-container-content-right-content'
-                >
-                  {item?.study ? (
-                    <p style={{ fontFamily: 'Roboto', fontWeight: 'bold' }}>
-                      {' '}
-                      {item?.study + ', ' + item?.school}
-                    </p>
-                  ) : null}
-
-                  <div style={{ display: 'flex' }}>
-                    <p>
-                      {item.startDate?.length === 0
-                        ? 'Startdato -'
-                        : moment(item?.startDate).format('YYYY-MM') + ' - '}
-                    </p>
-
-                    <p>
-                      {item.toggle
-                        ? 'dags dato'
-                        : item.endDate.length === 0
-                        ? ' Sluttdato'
-                        : moment(item?.endDate).format('YYYY-MM')}
-                    </p>
-                  </div>
-                  <div
-                    style={{ fontSize: '0.8rem' }}
-                    dangerouslySetInnerHTML={{
-                      __html: item?.additionalInformation,
-                    }}
-                  ></div>
-                </div>
-              )
-            })}
-            {accordiansEnabled.Praksisplasser === true ? (
+            {accordiansEnabled.Kurs === true ? (
               <>
-                <h1 className='template-eight-container-content-right-heading'>
-                  PRAKSISPLASSER
-                </h1>
-                {internships?.map((item, index) => (
-                  <div
+                <Text style={styles.hobbySection}> KURS</Text>
+                <View style={{ display: 'flex' }}>
+                  {courses?.map((item, index) => (
+                    <Text style={styles.languageSectionText} key={index}>
+                      {index === courses.length - 1
+                        ? item?.name + '.'
+                        : item?.name + ', '}
+                    </Text>
+                  ))}
+                </View>
+              </>
+            ) : null}
+          </View>
+        </View>
+        <View style={styles.mainTitleSection}>
+          <Text style={styles.mainTitle}>
+            {cvData?.firstName + ' ' + cvData?.lastName}
+          </Text>
+          <Text style={styles.mainSubTitle}>{cvData.jobTitle}</Text>
+        </View>
+
+        <View style={styles.pageRightSection} styles={{ width: '70%' }}>
+          {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
+            <>
+              {console.log('profileData', profileData)}
+              <Text style={styles.profileSection}>PROFIL</Text>
+              <View>
+                <Text
+                  style={styles.profileSectionText}
+                  // dangerouslySetInnerHTML={{
+                  //   __html: profileData,
+                  // }}
+                >
+                  {profileData.replace(/(<([^>]+)>)/gi, '')}
+                </Text>
+              </View>
+            </>
+          )}
+
+          <Text style={styles.experienceSection}>ARBEIDSERFARING</Text>
+          <View style={styles.experienceSectionContent}>
+            {experianceData?.map((item, index) => (
+              <>
+                <Text style={styles.experienceSectionContentText} key={index}>
+                  {item?.jobTitle + ' - ' + item?.employer}{' '}
+                </Text>
+                <View style={styles.experienceSectionContentDate}>
+                  <Text style={styles.experienceSectionContentDateText}>
+                    {item.startDate?.length === 0
+                      ? 'Startdato -'
+                      : moment(item?.startDate).format('YYYY-MM') + ' - '}
+                    {item.toggle
+                      ? 'dags dato'
+                      : item.endDate.length === 0
+                      ? ' Sluttdato'
+                      : moment(item?.endDate).format('YYYY-MM')}
+                  </Text>
+                </View>
+                <View style={styles.experienceSectionContentPara}>
+                  <Text style={styles.experienceSectionContentParaText}>
+                    {item.additionalInformation.replace(/(<([^>]+)>)/gi, '')}
+                  </Text>
+                </View>
+              </>
+            ))}
+          </View>
+
+          <Text style={styles.experienceSection}>UTDANNING </Text>
+          {educationData?.map((item, index) => {
+            return (
+              <View style={styles.experienceSectionContent}>
+                {item?.study ? (
+                  <Text
+                    style={styles.experienceSectionContentText}
                     keys={index}
-                    className='template-eight-container-content-right-content'
                   >
-                    <p style={{ fontWeight: 'bold' }}>
-                      {item?.jobTitle + ' - ' + item?.employer}
-                    </p>
-                    <div style={{ display: 'flex' }}>
-                      <p>
-                        {item.startDate.length === 0
-                          ? 'Startdato -'
-                          : moment(item?.startDate).format('YYYY-MM') + ' - '}
-                      </p>
+                    {' '}
+                    {item?.study + ', ' + item?.school}{' '}
+                  </Text>
+                ) : null}
+                <View style={styles.experienceSectionContentDate}>
+                  <Text style={styles.experienceSectionContentDateText}>
+                    {item.startDate?.length === 0
+                      ? 'Startdato -'
+                      : moment(item?.startDate).format('YYYY-MM') + ' - '}
+                    {item.toggle
+                      ? 'dags dato'
+                      : item.endDate.length === 0
+                      ? ' Sluttdato'
+                      : moment(item?.endDate).format('YYYY-MM')}
+                  </Text>
+                </View>
+                <View style={styles.experienceSectionContentPara}>
+                  <Text style={styles.experienceSectionContentParaText}>
+                    {item.additionalInformation.replace(/(<([^>]+)>)/gi, '')}
+                  </Text>
+                </View>
+              </View>
+            )
+          })}
 
-                      <p>
-                        {item.toggle
-                          ? 'dags dato'
-                          : item.endDate.length === 0
-                          ? 'Sluttdato'
-                          : moment(item?.endDate).format('YYYY-MM')}
-                      </p>
-                    </div>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: item?.additionalInformation,
-                      }}
-                    ></p>
-                  </div>
-                ))}
-              </>
-            ) : null}
-            {accordiansEnabled.Referanser === true ? (
-              <>
-                <h1 className='template-eight-container-content-right-heading'>
-                  REFERANSER
-                </h1>
+          {accordiansEnabled.Praksisplasser === true ? (
+            <>
+              <Text style={styles.experienceSection}>PRAKSISPLASSER</Text>
+              {internships?.map((item, index) => (
+                <View style={styles.experienceSectionContent} keys={index}>
+                  <Text style={styles.experienceSectionContentText}>
+                    {item?.jobTitle + ' - ' + item?.employer}
+                  </Text>
+                  <View style={styles.experienceSectionContentDate}>
+                    <Text style={styles.experienceSectionContentDateText}>
+                      {item.startDate.length === 0
+                        ? 'Startdato -'
+                        : moment(item?.startDate).format('YYYY-MM') + ' - '}
+                      {item.toggle
+                        ? 'dags dato'
+                        : item.endDate.length === 0
+                        ? 'Sluttdato'
+                        : moment(item?.endDate).format('YYYY-MM')}
+                    </Text>
+                  </View>
+                  <View style={styles.experienceSectionContentPara}>
+                    <Text style={styles.experienceSectionContentParaText}>
+                      {item.additionalInformation.replace(/(<([^>]+)>)/gi, '')}
+                    </Text>
+                  </View>
+                </View>
+              ))}
+            </>
+          ) : null}
 
-                {refrence?.map((item, index) => (
-                  <div
-                    key={index}
-                    className='template-eight-container-content-right-content'
-                  >
-                    {toggleData ? (
-                      <p>Oppgis ved forespørsel </p>
-                    ) : (
-                      <>
-                        <h3>{item?.name}</h3>
-                        <p>{item?.companyName}</p>
-                        <p>{item?.email}</p>
-                      </>
-                    )}
-                  </div>
-                ))}
-              </>
-            ) : null}
-          </div>
-        </div>
-      </div>
+          {accordiansEnabled.Referanser === true ? (
+            <>
+              <Text style={styles.experienceSection}>REFERANSER</Text>
+              {refrence?.map((item, index) => (
+                <View style={styles.experienceSectionContent} key={index}>
+                  {toggleData ? (
+                    <Text style={styles.experienceSectionContentText}>
+                      Oppgis ved forespørsel{' '}
+                    </Text>
+                  ) : (
+                    <>
+                      <Text style={styles.experienceSectionContentParaText}>
+                        {item?.name}
+                      </Text>
+                      <Text style={styles.experienceSectionContentParaText}>
+                        {item?.companyName}
+                      </Text>
+                      <Text style={styles.experienceSectionContentParaText}>
+                        {item?.email}
+                      </Text>
+                    </>
+                  )}
+                </View>
+              ))}
+            </>
+          ) : null}
+        </View>
+      </Page>
+    </Document>
+  )
 
+  return (
+    <>
+      <DataToRender />
       <div
         style={{
           display: 'flex',
@@ -505,7 +652,7 @@ console.log(parentElement,"oooooooooooooooooooooo")
             </Link>
           </span>
         </div>
-        <ReactToPrint
+        {/* <ReactToPrint
           trigger={() => (
             <button
               ref={printButtonRef}
@@ -542,10 +689,79 @@ console.log(parentElement,"oooooooooooooooooooooo")
             setDisplayTemplate(false)
             setChangeOccured(!changeOccured)
           }}
-        />
+        /> */}
       </div>
-    </div>
+      <div>
+        <PDFDownloadLink
+          onClick={() => {
+            setIsClicked(true)
+          }}
+          document={
+            <DataToRender
+              style={{
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'red',
+              }}
+            />
+          }
+          filename='FORM.pdf'
+        >
+          {({ blob, url, loading, error }) =>
+            error ? 'Loading document...' : 'Download now!'
+          }
+        </PDFDownloadLink>
+        <Text onClick={() => setIsChecked(true)}>Preview</Text>
+
+        {clicked && (
+          <View
+          // style={{height:"100%",width:"100%",padding:"20px"}}
+          >
+            <Text
+              onClick={() => {
+                setIsClicked(false)
+              }}
+            >
+              close
+            </Text>
+            <PDFViewer style={styles.documentViewer}>
+              <DataToRender />
+            </PDFViewer>
+          </View>
+        )}
+      </div>
+    </>
   )
 }
 
+// {({ loading }) =>
+// loading ? (
+//   <button>Loading Document...</button>
+// ) : (
+//   <button
+//     // ref={printButtonRef}
+//     // disabled={!isChecked}
+//     style={{
+//       marginTop: '10px',
+//       display: 'flex',
+//       alignItems: 'center',
+//       justifyContent: 'center',
+//       width: '180px',
+//       borderRadius: '5px',
+//       gap: '5px',
+//       background: '#F6F3F1',
+//       padding: '10px',
+//       fontFamily: 'Montserrat',
+//       fontWeight: '600',
+//       fontSize: '16px',
+//       border: '1px solid #F6F3F1',
+//       backgroundColor: '#eeb856',
+//       margin: '10px',
+//       cursor: 'pointer',
+//     }}
+//   >
+//     Last ned CV
+//   </button>
+// )
+// }
 export default TemplateEight

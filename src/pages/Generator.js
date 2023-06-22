@@ -16,7 +16,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 const Generator = (props) => {
-  console.log(props,"props in generator")
+  console.log(props, 'props in generator')
   // const { cvName, setCvName } = props;
   const cvData = useSelector(CV_DATA)
   const dispatch = useDispatch()
@@ -109,10 +109,8 @@ const Generator = (props) => {
                 </div>
               </div>
             </div>
-            <div
-              className='generator-container-right'
-            >
-              <div
+            <div className='generator-container-right'>
+              {/* <div
                 style={{
                   width: '100%',
                   display: 'flex',
@@ -133,7 +131,9 @@ const Generator = (props) => {
                   1/1
                 </p>
                 <img src={ArrowRight} alt='right-arrow'></img>
-              </div>
+              </div> */}
+
+            
               <Outlet
                 context={[editor, onEditChange, pageWidth, setPageWidth]}
               />

@@ -28,6 +28,7 @@ import { useSelector } from 'react-redux'
 import { configData } from './Redux/reducers/CvGeneratorReducer'
 import Gdpr from './pages/Gdpr'
 import { Helmet } from 'react-helmet'
+import { PDFViewer } from '@react-pdf/renderer'
 function App(props) {
   const [windowWidth, setWindowWidth] = useState(0)
   const [faqState, setFaqState] = useState(false)
@@ -81,7 +82,12 @@ function App(props) {
             element={<Generator cvName={cvName} setCvName={setCvName} />}
           >
             <Route path='mal-1' element={<TemplateFive />}></Route>{' '}
-            <Route path='mal-2' element={<TemplateEight />}></Route>
+            <Route
+              path='mal-2'
+              element={
+                  <TemplateEight />
+              }
+            ></Route>
             <Route path='mal-3' element={<TemplateThree />}></Route>
             <Route path='mal-4' element={<TemplateEleven />}></Route>{' '}
             <Route path='mal-5' element={<TemplateTen />}></Route>

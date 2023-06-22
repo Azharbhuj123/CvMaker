@@ -4,6 +4,10 @@ import { AiOutlineCar, AiOutlineMail } from 'react-icons/ai'
 import { useOutletContext } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { HiLocationMarker } from 'react-icons/hi'
+import TimesNewRomanRegular from '../../assests/fonts/Times New Roman/timesnewroman.ttf'
+import TimesNewRomanBold from '../../assests/fonts/Times New Roman/timesnewromanbold.ttf'
+import CalibriRegular from '../../assests/fonts/Calibri-Font/Calibri/Calibri.ttf'
+import CalibriBold from '../../assests/fonts/Calibri-Font/Calibri/calibrib.ttf'
 
 import {
   CV_DATA,
@@ -30,24 +34,20 @@ import {
   sendFileToBackend,
   sendPrintedDocument,
 } from '../../helper/helperFunctions'
+import {
+  Document,
+  Font,
+  Image,
+  PDFDownloadLink,
+  Page,
+  StyleSheet,
+  Text,
+  View,
+} from '@react-pdf/renderer'
 
 const TemplateFourteen = (props) => {
-  const [childHeight,setChildHeight]=useState(1122)
-  const [page,setPage]=useState(1)
-  var parentElement = document.getElementById('parent')?.offsetHeight;
-   useEffect(()=>{
-        if(parentElement>1122 && page!==2){
-          setChildHeight(childHeight+1121)
-          setPage(2)
-        }
-        else if(parentElement<=1122){
-          setChildHeight(1122)
-          setPage(1)
-        }
-        else{
-          setChildHeight(childHeight)
-        }
-   },[parentElement])
+  const [page, setPage] = useState(1)
+
   console.log(props, 'props in 6')
   const [displayTemplate, setDisplayTemplate, pageWidth, setPageWidth] =
     useOutletContext()
@@ -97,219 +97,517 @@ const TemplateFourteen = (props) => {
     }
   }, [displayTemplate])
 
-  return (
-    <div
-      style={{
-        // display: displayTemplate ? "flex" : pageWidth === true ? "none" : "flex",
-        // width: displayTemplate === true ? "100%" : pageWidth === true ? "928px" : "95%",
-        width: '100%',
-        alignItems: 'center',
-        overflowWrap: 'break-word',
-        flexDirection: 'column',
-        paddingTop: '0px',
-        justifyContent: 'center',
-        // height: '97.2%',
-        margin: displayTemplate === true ? '0px' : '10px',
-        padding: displayTemplate === true ? '0px' : '10px',
-      }}
-      className='containers-container'
-    >
-      <div
-        ref={(el) => (pdfComponent = el)}
-        style={{
-          width:
-            displayTemplate === true
-              ? '928px'
-              : pageWidth === true
-              ? '100%'
-              : '100%',
-          display: 'flex',
-          // height: 'inherit',
-          // margin: displayTemplate === true ? "0px" : "10px",
-          // padding: displayTemplate === true ? "0px" : "10px",
-        }}
-        className='template-fourteen-container'
-        id='parent'
-      >
-        <div className='template-fourteen-container-left'>
-          <div className='template-fourteen-container-left-heading'>
-            <h1>{cvData?.firstName + ' ' + cvData?.lastName}</h1>
+  Font.register({
+    family: 'Times New Roman',
+    fonts: [{ src: TimesNewRomanRegular }, { src: TimesNewRomanBold }],
+  })
+
+  Font.register({
+    family: 'Calibri',
+    fonts: [{ src: CalibriRegular }, { src: CalibriBold }],
+  })
+
+  const styles = StyleSheet.create({
+    page: {
+      flexDirection: 'row',
+    },
+    document: {
+      width: '100%',
+      height: '100vh',
+    },
+    pageLeftSection: {
+      width: '60%',
+    },
+    pageLeftHeading: {
+      backgroundColor: '#4bacc6',
+      paddingVertical: 30,
+      paddingHorizontal: 30,
+    },
+    pageLeftHeadingTitle: {
+      color: '#fff',
+      fontFamily: 'Calibri',
+      fontWeight: 900,
+      fontSize: 32,
+      wordBreak: 'break-all',
+    },
+    pageLeftHeadingDate: {
+      color: '#fff',
+      fontFamily: 'Calibri',
+      fontSize: 12,
+      wordBreak: 'break-all',
+    },
+    pageLeftHeadingJob: {
+      color: '#fff',
+      fontFamily: 'Calibri',
+      fontSize: 14,
+      paddingTop: 10,
+      fontWeight: 900,
+      wordBreak: 'break-all',
+    },
+    pageRightSection: {
+      alignItems: 'center',
+      backgroundColor: '#ede7e7',
+      display: 'flex',
+      flexDirection: 'column',
+      overflowWrap: 'break-word',
+      width: '40%',
+    },
+    pageLeftContent: {
+      paddingHorizontal: 16,
+      paddingTop: 16,
+    },
+    pageLeftContentHeading: {
+      // alignItems: 'center',
+      display: 'flex',
+      gap: 8,
+      height: 32,
+    },
+    pageLeftContentHeadingColor: {
+      backgroundColor: '#4bacc6',
+      height: 32,
+      width: 16,
+    },
+    pageLeftContentHeadingTitle: {
+      fontFamily: 'Calibri',
+      fontSize: 16,
+      fontWeight: 500,
+      marginLeft: 25,
+      marginTop: 8,
+      width: 200,
+    },
+    pageLeftContentJobTitle: {
+      marginVertical: 16,
+      marginHorizontal: 16,
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    pageLeftContentJobTitleHeader: {
+      // alignItems: 'center',
+      display: 'flex',
+      // flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    pageLeftContentJobTitleHeaderText: {
+      textTransform: 'uppercase',
+      fontWeight: 700,
+      fontSize: 14,
+      wordBreak: 'break-all',
+      color: 'gray',
+      fontFamily: 'Calibri',
+    },
+    pageLeftContentJobTitleDate: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 5,
+      marginLeft: 150,
+      marginRight: 30,
+    },
+    pageLeftContentJobTitleDateText: {
+      marginTop: 1,
+      color: 'gray',
+      fontFamily: 'Calibri',
+      fontSize: 12,
+      wordBreak: 'break-all',
+    },
+    pageLeftContentPara: {
+      fontFamily: 'Calibri',
+      color: 'gray',
+      wordBreak: 'break-all',
+      fontSize: 12,
+      marginTop: -15,
+      marginBottom: 20,
+    },
+    pageLeftContentEnd: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    pageLeftSkill: {
+      width: '45%',
+    },
+    pageLeftSkillContent: {
+      marginVertical: 16,
+      marginHorizontal: 16,
+    },
+    pageLeftSkillContentDiv: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    pageLeftSkillContentText: {
+      fontSize: 12,
+      color: 'gray',
+      fontFamily: 'Calibri',
+      wordBreak: 'break-all',
+    },
+    pageLeftSkillContenttext: {
+      width: 200,
+      fontSize: 12,
+      color: 'gray',
+      fontFamily: 'Calibri',
+      wordBreak: 'break-all',
+    },
+    ProgressBar: {},
+    ProgressBarFuel: {
+      height: 8,
+      marginTop: 8,
+      width: '95%',
+      // backgroundColor: 'white',
+    },
+    ProgressBarFuelWrapper: {
+      height: 8,
+      width: '100%',
+      color: ' rgb(75, 172, 198)',
+      borderBottom: 'dotted',
+      backgroundColor: 'white',
+      backgroundColor: '#303846',
+      height: 8,
+      width: '80%',
+    },
+    pageRightProfile: {
+      marginTop: 20,
+    },
+    pageRightProfileCircle: {
+      alignItems: 'center',
+      backgroundColor: 'gray',
+      borderRadius: 160,
+      display: 'flex',
+      height: 160,
+      justifyContent: 'center',
+      width: 160,
+    },
+    pageRightProfileCircleTwo: {
+      alignItems: 'center',
+      backgroundColor: '#ede7e7',
+      borderRadius: 160,
+      display: 'flex',
+      height: 140,
+      justifyContent: 'center',
+      width: 140,
+    },
+    pageRightProfileCircleThree: {
+      alignItems: 'center',
+      backgrounColor: 'grey',
+      borderRadius: 160,
+      display: 'flex',
+      height: 160,
+      justifyContent: 'center',
+      width: 160,
+    },
+    pageRightProfileCircleFour: {
+      alignItems: 'center',
+      backgroundColor: 'gray',
+      borderRadius: 160,
+      display: 'flex',
+      height: 125,
+      justifyContent: 'center',
+      width: 125,
+    },
+    pageRightSectionContent: {
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      overflowWrap: 'break-word',
+      padding: 32,
+      width: '100%',
+    },
+    pageRightSectionContentTitle: {
+      borderBottom: '4px solid #4bacc6',
+      fontFamily: 'Calibri',
+      fontWeight: 700,
+      fontSize: 18,
+      letterSpacing: 1,
+      marginTop: 12,
+      paddingBottom: 4,
+      width: 'auto',
+      wordBreak: 'break-all',
+    },
+    pageRightSectionContentText: {
+      fontFamily: 'Calibri',
+      fontSize: 10,
+      marginTop: 16,
+      paddingBottom: 8,
+      textAlign: 'center',
+      wordBreak: 'break-all',
+      color: 'gray',
+    },
+    pageRightSectionContentList: {
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'row',
+      fontFamily: 'Calibri',
+      gap: 8,
+      overflowWrap: 'break-word',
+      width: '100%',
+      marginTop: 10,
+    },
+    pageRightSectionContentCircle: {
+      alignitems: 'center',
+      backgroundColor: '#4bacc6',
+      borderRadius: 48,
+      display: 'flex',
+      height: 30,
+      justifyContent: 'center',
+      width: 30,
+    },
+    pageRightSectionContenttext: {
+      fontFamily: 'Calibri',
+      fontSize: 12,
+      marginBottom: 8,
+      textAlign: 'center',
+      width: '80%',
+      wordBreak: 'break-all',
+      marginTop: 12,
+    },
+    pageRightSectionReference: {
+      flexDirection: 'column',
+      width: '100%',
+      alignItems: 'center',
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    pageRightSectionContentTitleExtra: {
+      borderBottom: '4px solid #4bacc6',
+      fontFamily: 'Calibri',
+      fontWeight: 700,
+      fontSize: 18,
+      letterSpacing: 1,
+
+      paddingBottom: 4,
+      width: 'auto',
+      wordBreak: 'break-all',
+      color: 'rgb(237, 231, 231)',
+    },
+    pageRightSectionReferenceBox: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      overflowWrap: 'break-word',
+      width: '100%',
+      marginTop: 15,
+    },
+    pageRightSectionReferenceBoxLeft: {
+      width: '30%',
+    },
+    pageRightSectionReferenceBoxLeftText: {
+      fontFamily: 'Calibri',
+      fontSize: 14,
+      fontWeight: 500,
+      wordBreak: 'break-all',
+      margin: 0,
+      padding: 0,
+    },
+    pageRightSectionReferenceBoxRight: {
+      width: '70%',
+    },
+    pageRightSectionReferenceBoxRightText: {
+      fontFamily: 'Calibri',
+      fontSize: 12,
+      wordBreak: 'break-all',
+      margin: 0,
+      padding: 0,
+      textAlign: 'left',
+    },
+    pageRightSectionReferenceBoxLeftHeading: {
+      textAlign: 'left',
+      fontWeight: 600,
+      fontSize: 14,
+      wordbreak: 'break-all',
+      fontFamily: 'Calibri',
+    },
+    pageRightSectionReferenceBoxLeftWrite: {
+      textAlign: 'left',
+      margin: 0,
+      padding: 0,
+      fontSize: 12,
+      color: 'grey',
+      fontFamily: 'Calibri',
+      wordBreak: 'break-all',
+    },
+    pageRightSectionReferenceBoxRef: {
+      width: '100%',
+    },
+  })
+
+  const DataToRender = () => (
+    <Document style={styles.document}>
+      <Page size='A4' style={styles.page}>
+        <View style={styles.pageLeftSection}>
+          <View style={styles.pageLeftHeading}>
+            <Text style={styles.pageLeftHeadingTitle}>
+              {cvData?.firstName + ' ' + cvData?.lastName}
+            </Text>
             {cvData?.DOB == '' ? null : (
-              <span>{moment(cvData?.DOB).format('DD,MM,YYYY')}</span>
+              <Text style={styles.pageLeftHeadingDate}>
+                {moment(cvData?.DOB).format('DD,MM,YYYY')}
+              </Text>
             )}
-            <p>{cvData?.jobTitle}</p>
-          </div>
-          <div className='template-fourteen-container-left-content'>
-            <div className='template-fourteen-container-left-content-heading'>
-              <div className='template-fourteen-container-right-content-element-bullet' />
-              <h1 className='heading'>ARBEIDSERFARING</h1>
-            </div>
+            <Text style={styles.pageLeftHeadingJob}>{cvData?.jobTitle}</Text>
+          </View>
+
+          <View style={styles.pageLeftContent}>
+            <View style={styles.pageLeftContentHeading}>
+              <View style={styles.pageLeftContentHeadingColor}>
+                <Text style={styles.pageLeftContentHeadingTitle}>
+                  ARBEIDSERFARING
+                </Text>
+              </View>
+            </View>
+
             {experianceData.map((item) => (
-              <div className='job-title '>
-                <div className='job-title-header'>
-                  <p style={{ textTransform: 'uppercase' }}>
-                    {item?.jobTitle} | {item?.employer}
-                  </p>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '5px',
-                    }}
-                  >
-                    <span style={{ fontSize: '1rem', color: 'grey' }}>
+              <View>
+                <View style={styles.pageLeftContentJobTitle}>
+                  <View style={styles.pageLeftContentJobTitleHeader}>
+                    <Text style={styles.pageLeftContentJobTitleHeaderText}>
+                      {item?.jobTitle} | {item?.employer}
+                    </Text>
+                  </View>
+                  <View style={styles.pageLeftContentJobTitleDate}>
+                    <Text style={styles.pageLeftContentJobTitleDateText}>
                       {item.startDate.length === 0
                         ? 'Startdato -'
                         : moment(item?.startDate).format('MM YYYY') + ' - '}
-                    </span>
-
-                    <span style={{ fontSize: '1rem', color: 'grey' }}>
-                    {item.toggle
+                      {item.toggle
                         ? 'dags dato'
                         : item.endDate.length === 0
                         ? ' Sluttdato'
                         : moment(item?.endDate).format('YYYY-MM')}
-                    </span>
-                  </div>
-                </div>
-                <div
-                  style={{ fontFamily: 'Calibri', color: 'gray' }}
-                  dangerouslySetInnerHTML={{
-                    __html: item?.additionalInformation,
-                  }}
-                ></div>
-                <br />
-              </div>
+                    </Text>
+                  </View>
+                </View>
+                <View>
+                  <Text style={styles.pageLeftContentPara}>
+                    {item.additionalInformation.replace(/(<([^>]+)>)/gi, '')}
+                  </Text>
+                </View>
+              </View>
             ))}
 
-            <div className='template-fourteen-container-left-content-heading'>
-              <div className='template-fourteen-container-right-content-element-bullet' />
-              <h1 className='heading'>UTDANNING </h1>
-            </div>
+            <View style={styles.pageLeftContentHeading}>
+              <View style={styles.pageLeftContentHeadingColor}>
+                <Text style={styles.pageLeftContentHeadingTitle}>
+                  UTDANNING
+                </Text>
+              </View>
+            </View>
+
             {educationData?.map((item) => (
-              <div className='job-title '>
-                <div className='job-title-header'>
-                  <p style={{ textTransform: 'uppercase' }}>
-                    {item?.study} | {item?.school}
-                  </p>
-                  <div
-                    style={{
-                      //  width: '27%',
-                      display: 'flex',
-                      gap: '4px',
-                    }}
-                  >
-                    <span style={{ fontSize: '1rem', color: 'grey' }}>
+              <View>
+                <View style={styles.pageLeftContentJobTitle}>
+                  <View style={styles.pageLeftContentJobTitleHeader}>
+                    <Text style={styles.pageLeftContentJobTitleHeaderText}>
+                      {item?.study} | {item?.school}
+                    </Text>
+                  </View>
+                  <View style={styles.pageLeftContentJobTitleDate}>
+                    <Text style={styles.pageLeftContentJobTitleDateText}>
                       {item.startDate.length === 0
                         ? 'Startdato -'
-                        : moment(item?.startDate).format('MM YYYY') + ' - '}
-                    </span>
-                    <span>
-                    {item.toggle
+                        : moment(item?.startDate).format('MM YYYY') +
+                          ' - '}{' '}
+                      {item.toggle
                         ? 'dags dato'
                         : item.endDate.length === 0
                         ? ' Sluttdato'
                         : moment(item?.endDate).format('YYYY-MM')}
-                    </span>
-                  </div>
-                </div>
-                <div
-                  style={{ fontFamily: 'Calibri', color: 'gray' }}
-                  dangerouslySetInnerHTML={{
-                    __html: item?.additionalInformation,
-                  }}
-                ></div>
-                <br />
-              </div>
+                    </Text>
+                  </View>
+                </View>
+
+                <View>
+                  <Text style={styles.pageLeftContentPara}>
+                    {item.additionalInformation.replace(/(<([^>]+)>)/gi, '')}
+                  </Text>
+                </View>
+              </View>
             ))}
+
             {accordiansEnabled.Praksisplasser === true ? (
               <>
-                <div className='template-fourteen-container-left-content-heading'>
-                  <div className='template-fourteen-container-right-content-element-bullet' />
-                  <h1 className='heading'>Praksisplasser </h1>
-                </div>
+                <View style={styles.pageLeftContentHeading}>
+                  <View style={styles.pageLeftContentHeadingColor}>
+                    <Text style={styles.pageLeftContentHeadingTitle}>
+                      PRAKSISPLASSER
+                    </Text>
+                  </View>
+                </View>
                 {internships?.map((item) => {
                   return (
-                    <div className='job-title '>
-                      <div className='job-title-header'>
-                        <p style={{ textTransform: 'uppercase' }}>
-                          {item?.jobTitle} | {item?.employer}
-                        </p>
-                        <div
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '5px',
-                          }}
-                        >
-                          <span style={{ fontSize: '1rem', color: 'grey' }}>
+                    <View>
+                      <View style={styles.pageLeftContentJobTitle}>
+                        <View style={styles.pageLeftContentJobTitleHeader}>
+                          <Text
+                            style={styles.pageLeftContentJobTitleHeaderText}
+                          >
+                            {item?.jobTitle} | {item?.employer}
+                          </Text>
+                        </View>
+                        <View style={styles.pageLeftContentJobTitleDate}>
+                          <Text style={styles.pageLeftContentJobTitleDateText}>
                             {item.startDate.length === 0
                               ? 'Startdato -'
                               : moment(item?.startDate).format('MM YYYY') +
-                                ' - '}
-                          </span>
-
-                          <span style={{ fontSize: '1rem', color: 'grey' }}>
-                          {item.toggle
-                        ? 'dags dato'
-                        : item.endDate.length === 0
-                        ? ' Sluttdato'
-                        : moment(item?.endDate).format('YYYY-MM')}
-                          </span>
-                        </div>
-                      </div>
-                      <span
-                        style={{ fontSize: '1rem', color: 'grey' }}
-                        dangerouslySetInnerHTML={{
-                          __html: item?.additionalInformation,
-                        }}
-                      ></span>
-                      <br />
-                    </div>
+                                ' - '}{' '}
+                            {item.toggle
+                              ? 'dags dato'
+                              : item.endDate.length === 0
+                              ? ' Sluttdato'
+                              : moment(item?.endDate).format('YYYY-MM')}
+                          </Text>
+                        </View>
+                      </View>
+                      <View>
+                        <Text style={styles.pageLeftContentPara}>
+                          {item.additionalInformation.replace(
+                            /(<([^>]+)>)/gi,
+                            ''
+                          )}
+                        </Text>
+                      </View>
+                    </View>
                   )
                 })}
               </>
             ) : null}
-            <div
-              style={{
-                width: '100%',
-                display: 'flex',
-              }}
-            >
-              <div style={{ width: '45%' }}>
-                <div className='template-fourteen-container-left-content-heading'>
-                  <div className='template-fourteen-container-right-content-element-bullet' />
-                  <h1 className='heading'>SPRÅK</h1>
-                </div>
-                <div className='job-title'>
+
+            <View style={styles.pageLeftContentEnd}>
+              <View style={styles.pageLeftSkill}>
+                <View style={styles.pageLeftContentHeading}>
+                  <View style={styles.pageLeftContentHeadingColor}>
+                    <Text style={styles.pageLeftContentHeadingTitle}>
+                      SPRÅK
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.pageLeftSkillContent}>
                   {languages.map((item, index) => (
                     <>
-                      <p key={index}>
+                      <Text style={styles.pageLeftSkillContentText}>
                         {item.name} {item?.value}
-                      </p>
-                      <br />
+                      </Text>
                     </>
                   ))}
-                </div>
-              </div>
-              <div style={{ width: '55%' }}>
-                <div className='template-fourteen-container-left-content-heading'>
-                  <div className='template-fourteen-container-right-content-element-bullet' />
-                  <h1 className='heading'>FERDIGHETER</h1>
-                </div>
-                <div className='job-title'>
+                </View>
+              </View>
+
+              <View style={styles.pageLeftSkill}>
+                <View style={styles.pageLeftContentHeading}>
+                  <View style={styles.pageLeftContentHeadingColor}>
+                    <Text style={styles.pageLeftContentHeadingTitle}>
+                      FERDIGHETER
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={styles.pageLeftSkillContent}>
                   {properties.map((item, index) => (
-                    <div
-                      style={{
-                        width: '100%',
-                        display: 'flex',
-                      }}
-                    >
-                      <span style={{ width: '200px' }} key={index}>
+                    <View style={styles.pageLeftSkillContentDiv}>
+                      <Text style={styles.pageLeftSkillContenttext} key={index}>
                         {item.name}
-                      </span>
+                      </Text>
                       {cvData.displayProgressBar === true ? (
-                        <div style={{ width: '70%' }}>
+                        <View style={{ width: '70%' }}>
                           <ProgressBar
                             backgroundcolor='white'
                             percentage={item?.value}
@@ -319,194 +617,190 @@ const TemplateFourteen = (props) => {
                             borderraadius='50%'
                           />
                           <br />
-                        </div>
+                        </View>
                       ) : null}
-                    </div>
+                    </View>
                   ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        {/* </View> */}
 
-        <div
-          className='template-fourteen-container-right'
-          style={{ minHeight: childHeight}}
-        >
-          <div className='template-fourteen-container-right-profile'>
-            <div>
-              <div>
-                <div>
+        <View style={styles.pageRightSection}>
+          <View style={styles.pageRightProfile}>
+            <View style={styles.pageRightProfileCircle}>
+              <View style={styles.pageRightProfileCircleTwo}>
+                <View style={styles.pageRightProfileCircleThree}>
                   {cvData.profileImage ? (
                     <img src={cvData.profileImage} alt='prof' />
                   ) : (
-                    <div></div>
+                    <View style={styles.pageRightProfileCircleFour}></View>
                   )}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='template-fourteen-container-right-content'>
-            <h2>MÅLSETTING</h2>
-            <p>
-              <p
-                style={{
-                  wordBreak: 'break-all',
-                  fontFamily: 'Calibri-Bold',
-                  fontSize: '12px',
-                  color: 'grey',
-                }}
-              >
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: profileData,
-                  }}
-                ></div>
-              </p>
-            </p>
-            <h2> PROFIL</h2>
+                </View>
+              </View>
+            </View>
+          </View>
 
-            <div className='template-fourteen-container-spacing' />
+          <View style={styles.pageRightSectionContent}>
+            <Text style={styles.pageRightSectionContentTitle}>MÅLSETTING</Text>
+            <Text style={styles.pageRightSectionContentText}>
+              {profileData.replace(/(<([^>]+)>)/gi, '')}
+            </Text>
 
+            <Text style={styles.pageRightSectionContentTitle}>PROFIL</Text>
             {cvData && cvData.phone ? (
-              <div className='template-fourteen-container-right-content-element'>
-                <div>
-                  <BsTelephone size={16} color='white' />
-                </div>
-                <p>{cvData?.phone}</p>
-              </div>
+              <View style={styles.pageRightSectionContentList}>
+                <View style={styles.pageRightSectionContentCircle}>
+                  <BsTelephone size={15} color='white' />
+                </View>
+                <Text style={styles.pageRightSectionContenttext}>
+                  {cvData?.phone}
+                </Text>
+              </View>
             ) : null}
+
             {cvData && cvData.email ? (
-              <div className='template-fourteen-container-right-content-element'>
-                <div>
-                  <AiOutlineMail size={16} color='white' />
-                </div>
-                <p>{cvData?.email}</p>
-              </div>
+              <View style={styles.pageRightSectionContentList}>
+                <View style={styles.pageRightSectionContentCircle}>
+                  <AiOutlineMail size={15} color='white' />
+                </View>
+                <Text style={styles.pageRightSectionContenttext}>
+                  {cvData?.email}
+                </Text>
+              </View>
             ) : null}
 
             {cvData && cvData.physicalAddress ? (
-              <div className='template-fourteen-container-right-content-element'>
-                <div>
-                  <GoLocation size={16} color='white' />
-                </div>
-                <p>{cvData?.physicalAddress}</p>
-              </div>
-            ) : null}
-            {cvData.zipCode !== '' && cvData.zipCode ? (
-              <div className='template-fourteen-container-right-content-element'>
-                <div>
-                  <HiLocationMarker size={16} color='white' />
-                </div>
-                <p>{cvData?.zipCode}</p>
-              </div>
-            ) : null}
-            {cvData && cvData.drivingLicense ? (
-              <div className='template-fourteen-container-right-content-element'>
-                <div>
-                  <AiOutlineCar size={16} color='white' />
-                </div>
-                <p>{cvData?.drivingLicense}</p>
-              </div>
+              <View style={styles.pageRightSectionContentList}>
+                <View style={styles.pageRightSectionContentCircle}>
+                  <GoLocation size={15} color='white' />
+                </View>
+                <Text style={styles.pageRightSectionContenttext}>
+                  {cvData?.physicalAddress}
+                </Text>
+              </View>
             ) : null}
 
-            <div className='template-fourteen-container-right-content-element-reference'>
-              <h2 style={{ color: 'rgb(237, 231, 231)' }}> {' Extras'}</h2>
-              <br />
+            {cvData.zipCode !== '' && cvData.zipCode ? (
+              <View style={styles.pageRightSectionContentList}>
+                <View style={styles.pageRightSectionContentCircle}>
+                  <HiLocationMarker size={15} color='white' />
+                </View>
+                <Text style={styles.pageRightSectionContenttext}>
+                  {cvData?.zipCode}
+                </Text>
+              </View>
+            ) : null}
+
+            {cvData && cvData.drivingLicense ? (
+              <View style={styles.pageRightSectionContentList}>
+                <View style={styles.pageRightSectionContentCircle}>
+                  <AiOutlineCar size={15} color='white' />
+                </View>
+                <Text style={styles.pageRightSectionContenttext}>
+                  {cvData?.drivingLicense}
+                </Text>
+              </View>
+            ) : null}
+
+            <View style={styles.pageRightSectionReference}>
+              <Text style={styles.pageRightSectionContentTitleExtra}>
+                {' Extras'}
+              </Text>
+
               {accordiansEnabled.Kurs === true ? (
-                <div className='template-fourteen-container-right-content-element-reference-box'>
-                  <div className='template-fourteen-container-right-content-element-reference-box-left'>
-                    <h3 style={{ margin: 0, padding: 0 }}>Kurs</h3>
-                  </div>
-                  <div className='template-fourteen-container-right-content-element-reference-box-right'>
-                    <p style={{ margin: 0, padding: 0 }}>
-                      {courses.map((item, index) => {
-                        return (
-                          <p key={index} style={{ margin: 0, padding: 0 }}>
-                            {item.name}
-                          </p>
-                        )
-                      })}
-                    </p>
-                  </div>
-                </div>
+                <View style={styles.pageRightSectionReferenceBox}>
+                  <View style={styles.pageRightSectionReferenceBoxLeft}>
+                    <Text style={styles.pageRightSectionReferenceBoxLeftText}>
+                      Kurs
+                    </Text>
+                  </View>
+                  <View style={styles.pageRightSectionReferenceBoxRight}>
+                    {courses.map((item, index) => {
+                      return (
+                        <Text
+                          style={styles.pageRightSectionReferenceBoxRightText}
+                        >
+                          {item.name}
+                        </Text>
+                      )
+                    })}
+                  </View>
+                </View>
               ) : null}
-              <br />
+
               {accordiansEnabled.Hobbyer === true ? (
-                <div className='template-fourteen-container-right-content-element-reference-box'>
-                  <div className='template-fourteen-container-right-content-element-reference-box-left'>
-                    <h3 style={{ margin: 0, padding: 0 }}>Hobby</h3>
-                  </div>
-                  <div className='template-fourteen-container-right-content-element-reference-box-right'>
-                    <p style={{ margin: 0, padding: 0 }}>
-                      {hobbies.map((item, index) => {
-                        return (
-                          <p key={index} style={{ margin: 0, padding: 0 }}>
-                            {item.name}
-                          </p>
-                        )
-                      })}
-                    </p>
-                  </div>
-                </div>
+                <View style={styles.pageRightSectionReferenceBox}>
+                  <View style={styles.pageRightSectionReferenceBoxLeft}>
+                    <Text style={styles.pageRightSectionReferenceBoxLeftText}>
+                      Hobby
+                    </Text>
+                  </View>
+                  <View style={styles.pageRightSectionReferenceBoxRight}>
+                    {hobbies.map((item, index) => {
+                      return (
+                        <Text
+                          style={styles.pageRightSectionReferenceBoxRightText}
+                        >
+                          {item.name}
+                        </Text>
+                      )
+                    })}
+                  </View>
+                </View>
               ) : null}
-            </div>
+            </View>
 
             {accordiansEnabled.Referanser === true ? (
-              <div className='template-fourteen-container-right-content-element-reference'>
-                <h2> Referanser</h2>
-
+              <View style={styles.pageRightSectionReference}>
+                <Text style={styles.pageRightSectionContentTitle}>
+                  Referanser
+                </Text>
                 {toggleData ? (
-                  <p
+                  <Text
                     style={{
                       textAlign: 'left',
-                      fontSize: '15px',
+                      fontSize: '14px',
                       color: 'grey',
                     }}
                   >
                     Oppgis ved forespørsel
-                  </p>
+                  </Text>
                 ) : (
-                  <div>
+                  <View style={styles.pageRightSectionReferenceBox}>
                     {refrence?.map((item, index) => (
-                      <div className='template-fourteen-container-right-content-element-reference-box'>
-                        <div
-                          style={{ width: '100%' }}
-                          className='template-fourteen-container-right-content-element-reference-box-left'
+                      <View style={styles.pageRightSectionReferenceBoxRef}>
+                        <Text
+                          style={styles.pageRightSectionReferenceBoxLeftHeading}
                         >
-                          <h3>{item?.name}</h3>
-                          <p
-                            style={{
-                              textAlign: 'left',
-                              margin: 0,
-                              padding: 0,
-                              fontSize: '16px',
-                              color: 'grey',
-                            }}
-                          >
-                            {item.companyName}
-                          </p>
-                          <p
-                            style={{
-                              textAlign: 'left',
-                              margin: 0,
-                              padding: 0,
-                              fontSize: '16px',
-                              color: 'grey',
-                            }}
-                          >
-                            {item.email}
-                          </p>
-                        </div>
-                      </div>
+                          {item?.name}
+                        </Text>
+                        <Text
+                          style={styles.pageRightSectionReferenceBoxLeftWrite}
+                        >
+                          {item.companyName}
+                        </Text>
+                        <Text
+                          style={styles.pageRightSectionReferenceBoxLeftWrite}
+                        >
+                          {item.email}
+                        </Text>
+                      </View>
                     ))}
-                  </div>
+                  </View>
                 )}
-              </div>
+              </View>
             ) : null}
-          </div>
-        </div>
-      </div>
+          </View>
+        </View>
+      </Page>
+    </Document>
+  )
+  return (
+    <>
+      <DataToRender />
       <div
         style={{
           display: 'flex',
@@ -515,13 +809,12 @@ const TemplateFourteen = (props) => {
         }}
       >
         <EndreMaalButton />
-
         <div className='gdpr-image'>
           {/* <input
-                type="checkbox"
-                value={isChecked}
-                onChange={() => setIsChecked(!isChecked)}
-              /> */}
+              type="checkbox"
+              value={isChecked}
+              onChange={() => setIsChecked(!isChecked)}
+            /> */}
           <span>
             Ved å trykke på "laste ned", vil du laste ned CVen du har laget
             forplikte deg til å akseptere våre{' '}
@@ -534,48 +827,63 @@ const TemplateFourteen = (props) => {
             </Link>
           </span>
         </div>
-
-        <ReactToPrint
-          trigger={() => (
-            <button
-              ref={printButtonRef}
-              // disabled={!isChecked }
-              style={{
-                marginTop: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '180px',
-                borderRadius: '5px',
-                gap: '5px',
-                background: '#F6F3F1',
-                padding: '10px',
-                fontFamily: 'Montserrat',
-                fontWeight: '600',
-                fontSize: '16px',
-                border: '1px solid #F6F3F1',
-                backgroundColor: '#eeb856',
-                margin: '10px',
-                cursor: 'pointer',
-              }}
-            >
-              Last ned CV
-            </button>
-          )}
-          documentTitle={cvData.saveAs}
-          content={() => pdfComponent}
-          onBeforeGetContent={() => {
-            setPageWidth(true)
-          }}
-          onAfterPrint={async () => {
-            sendPrintedDocument()
-            setPageWidth(false)
-            setDisplayTemplate(false)
-            setChangeOccured(!changeOccured)
-          }}
-        />
+        {/* <ReactToPrint
+        trigger={() => (
+          <button
+            ref={printButtonRef}
+            // disabled={!isChecked}
+            style={{
+              marginTop: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '180px',
+              borderRadius: '5px',
+              gap: '5px',
+              background: '#F6F3F1',
+              padding: '10px',
+              fontFamily: 'Montserrat',
+              fontWeight: '600',
+              fontSize: '16px',
+              border: '1px solid #F6F3F1',
+              backgroundColor: '#eeb856',
+              margin: '10px',
+              cursor: 'pointer',
+            }}
+          >
+            Last ned CV
+          </button>
+        )}
+        documentTitle={cvData.saveAs}
+        content={() => pdfComponent}
+        onBeforeGetContent={() => {
+          setPageWidth(true)
+        }}
+        onAfterPrint={() => {
+          sendPrintedDocument()
+          setDisplayTemplate(false)
+          setChangeOccured(!changeOccured)
+        }}
+      /> */}
       </div>
-    </div>
+      <div>
+        <PDFDownloadLink
+          document={
+            <DataToRender
+              style={{
+                width: '100%',
+                height: '100%',
+              }}
+            />
+          }
+          filename='FORM.pdf'
+        >
+          {({ blob, url, loading, error }) =>
+            error ? 'Loading document...' : 'Download now!'
+          }
+        </PDFDownloadLink>{' '}
+      </div>
+    </>
   )
 }
 
