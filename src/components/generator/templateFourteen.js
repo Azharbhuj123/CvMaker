@@ -39,11 +39,13 @@ import {
   Font,
   Image,
   PDFDownloadLink,
+  PDFViewer,
   Page,
   StyleSheet,
   Text,
   View,
 } from '@react-pdf/renderer'
+import PdfViewer from '../../pages/PdfViewer'
 
 const TemplateFourteen = (props) => {
   const [page, setPage] = useState(1)
@@ -430,7 +432,8 @@ const TemplateFourteen = (props) => {
     },
   })
 
-  const DataToRender = () => (
+  return (
+    <PDFViewer style={styles.document}>
     <Document style={styles.document}>
       <Page size='A4' style={styles.page}>
         <View style={styles.pageLeftSection}>
@@ -797,93 +800,7 @@ const TemplateFourteen = (props) => {
         </View>
       </Page>
     </Document>
-  )
-  return (
-    <>
-      <DataToRender />
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '90%',
-        }}
-      >
-        <EndreMaalButton />
-        <div className='gdpr-image'>
-          {/* <input
-              type="checkbox"
-              value={isChecked}
-              onChange={() => setIsChecked(!isChecked)}
-            /> */}
-          <span>
-            Ved å trykke på "laste ned", vil du laste ned CVen du har laget
-            forplikte deg til å akseptere våre{' '}
-            <Link to='/gdpr'>
-              <span>vilkår og betingelser</span>
-            </Link>{' '}
-            og{' '}
-            <Link to='/gdpr'>
-              <span>personvernregler</span>
-            </Link>
-          </span>
-        </div>
-        {/* <ReactToPrint
-        trigger={() => (
-          <button
-            ref={printButtonRef}
-            // disabled={!isChecked}
-            style={{
-              marginTop: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '180px',
-              borderRadius: '5px',
-              gap: '5px',
-              background: '#F6F3F1',
-              padding: '10px',
-              fontFamily: 'Montserrat',
-              fontWeight: '600',
-              fontSize: '16px',
-              border: '1px solid #F6F3F1',
-              backgroundColor: '#eeb856',
-              margin: '10px',
-              cursor: 'pointer',
-            }}
-          >
-            Last ned CV
-          </button>
-        )}
-        documentTitle={cvData.saveAs}
-        content={() => pdfComponent}
-        onBeforeGetContent={() => {
-          setPageWidth(true)
-        }}
-        onAfterPrint={() => {
-          sendPrintedDocument()
-          setDisplayTemplate(false)
-          setChangeOccured(!changeOccured)
-        }}
-      /> */}
-      </div>
-      <div>
-        <PDFDownloadLink
-          document={
-            <DataToRender
-              style={{
-                width: '100%',
-                height: '100%',
-              }}
-            />
-          }
-          filename='FORM.pdf'
-        >
-          {({ blob, url, loading, error }) =>
-            error ? 'Loading document...' : 'Download now!'
-          }
-        </PDFDownloadLink>{' '}
-      </div>
-    </>
+    </PDFViewer>
   )
 }
 

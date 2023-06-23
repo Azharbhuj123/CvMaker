@@ -20,6 +20,17 @@ import ProgressBar from './progressBar'
 import ReactToPrint from 'react-to-print'
 import EndreMaalButton from '../endreMaalButton/EndreMaalButton'
 import { sendFileToBackend } from '../../helper/helperFunctions'
+import CalibriRegular from '../../assests/fonts/Calibri-Font/Calibri/Calibri.ttf'
+import CalibriBold from '../../assests/fonts/Calibri-Font/Calibri/calibrib.ttf'
+import {
+  Document,
+  Page,
+  View,
+  Text,
+  StyleSheet,
+  Font,
+  PDFViewer,
+} from '@react-pdf/renderer'
 
 const TemplateEleven = () => {
   let pdfComponent = useRef()
@@ -70,388 +81,512 @@ const TemplateEleven = () => {
       printButtonRef.current.click()
     }
   }, [displayTemplate])
+  
+  Font.register({
+    family: 'Calibri',
+    fonts: [{ src: CalibriRegular }, { src: CalibriBold }],
+  })
+
+  const styles = StyleSheet.create({
+    page: {
+      flexDirection: 'row',
+    },
+    document: {
+      width: '100%',
+      height: '100vh',
+    },
+    container: {
+      display: 'block',
+      width: '100%',
+    },
+    heder: {
+      display: 'flex',
+      flexDirection: 'row',
+      gap: 5,
+      paddingTop: 0,
+      width: '100%',
+    },
+    hederLeftBox: {
+      backgroundColor: '#ed7d31',
+      height: 85,
+      width: '6%',
+    },
+    hederRight: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 5,
+      paddingHorizontal: 5,
+      paddingVertical: 10,
+      width: '90%',
+    },
+    hederRightTitle: {
+      overflowWrap: 'break-word',
+      fontFamily: 'Calibri',
+      letterSpacing: 3,
+      fontSize: 28,
+      fontWeight: 600,
+      color: 'black',
+      wordBreak: 'break-all',
+      fontFamily: 'Calibri',
+    },
+    hederRightSubtitle: {
+      fontFamily: 'Calibri',
+      fontWeight: 'bold',
+      overflowWrap: 'break-word',
+      marginTop: -5,
+    },
+    hederRightContent: {
+      display: 'flex',
+      flexDirection: 'row',
+      fontFamily: 'Calibri',
+      fontSize: 11,
+      fontWeight: 500,
+      wordBreak: 'break-all',
+      marginTop: -5,
+    },
+    contentSection: {
+      alignItems: 'center',
+      display: 'flex',
+      // flexDirection: 'column',
+      justifyContent: 'center',
+      // textAlign: 'center',
+      width: '100%',
+      marginHorizontal: 35,
+    },
+    contentContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 12,
+      paddingRight: 8,
+      paddingTop: 8,
+      width: '100%',
+    },
+    contentContainerHeading: {
+      fontFamily: 'Calibri',
+      fontSize: 16,
+      fontWeight: 600,
+      position: 'relative',
+      wordBreak: 'break-all',
+    },
+    contentContainerHeadingLine: {
+      border: '2px solid #ed7d31',
+      top: 25,
+      height: 4,
+      left: 0,
+      position: 'absolute',
+      width: '7%',
+    },
+    contentContainerPara: {
+      borderBottom: '1px solid black',
+      paddingBottom: 5,
+      width: '88%',
+    },
+    contentContainerParaText: {
+      fontFamily: 'Calibri',
+      fontSize: 10,
+      paddingBottom: 4,
+      wordBreak: 'break-all',
+    },
+    experienceSection: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 12,
+      width: '100%',
+      paddingTop: 12,
+    },
+    educationContainerHeadingLine: {
+      border: '2px solid #ed7d31',
+      top: 30,
+      height: 4,
+      left: 0,
+      position: 'absolute',
+      width: '7%',
+    },
+    educationContainerHeadingPara: {
+      fontFamily: 'Calibri',
+      fontSize: 10,
+      fontWeight: 'bold',
+      wordBreak: 'break-all',
+    },
+    educationContainerDate: {
+      display: 'flex',
+      alignCtems: 'center',
+      flexDirection: 'row',
+    },
+    educationContainerDateText: {
+      fontFamily: 'Calibri',
+      fontSize: 12,
+    },
+    educationContainerPara: {
+      borderBottom: '1px solid black',
+      paddingBottom: 8,
+      width: '88%',
+    },
+    educationContainerParaText: {
+      color: 'rgb(84, 86, 90)',
+      fontFamily: 'Calibri',
+      fontSize: 12,
+    },
+    contentSectionBottom: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      // marginTop: 4,
+    },
+    contentSectionBottomLeft: {
+      width: '70%',
+    },
+    contentSectionBottomLeftContent: {
+      display: 'flex',
+      flexDirection: 'column',
+      paddingTop: 8,
+      width: '100%',
+    },
+    contentSectionBottomLeftContentSide: {
+      display: 'flex',
+      flexDirection: 'row',
+      gap: 20,
+      paddingTop: 20,
+      width: '100%',
+    },
+    contentSectionBottomLeftContentSideTitle: {
+      fontFamily: 'Calibri',
+      fontSize: 14,
+      fontWeight: 600,
+      paddingBottom: 5,
+      position: 'relative',
+      textTransform: 'uppercase',
+      width: '30%',
+      wordBreak: 'break-all',
+    },
+    contentSectionBottomLeftContentSideSetting: {
+      display: 'flex',
+      flexDirection: 'column',
+      fontFamily: 'Calibri',
+      fontSize: 11,
+      gap: 10,
+      width: '100%',
+      wordBreak: 'break-all',
+    },
+    contentSectionBottomLeftContentSideProgress: {
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'row',
+      gap: 14,
+      width: '100%',
+    },
+    contentSectionBottomLeftContentSideProgressText: {
+      fontFamily: 'Calibri',
+      fontSize: 11,
+      wordBreak: 'break-all',
+      width: 200,
+    },
+    contentSectionBottomRight: {
+      paddingLeft: 12,
+      width: '30%',
+      borderLeft: '1px solid grey',
+      fontFamily: 'Calibri',
+      wordBreak: 'break-all',
+      height: '100%',
+    },
+    studingContent: {
+      marginTop: 10,
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    settingContent: {
+      fontFamily: 'Calibri',
+      gap: 10,
+      width: '60%',
+      wordBreak: 'break-all',
+      fontSize: 11,
+      fontFamily: 'Calibri',
+      fontWeight: 'bold',
+    },
+    settingContentText: {
+      fontSize: 11,
+      fontFamily: 'Calibri',
+      fontWeight: 'bold',
+      wordBreak: 'break-all',
+      width: '100%',
+    },
+  })
+  
   return (
-    <div
-      style={{
-        display: displayTemplate
-          ? 'flex'
-          : pageWidth === true
-          ? 'none'
-          : 'flex',
-        width:
-          displayTemplate === true
-            ? '928px'
-            : pageWidth === true
-            ? '100%'
-            : '100%',
-        alignItems: 'center',
-        overflowWrap: 'break-word',
-        flexDirection: 'column',
-        // marginTop: '10px',
-        height: '100%',
-        margin: '10px',
-        padding: '10px'
-      }}
-    >
-      <div
-        style={{
-          width:
-            displayTemplate === true
-              ? '928px'
-              : pageWidth === true
-              ? '100%'
-              : '100%',
-          display: 'flex',
-          height: 'inherit',
-          justifyContent: 'inherit',
-          // margin: displayTemplate === true ? "0px" : "10px",
-          // padding: displayTemplate === true ? "0px" : "10px",
-        }}
-        ref={(el) => (pdfComponent = el)}
-        className='templateeleven-container'
-      >
-        <div className='templateeleven-container-header'>
-          <div className='templateeleven-container-header-leftside'></div>
-          <div className='templateeleven-container-header-rightside'>
-            <h2>
-              {cvData?.firstName} <span>{cvData?.lastName}</span>
-            </h2>
+    <PDFViewer style={styles.document}>
+      <Document style={styles.document}>
+        <Page size='A4' style={styles.page}>
+          <View style={styles.container}>
+            <View style={styles.heder}>
+              <View style={styles.hederLeftBox}></View>
+              <View style={styles.hederRight}>
+                <Text style={styles.hederRightTitle}>
+                  Fornavna <Text style={{ color: 'gray' }}>Etternavn</Text>
+                </Text>
+                <Text style={styles.hederRightSubtitle}>software </Text>
+                <View style={styles.hederRightContent}>
+                  {/* <Text> */}
+                  <Text>Epost: </Text>
+                  <Text style={{ fontWeight: '100', color: 'gray' }}>
+                    email@gmail.com/
+                  </Text>
+                  <Text> Tlf: </Text>
+                  <Text style={{ fontWeight: '100', color: 'gray' }}>
+                    924452111/
+                  </Text>
+                  <Text> Adresse: </Text>
+                  <Text style={{ fontWeight: '100', color: 'gray' }}>
+                    adress
+                  </Text>
+                  <Text> Førerkort: </Text>
+                  <Text style={{ fontWeight: '100', color: 'gray' }}>
+                    Driver license/
+                  </Text>
+                  <Text> Førerkort: </Text>
+                  <Text style={{ fontWeight: '100', color: 'gray' }}>
+                    15,06,2023
+                  </Text>
+                  {/* </Text> */}
+                </View>
+              </View>
+            </View>
 
-            <strong style={{ fontFamily: 'Calibri' }}>
-              {cvData?.jobTitle}
-            </strong>
+            <View style={styles.contentSection}>
+              <View style={styles.contentContainer}>
+                <Text style={styles.contentContainerHeading}>OM MEG</Text>
+                <Text style={styles.contentContainerHeadingLine}></Text>
+                <View style={styles.contentContainerPara}>
+                  <Text style={styles.contentContainerParaText}>
+                    We use both first and third-party cookies to personalise web
+                    content, analyse visits to our websites and tailor
+                    advertisements. Some of these cookies are necessary for the
+                    website to function, whilst others require your consent.
+                    More detail can be found in our cookie policy and you can
+                    tailor your choices in the preference centre.
+                  </Text>
+                </View>
+              </View>
 
-            <p>
-              <strong>Epost:</strong> {cvData?.email} /{' '}
-              {cvData?.phone === '' ? null : (
-                <>
-                  / <strong>Tlf: </strong>
-                  {cvData?.phone}
-                </>
-              )}
-              {cvData?.physicalAddress === '' ? null : (
-                <>
-                  / <strong>Adresse: </strong>
-                  {cvData?.physicalAddress}
-                </>
-              )}
-              {cvData?.zipCode === '' ? null : <>{',' + cvData?.zipCode}</>}
-              {cvData?.drivingLicense === '' ? null : (
-                <>
-                  / <strong>Førerkort:</strong> {cvData?.drivingLicense}
-                </>
-              )}
-              {cvData?.DOB === '' ? null : (
-                <>
-                  / <strong>Fødselsdato:</strong>{' '}
-                  {moment(cvData?.DOB).format('DD,MM,YYYY')}
-                </>
-              )}
-            </p>
-          </div>
-        </div>
+              <View style={styles.experienceSection}>
+                <Text style={styles.contentContainerHeading}>
+                  ARBEIDSERFARING
+                </Text>
+                <Text style={styles.educationContainerHeadingLine}></Text>
+                <Text style={styles.educationContainerHeadingPara}>
+                  Skole | Studie
+                </Text>
+                <View style={styles.educationContainerDate}>
+                  <Text style={styles.educationContainerDateText}>
+                    2023-08 - 2023-08{' '}
+                  </Text>
+                </View>
 
-        <div className='templateeleven-container-body'>
-          {/* {profileData !== '<p><br></p>' && ( */}
-          <div className='templateeleven-container-body-about'>
-            <h3>OM MEG</h3>
-            <div
-              style={{
-                fontFamily: 'Calibri',
-                fontSize: '12px',
-                borderBottom: '1px solid',
-                paddingBottom: '5px',
-              }}
-              dangerouslySetInnerHTML={{
-                __html: profileData,
-              }}
-            ></div>
-          </div>
-          {/* )} */}
-          <div
-            style={{ paddingTop: '0.5rem' }}
-            className='templateeleven-container-body-workexperience'
-          >
-            <h3>ARBEIDSERFARING</h3>
-            {experianceData?.map((item, index) => {
-              return (
-                <>
-                  <h4>
-                    {item?.jobTitle} | {item?.employer}
-                  </h4>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    {/* <span>{item?.location}</span> */}
-                    <span>
-                      {item?.startDate} -{' '}
-                      {item.toggle ? 'dags dato' : item?.endDate}
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: 'Calibri',
-                      fontSize: '12px',
-                      flexDirection: 'column',
-                      borderBottom: '1px solid',
-                      paddingBottom: '5px',
-                    }}
-                    dangerouslySetInnerHTML={{
-                      __html: item?.additionalInformation,
-                    }}
-                  ></div>
-                </>
-              )
-            })}
-          </div>
-          {enabledAccordians.Praksisplasser === true ? (
-            <div
-              style={{ paddingTop: '0.5rem' }}
-              className='templateeleven-container-body-workexperience'
-            >
-              <h3>Praksisplasser</h3>
-              {internships?.map((item, index) => {
-                return (
-                  <>
-                    <h4>
-                      {item?.jobTitle} | {item?.employer}
-                    </h4>
-                    <div>
-                      {/* <span>{item?.location}</span> */}
-                      <span>
-                        {item?.startDate} -{' '}
-                        {item.toggle ? 'dags dato' : item?.endDate}
-                      </span>
-                    </div>
-                    <h5
-                      dangerouslySetInnerHTML={{
-                        __html: item?.additionalInformation,
-                      }}
-                      style={{
-                        fontFamily: 'Calibri',
-                        fontSize: '12px',
-                        fontWeight: '500',
-                        borderBottom: '1px solid',
-                      }}
-                    >
-                      {/* {'● '} */}
-                      {/* {item?.additionalInformation} */}
-                    </h5>
-                  </>
-                )
-              })}
-            </div>
-          ) : null}
-        </div>
-        <div
-          className='templateeleven-container-bottom-side'
-          style={{ minHeight: '800px' }}
-        >
-          <div className='templateeleven-container-bottom-side-left'>
-            <div className='templateeleven-container-bottomdiv'>
-              <h3>PROFESJONELL EKSPERTISE</h3>
+                <View style={styles.educationContainerPara}>
+                  <Text style={styles.educationContainerParaText}>
+                    We use both first and third-party cookies to personalise web
+                    content, analyse visits to our websites and tailor
+                    advertisements. Some of these cookies are necessary for the
+                    website to function, whilst others require your consent.
+                    More detail can be found in our cookie policy and you can
+                    tailor your choices in the preference centre.
+                  </Text>
+                </View>
+              </View>
 
-              <div className='templateeleven-container-bottomdiv-leftside'>
-                <h2>ferdigheter</h2>
-                <div className='settingdiv'>
-                  {properties?.map((item) => (
-                    <div className='templateeleven-container-bottomdiv-leftside-nameprogress'>
-                      <h4 style={{ width: '200px' }}>{item?.name}</h4>
-                      {cvData?.displayProgressBar === true ? (
-                        <ProgressBar
-                          backgroundcolor='rgb(237, 125, 49)'
-                          percentage={item?.value}
-                          wrapperColor={'grey'}
-                          fontFamily={'Calibri'}
-                        />
-                      ) : null}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+              <View style={styles.experienceSection}>
+                <Text style={styles.contentContainerHeading}>
+                  Praksisplasser
+                </Text>
+                <Text style={styles.educationContainerHeadingLine}></Text>
+                <Text style={styles.educationContainerHeadingPara}>
+                  Skole | Studie
+                </Text>
+                <View style={styles.educationContainerDate}>
+                  <Text style={styles.educationContainerDateText}>
+                    2023-08 - 2023-08{' '}
+                  </Text>
+                </View>
 
-            <div className='templateeleven-container-bottomdiv'>
-              <h3>ANNET</h3>
+                <View style={styles.educationContainerPara}>
+                  <Text style={styles.educationContainerParaText}>
+                    We use both first and third-party cookies to personalise web
+                    content, analyse visits to our websites and tailor
+                    advertisements. Some of these cookies are necessary for the
+                    website to function, whilst others require your consent.
+                    More detail can be found in our cookie policy and you can
+                    tailor your choices in the preference centre.
+                  </Text>
+                </View>
+              </View>
 
-              <div className='templateeleven-container-bottomdiv-leftside'>
-                <h2>Språk</h2>
-                <div className='settingdiv'>
-                  {languages?.map((item) => (
-                    <div className='templateeleven-container-bottomdiv-leftside-nameprogress'>
-                      <span>
-                        {item?.name} {item?.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {enabledAccordians.Kurs === true ? (
-                <div className='templateeleven-container-bottomdiv-leftside'>
-                  <h2>Kurs</h2>
-                  <div className='settingdiv'>
-                    {courses?.map((item) => (
-                      <div className='templateeleven-container-bottomdiv-leftside-nameprogress'>
-                        <span>{item?.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
+              <View style={styles.contentSectionBottom}>
+                <View style={styles.contentSectionBottomLeft}>
+                  <View style={styles.contentSectionBottomLeftContent}>
+                    <Text style={styles.contentContainerHeading}>
+                      PROFESJONELL EKSPERTISE
+                    </Text>
+                    <Text style={styles.contentContainerHeadingLine}></Text>
 
-              {enabledAccordians.Hobbyer === true ? (
-                <div className='templateeleven-container-bottomdiv-leftside'>
-                  <h2>HOBBY</h2>
-                  <div className='settingdiv'>
-                    <p>
-                      {hobbies?.map((item, index) => (
-                        <span>
-                          {index === hobbies.length - 1
-                            ? item?.name + '.'
-                            : item?.name + ', '}
-                        </span>
-                      ))}
-                    </p>
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          </div>
-          <div
-            style={{ paddingLeft: '1rem' }}
-            className='templateeleven-container-bottom-side-right'
-          >
-            {' '}
-            <div className='templateeleven-container-bottomdiv'>
-              <h3>UTDANNELSE</h3>
+                    <View style={styles.contentSectionBottomLeftContentSide}>
+                      <Text
+                        style={styles.contentSectionBottomLeftContentSideTitle}
+                      >
+                        ferdigheter
+                      </Text>
+                      <View
+                        style={
+                          styles.contentSectionBottomLeftContentSideSetting
+                        }
+                      >
+                        <View
+                          style={
+                            styles.contentSectionBottomLeftContentSideProgress
+                          }
+                        >
+                          <Text
+                            style={
+                              styles.contentSectionBottomLeftContentSideProgressText
+                            }
+                          >
+                            progress
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={styles.contentSectionBottomLeftContent}>
+                    <Text style={styles.contentContainerHeading}>ANNET</Text>
+                    <Text style={styles.contentContainerHeadingLine}></Text>
+                    <View style={styles.contentSectionBottomLeftContentSide}>
+                      <Text
+                        style={styles.contentSectionBottomLeftContentSideTitle}
+                      >
+                        SPRÅK
+                      </Text>
+                      <View
+                        style={
+                          styles.contentSectionBottomLeftContentSideSetting
+                        }
+                      >
+                        <View
+                          style={
+                            styles.contentSectionBottomLeftContentSideProgress
+                          }
+                        >
+                          <Text
+                            style={
+                              styles.contentSectionBottomLeftContentSideProgressText
+                            }
+                          >
+                            language : Morsmål
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
 
-              <div className='studyingdiv'>
-                {educationData?.map((item) => (
-                  <div className='settingdiv'>
-                    <h4 style={{ textTransform: 'uppercase' }}>
-                      {item?.study}
-                    </h4>
-                    <h4>{item?.school}</h4>
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '2px',
-                      }}
-                    >
-                      <h4>
-                        {item.startDate.length === 0
-                          ? 'Startdato -'
-                          : moment(item?.startDate).format('MM YYYY') + ' - '}
-                      </h4>
-                      <h4>
-                        {item.endDate.length === 0
-                          ? 'sluttdato -'
-                          : moment(item?.endDate).format('MM YYYY')}
-                      </h4>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            {enabledAccordians.Referanser === true ? (
-              <div className='templateeleven-container-bottomdiv'>
-                <h3>Referanser</h3>
+                    <View style={styles.contentSectionBottomLeftContentSide}>
+                      <Text
+                        style={styles.contentSectionBottomLeftContentSideTitle}
+                      >
+                        KURS
+                      </Text>
+                      <View
+                        style={
+                          styles.contentSectionBottomLeftContentSideSetting
+                        }
+                      >
+                        <View
+                          style={
+                            styles.contentSectionBottomLeftContentSideProgress
+                          }
+                        >
+                          <Text
+                            style={
+                              styles.contentSectionBottomLeftContentSideProgressText
+                            }
+                          >
+                            course name
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
 
-                {toggleData ? (
-                  <p
-                    style={{
-                      marginTop: '5px',
-                      wordBreak: 'break-all',
-                      fontSize: '13px',
-                      fontFamily: 'Calibri-Bold',
-                      fontWeight: 'bold',
-                      color: 'black',
-                    }}
-                  >
-                    Oppgis ved forespørsel
-                  </p>
-                ) : (
-                  <div className='studyingdiv'>
-                    {refrence?.map((item) => (
-                      <div className='settingdiv'>
-                        <h4>{item?.name + ' - ' + item?.companyName}</h4>
+                    <View style={styles.contentSectionBottomLeftContentSide}>
+                      <Text
+                        style={styles.contentSectionBottomLeftContentSideTitle}
+                      >
+                        HOBBY
+                      </Text>
+                      <View
+                        style={
+                          styles.contentSectionBottomLeftContentSideSetting
+                        }
+                      >
+                        <View
+                          style={
+                            styles.contentSectionBottomLeftContentSideProgress
+                          }
+                        >
+                          <Text
+                            style={
+                              styles.contentSectionBottomLeftContentSideProgressText
+                            }
+                          >
+                            cricket
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </View>
 
-                        <h4>{item?.email}</h4>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '90%',
-        }}
-      >
-        <EndreMaalButton />
-        <div className='gdpr-image'>
-          {/* <input
-                type="checkbox"
-                value={isChecked}
-                onChange={() => setIsChecked(!isChecked)}
-              /> */}
-          <span>
-            Ved å trykke på "laste ned", vil du laste ned CVen du har laget
-            forplikte deg til å akseptere våre{' '}
-            <Link to='/gdpr'>
-              <span>vilkår og betingelser</span>
-            </Link>{' '}
-            og{' '}
-            <Link to='/gdpr'>
-              <span>personvernregler</span>
-            </Link>
-          </span>
-        </div>
-        <ReactToPrint
-          trigger={() => (
-            <button
-              ref={printButtonRef}
-              // disabled={!isChecked}
-              style={{
-                marginTop: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '180px',
-                borderRadius: '5px',
-                gap: '5px',
-                background: '#F6F3F1',
-                padding: '10px',
-                fontFamily: 'Montserrat',
-                fontWeight: '600',
-                fontSize: '16px',
-                border: '1px solid #F6F3F1',
-                backgroundColor: '#eeb856',
-                margin: '10px',
-                cursor: 'pointer',
-              }}
-            >
-              Last ned CV
-            </button>
-          )}
-          documentTitle={cvData.saveAs}
-          content={() => pdfComponent}
-          onBeforeGetContent={() => {
-            setPageWidth(true)
-          }}
-          onAfterPrint={() => {
-            sendPrintedDocument()
-            setPageWidth(false)
-            setDisplayTemplate(false)
-            setChangeOccured(!changeOccured)
-          }}
-        />
-      </div>
-    </div>
+                <View style={styles.contentSectionBottomRight}>
+                  <View style={styles.contentSectionBottomRightContent}>
+                    <View style={styles.contentSectionBottomLeftContent}>
+                      <Text style={styles.contentContainerHeading}>
+                        UTDANNELSE
+                      </Text>
+                      <Text style={styles.contentContainerHeadingLine}></Text>
+
+                      <View style={styles.studingContent}>
+                        <View style={styles.settingContent}>
+                          <Text style={{ textTransform: 'uppercase' }}>
+                            settingg
+                          </Text>
+                          <Text style={styles.settingContentText}>
+                            text for this is a bextay way to a
+                          </Text>
+                          <View style={styles.settingContentDate}>
+                            <Text style={styles.settingContentDateText}>
+                              08 2023 - 08 2023
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+
+                    <View style={styles.contentSectionBottomLeftContent}>
+                      <Text style={styles.contentContainerHeading}>
+                        Referanser
+                      </Text>
+                      <Text style={styles.contentContainerHeadingLine}></Text>
+                      <View style={styles.studingContent}>
+                        <View style={styles.settingContent}>
+                          <Text>Navn - Selskap</Text>
+                          <Text style={styles.settingContentText}>
+                            Telefon: 98514
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Page>
+      </Document>
+    </PDFViewer>
   )
 }
 

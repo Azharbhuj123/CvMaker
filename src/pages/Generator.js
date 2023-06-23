@@ -14,6 +14,7 @@ import ArrowRight from '../assests/icons/arrowRight.png'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import CVBodiesModal from '../components/cvmaker/CVBodiesModal'
 
 const Generator = (props) => {
   console.log(props, 'props in generator')
@@ -27,7 +28,11 @@ const Generator = (props) => {
   const [windowWidth, setWindowWidth] = useState(0)
   const config = useSelector(configData)
   const MySwal = withReactContent(Swal)
+  const [openModal, setOpenModal] = useState(false)
 
+  const handleClick = () => {
+    setOpenModal(true)
+  }
   if (config.footerEnabler === true) {
     dispatch(editConfig({ footerEnabler: false }))
   }
@@ -109,6 +114,22 @@ const Generator = (props) => {
                 </div>
               </div>
             </div>
+            {/* <div className='preview-button'>
+              <button onClick={handleClick}>Forhåndsvisning CV</button>
+              {openModal && (
+                <div className='modal'>
+                  <div className='modal-content'>
+                    <CVBodiesModal />
+                    <button
+                      className='modal-button'
+                      onClick={() => setOpenModal(false)}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div> */}
             <div className='generator-container-right'>
               {/* <div
                 style={{

@@ -46,7 +46,8 @@ const TemplateEight = (props) => {
   let printButtonRef = useRef()
   let docRef = useRef()
   const [displayTemplate, setDisplayTemplate, pageWidth, setPageWidth] =
-    useOutletContext()
+    useOutletContext(true)
+    console.log(displayTemplate, 'template');
   const cvData = useSelector(CV_DATA)
   const educationData = useSelector(Education_DATA)
   const experianceData = useSelector(Experiance_Data)
@@ -70,13 +71,15 @@ const TemplateEight = (props) => {
   //   printButtonRef.current.click();
   // }
 
-  const sendPrintedDocument = async () => {
+   const sendPrintedDocument = async () => {
     await sendFileToBackend(
       document.getElementsByClassName('template-eight-container'),
       cvData.email,
       displayTemplate
     )
   }
+
+
 
   useEffect(() => {
     console.log('re render!!!', docRef.current)
@@ -132,8 +135,8 @@ const TemplateEight = (props) => {
       backgroundColor: '#fff',
       display: 'flex',
       justifyContent: 'center',
-      paddingVertical: 16,
-      paddingHorizontal: 16,
+      paddingVertical: 12,
+      paddingHorizontal: 12,
       position: 'absolute',
       width: '70%',
       top: 30,
@@ -144,7 +147,7 @@ const TemplateEight = (props) => {
     mainTitle: {
       color: '#b19c7d',
       fontFamily: 'Roboto',
-      fontSize: 40,
+      fontSize: 30,
       fontWeight: 700,
       textAlign: 'center',
     },
@@ -279,6 +282,7 @@ const TemplateEight = (props) => {
       fontWeight: 200,
       marginTop: 15,
       wordBreak: 'break-word',
+      width: "90%",
     },
     experienceSection: {
       borderBottom: '3px solid #b19c7d',
@@ -325,19 +329,21 @@ const TemplateEight = (props) => {
     },
   })
 
-  const DataToRender = () => (
+return (
+  <PDFViewer style={styles.document}>
     <Document style={styles.document}>
       <Page size='A4' style={styles.page}>
         {/* <View>
         {' '}
         style={styles.templateEight} */}
+      
         <View style={styles.pageLeftSection}>
           <Text style={styles.detailSection}>DETALJER</Text>
           <View style={styles.detailSectionContent}>
             {cvData.physicalAddress !== '' ? (
               <Text style={styles.detailSectionContentAdress}>ADRESSE</Text>
             ) : null}
-            {cvData.physicalAddress !== '' ? (
+            {cvData?.physicalAddress !== '' ? (
               <Text
                 style={styles.detailSectionContentAddressText}
                 styles={{ wordBreak: 'break-word' }}
@@ -346,10 +352,10 @@ const TemplateEight = (props) => {
               </Text>
             ) : null}
 
-            {cvData.country !== '' ? (
+            {cvData?.country !== '' ? (
               <Text style={styles.detailSectionContentAdress}>By</Text>
             ) : null}
-            {cvData.country !== '' ? (
+            {cvData?.country !== '' ? (
               <Text style={styles.detailSectionContentAddressText}>
                 {cvData?.country}
               </Text>
@@ -401,7 +407,7 @@ const TemplateEight = (props) => {
               {skillData?.map((item, index) => {
                 return (
                   <>
-                    {cvData.displayProgressBar === true ? (
+                    {cvData?.displayProgressBar === true ? (
                       <>
                         <ProgressBar
                           // fontFamily={"Roboto-Bold"}
@@ -434,7 +440,7 @@ const TemplateEight = (props) => {
               </Text>
             ))}
 
-            {accordiansEnabled.Hobbyer === true ? (
+            {accordiansEnabled?.Hobbyer === true ? (
               <>
                 <Text style={styles.hobbySection}> HOBBY</Text>
                 <View style={{ display: 'flex' }}>
@@ -449,7 +455,7 @@ const TemplateEight = (props) => {
               </>
             ) : null}
 
-            {accordiansEnabled.Kurs === true ? (
+            {accordiansEnabled?.Kurs === true ? (
               <>
                 <Text style={styles.hobbySection}> KURS</Text>
                 <View style={{ display: 'flex' }}>
@@ -469,7 +475,7 @@ const TemplateEight = (props) => {
           <Text style={styles.mainTitle}>
             {cvData?.firstName + ' ' + cvData?.lastName}
           </Text>
-          <Text style={styles.mainSubTitle}>{cvData.jobTitle}</Text>
+          <Text style={styles.mainSubTitle}>{cvData?.jobTitle}</Text>
         </View>
 
         <View style={styles.pageRightSection} styles={{ width: '70%' }}>
@@ -484,7 +490,7 @@ const TemplateEight = (props) => {
                   //   __html: profileData,
                   // }}
                 >
-                  {profileData.replace(/(<([^>]+)>)/gi, '')}
+                  {profileData?.replace(/(<([^>]+)>)/gi, '')}
                 </Text>
               </View>
             </>
@@ -605,102 +611,105 @@ const TemplateEight = (props) => {
                     </>
                   )}
                 </View>
+              
               ))}
             </>
           ) : null}
         </View>
-      </Page>
+     
+     </Page>
     </Document>
+    </PDFViewer> 
   )
 
-  return (
-    <>
-      <DataToRender />
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '90%',
-        }}
-      >
-        <EndreMaalButton />
-        <div className='gdpr-image'>
-          {/* <input
-                type="checkbox"
-                value={isChecked}
-                onChange={() => setIsChecked(!isChecked)}
-              /> */}
-          <span>
-            Ved å trykke på "laste ned", vil du laste ned CVen du har laget
-            forplikte deg til å akseptere våre{' '}
-            <Link to='/gdpr'>
-              <span>vilkår og betingelser</span>
-            </Link>{' '}
-            og{' '}
-            <Link to='/gdpr'>
-              <span>personvernregler</span>
-            </Link>
-          </span>
-        </div>
-        {/* <ReactToPrint
-          trigger={() => (
-            <button
-              ref={printButtonRef}
-              // disabled={!isChecked}
-              style={{
-                marginTop: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '180px',
-                borderRadius: '5px',
-                gap: '5px',
-                background: '#F6F3F1',
-                padding: '10px',
-                fontFamily: 'Montserrat',
-                fontWeight: '600',
-                fontSize: '16px',
-                border: '1px solid #F6F3F1',
-                backgroundColor: '#eeb856',
-                margin: '10px',
-                cursor: 'pointer',
-              }}
-            >
-              Last ned CV
-            </button>
-          )}
-          documentTitle={cvData.saveAs}
-          content={() => pdfComponent}
-          onBeforeGetContent={() => {
-            setPageWidth(true)
-          }}
-          onAfterPrint={() => {
-            sendPrintedDocument()
-            setDisplayTemplate(false)
-            setChangeOccured(!changeOccured)
-          }}
-        /> */}
-      </div>
-      <div>
-        <PDFDownloadLink
-          document={
-            <DataToRender
-              style={{
-                width: '100%',
-                height: '100%',
-                backgroundColor: 'red',
-              }}
-            />
-          }
-          filename='FORM.pdf'
-        >
-          {({ blob, url, loading, error }) =>
-            error ? 'Loading document...' : 'Download now!'
-          }
-        </PDFDownloadLink>
-      </div>
-    </>
-  )
+  // return (
+  //   <>
+  //     {/* <DataToRender /> */}
+  //     <div
+  //       style={{
+  //         display: 'flex',
+  //         justifyContent: 'space-between',
+  //         width: '90%',
+  //       }}
+  //     >
+  //       <EndreMaalButton />
+  //       <div className='gdpr-image'>
+  //         {/* <input
+  //               type="checkbox"
+  //               value={isChecked}
+  //               onChange={() => setIsChecked(!isChecked)}
+  //             /> */}
+  //         <span>
+  //           Ved å trykke på "laste ned", vil du laste ned CVen du har laget
+  //           forplikte deg til å akseptere våre{' '}
+  //           <Link to='/gdpr'>
+  //             <span>vilkår og betingelser</span>
+  //           </Link>{' '}
+  //           og{' '}
+  //           <Link to='/gdpr'>
+  //             <span>personvernregler</span>
+  //           </Link>
+  //         </span>
+  //       </div>
+  //       {/* <ReactToPrint
+  //         trigger={() => (
+  //           <button
+  //             ref={printButtonRef}
+  //             // disabled={!isChecked}
+  //             style={{
+  //               marginTop: '10px',
+  //               display: 'flex',
+  //               alignItems: 'center',
+  //               justifyContent: 'center',
+  //               width: '180px',
+  //               borderRadius: '5px',
+  //               gap: '5px',
+  //               background: '#F6F3F1',
+  //               padding: '10px',
+  //               fontFamily: 'Montserrat',
+  //               fontWeight: '600',
+  //               fontSize: '16px',
+  //               border: '1px solid #F6F3F1',
+  //               backgroundColor: '#eeb856',
+  //               margin: '10px',
+  //               cursor: 'pointer',
+  //             }}
+  //           >
+  //             Last ned CV
+  //           </button>
+  //         )}
+  //         documentTitle={cvData.saveAs}
+  //         content={() => pdfComponent}
+  //         onBeforeGetContent={() => {
+  //           setPageWidth(true)
+  //         }}
+  //         onAfterPrint={() => {
+  //           sendPrintedDocument()
+  //           setDisplayTemplate(false)
+  //           setChangeOccured(!changeOccured)
+  //         }}
+  //       /> */}
+  //     </div>
+  //     <div>
+  //       <PDFDownloadLink
+  //         document={
+  //           <DataToRender
+  //             style={{
+  //               width: '100%',
+  //               height: '100%',
+  //               backgroundColor: 'red',
+  //             }}
+  //           />
+  //         }
+  //         filename='FORM.pdf'
+  //       >
+  //         {({ blob, url, loading, error }) =>
+  //           error ? 'Loading document...' : 'Download now!'
+  //         }
+  //       </PDFDownloadLink>
+  //     </div>
+  //   </>
+  // )
 }
 
 // {({ loading }) =>

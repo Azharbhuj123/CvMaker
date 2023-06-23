@@ -19,7 +19,7 @@
     }
 
     &-left {
-      width: 50%;
+      width: 100%;
       background-color: #ffff;
       overflow-y: auto;
       scroll-behavior: smooth;
@@ -155,7 +155,7 @@
     }
 
     &-right {
-      width: 50%;
+      width: 100%;
       background-color: #f6f3f1;
       display: flex;
       justify-content: center;
@@ -163,7 +163,7 @@
       overflow-y: unset;
       padding-right: 0rem;
       padding-left: 0rem;
-      padding-bottom: 1rem;
+      // padding-bottom: 1rem;
       padding-top: 0rem;
       height: fit-content;
       flex-direction: column;
