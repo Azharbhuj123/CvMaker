@@ -219,6 +219,7 @@ const styles = StyleSheet.create({
 })
 
 const TemplateFive = () => {
+  const [isRendering, setIsRendering] = useState(false)
   const dispatch = useDispatch()
   const toggleData = useSelector(getRefToggle)
   let pdfComponent = useRef()
@@ -299,8 +300,10 @@ const TemplateFive = () => {
   }, [displayTemplate])
 
   return (
+    <>
     <PDFViewer style={styles.document}>
       <Document style={styles.document}>
+      {isRendering ? (
         <Page size='A4' style={styles.page}>
           <View style={styles.container}>
             <View style={styles.headingSection}>
@@ -766,8 +769,13 @@ const TemplateFive = () => {
             </View>
           </View>
         </Page>
+      ): null}
       </Document>
     </PDFViewer>
+    <div className='preview-button'>
+        <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
+      </div>
+    </>
   )
 }
 

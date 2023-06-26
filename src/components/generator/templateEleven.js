@@ -52,6 +52,7 @@ const TemplateEleven = () => {
   const hobbies = useSelector(getHobbies)
   const internships = useSelector(getInternships)
   const profileData = useSelector(profileRichTextData)
+  const [isRendering, setIsRendering] = useState(false)
   // if (displayTemplate && displayTemplate === true ) {
   //   console.log(
   //     "mobile screen detected the element will directly be printed now !!!!!!!!!!!11"
@@ -313,8 +314,10 @@ const TemplateEleven = () => {
   })
   
   return (
+    <>
     <PDFViewer style={styles.document}>
       <Document style={styles.document}>
+      {isRendering ? (
         <Page size='A4' style={styles.page}>
           <View style={styles.container}>
             <View style={styles.heder}>
@@ -585,8 +588,13 @@ const TemplateEleven = () => {
             </View>
           </View>
         </Page>
+      ): null}
       </Document>
     </PDFViewer>
+    <div className='preview-button'>
+        <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
+      </div>
+    </>
   )
 }
 
