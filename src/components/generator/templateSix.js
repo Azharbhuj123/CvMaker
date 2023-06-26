@@ -18,9 +18,215 @@ import {
 } from '../../Redux/reducers/CvGeneratorReducer'
 import moment from 'moment'
 import ReactToPrint from 'react-to-print'
-
+import {
+  Document,
+  Page,
+  View,
+  Text,
+  StyleSheet,
+  Font,
+  PDFViewer,
+  Image,
+} from '@react-pdf/renderer'
 import EndreMaalButton from '../endreMaalButton/EndreMaalButton'
 import { sendFileToBackend } from '../../helper/helperFunctions'
+import arialRegular from '../../assests/fonts/Arial/arial.ttf'
+import profileImg from '../../assests/images/pr.png'
+
+Font.register({
+  family: 'Arial',
+  fonts: [{ src: arialRegular }],
+})
+
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'row',
+  },
+  document: {
+    width: '100%',
+    height: '100vh',
+  },
+  container: {
+    padding: 16,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    overflowWrap: 'break-word',
+  },
+  headerHeading: {
+    width: '80%',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 24,
+    overflowWrap: 'break-word',
+  },
+  headerHeadingTitle: {
+    fontFamily: 'Arial',
+    fontWeight: 300,
+    color: 'rgb(79, 129, 189)',
+    fontSize: 32,
+    wordBreak: 'break-word',
+  },
+  headerHeadingJobtitle: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerHeadingJobtitleText: {
+    fontSize: 14,
+    fontFamily: 'Arial',
+  },
+  headerHeadingOne: {
+    fontFamily: 'Arial',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 16,
+    flex: 1,
+  },
+  headerHeadingOneLeft: {
+    display: 'flex',
+    flexDirection: 'column',
+    overflowWrap: 'break-word',
+  },
+  headerHeadingOneLeftText: {
+    marginTop: 2,
+    fontFamily: 'Arial',
+    fontSize: 12,
+    overflowWrap: 'break-word',
+  },
+  headerHeadingOneRight: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'right',
+    overflowWrap: 'break-word',
+  },
+  headerHeadingImage: {
+    width: 120,
+    height: 120,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 24,
+  },
+  profileImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: '60%',
+    display: 'none',
+  },
+  profileSection: {
+    width: '100%',
+    margintop: 10,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 8,
+  },
+  profileSectionTitle: {
+    textTransform: 'uppercase',
+    fontFamily: 'Arial',
+    fontSize: 20,
+    fontWeight: 400,
+    color: 'rgb(79, 129, 189)',
+    wordBreak: 'break-word',
+  },
+  profileSectionPara: {
+    fontFamily: 'Arial',
+    fontSize: 10,
+    textTransform: 'uppercase',
+    paddingBottom: 30,
+    wordBreak: 'break-word',
+  },
+  contentSection: {
+    width: '100%',
+    wordBreak: 'break-word',
+  },
+  contentSectionHeading: {
+    display: 'flex',
+    width: '100%',
+    flexDirection: 'row',
+  },
+  contentSectionHeadingLeft: {
+    display: 'flex',
+    width: '35%',
+  },
+  contentSectionHeadingLeftTitle: {
+    fontSize: 20,
+    color: 'rgb(79, 129, 189)',
+    fontFamily: 'Arial',
+  },
+  contentSectionHeadingRight: {
+    width: '65%',
+    borderLeft: '2px solid lightgray',
+  },
+  contentSectionHeadingLeftText: {
+    marginLeft: 8,
+    marginTop: 8,
+    fontFamily: 'Arial',
+    fontWeight: 300,
+    fontSize: 14,
+  },
+  contentSectionHeadingRightText: {
+    marginLeft: 15,
+    marginTop: 8,
+    fontSize: 14,
+    fontFamily: 'Arial',
+    fontWeight: 'bold',
+  },
+  contentSectionHeadingRightPara: {
+    overflowWrap: 'break-word',
+  },
+  contentSectionHeadingRightParaText: {
+    fontFamily: 'Arial',
+    fontSize: 12,
+    overflowWrap: 'break-word',
+    marginLeft: 15,
+  },
+  contentSectionHeadingRightList: {
+    marginLeft: 40,
+    fontFamily: 'Arial',
+  },
+  marker: {
+    width: 5,
+    height: 5,
+    borderRadius: 4,
+    backgroundColor: 'black',
+    marginRight: 8,
+  },
+  markerText: {
+    fontFamily: 'Arial',
+    fontSize: 14,
+    wordBreak: 'break-all',
+  },
+  contentSectionHeadingRightTitle: {
+    marginLeft: 20,
+    marginTop: 10,
+    fontFamily: 'Arial',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  contentSectionHeadingRightText: {
+    fontSize: 12,
+    marginLeft: 20,
+    fontFamily: 'Arial',
+  },
+  contentSectionHeadingRightreference: {
+    marginLeft: 20,
+    marginTop: 30,
+    fontSize: 14,
+    fontFamily: 'Arial',
+    fontWeight: 'bold',
+  },
+})
+
 const TemplateSix = () => {
   let pdfComponent = useRef()
   let [displayTemplate, setDisplayTemplate, pageWidth, setPageWidth] =
@@ -72,381 +278,325 @@ const TemplateSix = () => {
   }, [displayTemplate])
 
   return (
-    <div
-      style={{
-        // width: displayTemplate === true ? "100%" : pageWidth === true ? "100%" : "95%",
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflowWrap: 'break-word',
-        flexDirection: 'column',
-        height: '96%',
-        // marginTop: '10px',
-        margin: '10px',
-        padding: '10px'
-      }}
-    >
-      <div className='template-six-container' style={{ height: 'inherit' }}>
-        <div
-          ref={(el) => (pdfComponent = el)}
-          className='function-hook'
-          style={{
-            width:
-              displayTemplate === true
-                ? '720px'
-                : pageWidth === true
-                ? '720px'
-                : '100%',
-            // height: '100%',
-            minHeight: '1035px',
-            margin: displayTemplate === true ? '10px' : '12px',
-            padding: displayTemplate === true ? '10px' : '12px',
-            display: 'block',
-            // justifyContent: "center",
-            // flexDirection: "column",
-          }}
-        >
-          <div className='template-six-container-header'>
-            <div className='template-six-container-header-heading'>
-              <h2>
-                {cvData.firstName ? cvData?.firstName + ' ' : 'Your Name'}
-                {cvData.lastName ? cvData?.lastName : ' '}
-              </h2>
-              <div className='template-six-container-header-heading-divOne-jobTitle'>
-                <p>{cvData?.jobTitle}</p>
-              </div>
-              <div className='template-six-container-header-heading-divOne'>
-                <div>
-                  {cvData?.DOB == '' ? null : (
-                    <span>
-                      Fødselsdato: {moment(cvData?.DOB).format('DD,MM,YYYY')}
-                    </span>
-                  )}
-                  <span>Mail: {cvData.email ? cvData.email : 'din epost'}</span>
-                  {cvData?.drivingLicense !== '' ? (
-                    <span>Førerkort: {cvData?.drivingLicense}</span>
-                  ) : null}
-                </div>
+    <PDFViewer style={styles.document}>
+      <Document style={styles.document}>
+        <Page size='A4' style={styles.page}>
+          <View style={styles.container}>
+            <View style={styles.header}>
+              <View style={styles.headerHeading}>
+                <Text style={styles.headerHeadingTitle}>
+                  {cvData.firstName ? cvData?.firstName + ' ' : 'Your Name'}
+                  {cvData.lastName ? cvData?.lastName : ' '}
+                </Text>
+                <View style={styles.headerHeadingJobtitle}>
+                  <Text style={styles.headerHeadingJobtitleText}>
+                    {cvData?.jobTitle}
+                  </Text>
+                </View>
+                <View style={styles.headerHeadingOne}>
+                  <View style={styles.headerHeadingOneLeft}>
+                    {cvData?.DOB == '' ? null : (
+                      <Text style={styles.headerHeadingOneLeftText}>
+                        Fødselsdato: {moment(cvData?.DOB).format('DD,MM,YYYY')}
+                      </Text>
+                    )}
+                    <Text style={styles.headerHeadingOneLeftText}>
+                      Mail: {cvData.email ? cvData.email : 'din epost'}
+                    </Text>
+                    {cvData?.drivingLicense !== '' ? (
+                      <Text style={styles.headerHeadingOneLeftText}>
+                        Førerkort: {cvData?.drivingLicense}
+                      </Text>
+                    ) : null}
+                  </View>
 
-                <div>
-                  <span>
-                    Telefon: {cvData.phone ? cvData.phone : 'din telefon'}
-                  </span>
-                  <span>
-                    Adresse:
-                    {cvData.physicalAddress !== ''
-                      ? cvData.physicalAddress + ', ' + cvData.zipCode
-                      : 'adressen din'}
-                  </span>
-                  <span>{cvData.country !== '' ? cvData.country : null}</span>
-                </div>
-              </div>
-            </div>
-            <div className='template-six-container-header-imgdiv'>
-              <img
-                src={cvData.profileImage ? cvData.profileImage : userprofile}
-                alt=''
-                style={cvData.profileImage ? null : { display: 'none' }}
-              />
-            </div>
-          </div>
-          {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
-            <div className='template-six-container-profile'>
-              <h2 style={{ textTransform: 'uppercase' }}>Profil</h2>
-              {/* <p>{cvData?.profile}</p> */}
-              <p
-                style={{ fontFamily: 'Arial', fontSize: '12px' }}
-                dangerouslySetInnerHTML={{
-                  __html: profileData,
-                }}
-              ></p>
-            </div>
-          )}
-          <div
-            className='template-six-container-content'
-          >
-            <div className='template-six-container-content-heading-box'>
-              <div className='template-six-container-content-heading-box-leftSide'>
-                <p>ERFARING</p>
-              </div>
-              <div className='template-six-container-content-heading-box-rightSide'></div>
-            </div>
-            {experianceData.map((item, index) => (
-              <div
-                key={index}
-                className='template-six-container-content-heading-box'
-              >
-                <div className='template-six-container-content-heading-box-leftSide'>
-                  <h3>
-                    {item.startDate.length === 0
-                      ? 'Startdato'
-                      : moment(item.startDate).format('YYYY MM')}{' '}
-                    {' - '}
-                    {item.toggle
-                      ? 'dags dato'
-                      : item.endDate.length === 0
-                      ? ' Sluttdato'
-                      : moment(item?.endDate).format('YYYY-MM')}
-                  </h3>
-                </div>
-                <div className='template-six-container-content-heading-box-rightSide'>
-                  <h3>
-                    {item?.jobTitle}, {item?.employer}
-                  </h3>
-                  <div
-                    style={{ fontFamily: 'Arial', fontSize: '17px' }}
-                    dangerouslySetInnerHTML={{
-                      __html: item?.additionalInformation,
-                    }}
-                  ></div>
-                </div>
-              </div>
-            ))}
-            <div className='template-six-container-content-heading-box'>
-              <div className='template-six-container-content-heading-box-leftSide'>
-                <p>UTDANNING</p>
-              </div>
-              <div className='template-six-container-content-heading-box-rightSide'></div>
-            </div>
-            {educationData.map((item, index) => (
-              <div
-                key={index}
-                className='template-six-container-content-heading-box'
-              >
-                <div
-                  style={{ gap: '4px' }}
-                  className='template-six-container-content-heading-box-leftSide'
-                >
-                  <h3 style={{ marginLeft: '0px' }}>
-                    {item.startDate.length === 0
-                      ? 'Startdato'
-                      : moment(item.startDate).format('YYYY MM')}{' '}
-                    {' - '}
-                  </h3>
-                  <h3 style={{ marginLeft: '0px' }}>
-                    {item.toggle
-                      ? 'dags dato'
-                      : item.endDate.length === 0
-                      ? ' Sluttdato'
-                      : moment(item?.endDate).format('YYYY-MM')}
-                  </h3>
-                </div>
-                <div className='template-six-container-content-heading-box-rightSide'>
-                  <h3>
-                    {item?.study}, {item.school}
-                  </h3>
-                  <div
-                    style={{ fontFamily: 'Arial', fontSize: '17px' }}
-                    dangerouslySetInnerHTML={{
-                      __html: item?.additionalInformation,
-                    }}
-                  ></div>
-                </div>
-              </div>
-            ))}
-            {accordiansEnabled.Praksisplasser === true ? (
-              <>
-                <div className='template-six-container-content-heading-box'>
-                  <div className='template-six-container-content-heading-box-leftSide'>
-                    <p>PRAKSISPLASSER</p>
-                  </div>
-                  <div className='template-six-container-content-heading-box-rightSide'></div>
-                </div>
-                {internships.map((item, index) => {
-                  return (
-                    <div
+                  <View style={styles.headerHeadingOneRight}>
+                    <Text style={styles.headerHeadingOneLeftText}>
+                      Telefon: {cvData.phone ? cvData.phone : 'din telefon'}
+                    </Text>
+                    <Text style={styles.headerHeadingOneLeftText}>
+                      Adresse:
+                      {cvData.physicalAddress !== ''
+                        ? cvData.physicalAddress + ', ' + cvData.zipCode
+                        : 'adressen din'}
+                    </Text>
+                    <Text style={styles.headerHeadingOneLeftText}>
+                      {cvData.country !== '' ? cvData.country : null}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+
+              <View style={styles.headerHeadingImage}>
+                <Image
+                  src={cvData.profileImage ? cvData.profileImage : userprofile}
+                  alt=''
+                  style={cvData.profileImage ? null : { display: 'none' }}
+                />
+              </View>
+            </View>
+
+            {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
+              <View style={styles.profileSection}>
+                <Text style={styles.profileSectionTitle}>Profil</Text>
+                <Text style={styles.profileSectionPara}>
+                  {profileData.replace(/(<([^>]+)>)/gi, '')}
+                </Text>
+              </View>
+            )}
+
+            <View style={styles.contentSection}>
+              <View style={styles.contentSectionHeading}>
+                <View style={styles.contentSectionHeadingLeft}>
+                  <Text style={styles.contentSectionHeadingLeftTitle}>
+                    ERFARING
+                  </Text>
+                </View>
+                <View style={styles.contentSectionHeadingRight}></View>
+              </View>
+              {experianceData.map((item, index) => (
+                <View style={styles.contentSectionHeading} key={index}>
+                  <View style={styles.contentSectionHeadingLeft}>
+                    <Text style={styles.contentSectionHeadingLeftText}>
+                      {item.startDate.length === 0
+                        ? 'Startdato'
+                        : moment(item.startDate).format('YYYY MM')}{' '}
+                      {' - '}
+                      {item.toggle
+                        ? 'dags dato'
+                        : item.endDate.length === 0
+                        ? ' Sluttdato'
+                        : moment(item?.endDate).format('YYYY-MM')}
+                    </Text>
+                  </View>
+                  <View style={styles.contentSectionHeadingRight}>
+                    <Text style={styles.contentSectionHeadingRightText}>
+                      {item?.jobTitle}, {item?.employer}
+                    </Text>
+                    <View style={styles.contentSectionHeadingRightPara}>
+                      <Text style={styles.contentSectionHeadingRightParaText}>
+                        {item.additionalInformation.replace(
+                          /(<([^>]+)>)/gi,
+                          ''
+                        )}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              ))}
+
+              <View style={styles.contentSectionHeading}>
+                <View style={styles.contentSectionHeadingLeft}>
+                  <Text style={styles.contentSectionHeadingLeftTitle}>
+                    UTDANNING
+                  </Text>
+                </View>
+                <View style={styles.contentSectionHeadingRight}></View>
+              </View>
+              {educationData.map((item, index) => (
+                <View style={styles.contentSectionHeading} key={index}>
+                  <View style={styles.contentSectionHeadingLeft}>
+                    <Text style={styles.contentSectionHeadingLeftText}>
+                      {item.startDate.length === 0
+                        ? 'Startdato'
+                        : moment(item.startDate).format('YYYY MM')}{' '}
+                      {item.toggle
+                        ? 'dags dato'
+                        : item.endDate.length === 0
+                        ? ' Sluttdato'
+                        : moment(item?.endDate).format('YYYY-MM')}
+                    </Text>
+                  </View>
+                  <View style={styles.contentSectionHeadingRight}>
+                    <Text style={styles.contentSectionHeadingRightText}>
+                      {item?.study}, {item.school}
+                    </Text>
+                    <View style={styles.contentSectionHeadingRightPara}>
+                      <Text style={styles.contentSectionHeadingRightParaText}>
+                        {item.additionalInformation.replace(
+                          /(<([^>]+)>)/gi,
+                          ''
+                        )}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              ))}
+
+              {accordiansEnabled.Praksisplasser === true ? (
+                <>
+                  <View style={styles.contentSectionHeading}>
+                    <View style={styles.contentSectionHeadingLeft}>
+                      <Text style={styles.contentSectionHeadingLeftTitle}>
+                        PRAKSISPLASSER
+                      </Text>
+                    </View>
+                    <View style={styles.contentSectionHeadingRight}></View>
+                  </View>
+                  {internships.map((item, index) => {
+                    return (
+                      <View style={styles.contentSectionHeading} key={index}>
+                        <View style={styles.contentSectionHeadingLeft}>
+                          <Text style={styles.contentSectionHeadingLeftText}>
+                            {moment(item.startDate).format('YYYY MM')} {' - '}
+                            {item.toggle
+                              ? 'dags dato'
+                              : moment(item.endDate).format('YYYY MM')}
+                          </Text>
+                        </View>
+                        <View style={styles.contentSectionHeadingRight}>
+                          <Text style={styles.contentSectionHeadingRightText}>
+                            {item?.jobTitle} - {item?.employer}
+                          </Text>
+                          <View style={styles.contentSectionHeadingRightPara}>
+                            <Text
+                              style={styles.contentSectionHeadingRightParaText}
+                            >
+                              {item.additionalInformation.replace(
+                                /(<([^>]+)>)/gi,
+                                ''
+                              )}
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    )
+                  })}
+                </>
+              ) : null}
+
+              <View style={styles.contentSectionHeading}>
+                <View style={styles.contentSectionHeadingLeft}>
+                  <Text style={styles.contentSectionHeadingLeftTitle}>
+                    FERDIGHETER
+                  </Text>
+                </View>
+                <View style={styles.contentSectionHeadingRight}></View>
+              </View>
+              <View style={styles.contentSectionHeading}>
+                <View style={styles.contentSectionHeadingLeft}></View>
+                <View style={styles.contentSectionHeadingRight}>
+                  <View style={styles.contentSectionHeadingRightList}>
+                    {properties.map((item, index) => (
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          marginTop: '5px',
+                        }}
+                        key={index}
+                      >
+                        <View style={styles.marker} />
+                        <Text style={styles.markerText}>{item.name}</Text>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+              </View>
+
+              <View style={styles.contentSectionHeading}>
+                <View style={styles.contentSectionHeadingLeft}>
+                  <Text style={styles.contentSectionHeadingLeftTitle}>
+                    ANNET
+                  </Text>
+                </View>
+                <View style={styles.contentSectionHeadingRight}></View>
+              </View>
+              <View style={styles.contentSectionHeading}>
+                <View style={styles.contentSectionHeadingLeft}></View>
+                <View style={styles.contentSectionHeadingRight}>
+                  <Text style={styles.contentSectionHeadingRightTitle}>
+                    Språk
+                  </Text>
+                  {languages.map((item, index) => (
+                    <Text
+                      style={styles.contentSectionHeadingRightText}
                       key={index}
-                      className='template-six-container-content-heading-box'
                     >
-                      <div className='template-six-container-content-heading-box-leftSide'>
-                        <h3>
-                          {moment(item.startDate).format('YYYY MM')} {' - '}
-                          {item.toggle
-                            ? 'dags dato'
-                            : moment(item.endDate).format('YYYY MM')}
-                        </h3>
-                      </div>
-                      <div className='template-six-container-content-heading-box-rightSide'>
-                        <h3>
-                          {item?.jobTitle} - {item?.employer}
-                        </h3>
+                      {item.name} {item?.value}
+                    </Text>
+                  ))}
+                </View>
+              </View>
+              {accordiansEnabled.Hobbyer === true ? (
+                <View style={styles.contentSectionHeading}>
+                  <View style={styles.contentSectionHeadingLeft}></View>
+                  <View style={styles.contentSectionHeadingRight}>
+                    <Text style={styles.contentSectionHeadingRightTitle}>
+                      Hobby
+                    </Text>
+                    {hobbies.map((item, index) => (
+                      <Text
+                        style={styles.contentSectionHeadingRightText}
+                        key={index}
+                      >
+                        {item.name}
+                      </Text>
+                    ))}
+                  </View>
+                </View>
+              ) : null}
 
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: item?.additionalInformation,
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </>
-            ) : null}
-            <div className='template-six-container-content-heading-box'>
-              <div className='template-six-container-content-heading-box-leftSide'>
-                <p>FERDIGHETER</p>
-              </div>
-              <div className='template-six-container-content-heading-box-rightSide'></div>
-            </div>
-            <div className='template-six-container-content-heading-box'>
-              <div className='template-six-container-content-heading-box-leftSide'></div>
-              <div className='template-six-container-content-heading-box-rightSide'>
-                <ul>
-                  {properties.map((item, index) => (
-                    <li key={index}>{item.name}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className='template-six-container-content-heading-box'>
-              <div className='template-six-container-content-heading-box-leftSide'>
-                <p>ANNET</p>
-              </div>
-              <div className='template-six-container-content-heading-box-rightSide'></div>
-            </div>
-            <div className='template-six-container-content-heading-box'>
-              <div className='template-six-container-content-heading-box-leftSide'></div>
-              <div className='template-six-container-content-heading-box-rightSide'>
-                <h3
-                  style={{
-                    fontWeight: '600',
-                    marginTop: '20px',
-                  }}
-                >
-                  Språk
-                </h3>
-                {languages.map((item, index) => (
-                  <p key={index}>
-                    {item.name} {item?.value}
-                  </p>
-                ))}
-              </div>
-            </div>
-            {accordiansEnabled.Hobbyer === true ? (
-              <div className='template-six-container-content-heading-box'>
-                <div className='template-six-container-content-heading-box-leftSide'></div>
-                <div className='template-six-container-content-heading-box-rightSide'>
-                  <h3 style={{ fontWeight: '600', marginTop: '20px' }}>
-                    Hobby
-                  </h3>
-                  {hobbies.map((item, index) => (
-                    <p key={index}>{item.name}</p>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-            {accordiansEnabled.Kurs === true ? (
-              <div className='template-six-container-content-heading-box'>
-                <div className='template-six-container-content-heading-box-leftSide'></div>
-                <div className='template-six-container-content-heading-box-rightSide'>
-                  <h3 style={{ fontWeight: '600', marginTop: '20px' }}>Kurs</h3>
-                  {courses.map((item, index) => (
-                    <p key={index}>{item.name}</p>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-            {accordiansEnabled.Referanser === true ? (
-              <>
-                <div className='template-six-container-content-heading-box'>
-                  <div className='template-six-container-content-heading-box-leftSide'>
-                    <p onClick={() => console.log(refrence)}>REFERANSE</p>
-                  </div>
-                  <div className='template-six-container-content-heading-box-rightSide'></div>
-                </div>
+              {accordiansEnabled.Kurs === true ? (
+                <View style={styles.contentSectionHeading}>
+                  <View style={styles.contentSectionHeadingLeft}></View>
+                  <View style={styles.contentSectionHeadingRight}>
+                    <Text style={styles.contentSectionHeadingRightTitle}>
+                      Kurs
+                    </Text>
+                    {courses.map((item, index) => (
+                      <Text
+                        style={styles.contentSectionHeadingRightText}
+                        key={index}
+                      >
+                        {item.name}
+                      </Text>
+                    ))}
+                  </View>
+                </View>
+              ) : null}
 
-                {refrence.map((item, index) => (
-                  <div
-                    key={index}
-                    className='template-six-container-content-heading-box'
-                  >
-                    <div className='template-six-container-content-heading-box-leftSide'></div>
-                    <div className='template-six-container-content-heading-box-rightSide'>
-                      {toggleData ? (
-                        <p>Oppgis ved forespørsel</p>
-                      ) : (
-                        <>
-                          <h3>
-                            {item?.name} - {item?.companyName}
-                          </h3>
-                          <p>{item?.email}</p>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </>
-            ) : null}
-          </div>
-        </div>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '100%',
-          backgroundColor: '#F6F3F1',
-        }}
-      >
-        <EndreMaalButton />
-        <div className='gdpr-image'>
-          {/* <input
-                type="checkbox"
-                value={isChecked}
-                onChange={() => setIsChecked(!isChecked)}
-              /> */}
-          <span>
-            Ved å trykke på "laste ned", vil du laste ned CVen du har laget
-            forplikte deg til å akseptere våre{' '}
-            <Link to='/gdpr'>
-              <span>vilkår og betingelser</span>
-            </Link>{' '}
-            og{' '}
-            <Link to='/gdpr'>
-              <span>personvernregler</span>
-            </Link>
-          </span>
-        </div>
-        <ReactToPrint
-          trigger={() => (
-            <button
-              ref={printButtonRef}
-              style={{
-                marginTop: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '180px',
-                borderRadius: '5px',
-                gap: '5px',
-                background: '#F6F3F1',
-                padding: '10px',
-                fontFamily: 'Montserrat',
-                fontWeight: '600',
-                fontSize: '16px',
-                border: '1px solid #F6F3F1',
-                backgroundColor: '#eeb856',
-                margin: '10px',
-                cursor: 'pointer',
-              }}
-            >
-              Last ned CV
-            </button>
-          )}
-          documentTitle={cvData.saveAs}
-          content={() => pdfComponent}
-          onBeforeGetContent={async () => {
-            await setPageWidth(true)
-          }}
-          onAfterPrint={async () => {
-            sendPrintedDocument()
-            setPageWidth(false)
-            setDisplayTemplate(false)
-            setChangeOccured(!changeOccured)
-          }}
-        />
-      </div>
-    </div>
+              {accordiansEnabled.Referanser === true ? (
+                <>
+                  <View style={styles.contentSectionHeading}>
+                    <View style={styles.contentSectionHeadingLeft}>
+                      <Text style={styles.contentSectionHeadingLeftTitle}>
+                        REFERANSE
+                      </Text>
+                    </View>
+                    <View style={styles.contentSectionHeadingRight}></View>
+                  </View>
+                  {refrence.map((item, index) => (
+                    <View style={styles.contentSectionHeading} key={index}>
+                      <View style={styles.contentSectionHeadingLeft}></View>
+                      <Text
+                        style={styles.contentSectionHeadingLeftTitle}
+                      ></Text>
+                      <View style={styles.contentSectionHeadingRight}>
+                        {toggleData ? (
+                          <Text style={styles.contentSectionHeadingRightText}>
+                            Oppgis ved forespørsel
+                          </Text>
+                        ) : (
+                          <>
+                            <Text style={styles.contentSectionHeadingRightText}>
+                              {item?.name} - {item?.companyName}
+                            </Text>
+                            <Text style={styles.contentSectionHeadingRightText}>
+                              {item?.email}
+                            </Text>
+                          </>
+                        )}
+                      </View>
+                    </View>
+                  ))}
+                </>
+              ) : null}
+            </View>
+          </View>
+        </Page>
+      </Document>
+    </PDFViewer>
   )
 }
 

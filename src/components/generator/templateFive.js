@@ -35,6 +35,188 @@ import { takeScreenShot } from '../../Redux/actions/screenShotAction'
 import { cvScreenShot } from '../../Redux/reducers/screenShotReducer'
 import { FiCircle } from 'react-icons/fi'
 import QuillTextEditor2 from '../QuillTextEditor/QuillTextEditor2'
+import oswald from '../../assests/fonts/oswald/Oswald-Regular.ttf'
+import oswaldBold from '../../assests/fonts/oswald/Oswald-Bold.ttf'
+import {
+  Document,
+  Page,
+  View,
+  Text,
+  StyleSheet,
+  Font,
+  PDFViewer,
+  Image,
+} from '@react-pdf/renderer'
+
+Font.register({
+  family: 'Oswald',
+  fonts: [{ src: oswald }, { src: oswaldBold }],
+})
+
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'row',
+  },
+  document: {
+    width: '100%',
+    height: '100vh',
+  },
+  headingSection: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    padding: 12,
+    width: '100%',
+  },
+  headingTitle: {
+    color: 'black',
+    fontFamily: 'Oswald',
+    fontSize: 36,
+  },
+  headingsubTitle: {
+    gap: 2,
+    marginBottom: 12,
+    marginTop: 12,
+    color: 'grey',
+    fontFamily: 'Oswald',
+    fontSize: 13,
+    fontweight: 'bold',
+  },
+  contentWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    overflowWrap: 'break-word',
+    width: '100%',
+  },
+  contentWrapperLeftSide: {
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'relative',
+    width: '30%',
+    // alignItems: 'center',
+  },
+  contentWrapperLeftSideContent: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  contentWrapperLeftSideContentTitle: {
+    alignSelf: 'center',
+    color: '#000',
+    fontFamily: 'Oswald',
+    fontSize: 19,
+    fontWeight: '700',
+    paddingBottom: 5,
+    position: 'relative',
+    textDecoration: 'none',
+  },
+  container: {
+    display: 'block',
+    width: '100%',
+  },
+  contentWrapperLeftSideContentHead: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: 8,
+  },
+  contentWrapperLeftSideContentText: {
+    fontFamily: 'Oswald',
+    fontSize: 12,
+    textAlign: 'center',
+    wordBreak: 'break-all',
+    overflowWrap: 'break-word',
+  },
+  contentWrapperLeftSideContentTextMail: {
+    fontFamily: 'Oswald',
+    fontSize: 13,
+    textAlign: 'center',
+    wordBreak: 'break-all',
+    overflowWrap: 'break-word',
+    borderBottom: '1px solid blue',
+    color: 'blue',
+  },
+  contentWrapperLeftSideContentProgress: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 24,
+    width: '100%',
+  },
+  contentWrapperLeftSideContentProgressTitle: {
+    alignSelf: 'center',
+    color: '#000',
+    fontFamily: 'Oswald',
+    fontSize: 19,
+    fontWeight: '700',
+    paddingBottom: 5,
+    position: 'relative',
+    textDecoration: 'none',
+    letterSpacing: 2,
+  },
+  contentWrapperRightSide: {
+    padding: 12,
+    width: '70%',
+  },
+  contentWrapperRightSideWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 12,
+    marginTop: 12,
+    position: 'relative',
+    width: '90%',
+  },
+  contentWrapperRightSideWrapperLine: {
+    backgroundColor: 'gray',
+    height: '90%',
+    // height: '90',
+    width: '1px',
+  },
+  contentWrapperRightSideWrapperContent: {
+    overflowWrap: 'break-word',
+    width: '100%',
+  },
+  contentWrapperRightSideWrapperContentTitle: {
+    color: '#000',
+    fontFamily: 'Oswald',
+    fontSize: 20,
+    fontWeight: 700,
+    position: 'relative',
+    textDecoration: 'none',
+    wordBreak: 'break-all',
+  },
+  contentWrapperRightSideWrapperContentPara: {
+    width: '100%',
+    fontFamily: 'Oswald',
+    overflowWrap: 'break-word',
+  },
+  contentWrapperRightSideWrapperContentParaText: {
+    fontFamily: 'Oswald',
+    fontSize: 12,
+    fontWeight: 400,
+  },
+  contentWrapperRightSideWrapperImage: {
+    position: 'absolute',
+    left: -8,
+    top: '-1%',
+    width: 18,
+  },
+  educationContent: {
+    overflowWrap: 'anywhere',
+    position: 'relative',
+  },
+  educationContentFrom: {
+    fontFamily: 'Oswald',
+    fontSize: 12,
+    fontWeight: 700,
+  },
+  educationContentDate: {
+    fontFamily: 'Oswald',
+    fontSize: 12,
+    fontWeight: 400,
+    color: 'grey',
+  },
+})
 
 const TemplateFive = () => {
   const dispatch = useDispatch()
@@ -117,410 +299,317 @@ const TemplateFive = () => {
   }, [displayTemplate])
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        width: '100%',
-        alignItems: 'center',
-        overflowWrap: 'break-word',
-        flexDirection: 'column',
-        height: '100%',
-        margin: '10px',
-        padding: '10px',
-      }}
-      onClick={() => console.log(screenShot, '<==========  screenShot')}
-    >
-      <div
-        ref={(el) => (pdfComponent = el)}
-        className='template-five-container'
-        style={{
-          display: 'block',
-          height: displayTemplate === true ? '100%' : 'inherit',
-          width:
-            displayTemplate === true
-              ? '928px'
-              : pageWidth === true
-              ? '100%'
-              : '100%',
-          margin: displayTemplate === true ? '0px' : '10px',
-          padding: displayTemplate === true ? '0px' : '10px',
-        }}
-      >
-        <div className='template-five-container-mainheading'>
-          <h1>{cvData.firstName + ' ' + cvData.lastName}</h1>
-          <div className='template-five-container-mainheading-subheading'>
-            <span>{cvData.jobTitle}</span>
-          </div>
-        </div>
-        <div className='template-five-container-wrapper'>
-          <div
-            className='template-five-container-wrapper-leftside'
-            style={{ minHeight: '890px' }}
-          >
-            <div className='template-five-container-wrapper-leftside-heading'>
-              <h1>•DETALJER•</h1>
-              {cvData?.DOB == '' ? null : (
-                <div className='template-five-container-wrapper-leftside-heading-head'>
-                  <span>{moment(cvData?.DOB).format('DD,MM,YYYY')}</span>
-                </div>
-              )}
-              <div className='template-five-container-wrapper-leftside-heading-head'>
-                <span>{cvData.physicalAddress}</span>
-              </div>
-              <div className='template-five-container-wrapper-leftside-heading-head'>
-                <span>{cvData.zipCode}</span>
-              </div>
-              <div className='template-five-container-wrapper-leftside-heading-head'>
-                <span>{cvData.country}</span>
-              </div>
-              <div className='template-five-container-wrapper-leftside-heading-head'>
-                <span>{cvData.phone === '' ? null : cvData.phone}</span>
-              </div>
-              <div className='template-five-container-wrapper-leftside-heading-head'>
-                <span
-                  style={{
-                    width: 'fit-content',
-                    borderBottom: '1px solid blue',
-                    color: 'blue',
-                  }}
-                >
-                  {cvData.email}
-                </span>
-              </div>
+    <PDFViewer style={styles.document}>
+      <Document style={styles.document}>
+        <Page size='A4' style={styles.page}>
+          <View style={styles.container}>
+            <View style={styles.headingSection}>
+              <Text style={styles.headingTitle}>
+                {cvData.firstName + ' ' + cvData.lastName}
+              </Text>
+              <View style={styles.headingsubTitleDiv}>
+                <Text style={styles.headingsubTitle}>{cvData.jobTitle}</Text>
+              </View>
+            </View>
 
-              <div className='template-five-container-wrapper-leftside-progress'>
-                <h2>•FERDIGHETER•</h2>
-                {properties?.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      style={{
-                        width: '100%',
-                        textAlign: 'center',
-                        fontFamily: 'Oswald',
-                        fontWeight: 600,
-                      }}
-                    >
-                      {cvData.displayProgressBar === true ? (
-                        <ProgressBar
-                          fontSize='16px'
-                          maxWidth={'100%'}
-                          key={index}
-                          backgroundcolor='#000000'
-                          wrapperColor='#BFBFBF'
-                          title={item?.name}
-                          percentage={item?.value}
-                          color='#393939'
-                          height='1px'
-                        />
-                      ) : (
-                        <p>{item?.name}</p>
-                      )}
+            <View style={styles.contentWrapper}>
+              <View style={styles.contentWrapperLeftSide}>
+                <View style={styles.contentWrapperLeftSideContent}>
+                  <Text style={styles.contentWrapperLeftSideContentTitle}>
+                    •DETALJER•
+                  </Text>
+                  {cvData?.DOB == '' ? null : (
+                    <View style={styles.contentWrapperLeftSideContentHead}>
+                      <Text style={styles.contentWrapperLeftSideContentText}>
+                        {moment(cvData?.DOB).format('DD,MM,YYYY')}
+                      </Text>
+                    </View>
+                  )}
 
-                      <span style={{ textAlign: 'center' }}>--</span>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-            <div className='template-five-container-wrapper-leftside-heading'>
-              <h1 onClick={() => console.log(courses)}>•</h1>
-            </div>
-            <div className='template-five-container-wrapper-leftside-heading'>
-              <h1 onClick={() => console.log(courses)}>SPRÅK</h1>
-              {languages?.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    style={{ textAlign: 'center' }}
-                    className='template-five-container-wrapper-leftside-heading-head'
+                  <View style={styles.contentWrapperLeftSideContentHead}>
+                    <Text style={styles.contentWrapperLeftSideContentText}>
+                      {cvData.physicalAddress}
+                    </Text>
+                  </View>
+                  <View style={styles.contentWrapperLeftSideContentHead}>
+                    <Text style={styles.contentWrapperLeftSideContentText}>
+                      {cvData.zipCode}
+                    </Text>
+                  </View>
+                  <View style={styles.contentWrapperLeftSideContentHead}>
+                    <Text style={styles.contentWrapperLeftSideContentText}>
+                      {cvData.country}
+                    </Text>
+                  </View>
+                  <View style={styles.contentWrapperLeftSideContentHead}>
+                    <Text style={styles.contentWrapperLeftSideContentText}>
+                      {cvData.phone === '' ? null : cvData.phone}
+                    </Text>
+                  </View>
+                  <View style={styles.contentWrapperLeftSideContentHead}>
+                    <Text style={styles.contentWrapperLeftSideContentTextMail}>
+                      {cvData.email}
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={styles.contentWrapperLeftSideContentProgress}>
+                  <Text
+                    style={styles.contentWrapperLeftSideContentProgressTitle}
                   >
-                    <>
-                      <span>
-                        {item?.name}
-                        {item?.value}
-                      </span>
-                    </>
-                  </div>
-                )
-              })}
-            </div>
-            {accordiansEnabled.Kurs === true ? (
-              <div className='template-five-container-wrapper-leftside-heading'>
-                <h1 onClick={() => console.log(courses)}>KURS</h1>
-
-                <div
-                  style={{
-                    width: '100%',
-                  }}
-                  className='template-five-container-wrapper-leftside-heading-head'
-                >
-                  {courses?.map((item, index) => {
+                    •FERDIGHETER•
+                  </Text>
+                  {properties?.map((item, index) => {
                     return (
                       <>
-                        <span key={index}>{item?.name}</span>
+                        <View
+                          key={index}
+                          style={{
+                            width: '100%',
+                            textAlign: 'center',
+                            fontFamily: 'Oswald',
+                            fontWeight: 'bold',
+                          }}
+                        >
+                          {cvData.displayProgressBar === true ? (
+                            <ProgressBar
+                              fontSize='16px'
+                              maxWidth={'100%'}
+                              key={index}
+                              backgroundcolor='#000000'
+                              wrapperColor='#BFBFBF'
+                              title={item?.name}
+                              percentage={item?.value}
+                              color='#393939'
+                              height='1px'
+                            />
+                          ) : (
+                            <Text style={{ fontSize: '12px' }}>
+                              {item?.name}
+                            </Text>
+                          )}
+                        </View>
                       </>
                     )
                   })}
-                </div>
-              </div>
-            ) : null}
-            {cvData.drivingLicense !== '' ? (
-              <div className='template-five-container-wrapper-leftside-heading'>
-                <h1>Førerkort</h1>
-                <div className='template-five-container-wrapper-leftside-heading-head'>
-                  <span>{cvData.drivingLicense}</span>
-                </div>
-              </div>
-            ) : null}
-            {accordiansEnabled.Hobbyer === true ? (
-              <div
-                style={{ textAlign: 'center' }}
-                className='template-five-container-wrapper-leftside-heading'
-              >
-                <h1 onClick={() => console.log(courses)}>HOBBY</h1>
-                {hobbies?.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className='template-five-container-wrapper-leftside-heading-head'
-                    >
-                      <>
-                        <span key={index}>{item?.name}</span>
-                      </>
-                    </div>
-                  )
-                })}
-              </div>
-            ) : null}
-          </div>
-          <div className='template-five-container-wrapper-rightside'>
-            {/* <FaUserAlt/> */}
-            {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
-              <div className='template-five-container-wrapper-rightside-wrapper'>
-                <div>
-                  <FaUserAlt
-                    style={{
-                      color: 'black',
-                      position: 'absolute',
-                      left: '-1.5%',
-                      top: '-15%',
-                    }}
-                    size={18}
-                  />
-                  <div className='template-five-container-wrapper-rightside-wrapper-line' />
-                </div>
-                <div className='template-five-container-wrapper-rightside-wrapper-line-content22'>
-                  <h1>PROFIL </h1>
-                  <div style={{ width: '100%', fontFamily: 'Oswald' }}>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: profileData,
-                      }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            )}
-            <div className='template-five-container-wrapper-rightside-wrapper'>
-              <div>
-                <img
-                  style={{ position: 'absolute', left: '-0.5rem', top: '-1%' }}
-                  src={BriefCaseIcon}
-                  width='20px'
-                  alt='briefcase'
-                ></img>
-                <div className='template-five-container-wrapper-rightside-wrapper-line' />
-              </div>
-              <div>
-                <h1>ARBEIDSERFARING</h1>
-                {experiances?.map((item, index) => (
-                  <div
-                    style={{
-                      overflowWrap: 'anywhere',
-                      position: 'relative',
-                      fontSize: '15px',
-                    }}
-                    key={index}
-                  >
-                    <FiCircle
-                      style={{
-                        position: 'absolute',
-                        left: '-1.5rem',
-                        backgroundColor: 'white',
-                      }}
-                    />
-                    <p style={{ fontWeight: 'bold' }}>
-                      {item?.jobTitle + ' - ' + item?.employer}
-                    </p>
-                    <div style={{ display: 'flex', gap: '5px' }}>
-                      <p style={{ color: 'grey' }}>
-                        {item.startDate.length === 0
-                          ? 'Startdato -'
-                          : moment(item?.startDate).format('MM/YYYY') + ' - '}
-                      </p>
-                      <p style={{ color: 'grey' }}>
-                        {item.toggle
-                          ? 'dags dato'
-                          : item.endDate.length === 0
-                          ? ' Sluttdato'
-                          : moment(item?.endDate).format('YYYY-MM')}
-                      </p>
-                    </div>
+                </View>
+                {/* </View> */}
 
-                    <div
-                      style={{ fontSize: '15px', fontFamily: 'Oswald' }}
-                      dangerouslySetInnerHTML={{
-                        __html: item?.additionalInformation,
-                      }}
-                    ></div>
-                    <br />
-                  </div>
-                ))}
-              </div>
-            </div>
-            {accordiansEnabled.Praksisplasser === true ? (
-              <div className='template-five-container-wrapper-rightside-wrapper'>
-                <div>
-                  <FaGraduationCap
-                    style={{
-                      color: 'black',
-                      position: 'absolute',
-                      left: '-0.5rem',
-                      top: '-1%',
-                    }}
-                    size={22}
-                  />
-                  <div className='template-five-container-wrapper-rightside-wrapper-line' />
-                </div>
-                <div>
-                  <h1>Praksisplasser </h1>
-                  {internships?.map((item, index) => (
-                    <div
+                <View style={styles.contentWrapperLeftSideContent}>
+                  <Text style={styles.contentWrapperLeftSideContentTitle}>
+                    •
+                  </Text>
+                </View>
+
+                <View style={styles.contentWrapperLeftSideContent}>
+                  <Text style={styles.contentWrapperLeftSideContentTitle}>
+                    SPRÅK
+                  </Text>
+                  {languages?.map((item, index) => {
+                    return (
+                      <>
+                        <View
+                          style={styles.contentWrapperLeftSideContentHead}
+                          key={index}
+                        >
+                          <Text
+                            style={styles.contentWrapperLeftSideContentText}
+                          >
+                            {item?.name}
+                            {item?.value}
+                          </Text>
+                        </View>
+                      </>
+                    )
+                  })}
+                </View>
+
+                {accordiansEnabled.Kurs === true ? (
+                  <View style={styles.contentWrapperLeftSideContent}>
+                    <Text style={styles.contentWrapperLeftSideContentTitle}>
+                      KURS
+                    </Text>
+                    <View style={styles.contentWrapperLeftSideContentHead}>
+                      {courses?.map((item, index) => {
+                        return (
+                          <>
+                            <Text
+                              style={styles.contentWrapperLeftSideContentText}
+                              key={index}
+                            >
+                              {item?.name}
+                            </Text>
+                          </>
+                        )
+                      })}
+                    </View>
+                  </View>
+                ) : null}
+
+                {cvData.drivingLicense !== '' ? (
+                  <View style={styles.contentWrapperLeftSideContent}>
+                    <Text style={styles.contentWrapperLeftSideContentTitle}>
+                      Førerkort
+                    </Text>
+                    <View style={styles.contentWrapperLeftSideContentHead}>
+                      <Text style={styles.contentWrapperLeftSideContentText}>
+                        {cvData.drivingLicense}
+                      </Text>
+                    </View>
+                  </View>
+                ) : null}
+
+                {accordiansEnabled.Hobbyer === true ? (
+                  <View style={styles.contentWrapperLeftSideContent}>
+                    <Text style={styles.contentWrapperLeftSideContentTitle}>
+                      HOBBY
+                    </Text>
+                    {hobbies?.map((item, index) => {
+                      return (
+                        <View
+                          style={styles.contentWrapperLeftSideContentHead}
+                          key={index}
+                        >
+                          <>
+                            <Text
+                              style={styles.contentWrapperLeftSideContentText}
+                              key={index}
+                            >
+                              {item?.name}
+                            </Text>
+                          </>
+                        </View>
+                      )
+                    })}
+                  </View>
+                ) : null}
+              </View>
+
+              <View style={styles.contentWrapperRightSide}>
+                {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
+                  <View style={styles.contentWrapperRightSideWrapper}>
+                    {/* <View> */}
+                    <FaUserAlt
                       style={{
-                        overflowWrap: 'anywhere',
-                        position: 'relative',
+                        color: 'black',
+                        position: 'absolute',
+                        left: '-1.5%',
+                        top: '-15%',
                       }}
-                      key={index}
+                      size={18}
+                    />
+                    <View
+                      style={styles.contentWrapperRightSideWrapperLine}
+                    ></View>
+                    {/* </View> */}
+
+                    <View style={styles.contentWrapperRightSideWrapperContent}>
+                      <Text
+                        style={
+                          styles.contentWrapperRightSideWrapperContentTitle
+                        }
+                      >
+                        PROFIL
+                      </Text>
+                      <View
+                        style={styles.contentWrapperRightSideWrapperContentPara}
+                      >
+                        <Text
+                          style={
+                            styles.contentWrapperRightSideWrapperContentParaText
+                          }
+                        >
+                          {profileData.replace(/(<([^>]+)>)/gi, '')}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                )}
+
+                <View style={styles.contentWrapperRightSideWrapper}>
+                  {/* <View> */}
+                  <Image
+                    style={styles.contentWrapperRightSideWrapperImage}
+                    src={BriefCaseIcon}
+                    alt='briefcase'
+                  />
+                  <View
+                    style={styles.contentWrapperRightSideWrapperLine}
+                  ></View>
+                  {/* </View> */}
+                  <View>
+                    <Text
+                      style={styles.contentWrapperRightSideWrapperContentTitle}
                     >
-                      <FiCircle
-                        style={{
-                          position: 'absolute',
-                          left: '-1.5rem',
-                          backgroundColor: 'white',
-                        }}
-                      />
-                      <p style={{ fontWeight: 'bold' }}>
-                        {item?.jobTitle + ' - ' + item?.employer}
-                      </p>
-                      <div style={{ display: 'flex', gap: '5px' }}>
-                        <p style={{ color: 'grey' }}>
+                      ARBEIDSERFARING
+                    </Text>
+                    {experiances?.map((item, index) => (
+                      <View style={styles.educationContent} key={index}>
+                        <FiCircle
+                          style={{
+                            position: 'absolute',
+                            left: '-1.5rem',
+                            backgroundColor: 'white',
+                          }}
+                        />
+                        <Text style={styles.educationContentFrom}>
+                          {item?.jobTitle + ' - ' + item?.employer}
+                        </Text>
+                        <Text style={styles.educationContentDate}>
                           {item.startDate.length === 0
                             ? 'Startdato -'
-                            : moment(item?.startDate).format('MM/YYYY') + ' - '}
-                        </p>
-                        <p style={{ color: 'grey' }}>
+                            : moment(item?.startDate).format('MM/YYYY') +
+                              ' - '}{' '}
                           {item.toggle
                             ? 'dags dato'
                             : item.endDate.length === 0
                             ? ' Sluttdato'
                             : moment(item?.endDate).format('YYYY-MM')}
-                        </p>
-                      </div>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: item?.additionalInformation,
-                        }}
-                      ></p>
-                      <br />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-            {/* <FaUserAlt/> */}
-            <div className='template-five-container-wrapper-rightside-wrapper'>
-              <div>
-                <FaGraduationCap
-                  style={{
-                    color: 'black',
-                    position: 'absolute',
-                    left: '-2%',
-                    top: '-1%',
-                  }}
-                  size={22}
-                />
-                <div className='template-five-container-wrapper-rightside-wrapper-line' />
-              </div>
-              <div>
-                <h1>UTDANNING </h1>
-                {educationData?.map((item, index) => (
-                  <div
-                    style={{
-                      overflowWrap: 'anywhere',
-                      position: 'relative',
-                    }}
-                    key={index}
-                  >
-                    <FiCircle
-                      style={{
-                        position: 'absolute',
-                        left: '-1.5rem',
-                        backgroundColor: 'white',
-                      }}
+                        </Text>
+
+                        <View
+                          style={
+                            styles.contentWrapperRightSideWrapperContentPara
+                          }
+                        >
+                          <Text
+                            style={
+                              styles.contentWrapperRightSideWrapperContentParaText
+                            }
+                          >
+                            {item.additionalInformation.replace(
+                              /(<([^>]+)>)/gi,
+                              ''
+                            )}
+                          </Text>
+                        </View>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+
+                {accordiansEnabled.Praksisplasser === true ? (
+                  <View style={styles.contentWrapperRightSideWrapper}>
+                    {/* <View> */}
+                    <Image
+                      style={styles.contentWrapperRightSideWrapperImage}
+                      src={BriefCaseIcon}
+                      alt='briefcase'
                     />
-                    <p style={{ fontWeight: 'bold' }}>
-                      {item.school}-{item.study}
-                    </p>
-                    <div style={{ display: 'flex', gap: '5px' }}>
-                      <p style={{ color: 'grey' }}>
-                        {item.startDate.length === 0
-                          ? 'Startdato -'
-                          : moment(item?.startDate).format('MM/YYYY') + ' - '}
-                      </p>
-                      <p style={{ color: 'grey' }}>
-                        {item.toggle
-                          ? 'dags dato'
-                          : item.endDate.length === 0
-                          ? ' Sluttdato'
-                          : moment(item?.endDate).format('YYYY-MM')}
-                      </p>
-                    </div>
-
-                    <div
-                      style={{ fontSize: '15px', fontFamily: 'Oswald' }}
-                      dangerouslySetInnerHTML={{
-                        __html: item?.additionalInformation,
-                      }}
-                    ></div>
-                    <br />
-                  </div>
-                ))}
-              </div>
-            </div>
-            {accordiansEnabled.Referanser === true ? (
-              <div className='template-five-container-wrapper-rightside-wrapper'>
-                <div>
-                  <div className='template-five-container-wrapper-rightside-wrapper-line' />
-                </div>
-
-                <div
-                  style={{
-                    width: '100%',
-                    position: 'relative',
-                  }}
-                >
-                  <h1>REFERANSER </h1>
-
-                  {refrence?.map((item, index) => (
-                    <div key={index}>
-                      {toggleData ? (
-                        <>
-                          <p>Oppgis ved forespørsel</p>
-                        </>
-                      ) : (
-                        <>
-                          <br />
+                    <View
+                      style={styles.contentWrapperRightSideWrapperLine}
+                    ></View>
+                    {/* </View> */}
+                    <View>
+                      <Text
+                        style={
+                          styles.contentWrapperRightSideWrapperContentTitle
+                        }
+                      >
+                        Praksisplasser
+                      </Text>
+                      {internships?.map((item, index) => (
+                        <View style={styles.educationContent} key={index}>
                           <FiCircle
                             style={{
                               position: 'absolute',
@@ -528,90 +617,157 @@ const TemplateFive = () => {
                               backgroundColor: 'white',
                             }}
                           />
-                          <p style={{ fontWeight: 'bold' }}>
-                            {item?.name + ' , ' + item?.companyName}
-                          </p>
-                          <p style={{ fontWeight: 'bold', color: 'grey' }}>
-                            {item?.email}
-                          </p>
-                        </>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </div>
+                          <Text style={styles.educationContentFrom}>
+                            {item?.jobTitle + ' - ' + item?.employer}
+                          </Text>
+                          <Text style={styles.educationContentDate}>
+                            {item.startDate.length === 0
+                              ? 'Startdato -'
+                              : moment(item?.startDate).format('MM/YYYY') +
+                                ' - '}{' '}
+                            {item.toggle
+                              ? 'dags dato'
+                              : item.endDate.length === 0
+                              ? ' Sluttdato'
+                              : moment(item?.endDate).format('YYYY-MM')}
+                          </Text>
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '95%',
-        }}
-      >
-        <EndreMaalButton />
-        <div className='gdpr-image'>
-          {/* {windowWidth > 768 ? ( <input
-                type="checkbox"
-                value={isChecked}
-                onChange={() => setIsChecked(!isChecked)}
-              />): null } */}
+                          <View
+                            style={
+                              styles.contentWrapperRightSideWrapperContentPara
+                            }
+                          >
+                            <Text
+                              style={
+                                styles.contentWrapperRightSideWrapperContentParaText
+                              }
+                            >
+                              {item.additionalInformation.replace(
+                                /(<([^>]+)>)/gi,
+                                ''
+                              )}
+                            </Text>
+                          </View>
+                        </View>
+                      ))}
+                    </View>
+                  </View>
+                ) : null}
 
-          <span>
-            Ved å trykke på "laste ned", vil du laste ned CVen du har laget
-            forplikte deg til å akseptere våre{' '}
-            <Link to='/gdpr'>
-              <span>vilkår og betingelser</span>
-            </Link>{' '}
-            og{' '}
-            <Link to='/gdpr'>
-              <span>personvernregler</span>
-            </Link>
-          </span>
-        </div>
-        <ReactToPrint
-          // documentTitle={cvData.saveAs}
-          trigger={() => (
-            <button
-              ref={printButtonRef}
-              style={{
-                marginTop: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '180px',
-                borderRadius: '5px',
-                gap: '5px',
-                background: '#F6F3F1',
-                padding: '10px',
-                fontFamily: 'Montserrat',
-                fontWeight: '600',
-                fontSize: '16px',
-                border: '1px solid #F6F3F1',
-                backgroundColor: '#eeb856',
-                margin: '10px',
-                cursor: 'pointer',
-              }}
-            >
-              Last ned CV
-            </button>
-          )}
-          content={() => pdfComponent}
-          onBeforeGetContent={() => {
-            setPageWidth(true)
-          }}
-          onAfterPrint={async () => {
-            sendPrintedDocument()
-            setPageWidth(false)
-            setDisplayTemplate(false)
-            setChangeOccured(!changeOccured)
-          }}
-        />
-      </div>
-    </div>
+                <View style={styles.contentWrapperRightSideWrapper}>
+                  {/* <View> */}
+                  <Image
+                    style={styles.contentWrapperRightSideWrapperImage}
+                    src={BriefCaseIcon}
+                    alt='briefcase'
+                  />
+                  <View
+                    style={styles.contentWrapperRightSideWrapperLine}
+                  ></View>
+                  {/* </View> */}
+                  <View>
+                    <Text
+                      style={styles.contentWrapperRightSideWrapperContentTitle}
+                    >
+                      UTDANNING
+                    </Text>
+                    {educationData?.map((item, index) => (
+                      <View style={styles.educationContent} key={index}>
+                        <FiCircle
+                          style={{
+                            position: 'absolute',
+                            left: '-1.5rem',
+                            backgroundColor: 'white',
+                          }}
+                        />
+                        <Text style={styles.educationContentFrom}>
+                          {item.school}-{item.study}
+                        </Text>
+                        <Text style={styles.educationContentDate}>
+                          {item.startDate.length === 0
+                            ? 'Startdato -'
+                            : moment(item?.startDate).format('MM/YYYY') +
+                              ' - '}{' '}
+                          {item.toggle
+                            ? 'dags dato'
+                            : item.endDate.length === 0
+                            ? ' Sluttdato'
+                            : moment(item?.endDate).format('YYYY-MM')}
+                        </Text>
+
+                        <View
+                          style={
+                            styles.contentWrapperRightSideWrapperContentPara
+                          }
+                        >
+                          <Text
+                            style={
+                              styles.contentWrapperRightSideWrapperContentParaText
+                            }
+                          >
+                            {item.additionalInformation.replace(
+                              /(<([^>]+)>)/gi,
+                              ''
+                            )}
+                          </Text>
+                        </View>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+
+                {accordiansEnabled.Referanser === true ? (
+                  <View style={styles.contentWrapperRightSideWrapper}>
+                    {/* <View> */}
+                    <View
+                      style={styles.contentWrapperRightSideWrapperLine}
+                    ></View>
+                    {/* </View> */}
+                    <View>
+                      <Text
+                        style={
+                          styles.contentWrapperRightSideWrapperContentTitle
+                        }
+                      >
+                        REFERANSER
+                      </Text>
+                      {/* </View> */}
+                      {refrence?.map((item, index) => (
+                        <View style={styles.educationContent} key={index}>
+                          {toggleData ? (
+                            <>
+                              <Text style={styles.educationContentDate}>
+                                Oppgis ved forespørsel
+                              </Text>
+                            </>
+                          ) : (
+                            <>
+                              <FiCircle
+                                style={{
+                                  position: 'absolute',
+                                  left: '-1.5rem',
+                                  backgroundColor: 'white',
+                                }}
+                              />
+                              <Text style={styles.educationContentFrom}>
+                                {item?.name + ' , ' + item?.companyName}
+                              </Text>
+                              <Text style={styles.educationContentDate}>
+                                {item?.email}
+                              </Text>
+                            </>
+                          )}
+                        </View>
+                      ))}
+                    </View>
+                  </View>
+                ) : null}
+              </View>
+            </View>
+          </View>
+        </Page>
+      </Document>
+    </PDFViewer>
   )
 }
 
