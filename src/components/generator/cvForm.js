@@ -52,6 +52,8 @@ import ClosedInternshipGeneratorAccordian from './closedInternshipGeneratorAccor
 import HobbyGeneratorAccordian from './hobbyGeneratorAccordian'
 import ClosedHobbyGeneratorAccordian from './closedHobbyGeneratorAccordian'
 import QuillTextEditor2 from '../QuillTextEditor/QuillTextEditor2'
+import { useContext } from 'react'
+import { IsRenderingContext } from '../../context/IsRenderingContext'
 
 const CvForm = (props) => {
   const dispatch = useDispatch()
@@ -292,6 +294,8 @@ const CvForm = (props) => {
     dateRef.current.click()
   }
   console.log(basicInformation, '<====check personal info')
+
+  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
   return (
     <div className='cv-form'>
       <h1
@@ -314,6 +318,7 @@ const CvForm = (props) => {
             style={{ display: 'none' }}
             type={'file'}
             onChange={(e) => handleFileChange(e)}
+            onFocus={() => setIsRendering(false)}
             ref={profileImageRef}
           ></input>
           {imageSwitch ? (
@@ -343,6 +348,7 @@ const CvForm = (props) => {
             onChange={(e) => changeBasicInfo(e.target.value, 'firstName')}
             heading='Fornavn'
             inputPlaceholder='fornavn'
+            onFocus={() => setIsRendering(false)}
           />
           <HeadInput
             value={basicInformation.lastName}
@@ -351,6 +357,7 @@ const CvForm = (props) => {
             }}
             heading='Etternavn'
             inputPlaceholder='etternavn'
+            onFocus={() => setIsRendering(false)}
           />
         </div>
       </div>
@@ -362,6 +369,7 @@ const CvForm = (props) => {
           }}
           heading='E-post'
           inputPlaceholder=''
+          onFocus={() => setIsRendering(false)}
         />
         <HeadInput
           value={basicInformation.phone}
@@ -370,6 +378,7 @@ const CvForm = (props) => {
           }}
           heading='Telefonnummer'
           inputPlaceholder=''
+          onFocus={() => setIsRendering(false)}
         />
         {/* <HeadInput
  value={basicInformation.jobTitle}
@@ -398,9 +407,7 @@ const CvForm = (props) => {
               type='date'
               className='headinput-container date-container'
               value={basicInformation.DOB}
-              onFocus={() => {
-                // console.log('ppp')
-              }}
+              onFocus={() => setIsRendering(false)}
               onChange={(date) => {
                 // console.log(date.target.value, 'lll')
                 changeBasicInfo(date.target.value, 'DOB')
@@ -424,6 +431,7 @@ const CvForm = (props) => {
           onChange={(e) => {
             changeBasicInfo(e.target.value, 'jobTitle')
           }}
+          onFocus={() => setIsRendering(false)}
           heading='Jobbtittel'
           inputPlaceholder='Jobbtittel'
         />
@@ -437,6 +445,7 @@ const CvForm = (props) => {
             }}
             heading='Adresse'
             inputPlaceholder='Adresse'
+            onFocus={() => setIsRendering(false)}
           />
         ) : null}
         {moreDetails?.By ? (
@@ -445,6 +454,7 @@ const CvForm = (props) => {
             onChange={(e) => {
               changeBasicInfo(e.target.value, 'country')
             }}
+            onFocus={() => setIsRendering(false)}
             heading='By'
             inputPlaceholder='By'
           />
@@ -457,6 +467,7 @@ const CvForm = (props) => {
             onChange={(e) => {
               changeBasicInfo(e.target.value, 'zipCode')
             }}
+            onFocus={() => setIsRendering(false)}
             heading='PostNummer'
             inputPlaceholder='PostNummer'
           />
@@ -467,6 +478,7 @@ const CvForm = (props) => {
             onChange={(e) => {
               changeBasicInfo(e.target.value, 'drivingLicense')
             }}
+            onFocus={() => setIsRendering(false)}
             heading='Førerkort'
             inputPlaceholder='Førerkort'
           />
@@ -543,13 +555,14 @@ const CvForm = (props) => {
         {/* <QuillTextEditor /> */}
         {/* {moreDetails.Adresse ? ( */}
         <QuillTextEditor2
-        // value={basicInformation.physicalAddress}
-        // onChange={(e) => {
-        // changeBasicInfo(e.target.value, 'physicalAddress')
-        // }}
-        // heading='Adresse'
-        // inputPlaceholder='Adresse'
-        // ) : null}
+          onFocus={() => setIsRendering(false)}
+          // value={basicInformation.physicalAddress}
+          // onChange={(e) => {
+          // changeBasicInfo(e.target.value, 'physicalAddress')
+          // }}
+          // heading='Adresse'
+          // inputPlaceholder='Adresse'
+          // ) : null}
         />
       </div>
 

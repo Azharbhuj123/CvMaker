@@ -31,6 +31,7 @@ import { Helmet } from 'react-helmet'
 import { PDFViewer } from '@react-pdf/renderer'
 import Pdf from './pages/PdfViewer'
 import PdfViewer from './pages/PdfViewer'
+import { IsRenderingContext } from './context/IsRenderingContext'
 function App(props) {
   const [windowWidth, setWindowWidth] = useState(0)
   const [faqState, setFaqState] = useState(false)
@@ -54,7 +55,9 @@ function App(props) {
     return () => window.removeEventListener('resize', resizeWindow)
   }, [])
 
+  const [isRendering, setIsRendering] = useState(false)
   return (
+    <IsRenderingContext.Provider value={{ isRendering, setIsRendering }}>
     <BrowserRouter>
       <Helmet>
         <meta charSet='utf-8' />
@@ -118,6 +121,7 @@ function App(props) {
         )}
       </ScrollToTop>
     </BrowserRouter>
+    </IsRenderingContext.Provider>
   )
 }
 export default App

@@ -9,6 +9,9 @@ import BriefCaseIcon from '../../assests/icons/briefcase.png'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 import { sendFileToBackend } from '../../helper/helperFunctions'
+import cap from '../../assests/icons/cap.png'
+import person from '../../assests/icons/person.png'
+import circle from '../../assests/icons/circle.png'
 
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -47,6 +50,8 @@ import {
   PDFViewer,
   Image,
 } from '@react-pdf/renderer'
+import { useContext } from 'react'
+import { IsRenderingContext } from '../../context/IsRenderingContext'
 
 Font.register({
   family: 'Oswald',
@@ -56,6 +61,7 @@ Font.register({
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
+    padding: 10,
   },
   document: {
     width: '100%',
@@ -219,7 +225,6 @@ const styles = StyleSheet.create({
 })
 
 const TemplateFive = () => {
-  const [isRendering, setIsRendering] = useState(false)
   const dispatch = useDispatch()
   const toggleData = useSelector(getRefToggle)
   let pdfComponent = useRef()
@@ -298,481 +303,514 @@ const TemplateFive = () => {
       printButtonRef.current.click()
     }
   }, [displayTemplate])
+  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
 
   return (
     <>
-    <PDFViewer style={styles.document}>
-      <Document style={styles.document}>
-      {isRendering ? (
-        <Page size='A4' style={styles.page}>
-          <View style={styles.container}>
-            <View style={styles.headingSection}>
-              <Text style={styles.headingTitle}>
-                {cvData.firstName + ' ' + cvData.lastName}
-              </Text>
-              <View style={styles.headingsubTitleDiv}>
-                <Text style={styles.headingsubTitle}>{cvData.jobTitle}</Text>
-              </View>
-            </View>
-
-            <View style={styles.contentWrapper}>
-              <View style={styles.contentWrapperLeftSide}>
-                <View style={styles.contentWrapperLeftSideContent}>
-                  <Text style={styles.contentWrapperLeftSideContentTitle}>
-                    •DETALJER•
+      <PDFViewer style={styles.document}>
+        <Document style={styles.document}>
+          {isRendering ? (
+            <Page size='A4' style={styles.page}>
+              <View style={styles.container}>
+                <View style={styles.headingSection}>
+                  <Text style={styles.headingTitle}>
+                    {cvData.firstName + ' ' + cvData.lastName}
                   </Text>
-                  {cvData?.DOB == '' ? null : (
-                    <View style={styles.contentWrapperLeftSideContentHead}>
-                      <Text style={styles.contentWrapperLeftSideContentText}>
-                        {moment(cvData?.DOB).format('DD,MM,YYYY')}
+                  <View style={styles.headingsubTitleDiv}>
+                    <Text style={styles.headingsubTitle}>
+                      {cvData.jobTitle}
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={styles.contentWrapper}>
+                  <View style={styles.contentWrapperLeftSide}>
+                    <View style={styles.contentWrapperLeftSideContent}>
+                      <Text style={styles.contentWrapperLeftSideContentTitle}>
+                        •DETALJER•
                       </Text>
-                    </View>
-                  )}
-
-                  <View style={styles.contentWrapperLeftSideContentHead}>
-                    <Text style={styles.contentWrapperLeftSideContentText}>
-                      {cvData.physicalAddress}
-                    </Text>
-                  </View>
-                  <View style={styles.contentWrapperLeftSideContentHead}>
-                    <Text style={styles.contentWrapperLeftSideContentText}>
-                      {cvData.zipCode}
-                    </Text>
-                  </View>
-                  <View style={styles.contentWrapperLeftSideContentHead}>
-                    <Text style={styles.contentWrapperLeftSideContentText}>
-                      {cvData.country}
-                    </Text>
-                  </View>
-                  <View style={styles.contentWrapperLeftSideContentHead}>
-                    <Text style={styles.contentWrapperLeftSideContentText}>
-                      {cvData.phone === '' ? null : cvData.phone}
-                    </Text>
-                  </View>
-                  <View style={styles.contentWrapperLeftSideContentHead}>
-                    <Text style={styles.contentWrapperLeftSideContentTextMail}>
-                      {cvData.email}
-                    </Text>
-                  </View>
-                </View>
-
-                <View style={styles.contentWrapperLeftSideContentProgress}>
-                  <Text
-                    style={styles.contentWrapperLeftSideContentProgressTitle}
-                  >
-                    •FERDIGHETER•
-                  </Text>
-                  {properties?.map((item, index) => {
-                    return (
-                      <>
-                        <View
-                          key={index}
-                          style={{
-                            width: '100%',
-                            textAlign: 'center',
-                            fontFamily: 'Oswald',
-                            fontWeight: 'bold',
-                          }}
-                        >
-                          {cvData.displayProgressBar === true ? (
-                            <ProgressBar
-                              fontSize='16px'
-                              maxWidth={'100%'}
-                              key={index}
-                              backgroundcolor='#000000'
-                              wrapperColor='#BFBFBF'
-                              title={item?.name}
-                              percentage={item?.value}
-                              color='#393939'
-                              height='1px'
-                            />
-                          ) : (
-                            <Text style={{ fontSize: '12px' }}>
-                              {item?.name}
-                            </Text>
-                          )}
-                        </View>
-                      </>
-                    )
-                  })}
-                </View>
-                {/* </View> */}
-
-                <View style={styles.contentWrapperLeftSideContent}>
-                  <Text style={styles.contentWrapperLeftSideContentTitle}>
-                    •
-                  </Text>
-                </View>
-
-                <View style={styles.contentWrapperLeftSideContent}>
-                  <Text style={styles.contentWrapperLeftSideContentTitle}>
-                    SPRÅK
-                  </Text>
-                  {languages?.map((item, index) => {
-                    return (
-                      <>
-                        <View
-                          style={styles.contentWrapperLeftSideContentHead}
-                          key={index}
-                        >
+                      {cvData?.DOB == '' ? null : (
+                        <View style={styles.contentWrapperLeftSideContentHead}>
                           <Text
                             style={styles.contentWrapperLeftSideContentText}
                           >
-                            {item?.name}
-                            {item?.value}
+                            {moment(cvData?.DOB).format('DD,MM,YYYY')}
                           </Text>
                         </View>
-                      </>
-                    )
-                  })}
-                </View>
+                      )}
 
-                {accordiansEnabled.Kurs === true ? (
-                  <View style={styles.contentWrapperLeftSideContent}>
-                    <Text style={styles.contentWrapperLeftSideContentTitle}>
-                      KURS
-                    </Text>
-                    <View style={styles.contentWrapperLeftSideContentHead}>
-                      {courses?.map((item, index) => {
+                      <View style={styles.contentWrapperLeftSideContentHead}>
+                        <Text style={styles.contentWrapperLeftSideContentText}>
+                          {cvData.physicalAddress}
+                        </Text>
+                      </View>
+                      <View style={styles.contentWrapperLeftSideContentHead}>
+                        <Text style={styles.contentWrapperLeftSideContentText}>
+                          {cvData.zipCode}
+                        </Text>
+                      </View>
+                      <View style={styles.contentWrapperLeftSideContentHead}>
+                        <Text style={styles.contentWrapperLeftSideContentText}>
+                          {cvData.country}
+                        </Text>
+                      </View>
+                      <View style={styles.contentWrapperLeftSideContentHead}>
+                        <Text style={styles.contentWrapperLeftSideContentText}>
+                          {cvData.phone === '' ? null : cvData.phone}
+                        </Text>
+                      </View>
+                      <View style={styles.contentWrapperLeftSideContentHead}>
+                        <Text
+                          style={styles.contentWrapperLeftSideContentTextMail}
+                        >
+                          {cvData.email}
+                        </Text>
+                      </View>
+                    </View>
+
+                    <View style={styles.contentWrapperLeftSideContentProgress}>
+                      <Text
+                        style={
+                          styles.contentWrapperLeftSideContentProgressTitle
+                        }
+                      >
+                        •FERDIGHETER•
+                      </Text>
+                      {properties?.map((item, index) => {
                         return (
                           <>
-                            <Text
-                              style={styles.contentWrapperLeftSideContentText}
+                            <View
                               key={index}
+                              style={{
+                                width: '100%',
+                                textAlign: 'center',
+                                fontFamily: 'Oswald',
+                                fontWeight: 'bold',
+                              }}
                             >
-                              {item?.name}
-                            </Text>
+                              {cvData.displayProgressBar === true ? (
+                                <ProgressBar
+                                  fontSize='16px'
+                                  maxWidth={'100%'}
+                                  key={index}
+                                  backgroundcolor='#000000'
+                                  wrapperColor='#BFBFBF'
+                                  title={item?.name}
+                                  percentage={item?.value}
+                                  color='#393939'
+                                  height='1px'
+                                />
+                              ) : (
+                                <Text style={{ fontSize: '12px' }}>
+                                  {item?.name}
+                                </Text>
+                              )}
+                            </View>
                           </>
                         )
                       })}
                     </View>
-                  </View>
-                ) : null}
+                    {/* </View> */}
 
-                {cvData.drivingLicense !== '' ? (
-                  <View style={styles.contentWrapperLeftSideContent}>
-                    <Text style={styles.contentWrapperLeftSideContentTitle}>
-                      Førerkort
-                    </Text>
-                    <View style={styles.contentWrapperLeftSideContentHead}>
-                      <Text style={styles.contentWrapperLeftSideContentText}>
-                        {cvData.drivingLicense}
+                    <View style={styles.contentWrapperLeftSideContent}>
+                      <Text style={styles.contentWrapperLeftSideContentTitle}>
+                        •
                       </Text>
                     </View>
-                  </View>
-                ) : null}
 
-                {accordiansEnabled.Hobbyer === true ? (
-                  <View style={styles.contentWrapperLeftSideContent}>
-                    <Text style={styles.contentWrapperLeftSideContentTitle}>
-                      HOBBY
-                    </Text>
-                    {hobbies?.map((item, index) => {
-                      return (
-                        <View
-                          style={styles.contentWrapperLeftSideContentHead}
-                          key={index}
-                        >
+                    <View style={styles.contentWrapperLeftSideContent}>
+                      <Text style={styles.contentWrapperLeftSideContentTitle}>
+                        SPRÅK
+                      </Text>
+                      {languages?.map((item, index) => {
+                        return (
                           <>
-                            <Text
-                              style={styles.contentWrapperLeftSideContentText}
+                            <View
+                              style={styles.contentWrapperLeftSideContentHead}
                               key={index}
                             >
-                              {item?.name}
-                            </Text>
+                              <Text
+                                style={styles.contentWrapperLeftSideContentText}
+                              >
+                                {item?.name}
+                                {item?.value}
+                              </Text>
+                            </View>
                           </>
-                        </View>
-                      )
-                    })}
-                  </View>
-                ) : null}
-              </View>
-
-              <View style={styles.contentWrapperRightSide}>
-                {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
-                  <View style={styles.contentWrapperRightSideWrapper}>
-                    {/* <View> */}
-                    <FaUserAlt
-                      style={{
-                        color: 'black',
-                        position: 'absolute',
-                        left: '-1.5%',
-                        top: '-15%',
-                      }}
-                      size={18}
-                    />
-                    <View
-                      style={styles.contentWrapperRightSideWrapperLine}
-                    ></View>
-                    {/* </View> */}
-
-                    <View style={styles.contentWrapperRightSideWrapperContent}>
-                      <Text
-                        style={
-                          styles.contentWrapperRightSideWrapperContentTitle
-                        }
-                      >
-                        PROFIL
-                      </Text>
-                      <View
-                        style={styles.contentWrapperRightSideWrapperContentPara}
-                      >
-                        <Text
-                          style={
-                            styles.contentWrapperRightSideWrapperContentParaText
-                          }
-                        >
-                          {profileData.replace(/(<([^>]+)>)/gi, '')}
-                        </Text>
-                      </View>
+                        )
+                      })}
                     </View>
-                  </View>
-                )}
 
-                <View style={styles.contentWrapperRightSideWrapper}>
-                  {/* <View> */}
-                  <Image
-                    style={styles.contentWrapperRightSideWrapperImage}
-                    src={BriefCaseIcon}
-                    alt='briefcase'
-                  />
-                  <View
-                    style={styles.contentWrapperRightSideWrapperLine}
-                  ></View>
-                  {/* </View> */}
-                  <View>
-                    <Text
-                      style={styles.contentWrapperRightSideWrapperContentTitle}
-                    >
-                      ARBEIDSERFARING
-                    </Text>
-                    {experiances?.map((item, index) => (
-                      <View style={styles.educationContent} key={index}>
-                        <FiCircle
-                          style={{
-                            position: 'absolute',
-                            left: '-1.5rem',
-                            backgroundColor: 'white',
-                          }}
-                        />
-                        <Text style={styles.educationContentFrom}>
-                          {item?.jobTitle + ' - ' + item?.employer}
+                    {accordiansEnabled.Kurs === true ? (
+                      <View style={styles.contentWrapperLeftSideContent}>
+                        <Text style={styles.contentWrapperLeftSideContentTitle}>
+                          KURS
                         </Text>
-                        <Text style={styles.educationContentDate}>
-                          {item.startDate.length === 0
-                            ? 'Startdato -'
-                            : moment(item?.startDate).format('MM/YYYY') +
-                              ' - '}{' '}
-                          {item.toggle
-                            ? 'dags dato'
-                            : item.endDate.length === 0
-                            ? ' Sluttdato'
-                            : moment(item?.endDate).format('YYYY-MM')}
-                        </Text>
+                        <View style={styles.contentWrapperLeftSideContentHead}>
+                          {courses?.map((item, index) => {
+                            return (
+                              <>
+                                <Text
+                                  style={
+                                    styles.contentWrapperLeftSideContentText
+                                  }
+                                  key={index}
+                                >
+                                  {item?.name}
+                                </Text>
+                              </>
+                            )
+                          })}
+                        </View>
+                      </View>
+                    ) : null}
 
-                        <View
-                          style={
-                            styles.contentWrapperRightSideWrapperContentPara
-                          }
-                        >
+                    {cvData.drivingLicense !== '' ? (
+                      <View style={styles.contentWrapperLeftSideContent}>
+                        <Text style={styles.contentWrapperLeftSideContentTitle}>
+                          Førerkort
+                        </Text>
+                        <View style={styles.contentWrapperLeftSideContentHead}>
                           <Text
-                            style={
-                              styles.contentWrapperRightSideWrapperContentParaText
-                            }
+                            style={styles.contentWrapperLeftSideContentText}
                           >
-                            {item.additionalInformation.replace(
-                              /(<([^>]+)>)/gi,
-                              ''
-                            )}
+                            {cvData.drivingLicense}
                           </Text>
                         </View>
                       </View>
-                    ))}
-                  </View>
-                </View>
+                    ) : null}
 
-                {accordiansEnabled.Praksisplasser === true ? (
-                  <View style={styles.contentWrapperRightSideWrapper}>
-                    {/* <View> */}
-                    <Image
-                      style={styles.contentWrapperRightSideWrapperImage}
-                      src={BriefCaseIcon}
-                      alt='briefcase'
-                    />
-                    <View
-                      style={styles.contentWrapperRightSideWrapperLine}
-                    ></View>
-                    {/* </View> */}
-                    <View>
-                      <Text
-                        style={
-                          styles.contentWrapperRightSideWrapperContentTitle
-                        }
-                      >
-                        Praksisplasser
-                      </Text>
-                      {internships?.map((item, index) => (
-                        <View style={styles.educationContent} key={index}>
-                          <FiCircle
+                    {accordiansEnabled.Hobbyer === true ? (
+                      <View style={styles.contentWrapperLeftSideContent}>
+                        <Text style={styles.contentWrapperLeftSideContentTitle}>
+                          HOBBY
+                        </Text>
+                        {hobbies?.map((item, index) => {
+                          return (
+                            <View
+                              style={styles.contentWrapperLeftSideContentHead}
+                              key={index}
+                            >
+                              <>
+                                <Text
+                                  style={
+                                    styles.contentWrapperLeftSideContentText
+                                  }
+                                  key={index}
+                                >
+                                  {item?.name}
+                                </Text>
+                              </>
+                            </View>
+                          )
+                        })}
+                      </View>
+                    ) : null}
+                  </View>
+
+                  <View style={styles.contentWrapperRightSide}>
+                    {profileData !== '<p><br></p>' &&
+                      profileData !== '<p></p>' && (
+                        <View style={styles.contentWrapperRightSideWrapper}>
+                          {/* <View> */}
+                          <Image
+                            src={person}
                             style={{
+                              width: '20px',
+                              height: '20px',
+                              // color: 'black',
                               position: 'absolute',
-                              left: '-1.5rem',
-                              backgroundColor: 'white',
+                              left: '-2.75%',
+                              top: '-30%',
                             }}
                           />
-                          <Text style={styles.educationContentFrom}>
-                            {item?.jobTitle + ' - ' + item?.employer}
-                          </Text>
-                          <Text style={styles.educationContentDate}>
-                            {item.startDate.length === 0
-                              ? 'Startdato -'
-                              : moment(item?.startDate).format('MM/YYYY') +
-                                ' - '}{' '}
-                            {item.toggle
-                              ? 'dags dato'
-                              : item.endDate.length === 0
-                              ? ' Sluttdato'
-                              : moment(item?.endDate).format('YYYY-MM')}
-                          </Text>
+                          <View
+                            style={styles.contentWrapperRightSideWrapperLine}
+                          ></View>
+                          {/* </View> */}
 
                           <View
-                            style={
-                              styles.contentWrapperRightSideWrapperContentPara
-                            }
+                            style={styles.contentWrapperRightSideWrapperContent}
                           >
                             <Text
                               style={
-                                styles.contentWrapperRightSideWrapperContentParaText
+                                styles.contentWrapperRightSideWrapperContentTitle
                               }
                             >
-                              {item.additionalInformation.replace(
-                                /(<([^>]+)>)/gi,
-                                ''
-                              )}
+                              PROFIL
                             </Text>
+                            <View
+                              style={
+                                styles.contentWrapperRightSideWrapperContentPara
+                              }
+                            >
+                              <Text
+                                style={
+                                  styles.contentWrapperRightSideWrapperContentParaText
+                                }
+                              >
+                                {profileData.replace(/(<([^>]+)>)/gi, '')}
+                              </Text>
+                            </View>
                           </View>
                         </View>
-                      ))}
-                    </View>
-                  </View>
-                ) : null}
+                      )}
 
-                <View style={styles.contentWrapperRightSideWrapper}>
-                  {/* <View> */}
-                  <Image
-                    style={styles.contentWrapperRightSideWrapperImage}
-                    src={BriefCaseIcon}
-                    alt='briefcase'
-                  />
-                  <View
-                    style={styles.contentWrapperRightSideWrapperLine}
-                  ></View>
-                  {/* </View> */}
-                  <View>
-                    <Text
-                      style={styles.contentWrapperRightSideWrapperContentTitle}
-                    >
-                      UTDANNING
-                    </Text>
-                    {educationData?.map((item, index) => (
-                      <View style={styles.educationContent} key={index}>
-                        <FiCircle
-                          style={{
-                            position: 'absolute',
-                            left: '-1.5rem',
-                            backgroundColor: 'white',
-                          }}
-                        />
-                        <Text style={styles.educationContentFrom}>
-                          {item.school}-{item.study}
-                        </Text>
-                        <Text style={styles.educationContentDate}>
-                          {item.startDate.length === 0
-                            ? 'Startdato -'
-                            : moment(item?.startDate).format('MM/YYYY') +
-                              ' - '}{' '}
-                          {item.toggle
-                            ? 'dags dato'
-                            : item.endDate.length === 0
-                            ? ' Sluttdato'
-                            : moment(item?.endDate).format('YYYY-MM')}
-                        </Text>
-
-                        <View
+                    <View style={styles.contentWrapperRightSideWrapper}>
+                      {/* <View> */}
+                      <Image
+                        style={styles.contentWrapperRightSideWrapperImage}
+                        src={BriefCaseIcon}
+                        alt='briefcase'
+                      />
+                      <View
+                        style={styles.contentWrapperRightSideWrapperLine}
+                      ></View>
+                      {/* </View> */}
+                      <View>
+                        <Text
                           style={
-                            styles.contentWrapperRightSideWrapperContentPara
+                            styles.contentWrapperRightSideWrapperContentTitle
                           }
                         >
+                          ARBEIDSERFARING
+                        </Text>
+                        {experiances?.map((item, index) => (
+                          <View style={styles.educationContent} key={index}>
+                            <Image
+                              src={circle}
+                              style={{
+                                width: '10px',
+                                height: '10px',
+                                position: 'absolute',
+                                left: '-17em',
+                              }}
+                            />
+                            <Text style={styles.educationContentFrom}>
+                              {item?.jobTitle + ' - ' + item?.employer}
+                            </Text>
+                            <Text style={styles.educationContentDate}>
+                              {item.startDate.length === 0
+                                ? 'Startdato -'
+                                : moment(item?.startDate).format('MM/YYYY') +
+                                  ' - '}{' '}
+                              {item.toggle
+                                ? 'dags dato'
+                                : item.endDate.length === 0
+                                ? ' Sluttdato'
+                                : moment(item?.endDate).format('YYYY-MM')}
+                            </Text>
+
+                            <View
+                              style={
+                                styles.contentWrapperRightSideWrapperContentPara
+                              }
+                            >
+                              <Text
+                                style={
+                                  styles.contentWrapperRightSideWrapperContentParaText
+                                }
+                              >
+                                {item.additionalInformation.replace(
+                                  /(<([^>]+)>)/gi,
+                                  ''
+                                )}
+                              </Text>
+                            </View>
+                          </View>
+                        ))}
+                      </View>
+                    </View>
+
+                    {accordiansEnabled.Praksisplasser === true ? (
+                      <View style={styles.contentWrapperRightSideWrapper}>
+                        {/* <View> */}
+                        <Image
+                          style={styles.contentWrapperRightSideWrapperImage}
+                          src={cap}
+                          alt='cap'
+                        />
+
+                        <View
+                          style={styles.contentWrapperRightSideWrapperLine}
+                        ></View>
+                        {/* </View> */}
+                        <View>
                           <Text
                             style={
-                              styles.contentWrapperRightSideWrapperContentParaText
+                              styles.contentWrapperRightSideWrapperContentTitle
                             }
                           >
-                            {item.additionalInformation.replace(
-                              /(<([^>]+)>)/gi,
-                              ''
-                            )}
+                            Praksisplasser
                           </Text>
-                        </View>
-                      </View>
-                    ))}
-                  </View>
-                </View>
-
-                {accordiansEnabled.Referanser === true ? (
-                  <View style={styles.contentWrapperRightSideWrapper}>
-                    {/* <View> */}
-                    <View
-                      style={styles.contentWrapperRightSideWrapperLine}
-                    ></View>
-                    {/* </View> */}
-                    <View>
-                      <Text
-                        style={
-                          styles.contentWrapperRightSideWrapperContentTitle
-                        }
-                      >
-                        REFERANSER
-                      </Text>
-                      {/* </View> */}
-                      {refrence?.map((item, index) => (
-                        <View style={styles.educationContent} key={index}>
-                          {toggleData ? (
-                            <>
-                              <Text style={styles.educationContentDate}>
-                                Oppgis ved forespørsel
-                              </Text>
-                            </>
-                          ) : (
-                            <>
-                              <FiCircle
+                          {internships?.map((item, index) => (
+                            <View style={styles.educationContent} key={index}>
+                              <Image
+                                src={circle}
                                 style={{
+                                  width: '10px',
+                                  height: '10px',
                                   position: 'absolute',
-                                  left: '-1.5rem',
-                                  backgroundColor: 'white',
+                                  left: '-17em',
                                 }}
                               />
                               <Text style={styles.educationContentFrom}>
-                                {item?.name + ' , ' + item?.companyName}
+                                {item?.jobTitle + ' - ' + item?.employer}
                               </Text>
                               <Text style={styles.educationContentDate}>
-                                {item?.email}
+                                {item.startDate.length === 0
+                                  ? 'Startdato -'
+                                  : moment(item?.startDate).format('MM/YYYY') +
+                                    ' - '}{' '}
+                                {item.toggle
+                                  ? 'dags dato'
+                                  : item.endDate.length === 0
+                                  ? ' Sluttdato'
+                                  : moment(item?.endDate).format('YYYY-MM')}
                               </Text>
-                            </>
-                          )}
+
+                              <View
+                                style={
+                                  styles.contentWrapperRightSideWrapperContentPara
+                                }
+                              >
+                                <Text
+                                  style={
+                                    styles.contentWrapperRightSideWrapperContentParaText
+                                  }
+                                >
+                                  {item.additionalInformation.replace(
+                                    /(<([^>]+)>)/gi,
+                                    ''
+                                  )}
+                                </Text>
+                              </View>
+                            </View>
+                          ))}
                         </View>
-                      ))}
+                      </View>
+                    ) : null}
+
+                    <View style={styles.contentWrapperRightSideWrapper}>
+                      {/* <View> */}
+                      <Image
+                        style={styles.contentWrapperRightSideWrapperImage}
+                        src={cap}
+                        alt='cap'
+                      />
+                      <View
+                        style={styles.contentWrapperRightSideWrapperLine}
+                      ></View>
+                      {/* </View> */}
+                      <View>
+                        <Text
+                          style={
+                            styles.contentWrapperRightSideWrapperContentTitle
+                          }
+                        >
+                          UTDANNING
+                        </Text>
+                        {educationData?.map((item, index) => (
+                          <View style={styles.educationContent} key={index}>
+                            <Image
+                              src={circle}
+                              style={{
+                                width: '10px',
+                                height: '10px',
+                                position: 'absolute',
+                                left: '-17em',
+                              }}
+                            />
+                            <Text style={styles.educationContentFrom}>
+                              {item.school}-{item.study}
+                            </Text>
+                            <Text style={styles.educationContentDate}>
+                              {item.startDate.length === 0
+                                ? 'Startdato -'
+                                : moment(item?.startDate).format('MM/YYYY') +
+                                  ' - '}{' '}
+                              {item.toggle
+                                ? 'dags dato'
+                                : item.endDate.length === 0
+                                ? ' Sluttdato'
+                                : moment(item?.endDate).format('YYYY-MM')}
+                            </Text>
+
+                            <View
+                              style={
+                                styles.contentWrapperRightSideWrapperContentPara
+                              }
+                            >
+                              <Text
+                                style={
+                                  styles.contentWrapperRightSideWrapperContentParaText
+                                }
+                              >
+                                {item.additionalInformation.replace(
+                                  /(<([^>]+)>)/gi,
+                                  ''
+                                )}
+                              </Text>
+                            </View>
+                          </View>
+                        ))}
+                      </View>
                     </View>
+
+                    {accordiansEnabled.Referanser === true ? (
+                      <View style={styles.contentWrapperRightSideWrapper}>
+                        {/* <View> */}
+                        <View
+                          style={styles.contentWrapperRightSideWrapperLine}
+                        ></View>
+                        {/* </View> */}
+                        <View>
+                          <Text
+                            style={
+                              styles.contentWrapperRightSideWrapperContentTitle
+                            }
+                          >
+                            REFERANSER
+                          </Text>
+                          {/* </View> */}
+                          {refrence?.map((item, index) => (
+                            <View style={styles.educationContent} key={index}>
+                              {toggleData ? (
+                                <>
+                                  <Text style={styles.educationContentDate}>
+                                    Oppgis ved forespørsel
+                                  </Text>
+                                </>
+                              ) : (
+                                <>
+                                  <FiCircle
+                                    style={{
+                                      position: 'absolute',
+                                      left: '-1.5rem',
+                                      backgroundColor: 'white',
+                                    }}
+                                  />
+                                  <Text style={styles.educationContentFrom}>
+                                    {item?.name + ' , ' + item?.companyName}
+                                  </Text>
+                                  <Text style={styles.educationContentDate}>
+                                    {item?.email}
+                                  </Text>
+                                </>
+                              )}
+                            </View>
+                          ))}
+                        </View>
+                      </View>
+                    ) : null}
                   </View>
-                ) : null}
+                </View>
               </View>
-            </View>
-          </View>
-        </Page>
-      ): null}
-      </Document>
-    </PDFViewer>
-    <div className='preview-button'>
+            </Page>
+          ) : null}
+        </Document>
+      </PDFViewer>
+      <div className='preview-button'>
         <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
       </div>
     </>

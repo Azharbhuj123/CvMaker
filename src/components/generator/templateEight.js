@@ -35,13 +35,14 @@ import {
   StyleSheet,
 } from '@react-pdf/renderer'
 import { Html } from 'react-pdf-html'
+import { IsRenderingContext } from '../../context/IsRenderingContext'
+import { useContext } from 'react'
 
 const TemplateEight = (props) => {
   useEffect(() => {
     let data = document.getElementsByClassName('template-eight-container')
     console.log(typeof data.namedItem, 'uiuiuiui')
   }, [])
-
   let pdfComponent = useRef()
   let printButtonRef = useRef()
   let docRef = useRef()
@@ -63,7 +64,6 @@ const TemplateEight = (props) => {
   const lanuages = useSelector(languageData)
   const toggleData = useSelector(getRefToggle)
   const { ProfilText } = props
-  const [isRendering, setIsRendering] = useState(false)
   // if (displayTemplate && displayTemplate === true ) {
   //   console.log(
   //     "mobile screen detected the element will directly be printed now !!!!!!!!!!!11"
@@ -133,11 +133,11 @@ const TemplateEight = (props) => {
       backgroundColor: '#fff',
       display: 'flex',
       justifyContent: 'center',
-      paddingVertical: 16,
-      paddingHorizontal: 16,
+      paddingVertical: 10,
+      paddingHorizontal: 10,
       position: 'absolute',
       width: '70%',
-      top: 30,
+      top: 25,
       left: '15%',
       border: ' 3px solid #b19c7d',
       color: '#b19c7d',
@@ -145,7 +145,7 @@ const TemplateEight = (props) => {
     mainTitle: {
       color: '#b19c7d',
       fontFamily: 'Roboto',
-      fontSize: 40,
+      fontSize: 36,
       fontWeight: 700,
       textAlign: 'center',
     },
@@ -157,7 +157,7 @@ const TemplateEight = (props) => {
       textAlign: 'center',
     },
     detailSection: {
-      marginTop: 150,
+      marginTop: 160,
       borderBottom: '3px solid #b19c7d',
       color: '#b19c7d',
       fontFamily: 'Roboto',
@@ -262,7 +262,7 @@ const TemplateEight = (props) => {
     pageRightSection: {
       marginLeft: 32,
       width: '70%',
-      marginTop: 150,
+      marginTop: 165,
     },
     profileSection: {
       borderBottom: '3px solid #b19c7d',
@@ -325,6 +325,7 @@ const TemplateEight = (props) => {
       marginTop: 5,
     },
   })
+  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
 
   return (
     <>
@@ -648,6 +649,7 @@ const TemplateEight = (props) => {
           ) : null}
         </Document>
       </PDFViewer>
+
       <div className='preview-button'>
         <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
       </div>

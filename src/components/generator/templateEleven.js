@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useOutletContext, Link } from 'react-router-dom'
 import {
@@ -31,6 +31,7 @@ import {
   Font,
   PDFViewer,
 } from '@react-pdf/renderer'
+import { IsRenderingContext } from '../../context/IsRenderingContext'
 
 const TemplateEleven = () => {
   let pdfComponent = useRef()
@@ -52,7 +53,6 @@ const TemplateEleven = () => {
   const hobbies = useSelector(getHobbies)
   const internships = useSelector(getInternships)
   const profileData = useSelector(profileRichTextData)
-  const [isRendering, setIsRendering] = useState(false)
   // if (displayTemplate && displayTemplate === true ) {
   //   console.log(
   //     "mobile screen detected the element will directly be printed now !!!!!!!!!!!11"
@@ -82,7 +82,7 @@ const TemplateEleven = () => {
       printButtonRef.current.click()
     }
   }, [displayTemplate])
-  
+
   Font.register({
     family: 'Calibri',
     fonts: [{ src: CalibriRegular }, { src: CalibriBold }],
@@ -91,6 +91,7 @@ const TemplateEleven = () => {
   const styles = StyleSheet.create({
     page: {
       flexDirection: 'row',
+      padding: 10,
     },
     document: {
       width: '100%',
@@ -111,6 +112,8 @@ const TemplateEleven = () => {
       backgroundColor: '#ed7d31',
       height: 85,
       width: '6%',
+      marginLeft: -10,
+      marginTop: -10,
     },
     hederRight: {
       display: 'flex',
@@ -158,8 +161,8 @@ const TemplateEleven = () => {
       display: 'flex',
       flexDirection: 'column',
       gap: 12,
-      paddingRight: 8,
-      paddingTop: 8,
+      // paddingRight: 8,
+      // paddingTop: 8,
       width: '100%',
     },
     contentContainerHeading: {
@@ -272,8 +275,8 @@ const TemplateEleven = () => {
     contentSectionBottomLeftContentSideProgress: {
       alignItems: 'center',
       display: 'flex',
-      flexDirection: 'row',
-      gap: 14,
+      flexDirection: 'column',
+      gap: 6,
       width: '100%',
     },
     contentSectionBottomLeftContentSideProgressText: {
@@ -281,6 +284,7 @@ const TemplateEleven = () => {
       fontSize: 11,
       wordBreak: 'break-all',
       width: 200,
+      // fontWeight: 700,
     },
     contentSectionBottomRight: {
       paddingLeft: 12,
@@ -312,286 +316,430 @@ const TemplateEleven = () => {
       width: '100%',
     },
   })
-  
+  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
   return (
     <>
-    <PDFViewer style={styles.document}>
-      <Document style={styles.document}>
-      {isRendering ? (
-        <Page size='A4' style={styles.page}>
-          <View style={styles.container}>
-            <View style={styles.heder}>
-              <View style={styles.hederLeftBox}></View>
-              <View style={styles.hederRight}>
-                <Text style={styles.hederRightTitle}>
-                  Fornavna <Text style={{ color: 'gray' }}>Etternavn</Text>
-                </Text>
-                <Text style={styles.hederRightSubtitle}>software </Text>
-                <View style={styles.hederRightContent}>
-                  {/* <Text> */}
-                  <Text>Epost: </Text>
-                  <Text style={{ fontWeight: '100', color: 'gray' }}>
-                    email@gmail.com/
-                  </Text>
-                  <Text> Tlf: </Text>
-                  <Text style={{ fontWeight: '100', color: 'gray' }}>
-                    924452111/
-                  </Text>
-                  <Text> Adresse: </Text>
-                  <Text style={{ fontWeight: '100', color: 'gray' }}>
-                    adress
-                  </Text>
-                  <Text> Førerkort: </Text>
-                  <Text style={{ fontWeight: '100', color: 'gray' }}>
-                    Driver license/
-                  </Text>
-                  <Text> Førerkort: </Text>
-                  <Text style={{ fontWeight: '100', color: 'gray' }}>
-                    15,06,2023
-                  </Text>
-                  {/* </Text> */}
-                </View>
-              </View>
-            </View>
-
-            <View style={styles.contentSection}>
-              <View style={styles.contentContainer}>
-                <Text style={styles.contentContainerHeading}>OM MEG</Text>
-                <Text style={styles.contentContainerHeadingLine}></Text>
-                <View style={styles.contentContainerPara}>
-                  <Text style={styles.contentContainerParaText}>
-                    We use both first and third-party cookies to personalise web
-                    content, analyse visits to our websites and tailor
-                    advertisements. Some of these cookies are necessary for the
-                    website to function, whilst others require your consent.
-                    More detail can be found in our cookie policy and you can
-                    tailor your choices in the preference centre.
-                  </Text>
-                </View>
-              </View>
-
-              <View style={styles.experienceSection}>
-                <Text style={styles.contentContainerHeading}>
-                  ARBEIDSERFARING
-                </Text>
-                <Text style={styles.educationContainerHeadingLine}></Text>
-                <Text style={styles.educationContainerHeadingPara}>
-                  Skole | Studie
-                </Text>
-                <View style={styles.educationContainerDate}>
-                  <Text style={styles.educationContainerDateText}>
-                    2023-08 - 2023-08{' '}
-                  </Text>
-                </View>
-
-                <View style={styles.educationContainerPara}>
-                  <Text style={styles.educationContainerParaText}>
-                    We use both first and third-party cookies to personalise web
-                    content, analyse visits to our websites and tailor
-                    advertisements. Some of these cookies are necessary for the
-                    website to function, whilst others require your consent.
-                    More detail can be found in our cookie policy and you can
-                    tailor your choices in the preference centre.
-                  </Text>
-                </View>
-              </View>
-
-              <View style={styles.experienceSection}>
-                <Text style={styles.contentContainerHeading}>
-                  Praksisplasser
-                </Text>
-                <Text style={styles.educationContainerHeadingLine}></Text>
-                <Text style={styles.educationContainerHeadingPara}>
-                  Skole | Studie
-                </Text>
-                <View style={styles.educationContainerDate}>
-                  <Text style={styles.educationContainerDateText}>
-                    2023-08 - 2023-08{' '}
-                  </Text>
-                </View>
-
-                <View style={styles.educationContainerPara}>
-                  <Text style={styles.educationContainerParaText}>
-                    We use both first and third-party cookies to personalise web
-                    content, analyse visits to our websites and tailor
-                    advertisements. Some of these cookies are necessary for the
-                    website to function, whilst others require your consent.
-                    More detail can be found in our cookie policy and you can
-                    tailor your choices in the preference centre.
-                  </Text>
-                </View>
-              </View>
-
-              <View style={styles.contentSectionBottom}>
-                <View style={styles.contentSectionBottomLeft}>
-                  <View style={styles.contentSectionBottomLeftContent}>
-                    <Text style={styles.contentContainerHeading}>
-                      PROFESJONELL EKSPERTISE
+      <PDFViewer style={styles.document}>
+        <Document style={styles.document}>
+          {isRendering ? (
+            <Page size='A4' style={styles.page}>
+              <View style={styles.container}>
+                <View style={styles.heder}>
+                  <View style={styles.hederLeftBox}></View>
+                  <View style={styles.hederRight}>
+                    <Text style={styles.hederRightTitle}>
+                      {cvData?.firstName}
+                      <Text style={{ color: 'gray' }}>{cvData?.lastName}</Text>
                     </Text>
-                    <Text style={styles.contentContainerHeadingLine}></Text>
-
-                    <View style={styles.contentSectionBottomLeftContentSide}>
-                      <Text
-                        style={styles.contentSectionBottomLeftContentSideTitle}
-                      >
-                        ferdigheter
-                      </Text>
-                      <View
-                        style={
-                          styles.contentSectionBottomLeftContentSideSetting
-                        }
-                      >
-                        <View
-                          style={
-                            styles.contentSectionBottomLeftContentSideProgress
-                          }
+                    <Text style={styles.hederRightSubtitle}>
+                      {cvData?.jobTitle}
+                    </Text>
+                    <View style={styles.hederRightContent}>
+                      <Text style={{ wordBreak: 'break-all' }}>
+                        <Text>Epost: </Text>
+                        <Text
+                          style={{
+                            fontWeight: '100',
+                            color: 'gray',
+                            wordBreak: 'break-all',
+                          }}
                         >
+                          {cvData?.email} /{' '}
+                        </Text>
+                        {cvData?.phone === '' ? null : (
+                          <>
+                            <Text>Tlf: </Text>
+                            <Text
+                              style={{
+                                fontWeight: '100',
+                                color: 'gray',
+                                wordBreak: 'break-all',
+                              }}
+                            >
+                              {cvData?.phone} /{' '}
+                            </Text>
+                          </>
+                        )}
+                        {cvData?.physicalAddress === '' ? null : (
+                          <>
+                            <Text> Adresse: </Text>
+                            <Text
+                              style={{
+                                fontWeight: '100',
+                                color: 'gray',
+                                wordBreak: 'break-all',
+                              }}
+                            >
+                              {cvData?.physicalAddress}
+                            </Text>
+                          </>
+                        )}
+                        {cvData?.zipCode === '' ? null : (
                           <Text
-                            style={
-                              styles.contentSectionBottomLeftContentSideProgressText
-                            }
+                            style={{
+                              fontWeight: '100',
+                              color: 'gray',
+                              wordBreak: 'break-all',
+                            }}
                           >
-                            progress
+                            {',' + cvData?.zipCode} /{' '}
                           </Text>
-                        </View>
-                      </View>
-                    </View>
-                  </View>
-                  <View style={styles.contentSectionBottomLeftContent}>
-                    <Text style={styles.contentContainerHeading}>ANNET</Text>
-                    <Text style={styles.contentContainerHeadingLine}></Text>
-                    <View style={styles.contentSectionBottomLeftContentSide}>
-                      <Text
-                        style={styles.contentSectionBottomLeftContentSideTitle}
-                      >
-                        SPRÅK
+                        )}
+                        {cvData?.drivingLicense === '' ? null : (
+                          <>
+                            <Text> Førerkort: </Text>
+                            <Text
+                              style={{
+                                fontWeight: '100',
+                                color: 'gray',
+                                wordBreak: 'break-all',
+                              }}
+                            >
+                              {cvData?.drivingLicense} /{' '}
+                            </Text>
+                          </>
+                        )}
+                        {cvData?.DOB === '' ? null : (
+                          <>
+                            <Text> Førerkort: </Text>
+                            <Text
+                              style={{
+                                fontWeight: '100',
+                                color: 'gray',
+                                wordBreak: 'break-all',
+                              }}
+                            >
+                              {moment(cvData?.DOB).format('DD,MM,YYYY')}
+                            </Text>
+                          </>
+                        )}
                       </Text>
-                      <View
-                        style={
-                          styles.contentSectionBottomLeftContentSideSetting
-                        }
-                      >
-                        <View
-                          style={
-                            styles.contentSectionBottomLeftContentSideProgress
-                          }
-                        >
-                          <Text
-                            style={
-                              styles.contentSectionBottomLeftContentSideProgressText
-                            }
-                          >
-                            language : Morsmål
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-
-                    <View style={styles.contentSectionBottomLeftContentSide}>
-                      <Text
-                        style={styles.contentSectionBottomLeftContentSideTitle}
-                      >
-                        KURS
-                      </Text>
-                      <View
-                        style={
-                          styles.contentSectionBottomLeftContentSideSetting
-                        }
-                      >
-                        <View
-                          style={
-                            styles.contentSectionBottomLeftContentSideProgress
-                          }
-                        >
-                          <Text
-                            style={
-                              styles.contentSectionBottomLeftContentSideProgressText
-                            }
-                          >
-                            course name
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-
-                    <View style={styles.contentSectionBottomLeftContentSide}>
-                      <Text
-                        style={styles.contentSectionBottomLeftContentSideTitle}
-                      >
-                        HOBBY
-                      </Text>
-                      <View
-                        style={
-                          styles.contentSectionBottomLeftContentSideSetting
-                        }
-                      >
-                        <View
-                          style={
-                            styles.contentSectionBottomLeftContentSideProgress
-                          }
-                        >
-                          <Text
-                            style={
-                              styles.contentSectionBottomLeftContentSideProgressText
-                            }
-                          >
-                            cricket
-                          </Text>
-                        </View>
-                      </View>
                     </View>
                   </View>
                 </View>
 
-                <View style={styles.contentSectionBottomRight}>
-                  <View style={styles.contentSectionBottomRightContent}>
-                    <View style={styles.contentSectionBottomLeftContent}>
-                      <Text style={styles.contentContainerHeading}>
-                        UTDANNELSE
+                <View style={styles.contentSection}>
+                  <View style={styles.contentContainer}>
+                    <Text style={styles.contentContainerHeading}>OM MEG</Text>
+                    <Text style={styles.contentContainerHeadingLine}></Text>
+                    <View style={styles.contentContainerPara}>
+                      <Text style={styles.contentContainerParaText}>
+                        {profileData.replace(/(<([^>]+)>)/gi, '')}
                       </Text>
-                      <Text style={styles.contentContainerHeadingLine}></Text>
+                    </View>
+                  </View>
 
-                      <View style={styles.studingContent}>
-                        <View style={styles.settingContent}>
-                          <Text style={{ textTransform: 'uppercase' }}>
-                            settingg
+                  <View style={styles.experienceSection}>
+                    <Text style={styles.contentContainerHeading}>
+                      ARBEIDSERFARING
+                    </Text>
+                    {experianceData?.map((item, index) => {
+                      return (
+                        <>
+                          <Text
+                            style={styles.educationContainerHeadingLine}
+                          ></Text>
+                          <Text style={styles.educationContainerHeadingPara}>
+                            {item?.jobTitle} | {item?.employer}
                           </Text>
-                          <Text style={styles.settingContentText}>
-                            text for this is a bextay way to a
-                          </Text>
-                          <View style={styles.settingContentDate}>
-                            <Text style={styles.settingContentDateText}>
-                              08 2023 - 08 2023
+                          <View style={styles.educationContainerDate}>
+                            <Text style={styles.educationContainerDateText}>
+                              {item?.startDate} -{' '}
+                              {item.toggle ? 'dags dato' : item?.endDate}
                             </Text>
+                          </View>
+
+                          <View style={styles.educationContainerPara}>
+                            <Text style={styles.educationContainerParaText}>
+                              {item.additionalInformation.replace(
+                                /(<([^>]+)>)/gi,
+                                ''
+                              )}
+                            </Text>
+                          </View>
+                        </>
+                      )
+                    })}
+                  </View>
+
+                  {enabledAccordians.Praksisplasser === true ? (
+                    <View style={styles.experienceSection}>
+                      <Text style={styles.contentContainerHeading}>
+                        Praksisplasser
+                      </Text>
+                      {internships?.map((item, index) => {
+                        return (
+                          <>
+                            <Text
+                              style={styles.educationContainerHeadingLine}
+                            ></Text>
+                            <Text style={styles.educationContainerHeadingPara}>
+                              {item?.jobTitle} | {item?.employer}
+                            </Text>
+                            <View style={styles.educationContainerDate}>
+                              <Text style={styles.educationContainerDateText}>
+                                {item?.startDate} -{' '}
+                                {item.toggle ? 'dags dato' : item?.endDate}
+                              </Text>
+                            </View>
+
+                            <View style={styles.educationContainerPara}>
+                              <Text style={styles.educationContainerParaText}>
+                                {item.additionalInformation.replace(
+                                  /(<([^>]+)>)/gi,
+                                  ''
+                                )}
+                              </Text>
+                            </View>
+                          </>
+                        )
+                      })}
+                    </View>
+                  ) : null}
+
+                  <View style={styles.contentSectionBottom}>
+                    <View style={styles.contentSectionBottomLeft}>
+                      <View style={styles.contentSectionBottomLeftContent}>
+                        <Text style={styles.contentContainerHeading}>
+                          PROFESJONELL EKSPERTISE
+                        </Text>
+                        <Text style={styles.contentContainerHeadingLine}></Text>
+
+                        <View
+                          style={styles.contentSectionBottomLeftContentSide}
+                        >
+                          <Text
+                            style={
+                              styles.contentSectionBottomLeftContentSideTitle
+                            }
+                          >
+                            ferdigheter
+                          </Text>
+
+                          <View
+                            style={
+                              styles.contentSectionBottomLeftContentSideProgress
+                            }
+                          >
+                            {properties?.map((item) => (
+                              <View
+                                style={
+                                  styles.contentSectionBottomLeftContentSideSetting
+                                }
+                              >
+                                <Text
+                                  style={
+                                    styles.contentSectionBottomLeftContentSideProgressText
+                                  }
+                                >
+                                  {item?.name}
+                                </Text>
+                                {cvData?.displayProgressBar === true ? (
+                                  <ProgressBar
+                                    backgroundcolor='rgb(237, 125, 49)'
+                                    percentage={item?.value}
+                                    wrapperColor={'grey'}
+                                    fontFamily={'Calibri'}
+                                  />
+                                ) : null}
+                              </View>
+                              // </View>
+                            ))}
                           </View>
                         </View>
                       </View>
+
+                      <View style={styles.contentSectionBottomLeftContent}>
+                        <Text style={styles.contentContainerHeading}>
+                          ANNET
+                        </Text>
+                        <Text style={styles.contentContainerHeadingLine}></Text>
+                        <View
+                          style={styles.contentSectionBottomLeftContentSide}
+                        >
+                          <Text
+                            style={
+                              styles.contentSectionBottomLeftContentSideTitle
+                            }
+                          >
+                            SPRÅK
+                          </Text>
+                          <View
+                            style={
+                              styles.contentSectionBottomLeftContentSideSetting
+                            }
+                          >
+                            {languages?.map((item) => (
+                              // <View
+                              //   style={
+                              //     styles.contentSectionBottomLeftContentSideProgress
+                              //   }
+                              // >
+                              <Text
+                                style={
+                                  styles.contentSectionBottomLeftContentSideProgressText
+                                }
+                              >
+                                {item?.name} {item?.value}
+                              </Text>
+                              // </View>
+                            ))}
+                          </View>
+                        </View>
+
+                        {enabledAccordians.Kurs === true ? (
+                          <View
+                            style={styles.contentSectionBottomLeftContentSide}
+                          >
+                            <Text
+                              style={
+                                styles.contentSectionBottomLeftContentSideTitle
+                              }
+                            >
+                              KURS
+                            </Text>
+                            <View
+                              style={
+                                styles.contentSectionBottomLeftContentSideSetting
+                              }
+                            >
+                              {courses?.map((item) => (
+                                // <View
+                                //   style={
+                                //     styles.contentSectionBottomLeftContentSideProgress
+                                //   }
+                                // >
+                                <Text
+                                  style={
+                                    styles.contentSectionBottomLeftContentSideProgressText
+                                  }
+                                >
+                                  {item?.name}
+                                </Text>
+                                // </View>
+                              ))}
+                            </View>
+                          </View>
+                        ) : null}
+
+                        {enabledAccordians.Hobbyer === true ? (
+                          <View
+                            style={styles.contentSectionBottomLeftContentSide}
+                          >
+                            <Text
+                              style={
+                                styles.contentSectionBottomLeftContentSideTitle
+                              }
+                            >
+                              HOBBY
+                            </Text>
+                            <View
+                              style={
+                                styles.contentSectionBottomLeftContentSideSetting
+                              }
+                            >
+                              <Text>
+                                {hobbies?.map((item, index) => (
+                                  <Text
+                                    style={
+                                      styles.contentSectionBottomLeftContentSideProgressText
+                                    }
+                                  >
+                                    {index === hobbies.length - 1
+                                      ? item?.name + '.'
+                                      : item?.name + ', '}
+                                  </Text>
+                                ))}
+                              </Text>
+                            </View>
+                          </View>
+                        ) : null}
+                      </View>
                     </View>
 
-                    <View style={styles.contentSectionBottomLeftContent}>
-                      <Text style={styles.contentContainerHeading}>
-                        Referanser
-                      </Text>
-                      <Text style={styles.contentContainerHeadingLine}></Text>
-                      <View style={styles.studingContent}>
-                        <View style={styles.settingContent}>
-                          <Text>Navn - Selskap</Text>
-                          <Text style={styles.settingContentText}>
-                            Telefon: 98514
+                    <View style={styles.contentSectionBottomRight}>
+                      <View style={styles.contentSectionBottomRightContent}>
+                        <View style={styles.contentSectionBottomLeftContent}>
+                          <Text style={styles.contentContainerHeading}>
+                            UTDANNELSE
                           </Text>
+                          <Text
+                            style={styles.contentContainerHeadingLine}
+                          ></Text>
+
+                          <View style={styles.studingContent}>
+                            {educationData?.map((item) => (
+                              <View style={styles.settingContent}>
+                                <Text style={{ textTransform: 'uppercase' }}>
+                                  {item?.study}
+                                </Text>
+                                <Text style={styles.settingContentText}>
+                                  {item?.school}
+                                </Text>
+                                <View style={styles.settingContentDate}>
+                                  <Text style={styles.settingContentDateText}>
+                                    {item.startDate.length === 0
+                                      ? 'Startdato -'
+                                      : moment(item?.startDate).format(
+                                          'MM YYYY'
+                                        ) + ' - '}
+                                    {item.endDate.length === 0
+                                      ? ' sluttdato'
+                                      : moment(item?.endDate).format('MM YYYY')}
+                                  </Text>
+                                </View>
+                              </View>
+                            ))}
+                          </View>
                         </View>
+
+                        {enabledAccordians.Referanser === true ? (
+                          <View style={styles.contentSectionBottomLeftContent}>
+                            <Text style={styles.contentContainerHeading}>
+                              Referanser
+                            </Text>
+                            <Text
+                              style={styles.contentContainerHeadingLine}
+                            ></Text>
+                            {toggleData ? (
+                              <Text
+                                style={{
+                                  marginTop: '8px',
+                                  wordBreak: 'break-all',
+                                  fontSize: '13px',
+                                  fontFamily: 'Calibri',
+                                  fontWeight: 'bold',
+                                  color: 'black',
+                                }}
+                              >
+                                Oppgis ved forespørsel
+                              </Text>
+                            ) : (
+                              <View style={styles.studingContent}>
+                                {refrence?.map((item) => (
+                                  <View style={styles.settingContent}>
+                                    <Text>
+                                      {item?.name + ' - ' + item?.companyName}
+                                    </Text>
+                                    <Text style={styles.settingContentText}>
+                                      {item?.email}
+                                    </Text>
+                                  </View>
+                                ))}
+                              </View>
+                            )}
+                          </View>
+                        ) : null}
                       </View>
                     </View>
                   </View>
                 </View>
               </View>
-            </View>
-          </View>
-        </Page>
-      ): null}
-      </Document>
-    </PDFViewer>
-    <div className='preview-button'>
+            </Page>
+          ) : null}
+        </Document>
+      </PDFViewer>
+      <div className='preview-button'>
         <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
       </div>
     </>

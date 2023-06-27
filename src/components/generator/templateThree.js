@@ -36,6 +36,8 @@ import robotoBold from '../../assests/fonts/roboto/Roboto-Bold.ttf'
 import robotoItalic from '../../assests/fonts/roboto/Roboto-Italic.ttf'
 import robotoRegular from '../../assests/fonts/roboto/Roboto-Regular.ttf'
 import robotoBoldItalic from '../../assests/fonts/roboto/Roboto-BoldItalic.ttf'
+import { IsRenderingContext } from '../../context/IsRenderingContext'
+import { useContext } from 'react'
 
 const TemplateThree = () => {
   let pdfComponent = useRef()
@@ -56,7 +58,6 @@ const TemplateThree = () => {
   const lanuages = useSelector(languageData)
   const [isChecked, setIsChecked] = useState(false)
   const [changeOccured, setChangeOccured] = useState(false)
-  const [isRendering, setIsRendering] = useState(false)
   // if (displayTemplate && displayTemplate === true ) {
   //   console.log(
   //     "mobile screen detected the element will directly be printed now !!!!!!!!!!!11"
@@ -100,6 +101,7 @@ const TemplateThree = () => {
   const styles = StyleSheet.create({
     page: {
       flexDirection: 'row',
+      paddingTop: 10,
     },
     document: {
       width: '100%',
@@ -286,6 +288,8 @@ const TemplateThree = () => {
       fontSize: 11,
     },
   })
+
+  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
 
   return (
     <>

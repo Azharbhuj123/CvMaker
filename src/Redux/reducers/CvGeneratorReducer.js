@@ -316,6 +316,7 @@ export default function CvGeneratorReducer(state = initialState, action) {
         ...state,
         datePresent: action.payload,
       }
+      
     default:
       return state
   }

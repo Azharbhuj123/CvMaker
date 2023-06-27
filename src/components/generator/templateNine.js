@@ -39,6 +39,8 @@ import {
   StyleSheet,
 } from '@react-pdf/renderer'
 import Html from 'react-pdf-html'
+import { IsRenderingContext } from '../../context/IsRenderingContext'
+import { useContext } from 'react'
 
 const TemplateNine = () => {
   let printButtonRef = useRef()
@@ -300,248 +302,257 @@ const TemplateNine = () => {
       marginTop: 8,
     },
   })
-
+  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
   return (
-    <PDFViewer style={styles.document}>
-    <Document style={styles.document}>
-      <Page size='A4' style={styles.page}>
-        <View style={styles.pageLeftSection}>
-          <View style={styles.titleBox}>
-            <Text style={styles.titleBoxTitle}>
-              {cvData.firstName + ' ' + cvData.lastName}
-            </Text>
-            <Text style={styles.titleBoxSubitle}>{cvData.jobTitle}</Text>
-          </View>
+    <>
+      <PDFViewer style={styles.document}>
+        <Document style={styles.document}>
+          {isRendering ? (
+            <Page size='A4' style={styles.page}>
+              <View style={styles.pageLeftSection}>
+                <View style={styles.titleBox}>
+                  <Text style={styles.titleBoxTitle}>
+                    {cvData.firstName + ' ' + cvData.lastName}
+                  </Text>
+                  <Text style={styles.titleBoxSubitle}>{cvData.jobTitle}</Text>
+                </View>
 
-          <View style={styles.detailSection}>
-            <View style={styles.detail}>
-              <Text style={styles.detailTitle}>Detaljer</Text>
-              <Text style={styles.addressTitle}>ADRESSE</Text>
-              <Text style={styles.addressText}>{cvData?.physicalAddress}</Text>
-              {/* </View>
+                <View style={styles.detailSection}>
+                  <View style={styles.detail}>
+                    <Text style={styles.detailTitle}>Detaljer</Text>
+                    <Text style={styles.addressTitle}>ADRESSE</Text>
+                    <Text style={styles.addressText}>
+                      {cvData?.physicalAddress}
+                    </Text>
+                    {/* </View>
 
             <View style={styles.detail}> */}
-              <Text style={styles.addressTitle}>Telefon</Text>
-              <Text style={styles.addressText}>{cvData?.phone}</Text>
+                    <Text style={styles.addressTitle}>Telefon</Text>
+                    <Text style={styles.addressText}>{cvData?.phone}</Text>
 
-              <Text style={styles.addressTitle}>E-post</Text>
-              <Text style={styles.addressText}>{cvData?.email}</Text>
+                    <Text style={styles.addressTitle}>E-post</Text>
+                    <Text style={styles.addressText}>{cvData?.email}</Text>
 
-              <Text style={styles.addressTitle}>Fødselsdato</Text>
-              <Text style={styles.addressText}>
-                {moment(cvData?.DOB).format('DD,MM,YYYY')}
-              </Text>
-
-              <Text style={styles.addressTitle}>Postnummer</Text>
-              <Text style={styles.addressText}>{cvData?.zipCode}</Text>
-              {cvData.drivingLicense !== '' ? (
-                <>
-                  <Text style={styles.addressTitle}> Førerkort </Text>
-                  <Text style={styles.addressText}>liscence</Text>
-                </>
-              ) : null}
-            </View>
-          </View>
-
-          <View style={styles.skillSection}>
-            <Text style={styles.skillTitle}>Ferdigheter</Text>
-            {progressData.map((item, index) => {
-              return (
-                <View style={styles.skillProgressBar} key={index}>
-                  {cvData?.displayProgressBar === true ? (
-                    <ProgressBar
-                      height={'1px'}
-                      title={item?.name}
-                      backgroundcolor='#ffffff'
-                      color='#ffffff'
-                      percentage={item.value}
-                      wrapperColor='#3b588d'
-                    />
-                  ) : (
-                    <Text style={styles.skillProgressBarLineWrapper}>
-                      {item?.name}
+                    <Text style={styles.addressTitle}>Fødselsdato</Text>
+                    <Text style={styles.addressText}>
+                      {moment(cvData?.DOB).format('DD,MM,YYYY')}
                     </Text>
-                  )}
-                </View>
-              )
-            })}
-          </View>
 
-          <View style={styles.languageSection}>
-            <Text style={styles.languageTitle}>Språk</Text>
-            {languages.map((item, index) => {
-              return (
-                <>
-                  <Text style={styles.languageText} key={index}>
-                    {item?.name + item?.value}
-                  </Text>
-                </>
-              )
-            })}
-          </View>
-
-          {accordiansEnabled.Hobbyer === true ? (
-            <View style={styles.languageSection}>
-              <Text style={styles.languageTitle}>Hobby</Text>
-              {hobbies.map((item, index) => {
-                return (
-                  <>
-                    <Text style={styles.languageText} key={index}>
-                      {item?.name}
-                    </Text>
-                  </>
-                )
-              })}
-            </View>
-          ) : null}
-
-          {accordiansEnabled.Kurs === true ? (
-            <View style={styles.languageSection}>
-              <Text style={styles.languageTitle}>Kurs</Text>
-              {courses.map((item, index) => {
-                return (
-                  <>
-                    <Text style={styles.languageText} key={index}>
-                      {item?.name}
-                    </Text>
-                  </>
-                )
-              })}
-            </View>
-          ) : null}
-        </View>
-
-        <View style={styles.pageRightSection}>
-          {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
-            <>
-              <View style={styles.profileSection}>
-                <View style={styles.profileSectionWrapper}>
-                  <Text style={styles.profileTitle}>PROFIL</Text>
-                  <View>
-                    <Text style={styles.profilePara}>
-                      {profileData.replace(/(<([^>]+)>)/gi, '')}
-                    </Text>
+                    <Text style={styles.addressTitle}>Postnummer</Text>
+                    <Text style={styles.addressText}>{cvData?.zipCode}</Text>
+                    {cvData.drivingLicense !== '' ? (
+                      <>
+                        <Text style={styles.addressTitle}> Førerkort </Text>
+                        <Text style={styles.addressText}>liscence</Text>
+                      </>
+                    ) : null}
                   </View>
                 </View>
-              </View>
-            </>
-          )}
 
-          <View style={styles.experienceSectionWrapper}>
-            <Text style={styles.profileTitle}>Arbeidserfaring</Text>
-            {experianceData.map((item, index) => {
-              return (
-                <>
-                  <View key={index}>
-                    <Text style={styles.experienceFrom}>
-                      {' '}
-                      {item?.jobTitle} - {item?.employer}
-                    </Text>
-                    <Text style={styles.experienceDate}>
-                      {' '}
-                      {item?.startDate} -{' '}
-                      {item.toggle ? 'dags dato' : item?.endDate}
-                    </Text>
-                    <View>
-                      <Text style={styles.profilePara}>
-                        {item.additionalInformation.replace(
-                          /(<([^>]+)>)/gi,
-                          ''
+                <View style={styles.skillSection}>
+                  <Text style={styles.skillTitle}>Ferdigheter</Text>
+                  {progressData.map((item, index) => {
+                    return (
+                      <View style={styles.skillProgressBar} key={index}>
+                        {cvData?.displayProgressBar === true ? (
+                          <ProgressBar
+                            height={'1px'}
+                            title={item?.name}
+                            backgroundcolor='#ffffff'
+                            color='#ffffff'
+                            percentage={item.value}
+                            wrapperColor='#3b588d'
+                          />
+                        ) : (
+                          <Text style={styles.skillProgressBarLineWrapper}>
+                            {item?.name}
+                          </Text>
                         )}
-                      </Text>
-                    </View>
-                  </View>
-                </>
-              )
-            })}
-          </View>
+                      </View>
+                    )
+                  })}
+                </View>
 
-          {accordiansEnabled.Praksisplasser === true ? (
-            <View style={styles.experienceSectionWrapper}>
-              <Text style={styles.profileTitle}>Praksisplasser</Text>
-              {internships.map((item, index) => {
-                return (
-                  <>
-                    {' '}
-                    <View key={index}>
-                      <Text style={styles.experienceFrom}>
-                        {' '}
-                        {item?.jobTitle} - {item?.employer}{' '}
-                      </Text>
-                      <Text style={styles.experienceDate}>
-                        {moment(item?.startDate).format('YYYY-MM')} -{' '}
-                        {item.toggle
-                          ? 'dags dato'
-                          : moment(item?.endDate).format('YYYY-MM')}
-                      </Text>
-                      <View>
-                        <Text style={styles.profilePara}>
-                          {item.additionalInformation.replace(
-                            /(<([^>]+)>)/gi,
-                            ''
-                          )}
+                <View style={styles.languageSection}>
+                  <Text style={styles.languageTitle}>Språk</Text>
+                  {languages.map((item, index) => {
+                    return (
+                      <>
+                        <Text style={styles.languageText} key={index}>
+                          {item?.name + item?.value}
                         </Text>
+                      </>
+                    )
+                  })}
+                </View>
+
+                {accordiansEnabled.Hobbyer === true ? (
+                  <View style={styles.languageSection}>
+                    <Text style={styles.languageTitle}>Hobby</Text>
+                    {hobbies.map((item, index) => {
+                      return (
+                        <>
+                          <Text style={styles.languageText} key={index}>
+                            {item?.name}
+                          </Text>
+                        </>
+                      )
+                    })}
+                  </View>
+                ) : null}
+
+                {accordiansEnabled.Kurs === true ? (
+                  <View style={styles.languageSection}>
+                    <Text style={styles.languageTitle}>Kurs</Text>
+                    {courses.map((item, index) => {
+                      return (
+                        <>
+                          <Text style={styles.languageText} key={index}>
+                            {item?.name}
+                          </Text>
+                        </>
+                      )
+                    })}
+                  </View>
+                ) : null}
+              </View>
+
+              <View style={styles.pageRightSection}>
+                {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
+                  <>
+                    <View style={styles.profileSection}>
+                      <View style={styles.profileSectionWrapper}>
+                        <Text style={styles.profileTitle}>PROFIL</Text>
+                        <View>
+                          <Text style={styles.profilePara}>
+                            {profileData.replace(/(<([^>]+)>)/gi, '')}
+                          </Text>
+                        </View>
                       </View>
                     </View>
                   </>
-                )
-              })}
-            </View>
-          ) : null}
+                )}
 
-          <View style={styles.experienceSectionWrapper}>
-            <Text style={styles.profileTitle}>Utdanning</Text>
-            {educationData.map((item, index) => {
-              return (
-                <>
-                  <View key={index}>
-                    <Text style={styles.experienceFrom}>
-                      {' '}
-                      {item?.study} - {item?.school}
-                    </Text>
-                    <Text style={styles.experienceDate}>
-                      {' '}
-                      {item?.startDate + ' -'}{' '}
-                      {item.toggle ? 'dags dato' : item?.endDate}{' '}
-                    </Text>
-                    <View>
-                      <Text style={styles.profilePara}>
-                        {item.additionalInformation.replace(
-                          /(<([^>]+)>)/gi,
-                          ''
-                        )}
-                      </Text>
-                    </View>
-                  </View>
-                </>
-              )
-            })}
-          </View>
-
-          {accordiansEnabled.Referanser === true ? (
-            <View style={styles.experienceSectionWrapper}>
-              <Text style={styles.profileTitle}>REFERANSER</Text>
-              {toggleData ? (
-                <Text style={{ fontWeight: 'bold' }}>
-                  Oppgis ved forespørsel
-                </Text>
-              ) : (
-                <>
-                  {references.map((item, index) => {
+                <View style={styles.experienceSectionWrapper}>
+                  <Text style={styles.profileTitle}>Arbeidserfaring</Text>
+                  {experianceData.map((item, index) => {
                     return (
-                      <Text style={styles.referenceText} key={index}>
-                        {item?.name} ,{item?.companyName} - {item?.email}
-                      </Text>
+                      <>
+                        <View key={index}>
+                          <Text style={styles.experienceFrom}>
+                            {' '}
+                            {item?.jobTitle} - {item?.employer}
+                          </Text>
+                          <Text style={styles.experienceDate}>
+                            {' '}
+                            {item?.startDate} -{' '}
+                            {item.toggle ? 'dags dato' : item?.endDate}
+                          </Text>
+                          <View>
+                            <Text style={styles.profilePara}>
+                              {item.additionalInformation.replace(
+                                /(<([^>]+)>)/gi,
+                                ''
+                              )}
+                            </Text>
+                          </View>
+                        </View>
+                      </>
                     )
                   })}
-                </>
-              )}
-            </View>
+                </View>
+
+                {accordiansEnabled.Praksisplasser === true ? (
+                  <View style={styles.experienceSectionWrapper}>
+                    <Text style={styles.profileTitle}>Praksisplasser</Text>
+                    {internships.map((item, index) => {
+                      return (
+                        <>
+                          {' '}
+                          <View key={index}>
+                            <Text style={styles.experienceFrom}>
+                              {' '}
+                              {item?.jobTitle} - {item?.employer}{' '}
+                            </Text>
+                            <Text style={styles.experienceDate}>
+                              {moment(item?.startDate).format('YYYY-MM')} -{' '}
+                              {item.toggle
+                                ? 'dags dato'
+                                : moment(item?.endDate).format('YYYY-MM')}
+                            </Text>
+                            <View>
+                              <Text style={styles.profilePara}>
+                                {item.additionalInformation.replace(
+                                  /(<([^>]+)>)/gi,
+                                  ''
+                                )}
+                              </Text>
+                            </View>
+                          </View>
+                        </>
+                      )
+                    })}
+                  </View>
+                ) : null}
+
+                <View style={styles.experienceSectionWrapper}>
+                  <Text style={styles.profileTitle}>Utdanning</Text>
+                  {educationData.map((item, index) => {
+                    return (
+                      <>
+                        <View key={index}>
+                          <Text style={styles.experienceFrom}>
+                            {' '}
+                            {item?.study} - {item?.school}
+                          </Text>
+                          <Text style={styles.experienceDate}>
+                            {' '}
+                            {item?.startDate + ' -'}{' '}
+                            {item.toggle ? 'dags dato' : item?.endDate}{' '}
+                          </Text>
+                          <View>
+                            <Text style={styles.profilePara}>
+                              {item.additionalInformation.replace(
+                                /(<([^>]+)>)/gi,
+                                ''
+                              )}
+                            </Text>
+                          </View>
+                        </View>
+                      </>
+                    )
+                  })}
+                </View>
+
+                {accordiansEnabled.Referanser === true ? (
+                  <View style={styles.experienceSectionWrapper}>
+                    <Text style={styles.profileTitle}>REFERANSER</Text>
+                    {toggleData ? (
+                      <Text style={{ fontWeight: 'bold' }}>
+                        Oppgis ved forespørsel
+                      </Text>
+                    ) : (
+                      <>
+                        {references.map((item, index) => {
+                          return (
+                            <Text style={styles.referenceText} key={index}>
+                              {item?.name} ,{item?.companyName} - {item?.email}
+                            </Text>
+                          )
+                        })}
+                      </>
+                    )}
+                  </View>
+                ) : null}
+              </View>
+            </Page>
           ) : null}
-        </View>
-      </Page>
-    </Document>
-    </PDFViewer>
+        </Document>
+      </PDFViewer>
+      <div className='preview-button'>
+        <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
+      </div>
+    </>
   )
 }
 

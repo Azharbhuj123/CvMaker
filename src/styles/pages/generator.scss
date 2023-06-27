@@ -156,16 +156,16 @@
 
     &-right {
       width: 100%;
-      background-color: #f6f3f1;
+      // background-color: #f6f3f1;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow-y: unset;
+      // justify-content: center;
+      // align-items: center;
+      // overflow-y: unset;
       padding-right: 0rem;
       padding-left: 0rem;
       // padding-bottom: 1rem;
       padding-top: 0rem;
-      height: fit-content;
+      height: 100%;
       flex-direction: column;
 
       &-template {
