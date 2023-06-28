@@ -91,7 +91,7 @@ const TemplateEleven = () => {
   const styles = StyleSheet.create({
     page: {
       flexDirection: 'row',
-      padding: 10,
+      paddingTop: 10,
     },
     document: {
       width: '100%',
@@ -112,7 +112,6 @@ const TemplateEleven = () => {
       backgroundColor: '#ed7d31',
       height: 85,
       width: '6%',
-      marginLeft: -10,
       marginTop: -10,
     },
     hederRight: {
@@ -174,7 +173,7 @@ const TemplateEleven = () => {
     },
     contentContainerHeadingLine: {
       border: '2px solid #ed7d31',
-      top: 25,
+      top: 18,
       height: 4,
       left: 0,
       position: 'absolute',
@@ -314,6 +313,14 @@ const TemplateEleven = () => {
       fontWeight: 'bold',
       wordBreak: 'break-all',
       width: '100%',
+    },
+    contentContainerHeadingLineTwo: {
+      border: '2px solid #ed7d31',
+      top: 25,
+      height: 4,
+      left: 0,
+      position: 'absolute',
+      width: '8%',
     },
   })
   const { isRendering, setIsRendering } = useContext(IsRenderingContext)
@@ -503,7 +510,9 @@ const TemplateEleven = () => {
                         <Text style={styles.contentContainerHeading}>
                           PROFESJONELL EKSPERTISE
                         </Text>
-                        <Text style={styles.contentContainerHeadingLine}></Text>
+                        <Text
+                          style={styles.contentContainerHeadingLineTwo}
+                        ></Text>
 
                         <View
                           style={styles.contentSectionBottomLeftContentSide}
@@ -553,7 +562,9 @@ const TemplateEleven = () => {
                         <Text style={styles.contentContainerHeading}>
                           ANNET
                         </Text>
-                        <Text style={styles.contentContainerHeadingLine}></Text>
+                        <Text
+                          style={styles.contentContainerHeadingLineTwo}
+                        ></Text>
                         <View
                           style={styles.contentSectionBottomLeftContentSide}
                         >
@@ -664,7 +675,7 @@ const TemplateEleven = () => {
                             UTDANNELSE
                           </Text>
                           <Text
-                            style={styles.contentContainerHeadingLine}
+                            style={styles.contentContainerHeadingLineTwo}
                           ></Text>
 
                           <View style={styles.studingContent}>
@@ -699,7 +710,7 @@ const TemplateEleven = () => {
                               Referanser
                             </Text>
                             <Text
-                              style={styles.contentContainerHeadingLine}
+                              style={styles.contentContainerHeadingLineTwo}
                             ></Text>
                             {toggleData ? (
                               <Text
@@ -739,9 +750,9 @@ const TemplateEleven = () => {
           ) : null}
         </Document>
       </PDFViewer>
-      <div className='preview-button'>
+      {/* <div className='preview-button'>
         <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
-      </div>
+      </div> */}
     </>
   )
 }

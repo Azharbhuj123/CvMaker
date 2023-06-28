@@ -634,9 +634,9 @@ const TemplateTen = () => {
           ) : null}
         </Document>
       </PDFViewer>
-      <div className='preview-button'>
+      {/* <div className='preview-button'>
         <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
-      </div>
+      </div> */}
     </>
   )
 }

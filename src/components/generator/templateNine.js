@@ -205,23 +205,24 @@ const TemplateNine = () => {
       fontWeight: 700,
       textDecoration: 'none',
       width: '100%',
+      marginBottom: 5,
     },
     skillProgressBar: {
-      marginTop: 14,
+      // marginTop: 14,
     },
     skillProgressBarText: {
       fontFamily: 'Calibri',
       fontSize: 14,
       fontWeight: 900,
     },
-    skillProgressBarLine: {
-      backgroundColor: 'rgb(59, 88, 141)',
-      height: 1,
-      width: '95%',
-      marginTop: 8,
-    },
+    // skillProgressBarLine: {
+    //   backgroundColor: 'rgb(59, 88, 141)',
+    //   height: 1,
+    //   width: '95%',
+    //   marginTop: 8,
+    // },
     skillProgressBarLineWrapper: {
-      paddingTop: 10,
+      // paddingTop: 10,
       fontFamily: 'Calibri',
       fontSize: 14,
       color: 'white',
@@ -241,7 +242,8 @@ const TemplateNine = () => {
       fontSize: 20,
       fontWeight: 700,
       color: 'white',
-      paddingVertical: 10,
+      paddingTop: 10,
+      paddingBottom: 5,
       paddingHorizontal: 0,
     },
     languageText: {
@@ -342,7 +344,7 @@ const TemplateNine = () => {
                     <Text style={styles.addressText}>{cvData?.zipCode}</Text>
                     {cvData.drivingLicense !== '' ? (
                       <>
-                        <Text style={styles.addressTitle}> Førerkort </Text>
+                        <Text style={styles.addressTitle}>Førerkort</Text>
                         <Text style={styles.addressText}>liscence</Text>
                       </>
                     ) : null}
@@ -536,7 +538,7 @@ const TemplateNine = () => {
                         {references.map((item, index) => {
                           return (
                             <Text style={styles.referenceText} key={index}>
-                              {item?.name} ,{item?.companyName} - {item?.email}
+                              {item?.name}, {item?.companyName} - {item?.email}
                             </Text>
                           )
                         })}
@@ -549,9 +551,9 @@ const TemplateNine = () => {
           ) : null}
         </Document>
       </PDFViewer>
-      <div className='preview-button'>
+      {/* <div className='preview-button'>
         <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
-      </div>
+      </div> */}
     </>
   )
 }

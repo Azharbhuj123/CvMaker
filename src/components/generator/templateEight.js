@@ -15,7 +15,7 @@ import {
   propertiesData,
   getRefToggle,
 } from '../../Redux/reducers/CvGeneratorReducer'
-import moment from 'moment'
+import moment, { duration } from 'moment'
 import { useSelector } from 'react-redux'
 import ProgressBar from './progressBar'
 import EndreMaalButton from '../endreMaalButton/EndreMaalButton'
@@ -37,7 +37,8 @@ import {
 import { Html } from 'react-pdf-html'
 import { IsRenderingContext } from '../../context/IsRenderingContext'
 import { useContext } from 'react'
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 const TemplateEight = (props) => {
   useEffect(() => {
     let data = document.getElementsByClassName('template-eight-container')
@@ -81,6 +82,7 @@ const TemplateEight = (props) => {
 
   useEffect(() => {
     console.log('re render!!!', docRef.current)
+    AOS.init({duration: 1200});
   }, [changeOccured])
 
   useEffect(() => {
@@ -262,7 +264,7 @@ const TemplateEight = (props) => {
     pageRightSection: {
       marginLeft: 32,
       width: '70%',
-      marginTop: 165,
+      marginTop: 161,
     },
     profileSection: {
       borderBottom: '3px solid #b19c7d',
@@ -278,7 +280,7 @@ const TemplateEight = (props) => {
       fontFamily: 'Roboto',
       fontSize: 10,
       fontWeight: 200,
-      marginTop: 15,
+      marginVertical: 15,
       wordBreak: 'break-word',
     },
     experienceSection: {
@@ -289,7 +291,6 @@ const TemplateEight = (props) => {
       fontWeight: 700,
       textAlign: 'left',
       paddingBottom: 8,
-      marginTop: 15,
     },
     experienceSectionContent: {
       display: 'flex',
@@ -323,15 +324,25 @@ const TemplateEight = (props) => {
       fontWeight: 200,
       wordBreak: 'break-word',
       marginTop: 5,
+      marginBottom: 15,
+    },
+    referenseText: {
+      color: '#000',
+      fontFamily: 'Roboto',
+      fontSize: 10,
+      fontWeight: 200,
+      wordBreak: 'break-word',
+      marginBottom: 5,
     },
   })
   const { isRendering, setIsRendering } = useContext(IsRenderingContext)
 
   return (
     <>
-      <PDFViewer style={styles.document}>
+    {console.log(isRendering, 'redndnddjdjdj')}
+      <PDFViewer data-aos="fade-top" style={styles.document}>
         <Document style={styles.document}>
-          {isRendering ? (
+          {isRendering && (
             <Page size='A4' style={styles.page}>
               {/* <View>
       {' '}
@@ -441,7 +452,7 @@ const TemplateEight = (props) => {
 
                 <View style={styles.detailSectionContent}>
                   <Text style={styles.othersSection}>ANNET</Text>
-                  <Text style={styles.languageSection}> SPRÅK </Text>
+                  <Text style={styles.languageSection}>SPRÅK</Text>
                   {lanuages?.map((item, index) => (
                     <Text style={styles.languageSectionText} key={index}>
                       {item?.name} {item?.value}
@@ -450,7 +461,7 @@ const TemplateEight = (props) => {
 
                   {accordiansEnabled.Hobbyer === true ? (
                     <>
-                      <Text style={styles.hobbySection}> HOBBY</Text>
+                      <Text style={styles.hobbySection}>HOBBY</Text>
                       <View style={{ display: 'flex' }}>
                         {hobbies?.map((item, index) => (
                           <Text style={styles.languageSectionText} key={index}>
@@ -465,7 +476,7 @@ const TemplateEight = (props) => {
 
                   {accordiansEnabled.Kurs === true ? (
                     <>
-                      <Text style={styles.hobbySection}> KURS</Text>
+                      <Text style={styles.hobbySection}>KURS</Text>
                       <View style={{ display: 'flex' }}>
                         {courses?.map((item, index) => (
                           <Text style={styles.languageSectionText} key={index}>
@@ -623,19 +634,13 @@ const TemplateEight = (props) => {
                           </Text>
                         ) : (
                           <>
-                            <Text
-                              style={styles.experienceSectionContentParaText}
-                            >
+                            <Text style={styles.referenseText}>
                               {item?.name}
                             </Text>
-                            <Text
-                              style={styles.experienceSectionContentParaText}
-                            >
+                            <Text style={styles.referenseText}>
                               {item?.companyName}
                             </Text>
-                            <Text
-                              style={styles.experienceSectionContentParaText}
-                            >
+                            <Text style={styles.referenseText}>
                               {item?.email}
                             </Text>
                           </>
@@ -646,13 +651,11 @@ const TemplateEight = (props) => {
                 ) : null}
               </View>
             </Page>
-          ) : null}
+          )}
         </Document>
       </PDFViewer>
 
-      <div className='preview-button'>
-        <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
-      </div>
+     
     </>
   )
 }

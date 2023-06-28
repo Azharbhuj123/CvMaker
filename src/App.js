@@ -55,7 +55,7 @@ function App(props) {
     return () => window.removeEventListener('resize', resizeWindow)
   }, [])
 
-  const [isRendering, setIsRendering] = useState(false)
+  const [isRendering, setIsRendering] = useState(true)
   return (
     <IsRenderingContext.Provider value={{ isRendering, setIsRendering }}>
     <BrowserRouter>

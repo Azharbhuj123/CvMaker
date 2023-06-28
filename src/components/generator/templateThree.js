@@ -478,7 +478,6 @@ const TemplateThree = () => {
                         <Text style={styles.otherSectionTitle}>Språk</Text>
                         {lanuages?.map((item, index) => (
                           <Text style={styles.otherSectionPara} key={index}>
-                            {' '}
                             {item.name} {item?.value}
                           </Text>
                         ))}
@@ -488,7 +487,6 @@ const TemplateThree = () => {
                             <Text style={styles.otherSectionTitle}>Hobby</Text>
                             {hobbies?.map((item, index) => (
                               <Text style={styles.otherSectionPara} key={index}>
-                                {' '}
                                 {index === hobbies.length - 1
                                   ? item.name + '.'
                                   : item.name + ', '}
@@ -683,9 +681,9 @@ const TemplateThree = () => {
           ) : null}
         </Document>
       </PDFViewer>
-      <div className='preview-button'>
+      {/* <div className='preview-button'>
         <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
-      </div>
+      </div> */}
     </>
   )
 }

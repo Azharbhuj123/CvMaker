@@ -61,7 +61,7 @@ Font.register({
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
-    padding: 10,
+    paddingTop: 10,
   },
   document: {
     width: '100%',
@@ -810,9 +810,9 @@ const TemplateFive = () => {
           ) : null}
         </Document>
       </PDFViewer>
-      <div className='preview-button'>
+      {/* <div className='preview-button'>
         <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
-      </div>
+      </div> */}
     </>
   )
 }

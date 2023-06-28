@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   headerHeadingOneRight: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'right',
+    // justifyContent: 'right',
     overflowWrap: 'break-word',
   },
   headerHeadingImage: {
@@ -216,6 +216,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginLeft: 20,
     fontFamily: 'Arial',
+    fontWeight: 'bold',
   },
   contentSectionHeadingRightreference: {
     marginLeft: 20,
@@ -276,13 +277,13 @@ const TemplateSix = () => {
       printButtonRef.current.click()
     }
   }, [displayTemplate])
-  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
 
+  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
   return (
     <>
       <PDFViewer style={styles.document}>
         <Document style={styles.document}>
-          {isRendering ? (
+          {isRendering &&
             <Page size='A4' style={styles.page}>
               <View style={styles.container}>
                 <View style={styles.header}>
@@ -314,12 +315,13 @@ const TemplateSix = () => {
                         ) : null}
                       </View>
 
+                      {/* <Text> */}
                       <View style={styles.headerHeadingOneRight}>
                         <Text style={styles.headerHeadingOneLeftText}>
                           Telefon: {cvData.phone ? cvData.phone : 'din telefon'}
                         </Text>
                         <Text style={styles.headerHeadingOneLeftText}>
-                          Adresse:
+                          Adresse:{' '}
                           {cvData.physicalAddress !== ''
                             ? cvData.physicalAddress + ', ' + cvData.zipCode
                             : 'adressen din'}
@@ -328,6 +330,7 @@ const TemplateSix = () => {
                           {cvData.country !== '' ? cvData.country : null}
                         </Text>
                       </View>
+                      {/* </Text> */}
                     </View>
                   </View>
 
@@ -631,12 +634,12 @@ const TemplateSix = () => {
                 </View>
               </View>
             </Page>
-          ) : null}
+          }
         </Document>
       </PDFViewer>
-      <div className='preview-button'>
+      {/* <div className='preview-button'>
         <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
-      </div>
+      </div> */}
     </>
   )
 }
