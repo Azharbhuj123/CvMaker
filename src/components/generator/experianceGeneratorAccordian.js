@@ -194,16 +194,16 @@ const ExperianceGeneratorAccordian = ({
 
       <div className='generator-accordian-textareainput'>
         <span>{headings.field5}</span>
-        {/* <textarea
+        <textarea
           value={experiance[accordianIndex]?.additionalInformation}
           onChange={(e) => handleChange("additionalInformation", e.target.value)}
-        /> */}
-        <ReactQuill
+        />
+        {/* <ReactQuill
           value={experiance[accordianIndex]?.additionalInformation}
           onChange={(content, delta, source, editor) => {
             handleChange('additionalInformation', editor.getHTML()) // update state variable with new content
           }}
-        />
+        /> */}
       </div>
     </div>
   )

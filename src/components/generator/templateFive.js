@@ -61,7 +61,7 @@ Font.register({
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
-    paddingTop: 10,
+    padding: 10,
   },
   document: {
     width: '100%',
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   contentWrapperRightSideWrapperLine: {
-    backgroundColor: 'gray',
+    backgroundColor: 'black',
     height: '90%',
     // height: '90',
     width: '1px',
@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
     left: -8,
     top: '-1%',
     width: 18,
+    zIndex: 99,
   },
   educationContent: {
     overflowWrap: 'anywhere',
@@ -388,23 +389,39 @@ const TemplateFive = () => {
                                 fontWeight: 'bold',
                               }}
                             >
+                              {console.log(
+                                item.value,
+                                cvData.displayProgressBar,
+                                'percentage'
+                              )}
                               {cvData.displayProgressBar === true ? (
-                                <ProgressBar
-                                  fontSize='16px'
-                                  maxWidth={'100%'}
-                                  key={index}
-                                  backgroundcolor='#000000'
-                                  wrapperColor='#BFBFBF'
-                                  title={item?.name}
-                                  percentage={item?.value}
-                                  color='#393939'
-                                  height='1px'
-                                />
+                                <View>
+                                  <Text style={{ fontSize: '12px' }}>
+                                    {item?.name}
+                                  </Text>
+                                  <View
+                                    style={{
+                                      backgroundColor: 'rgb(191, 191, 191)',
+                                      height: '1px',
+                                      marginTop: '5px',
+                                    }}
+                                  >
+                                    <View
+                                      style={{
+                                        width: `${item?.value}%`,
+                                        color: 'rgb(57, 57, 57)',
+                                        backgroundColor: 'rgb(0, 0, 0)',
+                                        height: '1px',
+                                      }}
+                                    ></View>
+                                  </View>
+                                </View>
                               ) : (
                                 <Text style={{ fontSize: '12px' }}>
                                   {item?.name}
                                 </Text>
                               )}
+                              <Text style={{ textAlign: 'center' }}>--</Text>
                             </View>
                           </>
                         )
@@ -516,12 +533,13 @@ const TemplateFive = () => {
                           <Image
                             src={person}
                             style={{
-                              width: '20px',
-                              height: '20px',
+                              width: '18px',
+                              height: '18px',
                               // color: 'black',
                               position: 'absolute',
-                              left: '-2.75%',
-                              top: '-30%',
+                              left: '-2.5%',
+                              top: '-1%',
+                              zIndex: 99,
                             }}
                           />
                           <View
@@ -584,6 +602,7 @@ const TemplateFive = () => {
                                 height: '10px',
                                 position: 'absolute',
                                 left: '-17em',
+                                zIndex: 99,
                               }}
                             />
                             <Text style={styles.educationContentFrom}>
@@ -652,6 +671,7 @@ const TemplateFive = () => {
                                   height: '10px',
                                   position: 'absolute',
                                   left: '-17em',
+                                  zIndex: 99,
                                 }}
                               />
                               <Text style={styles.educationContentFrom}>
@@ -719,6 +739,7 @@ const TemplateFive = () => {
                                 height: '10px',
                                 position: 'absolute',
                                 left: '-17em',
+                                zIndex: 99,
                               }}
                             />
                             <Text style={styles.educationContentFrom}>
@@ -775,6 +796,16 @@ const TemplateFive = () => {
                           {/* </View> */}
                           {refrence?.map((item, index) => (
                             <View style={styles.educationContent} key={index}>
+                              <Image
+                                src={circle}
+                                style={{
+                                  width: '10px',
+                                  height: '10px',
+                                  position: 'absolute',
+                                  left: '-17em',
+                                  zIndex: 99,
+                                }}
+                              />
                               {toggleData ? (
                                 <>
                                   <Text style={styles.educationContentDate}>

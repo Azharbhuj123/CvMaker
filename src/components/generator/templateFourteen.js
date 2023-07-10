@@ -234,7 +234,7 @@ const TemplateFourteen = (props) => {
     },
     pageLeftSkillContent: {
       marginVertical: 16,
-      marginHorizontal: 16,
+      marginLeft: 16,
     },
     pageLeftSkillContentDiv: {
       width: '100%',
@@ -641,16 +641,38 @@ const TemplateFourteen = (props) => {
                               {item.name}
                             </Text>
                             {cvData.displayProgressBar === true ? (
-                              <View style={{ width: '70%' }}>
-                                <ProgressBar
+                              <View style={{ width: '100%' }}>
+                                {/* <ProgressBar
                                   backgroundcolor='white'
                                   percentage={item?.value}
                                   wrapperColor={'white'}
                                   dashed='dotted'
                                   color='rgb(75, 172, 198)'
                                   borderraadius='50%'
-                                />
-                                <br />
+                                /> */}
+                                <View>
+                                  {/* <Text
+                                    style={{
+                                      fontSize: '10px',
+                                      fontFamily: 'Calibri',
+                                      // marginTop: '5px',
+                                      width: '80%',
+                                    }}
+                                  >
+                                    {item?.name}
+                                  </Text> */}
+                                  <View
+                                    style={{
+                                      color: 'white',
+                                      width: `${item?.value}%`,
+                                      borderBottom: 'dotted',
+                                      // marginTop: '5px',
+                                      borderBottom:
+                                        '2px dotted rgb(75, 172, 198)',
+                                      borderraadius: '50%',
+                                    }}
+                                  ></View>
+                                </View>
                               </View>
                             ) : null}
                           </View>

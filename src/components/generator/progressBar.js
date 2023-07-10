@@ -16,7 +16,6 @@
 //     fontFamily,
 //   } = props;
 
-
 //   return (
 //     <div className="progress-bar">
 //       <p style={{ fontSize: fontSize, fontFamily: fontFamily }}>{title}</p>
@@ -47,9 +46,9 @@
 
 // export default ProgressBar;
 
-import { Text, View } from "@react-pdf/renderer";
-import React from "react";
-import { BiBorderRadius } from "react-icons/bi";
+import { Text, View } from '@react-pdf/renderer'
+import React from 'react'
+import { BiBorderRadius } from 'react-icons/bi'
 
 const ProgressBar = (props) => {
   const {
@@ -64,13 +63,15 @@ const ProgressBar = (props) => {
     maxWidth,
     fontSize,
     fontFamily,
-  } = props;
+  } = props
 
   return (
-    <View 
+    <View
     // style={styles.progressBar}
     >
-      <Text style={{ fontSize: fontSize, fontFamily: fontFamily }}>{title}</Text>
+      <Text style={{ fontSize: fontSize, fontFamily: fontFamily }}>
+        {title}
+      </Text>
       <View
         // style={styles.progressBarFuel}
         style={{
@@ -80,8 +81,7 @@ const ProgressBar = (props) => {
           width: `${maxWidth}%`,
         }}
       >
-        <View
-          // style={styles.progressBarFuelWrapper}
+        <Text
           style={{
             width: `${percentage}%`,
             color: `${color}`,
@@ -90,10 +90,10 @@ const ProgressBar = (props) => {
             borderRadius: `${borderradius}`,
             height: `${height}`,
           }}
-        ></View>
+        ></Text>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default ProgressBar;
+export default ProgressBar

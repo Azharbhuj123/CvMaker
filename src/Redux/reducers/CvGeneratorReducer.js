@@ -38,6 +38,7 @@ const initialState = {
     //   enableAccordian: true,
     // },
   ],
+  newEducation:[],
   experiance: [
     // {
     //   jobTitle: "",
@@ -74,13 +75,13 @@ const initialState = {
     // },
   ],
   hobbies: [{ name: '', value: 50, enableAccordian: true }],
-
   refrenceToggle: false,
   datePresent: false,
 }
 
 export const CV_DATA = (state) => state.CvGeneratorReducer.cvData
 export const Education_DATA = (state) => state.CvGeneratorReducer.education
+export const New_Education_Data=(state)=>  state.CvGeneratorReducer.newEducation
 export const Experiance_Data = (state) => state.CvGeneratorReducer.experiance
 export const sliderData = (state) => state.CvGeneratorReducer.sliderData
 export const languageData = (state) => state.CvGeneratorReducer.language
@@ -124,15 +125,42 @@ export default function CvGeneratorReducer(state = initialState, action) {
         ),
         cvData: { ...state.cvData, lastModified: new Date() },
       }
-    case actionTypes.UPDATEEDUCATIONTOGGLE:
+
+    // NEW REDUCERS ADDED
+    case actionTypes.ADDNEWEDUCATION:
       return {
         ...state,
-        education: state.education.map((item, index) =>
+        newEducation: [...state.newEducation, action.payload],
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+
+    case actionTypes.EDITNEWEDUCATION:
+      return {
+        ...state,
+        newEducation: action.payload,
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+
+    case actionTypes.REMOVENEWEDUCATION:
+      return {
+        ...state,
+        newEducation: state.newEducation.filter(
+          (item, index) => index !== action.payload
+        ),
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+
+    case actionTypes.UPDATENEWEDUCATIONTOGGLE:
+      return {
+        ...state,
+        newEducation: state.newEducation.map((item, index) =>
           index === action.payload.accordianIndex
             ? { ...item, toggle: action.payload.nextChecked }
             : item
         ),
       }
+    
+
     case actionTypes.ADDWORKEXPERIANCE:
       return {
         ...state,
@@ -316,7 +344,7 @@ export default function CvGeneratorReducer(state = initialState, action) {
         ...state,
         datePresent: action.payload,
       }
-      
+
     default:
       return state
   }

@@ -189,12 +189,18 @@ const InternshipGeneratorAccordian = ({
 
       <div className='generator-accordian-textareainput'>
         <span>{headings.field5}</span>
-        <ReactQuill
+        <textarea
+          value={experiance[accordianIndex]?.additionalInformation}
+          onChange={(e) =>
+            handleChange("additionalInformation", e.target.value)
+          }
+        />
+        {/* <ReactQuill
           value={experiance[accordianIndex]?.additionalInformation}
           onChange={(content, delta, source, editor) => {
             handleChange('additionalInformation', editor.getHTML()) // update state variable with new content
           }}
-        />
+        /> */}
         {/* <QuillTextEditor4/> */}
       </div>
     </div>

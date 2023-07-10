@@ -9,11 +9,16 @@ const QuillTextEditor2 = (props) => {
   const dispatch = useDispatch()
   const editorData = useSelector(profileRichTextData)
   const [value, setValue] = useState('')
-  console.log(profileRichTextData, 'DATAAAAA')
+
   const onChange = (value) => {
-    console.log(editorData, 'Profil')
+    console.log(editorData, '<===== data')
     dispatch(saveData(value))
   }
+
+  // const onChange = (value) => {
+  //   dispatch(saveData({ value }));
+  // };
+    
   return (
     <ReactQuill
       {...props}
@@ -21,6 +26,10 @@ const QuillTextEditor2 = (props) => {
       value={editorData}
       onChange={onChange}
     />
+  //   <ReactQuill
+  //   value={editorData}
+  //   onChange={(e) => onChange("profile data", e)}
+  // />
   )
 }
 

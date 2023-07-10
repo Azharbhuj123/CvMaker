@@ -357,14 +357,48 @@ const TemplateNine = () => {
                     return (
                       <View style={styles.skillProgressBar} key={index}>
                         {cvData?.displayProgressBar === true ? (
-                          <ProgressBar
-                            height={'1px'}
-                            title={item?.name}
-                            backgroundcolor='#ffffff'
-                            color='#ffffff'
-                            percentage={item.value}
-                            wrapperColor='#3b588d'
-                          />
+                          <View
+                            key={index}
+                            style={{
+                              width: '100%',
+                              textAlign: 'center',
+                              fontFamily: 'Oswald',
+                              fontWeight: 'bold',
+                            }}
+                          >
+                            {console.log(
+                              item.value,
+                              cvData.displayProgressBar,
+                              'percentage'
+                            )}
+                            {cvData.displayProgressBar === true ? (
+                              <View>
+                                <Text style={{ fontSize: '12px' }}>
+                                  {item?.name}
+                                </Text>
+                                <View
+                                  style={{
+                                    backgroundColor: 'rgb(59, 88, 141)',
+                                    height: '1px',
+                                    marginTop: '5px',
+                                  }}
+                                >
+                                  <View
+                                    style={{
+                                      width: `${item?.value}%`,
+                                      color: '#3b588d',
+                                      backgroundColor: '#ffff',
+                                      height: '1px',
+                                    }}
+                                  ></View>
+                                </View>
+                              </View>
+                            ) : (
+                              <Text style={{ fontSize: '12px' }}>
+                                {item?.name}
+                              </Text>
+                            )}
+                          </View>
                         ) : (
                           <Text style={styles.skillProgressBarLineWrapper}>
                             {item?.name}

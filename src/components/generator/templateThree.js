@@ -192,7 +192,7 @@ const TemplateThree = () => {
     },
     progressWrapperText: {
       fontFamily: 'Roboto',
-      fontSize: 12,
+      fontSize: 10,
       fontWeight: 600,
       marginTop: 5,
     },
@@ -447,15 +447,28 @@ const TemplateThree = () => {
                       </Text>
                       {skillData?.map((item, index) =>
                         cvData.displayProgressBar === true ? (
-                          <ProgressBar
-                            keys={index}
-                            backgroundcolor='white'
-                            title={item?.name}
-                            percentage={item?.value}
-                            color='#393939'
-                            height='1px'
-                            dashed='dashed'
-                          />
+                          <View>
+                            <Text
+                              style={{
+                                fontSize: '10px',
+                                fontFamily: 'Roboto',
+                                fontWeight: 600,
+                                marginTop: '5px',
+                                width: '80%',
+                              }}
+                            >
+                              {item?.name}
+                            </Text>
+                            <View
+                              style={{
+                                color: 'white',
+                                width: `${item?.value}%`,
+                                borderBottom: 'dotted',
+                                marginTop: '5px',
+                                borderBottom: '2px dotted black',
+                              }}
+                            ></View>
+                          </View>
                         ) : (
                           // <Text
                           //   style={styles.containerWrapperLeftContentTitleLine}

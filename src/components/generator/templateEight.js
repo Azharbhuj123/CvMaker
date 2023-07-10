@@ -37,8 +37,8 @@ import {
 import { Html } from 'react-pdf-html'
 import { IsRenderingContext } from '../../context/IsRenderingContext'
 import { useContext } from 'react'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 const TemplateEight = (props) => {
   useEffect(() => {
     let data = document.getElementsByClassName('template-eight-container')
@@ -64,6 +64,8 @@ const TemplateEight = (props) => {
   const courses = useSelector(coursesData)
   const lanuages = useSelector(languageData)
   const toggleData = useSelector(getRefToggle)
+
+  console.log(educationData,"education data")
   const { ProfilText } = props
   // if (displayTemplate && displayTemplate === true ) {
   //   console.log(
@@ -82,7 +84,7 @@ const TemplateEight = (props) => {
 
   useEffect(() => {
     console.log('re render!!!', docRef.current)
-    AOS.init({duration: 1200});
+    AOS.init({ duration: 1200 })
   }, [changeOccured])
 
   useEffect(() => {
@@ -339,8 +341,8 @@ const TemplateEight = (props) => {
 
   return (
     <>
-    {console.log(isRendering, 'redndnddjdjdj')}
-      <PDFViewer data-aos="fade-top" style={styles.document}>
+      {console.log(isRendering, 'redndnddjdjdj')}
+      <PDFViewer data-aos='fade-top' style={styles.document}>
         <Document style={styles.document}>
           {isRendering && (
             <Page size='A4' style={styles.page}>
@@ -425,16 +427,28 @@ const TemplateEight = (props) => {
                         <>
                           {cvData.displayProgressBar === true ? (
                             <>
-                              <ProgressBar
-                                // fontFamily={"Roboto-Bold"}
-                                keys={index}
-                                title={item?.name}
-                                percentage={item?.value}
-                                backgroundcolor='#B19C7D'
-                                height='3px'
-                                dashed='dotted'
-                                color='white'
-                              />
+                              <View>
+                                <Text
+                                  style={{
+                                    fontSize: '10px',
+                                    fontFamily: 'Roboto',
+                                    marginTop: '5px',
+                                    width: `${item?.value}%`,
+                                  }}
+                                >
+                                  {item?.name}
+                                </Text>
+                                <View
+                                  style={{
+                                    color: 'white',
+                                    width: `${item?.value}%`,
+                                    borderBottom: 'dotted',
+                                    marginTop: '5px',
+                                    borderBottom: '2px dotted rgb(177, 156, 125)'
+                                  }}
+                                >
+                                </View>
+                              </View>
                             </>
                           ) : (
                             <Text
@@ -549,8 +563,9 @@ const TemplateEight = (props) => {
                   ))}
                 </View>
 
-                <Text style={styles.experienceSection}>UTDANNING </Text>
+                <Text style={styles.experienceSection}>UTDANNING</Text>
                 {educationData?.map((item, index) => {
+                  console.log(item,"iiiiiiiiiiii")
                   return (
                     <View style={styles.experienceSectionContent}>
                       {item?.study ? (
@@ -654,8 +669,6 @@ const TemplateEight = (props) => {
           )}
         </Document>
       </PDFViewer>
-
-     
     </>
   )
 }

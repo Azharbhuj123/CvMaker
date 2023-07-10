@@ -23,6 +23,7 @@ const PropertyGeneratorAccordian = ({ accordianIndex }) => {
     });
     dispatch(editProperty(change));
   };
+  
   return (
     <div className="generator-accordian">
       <div className="generator-accordian-heading">

@@ -14,12 +14,14 @@ export const cvGenerator = (payload) => {
   };
 };
 
+
 export const addEducationData = (payload) => {
   return {
     type: actionTypes.ADDEDUCATION,
     payload,
   };
 };
+
 
 export const removeEducationData = (payload) => {
   return {
@@ -28,6 +30,7 @@ export const removeEducationData = (payload) => {
   };
 };
 
+
 export const editEducation = (payload) => {
   return {
     type: actionTypes.EDITEDUCATION,
@@ -35,6 +38,36 @@ export const editEducation = (payload) => {
   };
 };
 
+// NEW ACTONS ADDED
+export const addNewEducationData = (payload) => {
+  return {
+    type: actionTypes.ADDNEWEDUCATION,
+    payload,
+  };
+};
+
+export const removeNewEducationData = (payload) => {
+  return {
+    type: actionTypes.REMOVENEWEDUCATION,
+    payload,
+  };
+};
+
+export const editNewEducation = (payload) => {
+  return {
+    type: actionTypes.EDITNEWEDUCATION,
+    payload,
+  };
+};
+
+export const updateNewEducationToggle = (payload) => {
+  return {
+    type: actionTypes.UPDATENEWEDUCATIONTOGGLE,
+    payload,
+  };
+};
+
+//
 export const addWorkExperiance = (payload) => {
   return {
     type: actionTypes.ADDWORKEXPERIANCE,

@@ -8,13 +8,16 @@ import moment from "moment";
 import {
   Education_DATA,
   Experiance_Data,
+  New_Education_Data,
   getInternships,
 } from "../../Redux/reducers/CvGeneratorReducer";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {
   addEducationData,
   editEducation,
+  editNewEducation,
   removeEducationData,
+  removeNewEducationData,
 } from "../../Redux/actions/CvGeneratorAction";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -34,6 +37,7 @@ const ClosedGeneratorAccordian = ({
   const [test, setTest] = useState("");
   const dispatch = useDispatch();
   let education = useSelector(Education_DATA);
+  let newEducation = useSelector(New_Education_Data);
   const experiance = useSelector(Experiance_Data);
   const handleAdd = () => {
     if (education.length < 3) {
@@ -69,7 +73,7 @@ const ClosedGeneratorAccordian = ({
     console.log(accordianIndex, "accordian index");
     console.log(field, "<=== field that going to change");
     console.log(value, "<=== value that going to change");
-    let change = education.map((item, index) => {
+    let change = newEducation.map((item, index) => {
       if (index === accordianIndex) {
         return {
           ...item,
@@ -78,10 +82,10 @@ const ClosedGeneratorAccordian = ({
       }
       return item;
     });
-    dispatch(editEducation(change));
+    dispatch(editNewEducation(change));
   };
   const handleDelete = (id) => {
-    dispatch(removeEducationData(id));
+    dispatch(removeNewEducationData(id));
   };
   
   return (
@@ -95,7 +99,7 @@ const ClosedGeneratorAccordian = ({
             education[accordianIndex]?.location}
         </span>
         {/* <img src={arrowdown} alt="arrowdown" /> */}
-        <div>
+        <div>{console.log(newEducation[accordianIndex].enableAccordian,"vvvvvvvvvvvvvvvvvvvv")}
           <Popup
             arrow={false}
             trigger={
@@ -109,7 +113,7 @@ const ClosedGeneratorAccordian = ({
               onClick={() =>
                 handleChange(
                   "enableAccordian",
-                  !education[accordianIndex].enableAccordian
+                  !newEducation[accordianIndex].enableAccordian
                 )
               }
             >

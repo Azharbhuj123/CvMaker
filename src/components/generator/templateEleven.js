@@ -264,7 +264,7 @@ const TemplateEleven = () => {
     },
     contentSectionBottomLeftContentSideSetting: {
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'row',
       fontFamily: 'Calibri',
       fontSize: 11,
       gap: 10,
@@ -277,6 +277,7 @@ const TemplateEleven = () => {
       flexDirection: 'column',
       gap: 6,
       width: '100%',
+      wordBreak: 'break-all',
     },
     contentSectionBottomLeftContentSideProgressText: {
       fontFamily: 'Calibri',
@@ -536,23 +537,42 @@ const TemplateEleven = () => {
                                   styles.contentSectionBottomLeftContentSideSetting
                                 }
                               >
-                                <Text
-                                  style={
-                                    styles.contentSectionBottomLeftContentSideProgressText
-                                  }
-                                >
-                                  {item?.name}
-                                </Text>
                                 {cvData?.displayProgressBar === true ? (
-                                  <ProgressBar
-                                    backgroundcolor='rgb(237, 125, 49)'
-                                    percentage={item?.value}
-                                    wrapperColor={'grey'}
-                                    fontFamily={'Calibri'}
-                                  />
-                                ) : null}
+                                  <View>
+                                    <Text
+                                      style={
+                                        styles.contentSectionBottomLeftContentSideProgressText
+                                      }
+                                    >
+                                      {item?.name}
+                                    </Text>
+                                    <View
+                                      style={{
+                                        backgroundColor: 'grey',
+                                        height: '5px',
+                                        maxWidth: '95%',
+                                      }}
+                                    >
+                                      <View
+                                        style={{
+                                          width: `${item?.value}%`,
+                                          color: 'grey',
+                                          backgroundColor: 'rgb(237, 125, 49)',
+                                          height: '5px',
+                                        }}
+                                      ></View>
+                                    </View>
+                                  </View>
+                                ) : (
+                                  <Text
+                                    style={
+                                      styles.contentSectionBottomLeftContentSideProgressText
+                                    }
+                                  >
+                                    {item?.name}
+                                  </Text>
+                                )}
                               </View>
-                              // </View>
                             ))}
                           </View>
                         </View>
