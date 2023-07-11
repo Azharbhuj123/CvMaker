@@ -14,6 +14,7 @@ import {
   propertiesData,
   referenceData,
   getRefToggle,
+  getNewRefToggle,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import ReactToPrint from 'react-to-print'
 import EndreMaalButton from '../endreMaalButton/EndreMaalButton'
@@ -37,6 +38,7 @@ const TemplateTen = () => {
   let pdfComponent = useRef()
   const cvData = useSelector(CV_DATA)
   const toggleData = useSelector(getRefToggle)
+  const newToggleData = useSelector(getNewRefToggle)
   let [displayTemplate, setDisplayTemplate, pageWidth, setPageWidth] =
     useOutletContext()
   let printButtonRef = useRef()
@@ -605,10 +607,23 @@ const TemplateTen = () => {
                         Referanser
                       </Text>
                     </View>
-                    {toggleData ? (
-                      <Text className='templateten-container-headingwrapper-mainheading-borderdiv-studying'>
-                        <span>Oppgis ved forespørsel</span>
-                      </Text>
+                    {newToggleData ? (
+                      <View
+                        style={{
+                          alignItems: 'center',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          paddingTop: 10,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontSize: 12,
+                          }}
+                        >
+                          Oppgis ved forespørsel
+                        </Text>
+                      </View>
                     ) : (
                       <>
                         {refrence?.map((item, index) => (

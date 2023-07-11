@@ -1,13 +1,14 @@
 import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
-import { coursesData, languageData } from "../../Redux/reducers/CvGeneratorReducer";
+import { NewCoursesData, coursesData, languageData } from "../../Redux/reducers/CvGeneratorReducer";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {
   deleteLanguage,
   deleteSlider,
   editCourse,
   editLanguage,
+  editNewCourse,
 } from "../../Redux/actions/CvGeneratorAction";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -16,8 +17,9 @@ import moment from "moment";
 const CourseClosedGeneratorAccordian = ({ accordianIndex }) => {
   const dispatch = useDispatch();
   const courses = useSelector(coursesData);
+  const newCourses = useSelector(NewCoursesData);
   const handleChange = (field, value) => {
-    let change = courses.map((item, index) => {
+    let change = newCourses.map((item, index) => {
       if (index === accordianIndex) {
         return {
           ...item,
@@ -27,22 +29,22 @@ const CourseClosedGeneratorAccordian = ({ accordianIndex }) => {
       return item;
     });
     console.log(change, "<======");
-    dispatch(editCourse(change));
+    dispatch(editNewCourse(change));
   };
   const handleDelete = (id) => {
-    let change = courses.filter((item, index) => {
+    let change = newCourses.filter((item, index) => {
       if (index !== accordianIndex) {
         return item;
       }
       return null;
     });
-    dispatch(editCourse(change));
+    dispatch(editNewCourse(change));
   };
 
   return (
     <div className="generator-accordian">
       <div className="generator-accordian-heading">
-        <span>{courses[accordianIndex]?.name}</span>
+        <span>{newCourses[accordianIndex]?.name}</span>
         <div>
           <Popup
             arrow={false}
@@ -55,7 +57,7 @@ const CourseClosedGeneratorAccordian = ({ accordianIndex }) => {
           >
             <div
               onClick={() =>
-                handleChange("enableAccordian", !courses[accordianIndex].enableAccordian)
+                handleChange("enableAccordian", !newCourses[accordianIndex].enableAccordian)
               }
             >
               Rediger tekst

@@ -14,6 +14,7 @@ import {
   referenceData,
   propertiesData,
   getRefToggle,
+  getNewRefToggle,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import moment, { duration } from 'moment'
 import { useSelector } from 'react-redux'
@@ -64,6 +65,7 @@ const TemplateEight = (props) => {
   const courses = useSelector(coursesData)
   const lanuages = useSelector(languageData)
   const toggleData = useSelector(getRefToggle)
+  const newToggleData = useSelector(getNewRefToggle)
 
   console.log(educationData,"education data")
   const { ProfilText } = props
@@ -643,7 +645,7 @@ const TemplateEight = (props) => {
                     <Text style={styles.experienceSection}>REFERANSER</Text>
                     {refrence?.map((item, index) => (
                       <View style={styles.experienceSectionContent} key={index}>
-                        {toggleData ? (
+                        {newToggleData ? (
                           <Text style={styles.experienceSectionContentText}>
                             Oppgis ved forespørsel{' '}
                           </Text>

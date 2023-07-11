@@ -15,6 +15,7 @@ import {
   languageData,
   profileRichTextData,
   getRefToggle,
+  getNewRefToggle,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import ReactToPrint from 'react-to-print'
 import { Editor } from 'draft-js'
@@ -46,6 +47,7 @@ const TemplateNine = () => {
   let printButtonRef = useRef()
   const cvData = useSelector(CV_DATA)
   const toggleData = useSelector(getRefToggle)
+  const newToggleData = useSelector(getNewRefToggle)
   let [displayTemplate, setDisplayTemplate, pageWidth, setPageWidth] =
     useOutletContext()
   let pdfComponent = useRef()
@@ -563,8 +565,8 @@ const TemplateNine = () => {
                 {accordiansEnabled.Referanser === true ? (
                   <View style={styles.experienceSectionWrapper}>
                     <Text style={styles.profileTitle}>REFERANSER</Text>
-                    {toggleData ? (
-                      <Text style={{ fontWeight: 'bold' }}>
+                    {newToggleData ? (
+                      <Text style={{ fontWeight: 'bold', fontSize: 12, }}>
                         Oppgis ved forespørsel
                       </Text>
                     ) : (

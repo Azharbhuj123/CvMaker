@@ -29,6 +29,7 @@ import {
   profileRichTextData,
   getRefToggle,
   getPresentDate,
+  getNewRefToggle,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import moment from 'moment'
 import { Editor, EditorState } from 'draft-js'
@@ -228,6 +229,7 @@ const styles = StyleSheet.create({
 const TemplateFive = () => {
   const dispatch = useDispatch()
   const toggleData = useSelector(getRefToggle)
+  const newToggleData = useSelector(getNewRefToggle)
   let pdfComponent = useRef()
   let printButtonRef = useRef()
   const [isChecked, setIsChecked] = useState(false)
@@ -806,7 +808,7 @@ const TemplateFive = () => {
                                   zIndex: 99,
                                 }}
                               />
-                              {toggleData ? (
+                              {newToggleData ? (
                                 <>
                                   <Text style={styles.educationContentDate}>
                                     Oppgis ved forespørsel

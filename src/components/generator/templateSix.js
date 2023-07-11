@@ -15,6 +15,7 @@ import {
   propertiesData,
   profileRichTextData,
   getRefToggle,
+  getNewRefToggle,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import moment from 'moment'
 import ReactToPrint from 'react-to-print'
@@ -234,6 +235,7 @@ const TemplateSix = () => {
   let printButtonRef = useRef()
   const [isChecked, setIsChecked] = useState(false)
   const toggleData = useSelector(getRefToggle)
+  const newToggleData = useSelector(getNewRefToggle)
   const cvData = useSelector(CV_DATA)
   const educationData = useSelector(Education_DATA)
   const experianceData = useSelector(Experiance_Data)
@@ -606,7 +608,7 @@ const TemplateSix = () => {
                             style={styles.contentSectionHeadingLeftTitle}
                           ></Text>
                           <View style={styles.contentSectionHeadingRight}>
-                            {toggleData ? (
+                            {newToggleData ? (
                               <Text
                                 style={styles.contentSectionHeadingRightText}
                               >

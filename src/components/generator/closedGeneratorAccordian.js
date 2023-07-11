@@ -39,6 +39,7 @@ const ClosedGeneratorAccordian = ({
   let education = useSelector(Education_DATA);
   let newEducation = useSelector(New_Education_Data);
   const experiance = useSelector(Experiance_Data);
+
   const handleAdd = () => {
     if (education.length < 3) {
       dispatch(
@@ -69,6 +70,7 @@ const ClosedGeneratorAccordian = ({
   const handleEdit = (id) => {
     setEditable(false);
   };
+  
   const handleChange = (field, value) => {
     console.log(accordianIndex, "accordian index");
     console.log(field, "<=== field that going to change");

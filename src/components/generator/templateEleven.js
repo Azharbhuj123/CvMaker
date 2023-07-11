@@ -9,6 +9,7 @@ import {
   getAdditionalAccordian,
   getHobbies,
   getInternships,
+  getNewRefToggle,
   getRefToggle,
   languageData,
   profileRichTextData,
@@ -39,6 +40,7 @@ const TemplateEleven = () => {
   const educationData = useSelector(Education_DATA)
   const experianceData = useSelector(Experiance_Data)
   const toggleData = useSelector(getRefToggle)
+  const newToggleData = useSelector(getNewRefToggle)
   const [changeOccured, setChangeOccured] = useState(false)
   const courses = useSelector(coursesData)
   // const profileData = useSelector(profileRichTextData);
@@ -732,7 +734,7 @@ const TemplateEleven = () => {
                             <Text
                               style={styles.contentContainerHeadingLineTwo}
                             ></Text>
-                            {toggleData ? (
+                            {newToggleData ? (
                               <Text
                                 style={{
                                   marginTop: '8px',

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { HeadInput } from './primaryInput'
+import { AltHeadInput, HeadInput } from './primaryInput'
 import { FaCamera } from 'react-icons/fa'
 import GeneratorAccordian from './generatorAccordian'
 import ClosedGeneratorAccordian from './closedGeneratorAccordian'
@@ -25,6 +25,33 @@ import {
   editNewEducation,
   updateEducationToggle,
   updateNewEducationToggle,
+  updateExperienceToggle,
+  editWorkExperiance,
+  addNewWorkExperiance,
+  editNewWorkExperiance,
+  updateNEWExperienceToggle,
+  updateNewExperienceToggle,
+  editInternship,
+  updateInternshipToggle,
+  editNewInternship,
+  updateNewInternshipToggle,
+  addToNewInternship,
+  editLanguage,
+  editNewLanguage,
+  addNewLanguage,
+  editCourse,
+  addNewCourse,
+  editNewCourse,
+  editHobbies,
+  editNewHobbies,
+  addNewToHobby,
+  editReference,
+  addNewReference,
+  editNewReference,
+  refrencNewToggle,
+  editProperty,
+  addNewProperty,
+  editNewProperty,
 } from '../../Redux/actions/CvGeneratorAction'
 import {
   coursesData,
@@ -40,6 +67,14 @@ import {
   getHobbies,
   getRefToggle,
   New_Education_Data,
+  New_Experiance_Data,
+  getNewInternships,
+  newLanguageData,
+  NewCoursesData,
+  getNewHobbies,
+  newReferenceData,
+  getNewRefToggle,
+  newPropertiesData,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import AddDetails from './addDetails'
 import ExperianceGeneratorAccordian from './experianceGeneratorAccordian'
@@ -70,19 +105,7 @@ import ReactQuill from 'react-quill'
 
 const CvForm = (props) => {
   const dispatch = useDispatch()
-  const [firstName, setFirstName] = useState('Fornavn')
-  const [lastName, setLastName] = useState('Etternavn')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('+090078601')
-  const [DOB, setDOB] = useState('')
-  const [physicalAddress, setPhysicalAddress] = useState('')
-  const [country, setCountry] = useState('')
-  const [drivingLicense, setDrivingLiscense] = useState('')
-  const [zipCode, setZipCode] = useState('')
-  const [jobTitle, setJobTitle] = useState('')
   const basicInformation = useSelector(CV_DATA)
-  // const [startDate, setStartDate] = useState('')
-  // const [endDate, setEndDate] = useState('')
   const [value, setValue] = useState('')
   const [toggle, setToggle] = useState('')
   const [test, setTest] = useState('')
@@ -101,7 +124,6 @@ const CvForm = (props) => {
   const additionalAccordians = useSelector(getAdditionalAccordian)
   const toggleData = useSelector(getRefToggle)
   const text = localStorage.getItem('uniqueText')
-
   // Utdanning
   const [institute, setInstitute] = useState('')
   const [degree, setDegree] = useState('')
@@ -112,10 +134,11 @@ const CvForm = (props) => {
   const [study, setStudy] = useState('')
   const [school, setSchool] = useState('')
   const education = useSelector(Education_DATA)
-  const newEducation =useSelector(New_Education_Data);
-  
-  const store = useSelector(state=>state)
-  console.log(store,"store check")
+  const newEducation = useSelector(New_Education_Data)
+  const experiance = useSelector(Experiance_Data)
+
+  const store = useSelector((state) => state)
+  console.log(store, 'store check')
 
   const handleAdd = () => {
     if (newEducation.length < 3) {
@@ -138,10 +161,8 @@ const CvForm = (props) => {
     }
   }
   const addEducation = () => {
-    console.log(newEducation,"new education in the dispatch")
-    dispatch(
-      editEducation(newEducation),
-    )
+    console.log(newEducation, 'new education in the dispatch')
+    dispatch(editEducation(newEducation))
   }
 
   const addNewEducation = () => {
@@ -158,10 +179,135 @@ const CvForm = (props) => {
       })
     )
   }
+  console.log(addNewEducation, 'Education')
   // Utdanning End
-  console.log(text, 'text check')
 
+  // Arbeidserfaring
+  const newWorkExperiance = useSelector(New_Experiance_Data)
+  const datepickerRef = useRef()
   const location = useLocation()
+
+  const addExperiance = () => {
+    console.log(newWorkExperiance, 'new education in the dispatch')
+    dispatch(editWorkExperiance(newWorkExperiance))
+  }
+
+  const addNewExperiance = () => {
+    dispatch(
+      addNewWorkExperiance({
+        jobTitle: '',
+        employer: '',
+        location: '',
+        startDate: '',
+        endDate: '',
+        additionalInformation: '',
+        enableAccordian: true,
+        toggle: false,
+      })
+    )
+  }
+
+  // Praksisplasser
+  const internship = useSelector(getInternships)
+  const newInternship = useSelector(getNewInternships)
+
+  const addInternship = () => {
+    console.log(newEducation, 'new education in the dispatch')
+    dispatch(editInternship(newInternship))
+  }
+
+  const addNewInternship = () => {
+    dispatch(
+      addToNewInternship({
+        jobTitle: '',
+        employer: '',
+        location: '',
+        startDate: '',
+        endDate: '',
+        additionalInformation: '',
+        enableAccordian: true,
+        toggle: false,
+      })
+    )
+  }
+  // Praksisplasser End
+
+  // Språk
+  const data = [
+    ' Morsmål',
+    ' Veldig God kunnskap',
+    ' God kunnskap',
+    ' Litt kunnskap',
+  ]
+  const newLanguages = useSelector(newLanguageData)
+
+  const addToLanguage = () => {
+    dispatch(editLanguage(newLanguages))
+  }
+
+  const addToNewLanguage = () => {
+    dispatch(addNewLanguage({ name: '', value: '', enableAccordian: true }))
+  }
+  // End
+
+  // Kurs
+  const newCourses = useSelector(NewCoursesData)
+  const addCourse = () => {
+    dispatch(editCourse(newCourses))
+  }
+  const addToNewCourse = () => {
+    dispatch(
+      addNewCourse({
+        name: '',
+        startDate: moment(new Date()).format('Y'),
+        endDate: moment(new Date()).format('Y'),
+        enableAccordian: true,
+      })
+    )
+  }
+  // End
+
+  // Hobbyer
+  const skills = useSelector(getHobbies)
+  const newHobbies = useSelector(getNewHobbies)
+
+  const addHobby = () => {
+    console.log(newHobbies, 'new education in the dispatch')
+    dispatch(editHobbies(newHobbies))
+  }
+
+  const addNewHobby = () => {
+    dispatch(
+      addNewToHobby({
+        name: '',
+        value: 1,
+        enableAccordian: true,
+      })
+    )
+  }
+  // End
+
+  //Referanser
+  const newReferences = useSelector(newReferenceData)
+  const newToggleData = useSelector(getNewRefToggle)
+  const addReference = () => {
+    dispatch(editReference(newReferences))
+  }
+
+  const addToReference = () => {
+    dispatch(
+      addNewReference({
+        name: '',
+        email: '',
+        companyName: '',
+        enableAccordian: true,
+      })
+    )
+  }
+  // End
+
+  // Ferdigheter
+  const newProperties = useSelector(newPropertiesData)
   const [personalProperty, setPersonalProperty] = useState([
     'Lagspiller',
     'Løsningsorientert',
@@ -172,6 +318,29 @@ const CvForm = (props) => {
     'Excel',
     'Salg',
   ])
+
+  const addProperty = () => {
+    console.log(newEducation, 'new education in the dispatch')
+    dispatch(editProperty(newProperties))
+  }
+
+  const addIntoProperty = (propertyName = null) => {
+    if (propertyName) {
+      let updatedpersonalProperty = personalProperty.filter(
+        (i) => propertyName !== i
+      )
+      setPersonalProperty(updatedpersonalProperty)
+    }
+
+    dispatch(
+      addNewProperty({
+        name: propertyName ? propertyName : '',
+        value: '',
+        enableAccordian: true,
+      })
+    )
+  }
+  // End
 
   const [skillSet, setSkillSet] = useState([
     'Kundeservice',
@@ -188,63 +357,22 @@ const CvForm = (props) => {
     Førerkort: false,
   })
 
+  // const addIntoProperty = (propertyName = null) => {
+  //   if (propertyName) {
+  //     let updatedpersonalProperty = personalProperty.filter(
+  //       (i) => propertyName !== i
+  //     )
+  //     setPersonalProperty(updatedpersonalProperty)
+  //   }
 
-  const addExperiance = () => {
-    dispatch(
-      addWorkExperiance({
-        jobTitle: '',
-        employer: '',
-        location: '',
-        startDate: '',
-        endDate: '',
-        additionalInformation: '',
-        enableAccordian: true,
-        toggle: false,
-      })
-    )
-  }
-
-  const addInternship = () => {
-    dispatch(
-      addToInternship({
-        jobTitle: '',
-        employer: '',
-        location: '',
-        startDate: '',
-        endDate: '',
-        additionalInformation: '',
-        enableAccordian: true,
-        toggle: false,
-      })
-    )
-  }
-
-  const addHobby = () => {
-    dispatch(
-      addToHobby({
-        name: '',
-        value: 1,
-        enableAccordian: true,
-      })
-    )
-  }
-
-  const addIntoProperty = (propertyName = null) => {
-    if (propertyName) {
-      let updatedpersonalProperty = personalProperty.filter(
-        (i) => propertyName !== i
-      )
-      setPersonalProperty(updatedpersonalProperty)
-    }
-
-    dispatch(
-      addProperty({
-        name: propertyName ? propertyName : '',
-        value: '',
-        enableAccordian: true,
-      })
-    )
-  }
+  //   dispatch(
+  //     addProperty({
+  //       name: propertyName ? propertyName : '',
+  //       value: '',
+  //       enableAccordian: true,
+  //     })
+  //   )
+  // }
 
   const addSkill = (item = null) => {
     dispatch(
@@ -258,35 +386,24 @@ const CvForm = (props) => {
 
     setSkillSet(updatedSkillSet)
   }
-  const addIntoCourse = () => {
-    dispatch(
-      addCourse({
-        name: '',
-        startDate: moment(new Date()).format('Y'),
-        endDate: moment(new Date()).format('Y'),
-        enableAccordian: true,
-      })
-    )
-  }
-  const addToLanguage = () => {
-    dispatch(addLanguage({ name: '', value: '', enableAccordian: true }))
-  }
 
-  const addToReference = () => {
-    dispatch(
-      addReference({
-        name: '',
-        email: '',
-        companyName: '',
-        enableAccordian: true,
-      })
-    )
-  }
+  // const addToReference = () => {
+  //   dispatch(
+  //     addReference({
+  //       name: '',
+  //       email: '',
+  //       companyName: '',
+  //       enableAccordian: true,
+  //     })
+  //   )
+  // }
 
   const changeBasicInfo = (value, field) => {
     console.log(basicInformation, 'basic information check')
     dispatch(cvGenerator({ ...basicInformation, [field]: value }))
   }
+
+  
   const disableAccordian = (accordianName) => {
     dispatch(
       editAdditonalAccordian({
@@ -349,38 +466,25 @@ const CvForm = (props) => {
     cursor: 'pointer',
   }
 
-  const updateStore = async () => {
-    const info = {
-      startDate: startDate,
-      endDate: endDate,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phone: phone,
-      DOB: DOB,
-      physicalAddress: physicalAddress,
-      country: country,
-      zipCode: zipCode,
-      drivingLicense: drivingLicense,
-      jobTitle: jobTitle,
-      profileImage: profileImage,
-    }
-    await dispatch(cvGenerator({ ...info }))
-    console.log(updateStore, 'storeee')
-    // await dispatch(cvGenerator({ ...basicInformation, "lastName": lastName }))
-    // changeBasicInfo(firstName, 'firstName')
-    // changeBasicInfo(lastName, 'lastName')
-    // changeBasicInfo(state.lastName, 'lastName');
-    // changeBasicInfo(state.email, 'email');
-    // changeBasicInfo(state.phone, 'phone');
-    // changeBasicInfo(state.DOB, 'DOB');
-    // changeBasicInfo(state.jobTitle, 'jobTitle');
-    // changeBasicInfo(state.physicalAddress, 'physicalAddress');
-    // changeBasicInfo(state.country, 'country');
-    // changeBasicInfo(state.zipCode, 'zipCode');
-    // changeBasicInfo(state.drivingLicense, 'drivingLicense');
-    // changeBasicInfo(state.displayProgressBar, 'displayProgressBar');
-  }
+  // const updateStore = async () => {
+  //   const info = {
+  //     startDate: startDate,
+  //     endDate: endDate,
+  //     firstName: firstName,
+  //     lastName: lastName,
+  //     email: email,
+  //     phone: phone,
+  //     DOB: DOB,
+  //     physicalAddress: physicalAddress,
+  //     country: country,
+  //     zipCode: zipCode,
+  //     drivingLicense: drivingLicense,
+  //     jobTitle: jobTitle,
+  //     profileImage: profileImage,
+  //   }
+  //   await dispatch(cvGenerator({ ...info }))
+  //   console.log(updateStore, 'storeee')
+  // }
 
   const enableAccordian = (accordianName) => {
     console.log(accordianName, '<=====')
@@ -390,7 +494,7 @@ const CvForm = (props) => {
   }
 
   const onToggleChange = (nextChecked) => {
-    dispatch(refrenceToggle(nextChecked))
+    dispatch(refrencNewToggle(nextChecked))
   }
 
   const dateRef = useRef(null)
@@ -451,52 +555,37 @@ const CvForm = (props) => {
         </div>
         <div className='cv-form-wrapper-inputheading'>
           <HeadInput
-            value={`${firstName}`}
-            onChange={(e) => {
-              // changeBasicInfo(e.target.value, 'firstName');
-              // setState({...(state.firstName = e.target.value)})
-              setFirstName(e.target.value)
-              // setIsRendering(false)
-            }}
+            value={basicInformation.firstName}
+            onChange={(e) => changeBasicInfo(e.target.value, 'firstName')}
             heading='Fornavn'
             inputPlaceholder='fornavn'
-            // onFocus={() => setIsRendering(false)}
           />
           <HeadInput
-            value={`${lastName}`}
+            value={basicInformation.lastName}
             onChange={(e) => {
-              // changeBasicInfo(e.target.value, 'lastName')
-              setLastName(e.target.value)
-              // setIsRendering(false)
+              changeBasicInfo(e.target.value, 'lastName')
             }}
             heading='Etternavn'
             inputPlaceholder='etternavn'
-            // onFocus={() => setIsRendering(false)}
           />
         </div>
       </div>
       <div className='cv-form-numberpost'>
         <HeadInput
-          value={`${email}`}
+          value={basicInformation.email}
           onChange={(e) => {
-            // changeBasicInfo(e.target.value, 'email')
-            setEmail(e.target.value)
-            // setIsRendering(false)
+            changeBasicInfo(e.target.value, 'email')
           }}
           heading='E-post'
           inputPlaceholder=''
-          // onFocus={() => setIsRendering(false)}
         />
         <HeadInput
-          value={`${phone}`}
+          value={basicInformation.phone}
           onChange={(e) => {
-            // changeBasicInfo(e.target.value, 'phone')
-            setPhone(e.target.value)
-            // setIsRendering(false)
+            changeBasicInfo(e.target.value, 'phone')
           }}
           heading='Telefonnummer'
           inputPlaceholder=''
-          // onFocus={() => setIsRendering(false)}
         />
         {/* <HeadInput
  value={basicInformation.jobTitle}
@@ -524,13 +613,9 @@ const CvForm = (props) => {
               ref={dateRef}
               type='date'
               className='headinput-container date-container'
-              value={`${DOB}`}
-              // onFocus={() => setIsRendering(false)}
+              value={basicInformation.DOB}
               onChange={(date) => {
-                // console.log(date.target.value, 'lll')
-                // changeBasicInfo(date.target.value, 'DOB')
-                setDOB(date.target.value)
-                // setIsRendering(false)
+                changeBasicInfo(date.target.value, 'DOB')
               }}
               yearDropdownItemNumber={100}
               scrollableYearDropdown={true}
@@ -547,13 +632,10 @@ const CvForm = (props) => {
           </div>
         </div>
         <HeadInput
-          value={jobTitle}
+          value={basicInformation.jobTitle}
           onChange={(e) => {
-            // changeBasicInfo(e.target.value, 'jobTitle')
-            setJobTitle(e.target.value)
-            // setIsRendering(false)
+            changeBasicInfo(e.target.value, 'jobTitle')
           }}
-          // onFocus={() => setIsRendering(false)}
           heading='Jobbtittel'
           inputPlaceholder='Jobbtittel'
         />
@@ -561,30 +643,20 @@ const CvForm = (props) => {
       <div className='cv-form-numberpost'>
         {moreDetails.Adresse ? (
           <HeadInput
-            value={physicalAddress}
+            value={basicInformation.physicalAddress}
             onChange={(e) => {
-              {
-                // changeBasicInfo(e.target.value, 'physicalAddress')
-                setPhysicalAddress(e.target.value)
-                // setIsRendering(false)
-              }
+              changeBasicInfo(e.target.value, 'physicalAddress')
             }}
             heading='Adresse'
             inputPlaceholder='Adresse'
-            // onFocus={() => setIsRendering(false)}
           />
         ) : null}
         {moreDetails?.By ? (
           <HeadInput
-            value={country}
+            value={basicInformation.country}
             onChange={(e) => {
-              {
-                // changeBasicInfo(e.target.value, 'country')
-                setCountry(e.target.value)
-                // setIsRendering(false)
-              }
+              changeBasicInfo(e.target.value, 'country')
             }}
-            // onFocus={() => setIsRendering(false)}
             heading='By'
             inputPlaceholder='By'
           />
@@ -593,33 +665,26 @@ const CvForm = (props) => {
       <div className='cv-form-numberpost'>
         {moreDetails.PostNummer ? (
           <HeadInput
-            value={zipCode}
+            value={basicInformation.zipCode}
             onChange={(e) => {
-              {
-                // changeBasicInfo(e.target.value, 'zipCode')
-                setZipCode(e.target.value)
-                // setIsRendering(false)
-              }
+              changeBasicInfo(e.target.value, 'zipCode')
             }}
-            // onFocus={() => setIsRendering(false)}
             heading='PostNummer'
             inputPlaceholder='PostNummer'
           />
         ) : null}
         {moreDetails.Førerkort ? (
           <HeadInput
-            value={drivingLicense}
+            value={basicInformation.drivingLicense}
             onChange={(e) => {
-              {
-                // changeBasicInfo(e.target.value, 'drivingLicense')
-                setDrivingLiscense(e.target.value)
-              }
+              changeBasicInfo(e.target.value, 'drivingLicense')
             }}
             heading='Førerkort'
             inputPlaceholder='Førerkort'
           />
         ) : null}
       </div>
+
       <div className='cv-form-addmoredetails'>
         {!moreDetails.Adresse &&
         !moreDetails.Land &&
@@ -682,7 +747,7 @@ const CvForm = (props) => {
           Her kan du legge til alt av relevant utdanning som øker sjansen for å
           bli lagt merke til
         </span>
-        {console.log(education,"education")}
+        {console.log(education, 'education')}
         {newEducation.map((item, accordianIndex) => {
           const handleChange = (field, value) => {
             let change = newEducation.map((item, index) => {
@@ -854,7 +919,10 @@ const CvForm = (props) => {
                             checked={newEducation[accordianIndex]?.toggle}
                             className='react-switch'
                           />
-                          {console.log(newEducation[accordianIndex].toggle, 'toggle date')}
+                          {console.log(
+                            newEducation[accordianIndex].toggle,
+                            'toggle date'
+                          )}
 
                           <span>Nåværende</span>
                         </div>
@@ -867,9 +935,11 @@ const CvForm = (props) => {
               <div className='generator-accordian-textareainput'>
                 <span>{educationHeadings.field5}</span>
                 <textarea
-          value={newEducation[accordianIndex]?.additionalInformation}
-          onChange={(e) => handleChange("additionalInformation", e.target.value)}
-        />
+                  value={newEducation[accordianIndex]?.additionalInformation}
+                  onChange={(e) =>
+                    handleChange('additionalInformation', e.target.value)
+                  }
+                />
                 {/* <ReactQuill
                   value={newEducation[accordianIndex]?.additionalInformation}
                   onChange={(content, delta, source, editor) => {
@@ -904,18 +974,213 @@ const CvForm = (props) => {
           for å bli lagt merke til
         </span>
         {console.log(workExperiannce, 'www')}
-        {workExperiannce?.map((item, index) => {
-          return workExperiannce[index].enableAccordian ? (
-            <ExperianceGeneratorAccordian
-              headings={experianceHeadings}
-              accordianIndex={index}
-            />
+        {newWorkExperiance?.map((item, accordianIndex) => {
+          const handleChange = (field, value) => {
+            let change = newWorkExperiance.map((item, index) => {
+              if (index === accordianIndex) {
+                return {
+                  ...item,
+                  [field]: value,
+                }
+              }
+              return item
+            })
+            dispatch(editNewWorkExperiance(change))
+          }
+
+          const onExperienceToggleChange = (nextChecked) => {
+            dispatch(updateNewExperienceToggle({ accordianIndex, nextChecked }))
+          }
+
+          const CustomInput = forwardRef((props, ref) => {
+            return (
+              <div className='custominputdiv'>
+                <label onClick={props.onClick} ref={ref}>
+                  {/* {console.log(props.value?.length, 'dateee valueee')} */}
+                  {props.value || props.placeholder}
+                </label>
+
+                <div className='custominputdiv-iconsdiv'>
+                  <BiCalendarAlt size={15} onClick={props.onClick} />
+                </div>
+              </div>
+            )
+          })
+
+          let experianceHeadings = {
+            heading: '(Jobbtittel) hos (Navn på arbeidsgiver)',
+            field1: 'Jobbtittel',
+            field2: 'Arbeidsgiver',
+            field3: 'Sted',
+            field4: 'Start dato - slutt dato (Trykk på kalender)',
+            field5: 'Utfyllende informasjon',
+          }
+
+          return newWorkExperiance[accordianIndex].enableAccordian ? (
+            <div className='generator-accordian'>
+              <div className='generator-accordian-heading'>
+                <span>{experianceHeadings.heading}</span>
+                <img
+                  src={arrowdown}
+                  alt='arrowdown'
+                  onClick={() =>
+                    handleChange(
+                      'enableAccordian',
+                      !newWorkExperiance[accordianIndex].enableAccordian
+                    )
+                  }
+                />
+              </div>
+
+              <div className='generator-accordian-textfields'>
+                <HeadInput
+                  value={newWorkExperiance[accordianIndex]?.jobTitle}
+                  onChange={(e) => handleChange('jobTitle', e.target.value)}
+                  heading={experianceHeadings.field1}
+                  inputPlaceholder={experianceHeadings.field1}
+                />
+                <HeadInput
+                  value={newWorkExperiance[accordianIndex]?.employer}
+                  onChange={(e) => handleChange('employer', e.target.value)}
+                  accordianIndex={accordianIndex}
+                  heading={experianceHeadings.field2}
+                  inputPlaceholder={experianceHeadings.field2}
+                />
+              </div>
+              <div className='generator-accordian-inputanddate'>
+                <HeadInput
+                  value={newWorkExperiance[accordianIndex]?.location}
+                  onChange={(e) => handleChange('location', e.target.value)}
+                  heading={experianceHeadings.field3}
+                  inputPlaceholder={experianceHeadings.field3}
+                />
+                <div className='generator-accordian-inputanddate-dateset'>
+                  <span>{experianceHeadings.field4}</span>
+                  <div className='generator-accordian-inputanddate-dateset-datedash'>
+                    {/* <input
+                    type={"month"}
+                    dateFormat="MM/yyyy"
+                    value={experiance[accordianIndex]?.startDate}
+                    selected={startDate}
+                    placeholderText="mm/yyyy"
+                    onChange={(date) => {
+                      console.log(
+                        moment(date.target.value).format("MM/YYYY"),
+                        "<=========================wowowwowoow"
+                      );
+                      handleChange("startDate", date.target.value);
+                    }}
+                  /> */}
+                    <div style={{ width: '100%' }}>
+                      <DatePicker
+                        customInput={<CustomInput />}
+                        dateFormat='MM/yyyy'
+                        showMonthYearPicker
+                        value={newWorkExperiance[accordianIndex]?.startDate}
+                        // selected={ new Date(experiance[accordianIndex]?.startDate)}
+                        onChange={(date) => {
+                          handleChange(
+                            'startDate',
+                            moment(date).format('YYYY-MM')
+                          )
+                        }}
+                      ></DatePicker>
+                    </div>
+                    <h6>-</h6>
+                    {/* <input
+                    type={"month"}
+                    dateFormat="MM/yyyy"
+                    value={experiance[accordianIndex]?.endDate}
+                    selected={endDate}
+                    placeholderText="mm/yyyy"
+                    onChange={(date) => handleChange("endDate", date.target.value)}
+                  /> */}
+
+                    <div style={{ width: '100%' }}>
+                      <DatePicker
+                        ref={datepickerRef}
+                        customInput={<CustomInput />}
+                        minDate={
+                          newWorkExperiance[accordianIndex]?.toggle
+                            ? new Date()
+                            : ''
+                        }
+                        maxDate={
+                          newWorkExperiance[accordianIndex]?.toggle
+                            ? new Date()
+                            : ''
+                        }
+                        dateFormat='MM/yyyy'
+                        showMonthYearPicker
+                        // selected={experiance[accordianIndex]?.toggle ?new Date() : new Date(experiance[accordianIndex]?.endDate)}
+                        value={
+                          newWorkExperiance[accordianIndex]?.toggle
+                            ? 'dags dato'
+                            : newWorkExperiance[accordianIndex]?.endDate
+                        }
+                        onChange={(date) => {
+                          if (newWorkExperiance[accordianIndex]?.toggle) {
+                            handleChange('endDate', moment().format('YYYY-MM'))
+                          } else {
+                            handleChange(
+                              'endDate',
+                              moment(date).format('YYYY-MM')
+                            )
+                          }
+                        }}
+                      >
+                        <div
+                          style={{
+                            padding: '5px',
+                            display: 'flex',
+                            gap: '5px',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Switch
+                            onChange={onExperienceToggleChange}
+                            onColor='#EEB856'
+                            checked={newWorkExperiance[accordianIndex]?.toggle}
+                            className='react-switch'
+                          />
+                          <span>Nåværende studiested</span>
+                        </div>
+                      </DatePicker>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className='generator-accordian-textareainput'>
+                <span>{experianceHeadings.field5}</span>
+                <textarea
+                  value={
+                    newWorkExperiance[accordianIndex]?.additionalInformation
+                  }
+                  onChange={(e) =>
+                    handleChange('additionalInformation', e.target.value)
+                  }
+                />
+                {/* <ReactQuill
+                value={experiance[accordianIndex]?.additionalInformation}
+                onChange={(content, delta, source, editor) => {
+                  handleChange('additionalInformation', editor.getHTML()) // update state variable with new content
+                }}
+              /> */}
+              </div>
+            </div>
           ) : (
-            <ExperianceClosedGeneratorAccordian accordianIndex={index} />
+            // <ExperianceGeneratorAccordian
+            //   headings={experianceHeadings}
+            //   accordianIndex={index}
+            // />
+            <ExperianceClosedGeneratorAccordian
+              accordianIndex={accordianIndex}
+            />
           )
         })}
 
-        <div onClick={() => addExperiance()} style={buttonDesign}>
+        <div onClick={() => addNewExperiance()} style={buttonDesign}>
           <HiPlus size={25} style={{ color: '#EEB856' }} />
           <span style={{ fontFamily: 'Montserrat', fontWeight: '600' }}>
             Legg til Arbeidserfaring
@@ -937,11 +1202,57 @@ const CvForm = (props) => {
           />
           <p>Vis ferdighetsgrad (anbefales av) </p>
         </div>
-        {properties?.map((item, index) => {
-          return properties[index].enableAccordian ? (
-            <PropertyGeneratorAccordian accordianIndex={index} />
+        {newProperties?.map((item, accordianIndex) => {
+          const handleChange = (field, value) => {
+            console.log(field, value, accordianIndex)
+            let change = newProperties.map((item, index) => {
+              if (index === accordianIndex) {
+                return {
+                  ...item,
+                  [field]: value,
+                }
+              }
+              return item
+            })
+            dispatch(editNewProperty(change))
+          }
+          return newProperties[accordianIndex].enableAccordian ? (
+            <div className='generator-accordian'>
+              <div className='generator-accordian-heading'>
+                <span></span>
+                <img
+                  src={arrowdown}
+                  alt='arrowdown'
+                  onClick={() => {
+                    handleChange(
+                      'enableAccordian',
+                      !newProperties[accordianIndex].enableAccordian
+                    )
+                  }}
+                />
+              </div>
+
+              <div className='generator-accordian-textfields'>
+                <HeadInput
+                  value={newProperties[accordianIndex]?.name}
+                  onChange={(e) => handleChange('name', e.target.value)}
+                  heading='ferdighetsnavn'
+                />
+                <input
+                  className='generator-accordian-rangefield'
+                  step={10}
+                  max={100}
+                  min={10}
+                  type='range'
+                  value={newProperties[accordianIndex]?.value}
+                  onChange={(e) => handleChange('value', e.target.value)}
+                  heading='Level'
+                />
+              </div>
+            </div>
           ) : (
-            <PropertyClosedGeneratorAccordian accordianIndex={index} />
+            // <PropertyGeneratorAccordian accordianIndex={index} />
+            <PropertyClosedGeneratorAccordian accordianIndex={accordianIndex} />
           )
         })}
       </div>
@@ -969,15 +1280,106 @@ const CvForm = (props) => {
       </div>
       <div className='cv-form-study'>
         <h2>Språk</h2>
-        {languages?.map((item, accordianIndex) => {
-          return languages[accordianIndex]?.enableAccordian ? (
-            <LanguageGeneratorAccordian accordianIndex={accordianIndex} />
+        {newLanguages?.map((item, accordianIndex) => {
+          const handleChange = (field, value) => {
+            console.log(field, '<==== field')
+            console.log(value, '<==== value')
+            console.log(accordianIndex, '<=== index')
+            let change = newLanguages.map((item, index) => {
+              if (index === accordianIndex) {
+                return {
+                  ...item,
+                  [field]: value,
+                }
+              }
+              return item
+            })
+            dispatch(editNewLanguage(change))
+          }
+
+          const selectTextSize = {
+            fontWeight: 600,
+            fontSize: '12px',
+            color: 'grey',
+            marginBottom: '5px',
+          }
+
+          return newLanguages[accordianIndex]?.enableAccordian ? (
+            // <LanguageGeneratorAccordian accordianIndex={accordianIndex} />
+            <div className='generator-accordian'>
+              <div className='generator-accordian-heading'>
+                <span></span>
+                <img
+                  src={arrowdown}
+                  alt='arrowdown'
+                  onClick={() => {
+                    handleChange(
+                      'enableAccordian',
+                      !newLanguages[accordianIndex].enableAccordian
+                    )
+                  }}
+                />
+              </div>
+
+              <div className='generator-accordian-textfields'>
+                <HeadInput
+                  value={newLanguages[accordianIndex]?.name}
+                  onChange={(e) => handleChange('name', e.target.value)}
+                  heading='språknavn'
+                  //   inputPlaceholder={headings.field1}
+                />
+                {/* <input
+          className="generator-accordian-rangefield"
+          step={10}
+          type="range"
+          max={100}
+          min={10}
+          value={languages[accordianIndex]?.value}
+          onChange={(e) => handleChange("value", e.target.value)}
+          accordianIndex={accordianIndex}
+          heading="ferdigheter"
+        /> */}
+                <div
+                  className='heading-container'
+                  style={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '100%',
+                  }}
+                >
+                  <label style={selectTextSize} for='select'>
+                    nivå
+                  </label>
+                  <select
+                    value={newLanguages[accordianIndex]?.value}
+                    id='select'
+                    style={{
+                      height: '55px',
+                      border: 'none',
+                      marginTop: '3px',
+                      borderRadius: '5px',
+                      width: '100%',
+                      backgroundColor: 'white',
+                    }}
+                    onChange={(e) => handleChange('value', e.target.value)}
+                  >
+                    <option value={''}></option>
+                    {data.map((item, index) => (
+                      <option key={index} value={': ' + item}>
+                        {item}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
           ) : (
             <LanguageClosedGeneratorAccordian accordianIndex={accordianIndex} />
           )
         })}
 
-        <button style={buttonDesign} onClick={() => addToLanguage()}>
+        <button style={buttonDesign} onClick={() => addToNewLanguage()}>
           <HiPlus size={25} style={{ color: '#EEB856' }} />
           Legg til språk
         </button>
@@ -999,19 +1401,94 @@ const CvForm = (props) => {
             <Switch
               onChange={onToggleChange}
               onColor='#EEB856'
-              checked={toggleData}
+              checked={newToggleData}
               className='react-switch'
             />
             <p>Oppgis ved forespørsel</p>
           </div>
 
-          {references?.map((item, accordianIndex) => {
-            return references[accordianIndex]?.enableAccordian ? (
-              <ReferenceGeneratorAccordian
-                key={accordianIndex}
-                accordianIndex={accordianIndex}
-              />
+          {newReferences?.map((item, accordianIndex) => {
+            const handleChange = (field, value) => {
+              let change = newReferences.map((item, index) => {
+                if (index === accordianIndex) {
+                  return {
+                    ...item,
+                    [field]: value,
+                  }
+                }
+                return item
+              })
+              dispatch(editNewReference(change))
+            }
+
+            const handleInputChange = (e) => {
+              const { value } = e.target
+              const prefix = 'Telefon: '
+              let emailValue
+              if (value === '') {
+                emailValue = null
+              } else if (value.startsWith(prefix)) {
+                emailValue = value
+              } else {
+                emailValue = prefix
+              }
+              handleChange('email', emailValue)
+            }
+            let referenceHeading = {
+              heading: '',
+            }
+            return newReferences[accordianIndex]?.enableAccordian ? (
+              <div className='generator-accordian'>
+                <div className='generator-accordian-heading'>
+                  <span>{referenceHeading?.heading}</span>
+                  <img
+                    src={arrowdown}
+                    alt='arrowdown'
+                    onClick={() =>
+                      handleChange(
+                        'enableAccordian',
+                        !newReferences[accordianIndex].enableAccordian
+                      )
+                    }
+                  />
+                </div>
+
+                <div className='generator-accordian-textfields'>
+                  <HeadInput
+                    value={newReferences[accordianIndex]?.name}
+                    onChange={(e) => handleChange('name', e.target.value)}
+                    heading={'Navn'}
+                    disabled={newToggleData}
+                    inputPlaceholder={!newToggleData ? 'navn' : null}
+                  />
+                  <HeadInput
+                    value={newReferences[accordianIndex]?.companyName}
+                    onChange={(e) =>
+                      handleChange('companyName', e.target.value)
+                    }
+                    accordianIndex={accordianIndex}
+                    heading={'Selskap'}
+                    inputPlaceholder={!newToggleData ? 'selskap' : null}
+                    disabled={newToggleData}
+                  />
+                </div>
+                <div className='generator-accordian-inputanddate'>
+                  <HeadInput
+                    // value={`Telefon:${}`}
+                    value={newReferences[accordianIndex]?.email}
+                    // value={basicInformation.firstName}
+                    onChange={handleInputChange}
+                    heading={'Telefonnummer'}
+                    inputPlaceholder={!newToggleData ? 'Telefon ' : null}
+                    disabled={newToggleData}
+                  />
+                </div>
+              </div>
             ) : (
+              // <ReferenceGeneratorAccordian
+              //   key={accordianIndex}
+              //   accordianIndex={accordianIndex}
+              // />
               <ClosedReferenceGeneratorAccordian
                 key={accordianIndex}
                 accordianIndex={accordianIndex}
@@ -1020,7 +1497,7 @@ const CvForm = (props) => {
           })}
 
           <button
-            disabled={toggleData}
+            disabled={newToggleData}
             style={buttonDesign}
             onClick={() => addToReference()}
           >
@@ -1044,15 +1521,50 @@ const CvForm = (props) => {
               </button>
             </div>
 
-            {courses?.map((item, index) => {
-              return courses[index].enableAccordian ? (
-                <CourseGeneratorAccordian accordianIndex={index} />
+            {newCourses?.map((item, accordianIndex) => {
+              const handleChange = (field, value) => {
+                console.log(field, value, accordianIndex)
+                let change = newCourses.map((item, index) => {
+                  if (index === accordianIndex) {
+                    return {
+                      ...item,
+                      [field]: value,
+                    }
+                  }
+                  return item
+                })
+                dispatch(editNewCourse(change))
+              }
+              return newCourses[accordianIndex].enableAccordian ? (
+                <div className='generator-accordian'>
+                  <div className='generator-accordian-heading'>
+                    <span></span>
+                    <img
+                      src={arrowdown}
+                      alt='arrowdown'
+                      onClick={() => {
+                        handleChange(
+                          'enableAccordian',
+                          !newCourses[accordianIndex].enableAccordian
+                        )
+                      }}
+                    />
+                  </div>
+                  <AltHeadInput
+                    value={newCourses[accordianIndex]?.name}
+                    onChange={(e) => handleChange('name', e.target.value)}
+                    heading='kursnavn'
+                  />
+                </div>
               ) : (
-                <CourseClosedGeneratorAccordian accordianIndex={index} />
+                // <CourseGeneratorAccordian accordianIndex={accordianIndex} />
+                <CourseClosedGeneratorAccordian
+                  accordianIndex={accordianIndex}
+                />
               )
             })}
           </div>
-          <div onClick={() => addIntoCourse()} style={buttonDesign}>
+          <div onClick={() => addToNewCourse()} style={buttonDesign}>
             <HiPlus size={25} style={{ color: '#EEB856' }} />
             Legg til kurs
           </div>
@@ -1070,18 +1582,217 @@ const CvForm = (props) => {
               Slett
             </button>
           </div>
-          {internships?.map((item, index) => {
-            return internships[index].enableAccordian ? (
-              <InternshipGeneratorAccordian
-                headings={experianceHeadings}
-                accordianIndex={index}
-              />
+          {newInternship?.map((item, accordianIndex) => {
+            const handleChange = (field, value) => {
+              console.log(field, '<==== field')
+              console.log(value, '<==== value')
+              console.log(accordianIndex, '<=== index')
+              let change = newInternship.map((item, index) => {
+                if (index === accordianIndex) {
+                  return {
+                    ...item,
+                    [field]: value,
+                  }
+                }
+                return item
+              })
+              dispatch(editNewInternship(change))
+            }
+
+            const onInternshipToggleChange = (nextChecked) => {
+              dispatch(
+                updateNewInternshipToggle({ accordianIndex, nextChecked })
+              )
+            }
+
+            const CustomInput = forwardRef((props, ref) => {
+              return (
+                <div className='custominputdiv'>
+                  <label onClick={props.onClick} ref={ref}>
+                    {props.value || props.placeholder}
+                  </label>
+                  <div className='custominputdiv-iconsdiv'>
+                    <BiCalendarAlt size={15} onClick={props.onClick} />
+                  </div>
+                </div>
+              )
+            })
+
+            let internshipHeadings = {
+              heading: '(Jobbtittel) hos (Navn på arbeidsgiver)',
+              field1: 'Jobbtittel',
+              field2: 'Arbeidsgiver',
+              field3: 'Sted',
+              field4: 'Start dato - slutt dato (Trykk på kalender)',
+              field5: 'Utfyllende informasjon',
+            }
+
+            return newInternship[accordianIndex].enableAccordian ? (
+              <div className='generator-accordian'>
+                <div className='generator-accordian-heading'>
+                  <span>{internshipHeadings.heading}</span>
+                  <img
+                    src={arrowdown}
+                    alt='arrowdown'
+                    onClick={() =>
+                      handleChange(
+                        'enableAccordian',
+                        !newInternship[accordianIndex].enableAccordian
+                      )
+                    }
+                  />
+                </div>
+
+                <div className='generator-accordian-textfields'>
+                  <HeadInput
+                    value={newInternship[accordianIndex]?.jobTitle}
+                    onChange={(e) => handleChange('jobTitle', e.target.value)}
+                    heading={internshipHeadings.field1}
+                    inputPlaceholder={internshipHeadings.field1}
+                  />
+                  <HeadInput
+                    value={newInternship[accordianIndex]?.employer}
+                    onChange={(e) => handleChange('employer', e.target.value)}
+                    accordianIndex={accordianIndex}
+                    heading={internshipHeadings.field2}
+                    inputPlaceholder={internshipHeadings.field2}
+                  />
+                </div>
+                <div className='generator-accordian-inputanddate'>
+                  <HeadInput
+                    value={newInternship[accordianIndex]?.location}
+                    onChange={(e) => handleChange('location', e.target.value)}
+                    heading={internshipHeadings.field3}
+                    inputPlaceholder={internshipHeadings.field3}
+                  />
+                  <div className='generator-accordian-inputanddate-dateset'>
+                    <span>{internshipHeadings.field4}</span>
+                    <div className='generator-accordian-inputanddate-dateset-datedash'>
+                      {/* <input
+                      type={"date"}
+                      dateFormat="MM/yyyy"
+                      value={experiance[accordianIndex]?.startDate}
+                      placeholderText="mm/yyyy"
+                      onChange={(date) => {
+                        console.log(
+                          moment(date.target.value).format("MM/YYYY"),
+                          "<=========================wowowwowoow"
+                        );
+                        handleChange("startDate", date.target.value);
+                      }}
+                    /> */}
+
+                      <div style={{ width: '100%' }}>
+                        <DatePicker
+                          customInput={<CustomInput />}
+                          dateFormat='MM/yyyy'
+                          showMonthYearPicker
+                          value={newInternship[accordianIndex]?.startDate}
+                          // selected={ new Date(experiance[accordianIndex]?.startDate)}
+                          onChange={(date) => {
+                            handleChange(
+                              'startDate',
+                              moment(date).format('YYYY-MM')
+                            )
+                          }}
+                        ></DatePicker>
+                      </div>
+                      <h6>-</h6>
+                      {/* <input
+                      type={"date"}
+                      dateFormat="MM/yyyy"
+                      value={experiance[accordianIndex]?.endDate}
+                      placeholderText="mm/yyyy"
+                      onChange={(date) => handleChange("endDate", date.target.value)}
+                    /> */}
+
+                      <div style={{ width: '100%' }}>
+                        <DatePicker
+                          //  selected={experiance[accordianIndex]?.toggle ?new Date() : new Date(experiance[accordianIndex]?.endDate)}
+                          customInput={<CustomInput />}
+                          minDate={
+                            newInternship[accordianIndex]?.toggle
+                              ? new Date()
+                              : ''
+                          }
+                          maxDate={
+                            newInternship[accordianIndex]?.toggle
+                              ? new Date()
+                              : ''
+                          }
+                          dateFormat='MM/yyyy'
+                          showMonthYearPicker
+                          value={
+                            newInternship[accordianIndex]?.toggle
+                              ? 'dags dato'
+                              : newInternship[accordianIndex]?.endDate
+                          }
+                          onChange={(date) => {
+                            if (newInternship[accordianIndex]?.toggle) {
+                              handleChange(
+                                'endDate',
+                                moment().format('YYYY-MM')
+                              )
+                            } else {
+                              handleChange(
+                                'endDate',
+                                moment(date).format('YYYY-MM')
+                              )
+                            }
+                          }}
+                        >
+                          <div
+                            style={{
+                              padding: '5px',
+                              display: 'flex',
+                              gap: '5px',
+                              alignItems: 'center',
+                            }}
+                          >
+                            <Switch
+                              onChange={onInternshipToggleChange}
+                              onColor='#EEB856'
+                              checked={newInternship[accordianIndex]?.toggle}
+                              className='react-switch'
+                            />
+
+                            <span>Nåværende</span>
+                          </div>
+                        </DatePicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className='generator-accordian-textareainput'>
+                  <span>{internshipHeadings.field5}</span>
+                  <textarea
+                    value={newInternship[accordianIndex]?.additionalInformation}
+                    onChange={(e) =>
+                      handleChange('additionalInformation', e.target.value)
+                    }
+                  />
+                  {/* <ReactQuill
+                  value={experiance[accordianIndex]?.additionalInformation}
+                  onChange={(content, delta, source, editor) => {
+                    handleChange('additionalInformation', editor.getHTML()) // update state variable with new content
+                  }}
+                /> */}
+                  {/* <QuillTextEditor4/> */}
+                </div>
+              </div>
             ) : (
-              <ClosedInternshipGeneratorAccordian accordianIndex={index} />
+              // <InternshipGeneratorAccordian
+              //   headings={experianceHeadings}
+              //   accordianIndex={accordianIndex}
+              // />
+              <ClosedInternshipGeneratorAccordian
+                accordianIndex={accordianIndex}
+              />
             )
           })}
 
-          <div onClick={() => addInternship()} style={buttonDesign}>
+          <div onClick={() => addNewInternship()} style={buttonDesign}>
             <HiPlus size={25} style={{ color: '#EEB856' }} />
             <span style={{ fontFamily: 'Montserrat', fontWeight: '600' }}>
               Legg til praksisplass
@@ -1102,14 +1813,50 @@ const CvForm = (props) => {
               Slett
             </button>
           </div>
-          {hobbies.map((item, accordianIndex) => {
-            return hobbies[accordianIndex]?.enableAccordian ? (
-              <HobbyGeneratorAccordian accordianIndex={accordianIndex} />
+
+          {newHobbies.map((item, accordianIndex) => {
+            const handleChange = (field, value) => {
+              let change = newHobbies.map((item, index) => {
+                if (index === accordianIndex) {
+                  return {
+                    ...item,
+                    [field]: value,
+                  }
+                }
+                return item
+              })
+              dispatch(editNewHobbies(change))
+            }
+            return newHobbies[accordianIndex]?.enableAccordian ? (
+              <div className='generator-accordian'>
+                <div className='generator-accordian-heading'>
+                  <span></span>
+                  <img
+                    src={arrowdown}
+                    alt='arrowdown'
+                    onClick={() => {
+                      handleChange(
+                        'enableAccordian',
+                        !newHobbies[accordianIndex].enableAccordian
+                      )
+                    }}
+                  />
+                </div>
+
+                <div className='generator-accordian-textfields'>
+                  <HeadInput
+                    value={newHobbies[accordianIndex]?.name}
+                    onChange={(e) => handleChange('name', e.target.value)}
+                    heading='hobbynavn'
+                  />
+                </div>
+              </div>
             ) : (
+              // <HobbyGeneratorAccordian accordianIndex={accordianIndex} />
               <ClosedHobbyGeneratorAccordian accordianIndex={accordianIndex} />
             )
           })}
-          <div style={buttonDesign} onClick={() => addHobby()}>
+          <div style={buttonDesign} onClick={() => addNewHobby()}>
             <HiPlus size={25} style={{ color: '#EEB856' }} />
             Legg til hobby
           </div>
@@ -1148,8 +1895,15 @@ const CvForm = (props) => {
       <div className='preview-button'>
         <button
           onClick={() => {
-            updateStore()
+            // updateStore()
             addEducation()
+            addExperiance()
+            addInternship()
+            addToLanguage()
+            addCourse()
+            addHobby()
+            addReference()
+            addProperty()
           }}
         >
           Forhåndsvisning CV

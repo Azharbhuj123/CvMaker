@@ -1,11 +1,13 @@
 import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getHobbies } from "../../Redux/reducers/CvGeneratorReducer";
+import { getHobbies, getNewHobbies } from "../../Redux/reducers/CvGeneratorReducer";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {
   deleteHobby,
+  deleteNewHobby,
   editHobbies,
+  editNewHobbies,
 } from "../../Redux/actions/CvGeneratorAction";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -13,8 +15,9 @@ import "reactjs-popup/dist/index.css";
 const ClosedHobbyGeneratorAccordian = ({ accordianIndex }) => {
   const dispatch = useDispatch();
   const skills = useSelector(getHobbies);
+  const newHobbies = useSelector(getNewHobbies);
   const handleChange = (field, value) => {
-    let change = skills.map((item, index) => {
+    let change = newHobbies.map((item, index) => {
       if (index === accordianIndex) {
         return {
           ...item,
@@ -23,16 +26,16 @@ const ClosedHobbyGeneratorAccordian = ({ accordianIndex }) => {
       }
       return item;
     });
-    dispatch(editHobbies(change));
+    dispatch(editNewHobbies(change));
   };
   const handleDelete = (id) => {
-    dispatch(deleteHobby(id));
+    dispatch(deleteNewHobby(id));
   };
 
   return (
     <div className="generator-accordian">
       <div className="generator-accordian-heading">
-        <span>{skills[accordianIndex]?.name}</span>
+        <span>{newHobbies[accordianIndex]?.name}</span>
         <div>
           <Popup
             arrow={false}
@@ -47,7 +50,7 @@ const ClosedHobbyGeneratorAccordian = ({ accordianIndex }) => {
               onClick={() =>
                 handleChange(
                   "enableAccordian",
-                  !skills[accordianIndex].enableAccordian
+                  !newHobbies[accordianIndex].enableAccordian
                 )
               }
             >

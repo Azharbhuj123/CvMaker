@@ -14,6 +14,7 @@ import {
   propertiesData,
   profileRichTextData,
   getRefToggle,
+  getNewRefToggle,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import ProgressBar from './progressBar'
 import moment from 'moment'
@@ -44,7 +45,7 @@ const TemplateThree = () => {
   let printButtonRef = useRef()
   const cvData = useSelector(CV_DATA)
   const hobbies = useSelector(getHobbies)
-  const toggleData = useSelector(getRefToggle)
+  const newToggleData = useSelector(getNewRefToggle)
   const accordiansEnabled = useSelector(getAdditionalAccordian)
   const [displayTemplate, setDisplayTemplate, pageWidth, setPageWidth] =
     useOutletContext()
@@ -667,7 +668,7 @@ const TemplateThree = () => {
                           style={styles.profileWrapperLeftContentTitleLine}
                         ></Text>
 
-                        {toggleData ? (
+                        {newToggleData ? (
                           <Text style={styles.referenceSectionText}>
                             Oppgis ved forespørsel
                           </Text>

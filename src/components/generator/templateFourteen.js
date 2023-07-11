@@ -22,6 +22,7 @@ import {
   getInternships,
   referenceData,
   getRefToggle,
+  getNewRefToggle,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import moment from 'moment'
 import { BsTelephone } from 'react-icons/bs'
@@ -62,6 +63,7 @@ const TemplateFourteen = (props) => {
   const hobbies = useSelector(getHobbies)
   const accordiansEnabled = useSelector(getAdditionalAccordian)
   const toggleData = useSelector(getRefToggle)
+  const newToggleData = useSelector(getNewRefToggle)
   let pdfComponent = useRef()
   const cvData = useSelector(CV_DATA)
   const [isChecked, setIsChecked] = useState(false)
@@ -885,7 +887,7 @@ const TemplateFourteen = (props) => {
                       <Text style={styles.pageRightSectionContentTitle}>
                         Referanser
                       </Text>
-                      {toggleData ? (
+                      {newToggleData ? (
                         <Text
                           style={{
                             textAlign: 'left',

@@ -1,12 +1,13 @@
 import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
-import { languageData } from "../../Redux/reducers/CvGeneratorReducer";
+import { languageData, newLanguageData } from "../../Redux/reducers/CvGeneratorReducer";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {
   deleteLanguage,
   deleteSlider,
   editLanguage,
+  editNewLanguage,
 } from "../../Redux/actions/CvGeneratorAction";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -14,8 +15,9 @@ import "reactjs-popup/dist/index.css";
 const LanguageClosedGeneratorAccordian = ({ accordianIndex }) => {
   const dispatch = useDispatch();
   const languages = useSelector(languageData);
+  const newLanguages = useSelector(newLanguageData);
   const handleChange = (field, value) => {
-    let change = languages.map((item, index) => {
+    let change = newLanguages.map((item, index) => {
       if (index === accordianIndex) {
         return {
           ...item,
@@ -24,22 +26,22 @@ const LanguageClosedGeneratorAccordian = ({ accordianIndex }) => {
       }
       return item;
     });
-    dispatch(editLanguage(change));
+    dispatch(editNewLanguage(change));
   };
   const handleDelete = (id) => {
-    let change = languages.filter((item, index) => {
+    let change = newLanguages.filter((item, index) => {
       if (index !== accordianIndex) {
         return item;
       }
       return null;
     });
-    dispatch(editLanguage(change));
+    dispatch(editNewLanguage(change));
   };
 
   return (
     <div className="generator-accordian">
       <div className="generator-accordian-heading">
-        <span>{languages[accordianIndex]?.name}</span>
+        <span>{newLanguages[accordianIndex]?.name}</span>
         <div>
           <Popup
             arrow={false}
@@ -52,7 +54,7 @@ const LanguageClosedGeneratorAccordian = ({ accordianIndex }) => {
           >
             <div
               onClick={() =>
-                handleChange("enableAccordian", !languages[accordianIndex].enableAccordian)
+                handleChange("enableAccordian", !newLanguages[accordianIndex].enableAccordian)
               }
             >
               Rediger tekst

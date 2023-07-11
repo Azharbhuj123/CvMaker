@@ -38,7 +38,7 @@ const initialState = {
     //   enableAccordian: true,
     // },
   ],
-  newEducation:[],
+  newEducation: [],
   experiance: [
     // {
     //   jobTitle: "",
@@ -50,13 +50,22 @@ const initialState = {
     //   enableAccordian: true,
     // },
   ],
+  newExperiance: [],
   sliderData: [{ name: '', value: 50, enableAccordian: true }],
   language: [{ name: '', value: '', enableAccordian: true }],
+  newLanguage: [{ name: '', value: '', enableAccordian: true }],
   properties: [{ name: '', value: 50, enableAccordian: true }],
+  newProperties: [{ name: '', value: 50, enableAccordian: true }],
   courses: [
     // { name: "", startDate: "", endDate: "", enableAccordian: true },
   ],
+  newCourses: [
+    // { name: "", startDate: "", endDate: "", enableAccordian: true },
+  ],
   references: [{ name: '', companyName: '', email: '', enableAccordian: true }],
+  newReferences: [
+    { name: '', companyName: '', email: '', enableAccordian: true },
+  ],
   additionalAccordian: {
     Kurs: false,
     Praksisplasser: false,
@@ -74,27 +83,44 @@ const initialState = {
     //   enableAccordian: true,
     // },
   ],
+  newInternship: [],
   hobbies: [{ name: '', value: 50, enableAccordian: true }],
+  newHobbies: [{ name: '', value: 50, enableAccordian: true }],
   refrenceToggle: false,
+  newRefrenceToggle: false,
   datePresent: false,
 }
 
 export const CV_DATA = (state) => state.CvGeneratorReducer.cvData
 export const Education_DATA = (state) => state.CvGeneratorReducer.education
-export const New_Education_Data=(state)=>  state.CvGeneratorReducer.newEducation
+export const New_Education_Data = (state) =>
+  state.CvGeneratorReducer.newEducation
 export const Experiance_Data = (state) => state.CvGeneratorReducer.experiance
+export const New_Experiance_Data = (state) =>
+  state.CvGeneratorReducer.newExperiance
 export const sliderData = (state) => state.CvGeneratorReducer.sliderData
 export const languageData = (state) => state.CvGeneratorReducer.language
+export const newLanguageData = (state) => state.CvGeneratorReducer.newLanguage
 export const propertiesData = (state) => state.CvGeneratorReducer.properties
+export const newPropertiesData = (state) =>
+  state.CvGeneratorReducer.newProperties
 export const coursesData = (state) => state.CvGeneratorReducer.courses
+export const NewCoursesData = (state) => state.CvGeneratorReducer.newCourses
 export const profileRichTextData = (state) => state.CvGeneratorReducer.saveData
 export const referenceData = (state) => state.CvGeneratorReducer.references
+export const newReferenceData = (state) =>
+  state.CvGeneratorReducer.newReferences
 export const configData = (state) => state.CvGeneratorReducer.config
 export const getAdditionalAccordian = (state) =>
   state.CvGeneratorReducer.additionalAccordian
 export const getInternships = (state) => state.CvGeneratorReducer.internships
+export const getNewInternships = (state) =>
+  state.CvGeneratorReducer.newInternship
 export const getHobbies = (state) => state.CvGeneratorReducer.hobbies
+export const getNewHobbies = (state) => state.CvGeneratorReducer.newHobbies
 export const getRefToggle = (state) => state.CvGeneratorReducer.refrenceToggle
+export const getNewRefToggle = (state) =>
+  state.CvGeneratorReducer.newRefrenceToggle
 export const getPresentDate = (state) => state.CvGeneratorReducer.datePresent
 
 export default function CvGeneratorReducer(state = initialState, action) {
@@ -126,7 +152,7 @@ export default function CvGeneratorReducer(state = initialState, action) {
         cvData: { ...state.cvData, lastModified: new Date() },
       }
 
-    // NEW REDUCERS ADDED
+    // NEW EDUCATION REDUCERS ADDED
     case actionTypes.ADDNEWEDUCATION:
       return {
         ...state,
@@ -159,7 +185,8 @@ export default function CvGeneratorReducer(state = initialState, action) {
             : item
         ),
       }
-    
+
+    //
 
     case actionTypes.ADDWORKEXPERIANCE:
       return {
@@ -190,6 +217,39 @@ export default function CvGeneratorReducer(state = initialState, action) {
             : item
         ),
       }
+
+    // NEW EXPERIENCE REDUCERS ADDED
+    case actionTypes.ADDNEWWORKEXPERIANCE:
+      return {
+        ...state,
+        newExperiance: [...state.newExperiance, action.payload],
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case actionTypes.EDITNEWWORKEXPERIANCE:
+      return {
+        ...state,
+        newExperiance: action.payload,
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case actionTypes.REMOVENEWWORKEXPERIANCE:
+      return {
+        ...state,
+        newExperiance: state.newExperiance.filter(
+          (item, index) => index !== action.payload
+        ),
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case actionTypes.UPDATENEWEXPERIENCETOGGLE:
+      return {
+        ...state,
+        newExperiance: state.newExperiance.map((item, index) =>
+          index === action.payload.accordianIndex
+            ? { ...item, toggle: action.payload.nextChecked }
+            : item
+        ),
+      }
+    //
+
     case actionTypes.ADDSLIDER:
       return {
         ...state,
@@ -230,6 +290,29 @@ export default function CvGeneratorReducer(state = initialState, action) {
         ),
         cvData: { ...state.cvData, lastModified: new Date() },
       }
+
+    // NEW language REDUCERS ADDED
+    case actionTypes.ADDNEWLANGUAGE:
+      return {
+        ...state,
+        newLanguage: [...state.newLanguage, action.payload],
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case actionTypes.EDITNEWLANGUAGE:
+      return {
+        ...state,
+        newLanguage: action.payload,
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case action.DELETENEWLANGUAGE:
+      return {
+        ...state,
+        newLanguage: state.newLanguage.filter(
+          (item, index) => index !== action.payload
+        ),
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    //
     case actionTypes.ADDPROPERTY:
       return {
         ...state,
@@ -242,6 +325,20 @@ export default function CvGeneratorReducer(state = initialState, action) {
         properties: action.payload,
         cvData: { ...state.cvData, lastModified: new Date() },
       }
+    // NEW PROPERTY REDUCERS ADDED
+    case actionTypes.ADDNEWPROPERTY:
+      return {
+        ...state,
+        newProperties: [...state.newProperties, action.payload],
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case actionTypes.EDITNEWPROPERTY:
+      return {
+        ...state,
+        newProperties: action.payload,
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    //
     case actionTypes.ADDCOURSE:
       return {
         ...state,
@@ -252,6 +349,20 @@ export default function CvGeneratorReducer(state = initialState, action) {
       return {
         ...state,
         courses: action.payload,
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+
+    // NEW Courses REDUCERS ADDED
+    case actionTypes.ADDNEWCOURSE:
+      return {
+        ...state,
+        newCourses: [...state.newCourses, action.payload],
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case actionTypes.EDITNEWCOURSE:
+      return {
+        ...state,
+        newCourses: action.payload,
         cvData: { ...state.cvData, lastModified: new Date() },
       }
     case actionTypes.SAVEDATA:
@@ -272,6 +383,30 @@ export default function CvGeneratorReducer(state = initialState, action) {
         references: action.payload,
         cvData: { ...state.cvData, lastModified: new Date() },
       }
+    case actionTypes.REFTOGGLE:
+      return {
+        ...state,
+        refrenceToggle: action.payload,
+      }
+    // NEW REFERENCE REDUCERS ADDED
+    case actionTypes.ADDNEWREFERENCE:
+      return {
+        ...state,
+        newReferences: [...state.newReferences, action.payload],
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case actionTypes.EDITNEWREFERENCE:
+      return {
+        ...state,
+        newReferences: action.payload,
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case actionTypes.REFNEWTOGGLE:
+      return {
+        ...state,
+        newRefrenceToggle: action.payload,
+      }
+    //
     case actionTypes.EDITCONFIG:
       return {
         ...state,
@@ -290,6 +425,42 @@ export default function CvGeneratorReducer(state = initialState, action) {
         hobbies: action.payload,
         cvData: { ...state.cvData, lastModified: new Date() },
       }
+    case actionTypes.DELETEHOBBY:
+      return {
+        ...state,
+        hobbies: state.hobbies.filter(
+          (item, index) => index !== action.payload
+        ),
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case actionTypes.ADDHOBBY:
+      return {
+        ...state,
+        hobbies: [...state.hobbies, action.payload],
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    // NEW HOBBIES REDUCERS ADDED
+    case actionTypes.EDITNEWHOBBIES:
+      return {
+        ...state,
+        newHobbies: action.payload,
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case actionTypes.DELETENEWHOBBY:
+      return {
+        ...state,
+        newHobbies: state.newHobbies.filter(
+          (item, index) => index !== action.payload
+        ),
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case actionTypes.ADDNEWHOBBY:
+      return {
+        ...state,
+        newHobbies: [...state.newHobbies, action.payload],
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    //
     case actionTypes.EDITINTERNSHIPS:
       return {
         ...state,
@@ -320,25 +491,40 @@ export default function CvGeneratorReducer(state = initialState, action) {
             : item
         ),
       }
-    case actionTypes.DELETEHOBBY:
+
+    // NEW INTERNSHIP REDUCERS ADDED
+    case actionTypes.EDITNEWINTERNSHIPS:
       return {
         ...state,
-        hobbies: state.hobbies.filter(
+        newInternship: action.payload,
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+    case actionTypes.DELETENEWINTERNSHIP:
+      return {
+        ...state,
+        newInternship: state.newInternship.filter(
           (item, index) => index !== action.payload
         ),
         cvData: { ...state.cvData, lastModified: new Date() },
       }
-    case actionTypes.ADDHOBBY:
+    case actionTypes.ADDNEWINTERNSHIP:
       return {
         ...state,
-        hobbies: [...state.hobbies, action.payload],
+        newInternship: [...state.newInternship, action.payload],
         cvData: { ...state.cvData, lastModified: new Date() },
       }
-    case actionTypes.REFTOGGLE:
+
+    case actionTypes.UPDATENEWINTERNSHIPTOGGLE:
       return {
         ...state,
-        refrenceToggle: action.payload,
+        newInternship: state.newInternship.map((item, index) =>
+          index === action.payload.accordianIndex
+            ? { ...item, toggle: action.payload.nextChecked }
+            : item
+        ),
       }
+    //
+
     case actionTypes.DATEPRESENT:
       return {
         ...state,

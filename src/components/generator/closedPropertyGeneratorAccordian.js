@@ -1,13 +1,14 @@
 import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
-import { propertiesData } from "../../Redux/reducers/CvGeneratorReducer";
+import { newPropertiesData, propertiesData } from "../../Redux/reducers/CvGeneratorReducer";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {
   deleteLanguage,
   deleteSlider,
   editCourse,
   editLanguage,
+  editNewProperty,
   editProperty,
 } from "../../Redux/actions/CvGeneratorAction";
 import Popup from "reactjs-popup";
@@ -17,8 +18,9 @@ import moment from "moment";
 const PropertyClosedGeneratorAccordian = ({ accordianIndex }) => {
   const dispatch = useDispatch();
   const properties = useSelector(propertiesData);
+  const newProperties = useSelector(newPropertiesData);
   const handleChange = (field, value) => {
-    let change = properties.map((item, index) => {
+    let change = newProperties.map((item, index) => {
       if (index === accordianIndex) {
         return {
           ...item,
@@ -27,22 +29,22 @@ const PropertyClosedGeneratorAccordian = ({ accordianIndex }) => {
       }
       return item;
     });
-    dispatch(editProperty(change));
+    dispatch(editNewProperty(change));
   };
   const handleDelete = (id) => {
-    let change = properties.filter((item, index) => {
+    let change = newProperties.filter((item, index) => {
       if (index !== accordianIndex) {
         return item;
       }
       return null;
     });
-    dispatch(editProperty(change));
+    dispatch(editNewProperty(change));
   };
 
   return (
     <div className="generator-accordian">
       <div className="generator-accordian-heading">
-        <span>{properties[accordianIndex]?.name}</span>
+        <span>{newProperties[accordianIndex]?.name}</span>
         <div>
           <Popup
             arrow={false}
@@ -57,7 +59,7 @@ const PropertyClosedGeneratorAccordian = ({ accordianIndex }) => {
               onClick={() =>
                 handleChange(
                   "enableAccordian",
-                  !properties[accordianIndex].enableAccordian
+                  !newProperties[accordianIndex].enableAccordian
                 )
               }
             >

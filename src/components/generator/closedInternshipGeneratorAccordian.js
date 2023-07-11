@@ -1,11 +1,13 @@
 import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getInternships } from "../../Redux/reducers/CvGeneratorReducer";
+import { getInternships, getNewInternships } from "../../Redux/reducers/CvGeneratorReducer";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {
   editInternship,
+  editNewInternship,
   removeInternship,
+  removeNewInternship,
 } from "../../Redux/actions/CvGeneratorAction";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -19,9 +21,10 @@ const ClosedInternshipGeneratorAccordian = ({
 }) => {
   const dispatch = useDispatch();
   const experiance = useSelector(getInternships);
+  const newInternship = useSelector(getNewInternships);
 
   const handleChange = (field, value) => {
-    let change = experiance.map((item, index) => {
+    let change = newInternship.map((item, index) => {
       if (index === accordianIndex) {
         return {
           ...item,
@@ -31,19 +34,19 @@ const ClosedInternshipGeneratorAccordian = ({
       return item;
     });
     console.log(change, "<====chasdasdangeeeee");
-    dispatch(editInternship(change));
+    dispatch(editNewInternship(change));
   };
   const handleDelete = (id) => {
-    dispatch(removeInternship(id));
+    dispatch(removeNewInternship(id));
   };
 
   return (
     <div className="generator-accordian">
       <div className="generator-accordian-heading">
         <span>
-          {experiance[accordianIndex]?.jobTitle +
+          {newInternship[accordianIndex]?.jobTitle +
             " er hos " +
-            experiance[accordianIndex]?.employer}
+            newInternship[accordianIndex]?.employer}
         </span>
         {/* <img src={arrowdown} alt="arrowdown" /> */}
         <div>
@@ -60,7 +63,7 @@ const ClosedInternshipGeneratorAccordian = ({
               onClick={() =>
                 handleChange(
                   "enableAccordian",
-                  !experiance[accordianIndex].enableAccordian
+                  !newInternship[accordianIndex].enableAccordian
                 )
               }
             >

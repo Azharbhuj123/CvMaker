@@ -5,10 +5,12 @@ import arrowdown from "../../assests/images/arrowdown.png";
 import PrimaryInput, { HeadInput } from "./primaryInput";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { Experiance_Data } from "../../Redux/reducers/CvGeneratorReducer";
+import { Experiance_Data, New_Experiance_Data } from "../../Redux/reducers/CvGeneratorReducer";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {
+  editNewWorkExperiance,
   editWorkExperiance,
+  removeNewWorkExperiance,
   removeWorkExperiance,
 } from "../../Redux/actions/CvGeneratorAction";
 import Popup from "reactjs-popup";
@@ -29,9 +31,10 @@ const ExperianceClosedGeneratorAccordian = ({
   const [test, setTest] = useState("");
   const dispatch = useDispatch();
   const experiance = useSelector(Experiance_Data);
+  const newxEperiance = useSelector(New_Experiance_Data);
 
   const handleChange = (field, value) => {
-    let change = experiance.map((item, index) => {
+    let change = newxEperiance.map((item, index) => {
       if (index === accordianIndex) {
         return {
           ...item,
@@ -40,19 +43,19 @@ const ExperianceClosedGeneratorAccordian = ({
       }
       return item;
     });
-    dispatch(editWorkExperiance(change));
+    dispatch(editNewWorkExperiance(change));
   };
   const handleDelete = (id) => {
-    dispatch(removeWorkExperiance(id));
+    dispatch(removeNewWorkExperiance(id));
   };
 
   return (
     <div className="generator-accordian">
       <div className="generator-accordian-heading">
         <span>
-          {experiance[accordianIndex]?.jobTitle +
+          {newxEperiance[accordianIndex]?.jobTitle +
             " er hos " +
-            experiance[accordianIndex]?.employer}
+            newxEperiance[accordianIndex]?.employer}
         </span>
         {/* <img src={arrowdown} alt="arrowdown" /> */}
         <div>
@@ -67,7 +70,7 @@ const ExperianceClosedGeneratorAccordian = ({
           >
             <div
               onClick={() =>
-                handleChange("enableAccordian", !experiance[accordianIndex].enableAccordian)
+                handleChange("enableAccordian", !newxEperiance[accordianIndex].enableAccordian)
               }
             >
               Rediger tekst
