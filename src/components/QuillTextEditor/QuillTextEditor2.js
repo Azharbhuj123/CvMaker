@@ -8,28 +8,29 @@ import { profileRichTextData } from '../../Redux/reducers/CvGeneratorReducer'
 const QuillTextEditor2 = (props) => {
   const dispatch = useDispatch()
   const editorData = useSelector(profileRichTextData)
-  const [value, setValue] = useState('')
 
-  const onChange = (value) => {
+  const handleChange = (event) => {
     console.log(editorData, '<===== data')
-    dispatch(saveData(value))
+    dispatch(saveData(event.target.value))
   }
 
-  // const onChange = (value) => {
-  //   dispatch(saveData({ value }));
-  // };
-    
   return (
-    <ReactQuill
+    <textarea
+      style={{
+        width: '100%',
+        height: '8rem',
+        borderRadius: '5px',
+        border: 'none',
+        padding: '20px',
+        resize: 'none',
+        textAlign: 'start',
+        backgroundColor: '#F6F3F1',
+      }}
       {...props}
       theme='snow'
       value={editorData}
-      onChange={onChange}
+      onChange={handleChange}
     />
-  //   <ReactQuill
-  //   value={editorData}
-  //   onChange={(e) => onChange("profile data", e)}
-  // />
   )
 }
 

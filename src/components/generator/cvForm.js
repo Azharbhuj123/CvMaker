@@ -52,6 +52,7 @@ import {
   editProperty,
   addNewProperty,
   editNewProperty,
+  saveData,
 } from '../../Redux/actions/CvGeneratorAction'
 import {
   coursesData,
@@ -116,11 +117,14 @@ const CvForm = (props) => {
     setCountry(basicInformation.country)
     setZipCode(basicInformation.zipCode)
     setDrivingLiscense(basicInformation.drivingLicense)
+    setPreviewData(editorData)
   }, [])
 
   const dispatch = useDispatch()
   const [firstName, setFirstName] = useState('Fornavn')
+  // const [profileImage, setProfileImage] = useState()
   const [lastName, setLastName] = useState('Etternavn')
+  const [progressBar, setProgressBar] = useState(false)
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('+090078601')
   const [DOB, setDOB] = useState('')
@@ -365,6 +369,20 @@ const CvForm = (props) => {
   }
   // End
 
+  // Profile
+  const [previewData, setPreviewData] = useState('')
+  const profileUpdate = () => {
+    dispatch(saveData(previewData))
+  }
+  const editorData = useSelector(profileRichTextData)
+
+  // const handleChange = (event) => {
+  //   console.log(editorData, '<===== data')
+  //   dispatch(saveData(event.target.value))
+  // }
+
+  // End
+
   const [skillSet, setSkillSet] = useState([
     'Kundeservice',
     'Prosjektledelse',
@@ -490,6 +508,7 @@ const CvForm = (props) => {
   const updateStore = async () => {
     const info = {
       startDate: startDate,
+      displayProgressBar: basicInformation.displayProgressBar,
       endDate: endDate,
       firstName: firstName,
       lastName: lastName,
@@ -502,22 +521,10 @@ const CvForm = (props) => {
       drivingLicense: drivingLicense,
       jobTitle: jobTitle,
       profileImage: profileImage,
+      progressBar: basicInformation.progressBar,
     }
     await dispatch(cvGenerator({ ...info }))
     console.log(updateStore, 'storeee')
-    // await dispatch(cvGenerator({ ...basicInformation, "lastName": lastName }))
-    // changeBasicInfo(firstName, 'firstName')
-    // changeBasicInfo(lastName, 'lastName')
-    // changeBasicInfo(state.lastName, 'lastName');
-    // changeBasicInfo(state.email, 'email');
-    // changeBasicInfo(state.phone, 'phone');
-    // changeBasicInfo(state.DOB, 'DOB');
-    // changeBasicInfo(state.jobTitle, 'jobTitle');
-    // changeBasicInfo(state.physicalAddress, 'physicalAddress');
-    // changeBasicInfo(state.country, 'country');
-    // changeBasicInfo(state.zipCode, 'zipCode');
-    // changeBasicInfo(state.drivingLicense, 'drivingLicense');
-    // changeBasicInfo(state.displayProgressBar, 'displayProgressBar');
   }
 
   const enableAccordian = (accordianName) => {
@@ -561,9 +568,8 @@ const CvForm = (props) => {
             type={'file'}
             onChange={(e) => {
               handleFileChange(e)
-              // setIsRendering(false)
+              // setProfileImage(e)
             }}
-            // onFocus={() => setIsRendering(false)}
             ref={profileImageRef}
           ></input>
           {imageSwitch ? (
@@ -591,25 +597,18 @@ const CvForm = (props) => {
           <HeadInput
             value={`${firstName}`}
             onChange={(e) => {
-              // changeBasicInfo(e.target.value, 'firstName');
-              // setState({...(state.firstName = e.target.value)})
               setFirstName(e.target.value)
-              // setIsRendering(false)
             }}
             heading='Fornavn'
             inputPlaceholder='fornavn'
-            // onFocus={() => setIsRendering(false)}
           />
           <HeadInput
             value={`${lastName}`}
             onChange={(e) => {
-              // changeBasicInfo(e.target.value, 'lastName')
               setLastName(e.target.value)
-              // setIsRendering(false)
             }}
             heading='Etternavn'
             inputPlaceholder='etternavn'
-            // onFocus={() => setIsRendering(false)}
           />
         </div>
       </div>
@@ -617,33 +616,19 @@ const CvForm = (props) => {
         <HeadInput
           value={`${email}`}
           onChange={(e) => {
-            // changeBasicInfo(e.target.value, 'email')
             setEmail(e.target.value)
-            // setIsRendering(false)
           }}
           heading='E-post'
           inputPlaceholder=''
-          // onFocus={() => setIsRendering(false)}
         />
         <HeadInput
           value={`${phone}`}
           onChange={(e) => {
-            // changeBasicInfo(e.target.value, 'phone')
             setPhone(e.target.value)
-            // setIsRendering(false)
           }}
           heading='Telefonnummer'
           inputPlaceholder=''
-          // onFocus={() => setIsRendering(false)}
         />
-        {/* <HeadInput
- value={basicInformation.jobTitle}
- onChange={(e) => {
- changeBasicInfo(e.target.value, "jobTitle");
- }}
- heading="Jobbtittel"
- inputPlaceholder="Jobbtittel"
- /> */}
       </div>
       <div
         className='cv-form-numberpost'
@@ -663,12 +648,8 @@ const CvForm = (props) => {
               type='date'
               className='headinput-container date-container'
               value={`${DOB}`}
-              // onFocus={() => setIsRendering(false)}
               onChange={(date) => {
-                // console.log(date.target.value, 'lll')
-                // changeBasicInfo(date.target.value, 'DOB')
                 setDOB(date.target.value)
-                // setIsRendering(false)
               }}
               yearDropdownItemNumber={100}
               scrollableYearDropdown={true}
@@ -687,11 +668,8 @@ const CvForm = (props) => {
         <HeadInput
           value={jobTitle}
           onChange={(e) => {
-            // changeBasicInfo(e.target.value, 'jobTitle')
             setJobTitle(e.target.value)
-            // setIsRendering(false)
           }}
-          // onFocus={() => setIsRendering(false)}
           heading='Jobbtittel'
           inputPlaceholder='Jobbtittel'
         />
@@ -702,14 +680,11 @@ const CvForm = (props) => {
             value={physicalAddress}
             onChange={(e) => {
               {
-                // changeBasicInfo(e.target.value, 'physicalAddress')
                 setPhysicalAddress(e.target.value)
-                // setIsRendering(false)
               }
             }}
             heading='Adresse'
             inputPlaceholder='Adresse'
-            // onFocus={() => setIsRendering(false)}
           />
         ) : null}
         {moreDetails?.By ? (
@@ -717,7 +692,6 @@ const CvForm = (props) => {
             value={country}
             onChange={(e) => {
               {
-                // changeBasicInfo(e.target.value, 'country')
                 setCountry(e.target.value)
                 // setIsRendering(false)
               }
@@ -788,12 +762,7 @@ const CvForm = (props) => {
           gap: '8px',
         }}
       >
-        <span
-          onClick={() => console.log(profileData)}
-          className='profile-heading'
-        >
-          Profiltekst
-        </span>
+        <span className='profile-heading'>Profiltekst</span>
 
         <span
           style={{
@@ -804,8 +773,25 @@ const CvForm = (props) => {
         >
           Inkluder 2-4 linjer om deg selv og din arbeidserfaringer
         </span>
-
-        <QuillTextEditor2 />
+        <textarea
+          style={{
+            width: '100%',
+            height: '8rem',
+            borderRadius: '5px',
+            border: 'none',
+            padding: '20px',
+            resize: 'none',
+            textAlign: 'start',
+            backgroundColor: '#F6F3F1',
+          }}
+          {...props}
+          theme='snow'
+          value={previewData}
+          onChange={(e) => setPreviewData(e.target.value)}
+          // value={editorData}
+          // onChange={handleChange}
+        />
+        {/* <QuillTextEditor2 /> */}
       </div>
 
       <div className='cv-form-study'>
@@ -1264,13 +1250,17 @@ const CvForm = (props) => {
         <h2>Ferdigheter</h2>
         <div style={{ paddingTop: '8px' }} className='swtichbtnwithpara'>
           <Switch
-            checked={basicInformation.displayProgressBar}
+            checked={
+              basicInformation.displayProgressBar
+              // progressBar
+            }
             onColor='#EEB856'
             onChange={() => {
               changeBasicInfo(
                 !basicInformation.displayProgressBar,
                 'displayProgressBar'
               )
+              // setProgressBar(true)
             }}
           />
           <p>Vis ferdighetsgrad (anbefales av) </p>
@@ -1977,6 +1967,7 @@ const CvForm = (props) => {
             addHobby()
             addReference()
             addProperty()
+            profileUpdate()
           }}
         >
           Forhåndsvisning CV

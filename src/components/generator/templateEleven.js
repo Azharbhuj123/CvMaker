@@ -121,7 +121,8 @@ const TemplateEleven = () => {
       flexDirection: 'column',
       gap: 5,
       paddingHorizontal: 5,
-      paddingVertical: 10,
+      // paddingVertical: 5,
+      marginBottom: 5,
       width: '90%',
     },
     hederRightTitle: {
@@ -168,7 +169,7 @@ const TemplateEleven = () => {
     },
     contentContainerHeading: {
       fontFamily: 'Calibri',
-      fontSize: 16,
+      fontSize: 15,
       fontWeight: 600,
       position: 'relative',
       wordBreak: 'break-all',
@@ -220,7 +221,7 @@ const TemplateEleven = () => {
     },
     educationContainerDateText: {
       fontFamily: 'Calibri',
-      fontSize: 12,
+      fontSize: 11,
     },
     educationContainerPara: {
       borderBottom: '1px solid black',
@@ -228,9 +229,9 @@ const TemplateEleven = () => {
       width: '88%',
     },
     educationContainerParaText: {
-      color: 'rgb(84, 86, 90)',
+      color: 'black',
       fontFamily: 'Calibri',
-      fontSize: 12,
+      fontSize: 11,
     },
     contentSectionBottom: {
       display: 'flex',
@@ -256,7 +257,7 @@ const TemplateEleven = () => {
     },
     contentSectionBottomLeftContentSideTitle: {
       fontFamily: 'Calibri',
-      fontSize: 14,
+      fontSize: 13,
       fontWeight: 600,
       paddingBottom: 5,
       position: 'relative',
@@ -266,7 +267,7 @@ const TemplateEleven = () => {
     },
     contentSectionBottomLeftContentSideSetting: {
       display: 'flex',
-      flexDirection: 'row',
+      flexDirection: 'column',
       fontFamily: 'Calibri',
       fontSize: 11,
       gap: 10,
@@ -281,12 +282,19 @@ const TemplateEleven = () => {
       width: '100%',
       wordBreak: 'break-all',
     },
-    contentSectionBottomLeftContentSideProgressText: {
+    contentSectionBottomLeftContentSideProgressTextPro: {
       fontFamily: 'Calibri',
-      fontSize: 11,
+      fontSize: 10,
       wordBreak: 'break-all',
       width: 200,
-      // fontWeight: 700,
+      fontWeight: 'bold',
+    },
+    contentSectionBottomLeftContentSideProgressText: {
+      fontFamily: 'Calibri',
+      fontSize: 10,
+      wordBreak: 'break-all',
+      width: 200,
+      // fontWeight: 'bold',
     },
     contentSectionBottomRight: {
       paddingLeft: 12,
@@ -311,7 +319,7 @@ const TemplateEleven = () => {
       fontWeight: 'bold',
     },
     settingContentText: {
-      fontSize: 11,
+      fontSize: 10,
       fontFamily: 'Calibri',
       fontWeight: 'bold',
       wordBreak: 'break-all',
@@ -349,9 +357,10 @@ const TemplateEleven = () => {
                         <Text>Epost: </Text>
                         <Text
                           style={{
-                            fontWeight: '100',
-                            color: 'gray',
+                            fontWeight: 'light',
+                            color: 'black',
                             wordBreak: 'break-all',
+                            fontSize: 10,
                           }}
                         >
                           {cvData?.email} /{' '}
@@ -361,9 +370,10 @@ const TemplateEleven = () => {
                             <Text>Tlf: </Text>
                             <Text
                               style={{
-                                fontWeight: '100',
-                                color: 'gray',
+                                fontWeight: 'light',
                                 wordBreak: 'break-all',
+                                color: 'black',
+                                fontSize: 10,
                               }}
                             >
                               {cvData?.phone} /{' '}
@@ -375,8 +385,9 @@ const TemplateEleven = () => {
                             <Text> Adresse: </Text>
                             <Text
                               style={{
-                                fontWeight: '100',
-                                color: 'gray',
+                                fontWeight: 'light',
+                                color: 'black',
+                                fontSize: 10,
                                 wordBreak: 'break-all',
                               }}
                             >
@@ -387,8 +398,9 @@ const TemplateEleven = () => {
                         {cvData?.zipCode === '' ? null : (
                           <Text
                             style={{
-                              fontWeight: '100',
-                              color: 'gray',
+                              fontWeight: 'light',
+                              color: 'black',
+                              fontSize: 10,
                               wordBreak: 'break-all',
                             }}
                           >
@@ -400,8 +412,9 @@ const TemplateEleven = () => {
                             <Text> Førerkort: </Text>
                             <Text
                               style={{
-                                fontWeight: '100',
-                                color: 'gray',
+                                fontWeight: 'light',
+                                color: 'black',
+                                fontSize: 10,
                                 wordBreak: 'break-all',
                               }}
                             >
@@ -414,8 +427,9 @@ const TemplateEleven = () => {
                             <Text> Førerkort: </Text>
                             <Text
                               style={{
-                                fontWeight: '100',
-                                color: 'gray',
+                                fontWeight: 'light',
+                                color: 'black',
+                                fontSize: 10,
                                 wordBreak: 'break-all',
                               }}
                             >
@@ -543,7 +557,7 @@ const TemplateEleven = () => {
                                   <View>
                                     <Text
                                       style={
-                                        styles.contentSectionBottomLeftContentSideProgressText
+                                        styles.contentSectionBottomLeftContentSideProgressTextPro
                                       }
                                     >
                                       {item?.name}
@@ -615,7 +629,7 @@ const TemplateEleven = () => {
                               >
                                 {item?.name} {item?.value}
                               </Text>
-                              // </View>
+                              //  </View> 
                             ))}
                           </View>
                         </View>
@@ -739,7 +753,7 @@ const TemplateEleven = () => {
                                 style={{
                                   marginTop: '8px',
                                   wordBreak: 'break-all',
-                                  fontSize: '13px',
+                                  fontSize: '11px',
                                   fontFamily: 'Calibri',
                                   fontWeight: 'bold',
                                   color: 'black',
@@ -751,7 +765,7 @@ const TemplateEleven = () => {
                               <View style={styles.studingContent}>
                                 {refrence?.map((item) => (
                                   <View style={styles.settingContent}>
-                                    <Text>
+                                    <Text style={styles.settingContentText}>
                                       {item?.name + ' - ' + item?.companyName}
                                     </Text>
                                     <Text style={styles.settingContentText}>

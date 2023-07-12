@@ -613,11 +613,16 @@ const TemplateTen = () => {
                           alignItems: 'center',
                           display: 'flex',
                           justifyContent: 'center',
-                          paddingTop: 10,
+                          paddingTop: '10px',
                         }}
                       >
                         <Text
                           style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignContent: 'center',
+                            alignItems: 'center',
                             fontSize: 12,
                           }}
                         >

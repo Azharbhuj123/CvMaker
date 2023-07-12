@@ -285,7 +285,7 @@ const TemplateSix = () => {
     <>
       <PDFViewer style={styles.document}>
         <Document style={styles.document}>
-          {isRendering &&
+          {isRendering && (
             <Page size='A4' style={styles.page}>
               <View style={styles.container}>
                 <View style={styles.header}>
@@ -355,14 +355,14 @@ const TemplateSix = () => {
                   </View>
                 </View>
 
-                {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
+                {profileData !== '' ? (
                   <View style={styles.profileSection}>
                     <Text style={styles.profileSectionTitle}>Profil</Text>
                     <Text style={styles.profileSectionPara}>
                       {profileData.replace(/(<([^>]+)>)/gi, '')}
                     </Text>
                   </View>
-                )}
+                ) : null}
 
                 <View style={styles.contentSection}>
                   <View style={styles.contentSectionHeading}>
@@ -636,7 +636,7 @@ const TemplateSix = () => {
                 </View>
               </View>
             </Page>
-          }
+          )}
         </Document>
       </PDFViewer>
       {/* <div className='preview-button'>

@@ -116,21 +116,21 @@ const TemplateThree = () => {
       width: '100%',
       display: 'flex',
       flexDirection: 'column',
-      paddingVertical: 12,
-      paddingHorizontal: 12,
+      paddingVertical: 5,
+      paddingHorizontal: 10,
       borderBottom: '0.5px solid hsla(0,0%,75%,.543)',
     },
     headerTitle: {
       fontFamily: 'Roboto',
-      fontSize: 42,
+      fontSize: 38,
       color: 'black',
       fontWeight: 'bold',
       textTransform: 'uppercase',
     },
     headerSubtitle: {
       fontFamily: 'Roboto',
-      fontSize: 22,
-      fontWeight: 400,
+      fontSize: 20,
+      // fontWeight: 400,
       textTransform: 'uppercase',
     },
     containerWrapper: {
@@ -154,8 +154,8 @@ const TemplateThree = () => {
     },
     containerWrapperLeftContentTitle: {
       fontFamily: 'Roboto',
-      fontSize: 20,
-      fontWeight: 700,
+      fontSize: 18,
+      fontWeight: 'bold',
       paddingBottom: 5,
       position: 'relative',
     },
@@ -264,18 +264,18 @@ const TemplateThree = () => {
     profileLeftContentText: {
       fontFamily: 'Roboto',
       fontWeight: 'bold',
-      fontSize: 11,
+      fontSize: 10,
     },
     profileLeftContentDate: {
       fontFamily: 'Roboto',
-      fontSize: 11,
+      fontSize: 10,
       wordBreak: 'breakWord',
     },
     profileLeftPara: {},
     profileLeftParaText: {
-      color: 'rgb(84, 86, 90)',
+      color: 'black',
       fontFamily: 'Roboto',
-      fontSize: 11,
+      fontSize: 10,
       wordBreak: 'break-word',
     },
     referenceSection: {
@@ -284,9 +284,9 @@ const TemplateThree = () => {
       gap: 1,
     },
     referenceSectionText: {
-      color: 'rgb(84, 86, 90)',
+      color: 'black',
       fontFamily: 'Roboto',
-      fontSize: 11,
+      fontSize: 10,
     },
   })
 
@@ -524,8 +524,7 @@ const TemplateThree = () => {
                   </View>
 
                   <View style={styles.containerWrapperRight}>
-                    {profileData !== '<p><br></p>' &&
-                      profileData !== '<p></p>' && (
+                    {profileData !== ''? (
                         <View style={styles.profileSection}>
                           <Text style={styles.profileWrapperLeftContentTitle}>
                             PROFIL
@@ -540,7 +539,7 @@ const TemplateThree = () => {
                             </Text>
                           </View>
                         </View>
-                      )}
+                      ): null}
 
                     <View style={styles.experienceSection}>
                       <Text style={styles.profileWrapperLeftContentTitle}>

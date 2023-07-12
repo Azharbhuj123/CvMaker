@@ -72,22 +72,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
-    padding: 12,
+    padding: 10,
     width: '100%',
   },
   headingTitle: {
     color: 'black',
     fontFamily: 'Oswald',
     fontSize: 36,
+    fontWeight: 'bold',
   },
   headingsubTitle: {
     gap: 2,
     marginBottom: 12,
-    marginTop: 12,
+    marginTop: 10,
     color: 'grey',
     fontFamily: 'Oswald',
-    fontSize: 13,
-    fontweight: 'bold',
+    fontSize: 12,
+    fontweight: '900',
   },
   contentWrapper: {
     display: 'flex',
@@ -113,8 +114,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#000',
     fontFamily: 'Oswald',
-    fontSize: 19,
-    fontWeight: '700',
+    fontSize: 16,
+    fontWeight: 'bold',
     paddingBottom: 5,
     position: 'relative',
     textDecoration: 'none',
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
   },
   contentWrapperLeftSideContentTextMail: {
     fontFamily: 'Oswald',
-    fontSize: 13,
+    fontSize: 12,
     textAlign: 'center',
     wordBreak: 'break-all',
     overflowWrap: 'break-word',
@@ -154,15 +155,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#000',
     fontFamily: 'Oswald',
-    fontSize: 19,
-    fontWeight: '700',
+    fontSize: 16,
+    fontWeight: 'bold',
     paddingBottom: 5,
     position: 'relative',
     textDecoration: 'none',
     letterSpacing: 2,
   },
   contentWrapperRightSide: {
-    padding: 12,
+    paddingLeft: 15,
     width: '70%',
   },
   contentWrapperRightSideWrapper: {
@@ -200,13 +201,20 @@ const styles = StyleSheet.create({
   contentWrapperRightSideWrapperContentParaText: {
     fontFamily: 'Oswald',
     fontSize: 12,
-    fontWeight: 400,
+    fontWeight: 'light',
   },
   contentWrapperRightSideWrapperImage: {
     position: 'absolute',
-    left: -8,
+    left: -7,
     top: '-1%',
-    width: 18,
+    width: 15,
+    zIndex: 99,
+  },
+  contentWrapperRightSideWrapperImageCap: {
+    position: 'absolute',
+    left: -7,
+    top: '-1%',
+    width: 17,
     zIndex: 99,
   },
   educationContent: {
@@ -223,6 +231,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 400,
     color: 'grey',
+  },
+  educationContentDateRef: {
+    fontFamily: 'Oswald',
+    fontSize: 12,
+    fontWeight: 'light',
+    color: 'black',
   },
 })
 
@@ -528,53 +542,52 @@ const TemplateFive = () => {
                   </View>
 
                   <View style={styles.contentWrapperRightSide}>
-                    {profileData !== '<p><br></p>' &&
-                      profileData !== '<p></p>' && (
-                        <View style={styles.contentWrapperRightSideWrapper}>
-                          {/* <View> */}
-                          <Image
-                            src={person}
-                            style={{
-                              width: '18px',
-                              height: '18px',
-                              // color: 'black',
-                              position: 'absolute',
-                              left: '-2.5%',
-                              top: '-1%',
-                              zIndex: 99,
-                            }}
-                          />
-                          <View
-                            style={styles.contentWrapperRightSideWrapperLine}
-                          ></View>
-                          {/* </View> */}
+                    {profileData !== '' ? (
+                      <View style={styles.contentWrapperRightSideWrapper}>
+                        {/* <View> */}
+                        <Image
+                          src={person}
+                          style={{
+                            width: '15px',
+                            height: '15px',
+                            // color: 'black',
+                            position: 'absolute',
+                            left: '-2%',
+                            top: '-3%',
+                            zIndex: 99,
+                          }}
+                        />
+                        <View
+                          style={styles.contentWrapperRightSideWrapperLine}
+                        ></View>
+                        {/* </View> */}
 
+                        <View
+                          style={styles.contentWrapperRightSideWrapperContent}
+                        >
+                          <Text
+                            style={
+                              styles.contentWrapperRightSideWrapperContentTitle
+                            }
+                          >
+                            PROFIL
+                          </Text>
                           <View
-                            style={styles.contentWrapperRightSideWrapperContent}
+                            style={
+                              styles.contentWrapperRightSideWrapperContentPara
+                            }
                           >
                             <Text
                               style={
-                                styles.contentWrapperRightSideWrapperContentTitle
+                                styles.contentWrapperRightSideWrapperContentParaText
                               }
                             >
-                              PROFIL
+                              {profileData.replace(/(<([^>]+)>)/gi, '')}
                             </Text>
-                            <View
-                              style={
-                                styles.contentWrapperRightSideWrapperContentPara
-                              }
-                            >
-                              <Text
-                                style={
-                                  styles.contentWrapperRightSideWrapperContentParaText
-                                }
-                              >
-                                {profileData.replace(/(<([^>]+)>)/gi, '')}
-                              </Text>
-                            </View>
                           </View>
                         </View>
-                      )}
+                      </View>
+                    ) : null}
 
                     <View style={styles.contentWrapperRightSideWrapper}>
                       {/* <View> */}
@@ -582,6 +595,7 @@ const TemplateFive = () => {
                         style={styles.contentWrapperRightSideWrapperImage}
                         src={BriefCaseIcon}
                         alt='briefcase'
+                        // styles={{width: '5px', height: '5px',}}
                       />
                       <View
                         style={styles.contentWrapperRightSideWrapperLine}
@@ -600,10 +614,10 @@ const TemplateFive = () => {
                             <Image
                               src={circle}
                               style={{
-                                width: '10px',
-                                height: '10px',
+                                width: '12px',
+                                height: '12px',
                                 position: 'absolute',
-                                left: '-17em',
+                                left: '-18em',
                                 zIndex: 99,
                               }}
                             />
@@ -647,7 +661,7 @@ const TemplateFive = () => {
                       <View style={styles.contentWrapperRightSideWrapper}>
                         {/* <View> */}
                         <Image
-                          style={styles.contentWrapperRightSideWrapperImage}
+                            style={styles.contentWrapperRightSideWrapperImageCap}
                           src={cap}
                           alt='cap'
                         />
@@ -669,10 +683,10 @@ const TemplateFive = () => {
                               <Image
                                 src={circle}
                                 style={{
-                                  width: '10px',
-                                  height: '10px',
+                                  width: '12px',
+                                  height: '12px',
                                   position: 'absolute',
-                                  left: '-17em',
+                                  left: '-18em',
                                   zIndex: 99,
                                 }}
                               />
@@ -716,7 +730,7 @@ const TemplateFive = () => {
                     <View style={styles.contentWrapperRightSideWrapper}>
                       {/* <View> */}
                       <Image
-                        style={styles.contentWrapperRightSideWrapperImage}
+                        style={styles.contentWrapperRightSideWrapperImageCap}
                         src={cap}
                         alt='cap'
                       />
@@ -737,10 +751,10 @@ const TemplateFive = () => {
                             <Image
                               src={circle}
                               style={{
-                                width: '10px',
-                                height: '10px',
+                                width: '12px',
+                                height: '12px',
                                 position: 'absolute',
-                                left: '-17em',
+                                left: '-18em',
                                 zIndex: 99,
                               }}
                             />
@@ -801,16 +815,16 @@ const TemplateFive = () => {
                               <Image
                                 src={circle}
                                 style={{
-                                  width: '10px',
-                                  height: '10px',
+                                  width: '12px',
+                                  height: '12px',
                                   position: 'absolute',
-                                  left: '-17em',
+                                  left: '-18em',
                                   zIndex: 99,
                                 }}
                               />
                               {newToggleData ? (
                                 <>
-                                  <Text style={styles.educationContentDate}>
+                                  <Text style={styles.educationContentDateRef}>
                                     Oppgis ved forespørsel
                                   </Text>
                                 </>

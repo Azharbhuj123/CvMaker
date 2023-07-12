@@ -6,6 +6,12 @@ export const saveData = (payload) => {
     payload,
   }
 }
+export const newSaveData = (payload) => {
+  return {
+    type: actionTypes.NEWSAVEDATA,
+    payload,
+  }
+}
 
 export const cvGenerator = (payload) => {
   return {

@@ -49,7 +49,9 @@ const initialState = {
     displayProgressBar: false,
     telephone: 'Telefon:',
   },
-  saveData: '<p></p>',
+  saveData: '',
+  
+  newSaveData: '',
   education: [
     // {
     //   school: "",
@@ -131,6 +133,7 @@ export const newPropertiesData = (state) =>
 export const coursesData = (state) => state.CvGeneratorReducer.courses
 export const NewCoursesData = (state) => state.CvGeneratorReducer.newCourses
 export const profileRichTextData = (state) => state.CvGeneratorReducer.saveData
+export const newProfileRichTextData = (state) => state.CvGeneratorReducer.newSaveData
 export const referenceData = (state) => state.CvGeneratorReducer.references
 export const newReferenceData = (state) =>
   state.CvGeneratorReducer.newReferences
@@ -400,6 +403,13 @@ export default function CvGeneratorReducer(state = initialState, action) {
       return {
         ...state,
         saveData: action.payload,
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+       // NEW PROFILE REDUCERS ADDED
+    case actionTypes.NEWSAVEDATA:
+      return {
+        ...state,
+        newSaveData: action.payload,
         cvData: { ...state.cvData, lastModified: new Date() },
       }
     case actionTypes.ADDREFERENCE:

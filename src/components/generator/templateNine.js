@@ -456,7 +456,7 @@ const TemplateNine = () => {
               </View>
 
               <View style={styles.pageRightSection}>
-                {profileData !== '<p><br></p>' && profileData !== '<p></p>' && (
+                {profileData !== '' ? (
                   <>
                     <View style={styles.profileSection}>
                       <View style={styles.profileSectionWrapper}>
@@ -469,7 +469,7 @@ const TemplateNine = () => {
                       </View>
                     </View>
                   </>
-                )}
+                ) : null}
 
                 <View style={styles.experienceSectionWrapper}>
                   <Text style={styles.profileTitle}>Arbeidserfaring</Text>
@@ -566,7 +566,7 @@ const TemplateNine = () => {
                   <View style={styles.experienceSectionWrapper}>
                     <Text style={styles.profileTitle}>REFERANSER</Text>
                     {newToggleData ? (
-                      <Text style={{ fontWeight: 'bold', fontSize: 12, }}>
+                      <Text style={{ fontWeight: 'bold', fontSize: 12 }}>
                         Oppgis ved forespørsel
                       </Text>
                     ) : (
