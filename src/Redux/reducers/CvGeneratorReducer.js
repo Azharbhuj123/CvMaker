@@ -26,6 +26,29 @@ const initialState = {
     displayProgressBar: false,
     telephone: 'Telefon:',
   },
+  newCvData: {
+    firstName: 'Fornavn',
+    lastName: 'Etternavn',
+    email: '',
+    jobTitle: '',
+    physicalAddress: '',
+    country: '',
+    zipCode: '',
+    phone: '+090078601',
+    drivingLicense: '',
+    profileImage: '',
+    DOB: '2022 01 01',
+    twitter: 'www.twitter.com/',
+    linkedin: 'www.linkedin.com/',
+    github: 'www.github.com/',
+    stackOverflow: 'www.stackoverflow.com/',
+    website: 'www.link-to-your-portfolio.com/',
+    saveAs: 'Skriv inn CV-navn',
+    lastModified: '2022 01 01',
+    cvScreenShot: 'my inital state',
+    displayProgressBar: false,
+    telephone: 'Telefon:',
+  },
   saveData: '<p></p>',
   education: [
     // {
@@ -92,6 +115,7 @@ const initialState = {
 }
 
 export const CV_DATA = (state) => state.CvGeneratorReducer.cvData
+export const New_CV_DATA = (state) => state.CvGeneratorReducer.newCvData
 export const Education_DATA = (state) => state.CvGeneratorReducer.education
 export const New_Education_Data = (state) =>
   state.CvGeneratorReducer.newEducation
@@ -131,6 +155,13 @@ export default function CvGeneratorReducer(state = initialState, action) {
         ...state,
         cvData: action.payload,
       }
+      // NEW CVGENERATOR REDUCER
+      case actionTypes.CVNEWGENERATORDATA:
+        action.payload.lastModified = new Date()
+        return {
+          ...state,
+          newCvData: action.payload,
+        }
     case actionTypes.ADDEDUCATION:
       return {
         ...state,

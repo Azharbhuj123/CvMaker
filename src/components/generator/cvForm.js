@@ -104,8 +104,31 @@ import DatePicker, { CalendarContainer } from 'react-datepicker'
 import ReactQuill from 'react-quill'
 
 const CvForm = (props) => {
-  const dispatch = useDispatch()
   const basicInformation = useSelector(CV_DATA)
+  useEffect(() => {
+    setFirstName(basicInformation.firstName)
+    setLastName(basicInformation.lastName)
+    setEmail(basicInformation.email)
+    setPhone(basicInformation.phone)
+    setDOB(basicInformation.DOB)
+    setJobTitle(basicInformation.jobTitle)
+    setPhysicalAddress(basicInformation.physicalAddress)
+    setCountry(basicInformation.country)
+    setZipCode(basicInformation.zipCode)
+    setDrivingLiscense(basicInformation.drivingLicense)
+  }, [])
+
+  const dispatch = useDispatch()
+  const [firstName, setFirstName] = useState('Fornavn')
+  const [lastName, setLastName] = useState('Etternavn')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('+090078601')
+  const [DOB, setDOB] = useState('')
+  const [physicalAddress, setPhysicalAddress] = useState('')
+  const [country, setCountry] = useState('')
+  const [drivingLicense, setDrivingLiscense] = useState('')
+  const [zipCode, setZipCode] = useState('')
+  const [jobTitle, setJobTitle] = useState('')
   const [value, setValue] = useState('')
   const [toggle, setToggle] = useState('')
   const [test, setTest] = useState('')
@@ -402,8 +425,6 @@ const CvForm = (props) => {
     console.log(basicInformation, 'basic information check')
     dispatch(cvGenerator({ ...basicInformation, [field]: value }))
   }
-
-  
   const disableAccordian = (accordianName) => {
     dispatch(
       editAdditonalAccordian({
@@ -466,25 +487,38 @@ const CvForm = (props) => {
     cursor: 'pointer',
   }
 
-  // const updateStore = async () => {
-  //   const info = {
-  //     startDate: startDate,
-  //     endDate: endDate,
-  //     firstName: firstName,
-  //     lastName: lastName,
-  //     email: email,
-  //     phone: phone,
-  //     DOB: DOB,
-  //     physicalAddress: physicalAddress,
-  //     country: country,
-  //     zipCode: zipCode,
-  //     drivingLicense: drivingLicense,
-  //     jobTitle: jobTitle,
-  //     profileImage: profileImage,
-  //   }
-  //   await dispatch(cvGenerator({ ...info }))
-  //   console.log(updateStore, 'storeee')
-  // }
+  const updateStore = async () => {
+    const info = {
+      startDate: startDate,
+      endDate: endDate,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+      DOB: DOB,
+      physicalAddress: physicalAddress,
+      country: country,
+      zipCode: zipCode,
+      drivingLicense: drivingLicense,
+      jobTitle: jobTitle,
+      profileImage: profileImage,
+    }
+    await dispatch(cvGenerator({ ...info }))
+    console.log(updateStore, 'storeee')
+    // await dispatch(cvGenerator({ ...basicInformation, "lastName": lastName }))
+    // changeBasicInfo(firstName, 'firstName')
+    // changeBasicInfo(lastName, 'lastName')
+    // changeBasicInfo(state.lastName, 'lastName');
+    // changeBasicInfo(state.email, 'email');
+    // changeBasicInfo(state.phone, 'phone');
+    // changeBasicInfo(state.DOB, 'DOB');
+    // changeBasicInfo(state.jobTitle, 'jobTitle');
+    // changeBasicInfo(state.physicalAddress, 'physicalAddress');
+    // changeBasicInfo(state.country, 'country');
+    // changeBasicInfo(state.zipCode, 'zipCode');
+    // changeBasicInfo(state.drivingLicense, 'drivingLicense');
+    // changeBasicInfo(state.displayProgressBar, 'displayProgressBar');
+  }
 
   const enableAccordian = (accordianName) => {
     console.log(accordianName, '<=====')
@@ -555,37 +589,52 @@ const CvForm = (props) => {
         </div>
         <div className='cv-form-wrapper-inputheading'>
           <HeadInput
-            value={basicInformation.firstName}
-            onChange={(e) => changeBasicInfo(e.target.value, 'firstName')}
+            value={`${firstName}`}
+            onChange={(e) => {
+              // changeBasicInfo(e.target.value, 'firstName');
+              // setState({...(state.firstName = e.target.value)})
+              setFirstName(e.target.value)
+              // setIsRendering(false)
+            }}
             heading='Fornavn'
             inputPlaceholder='fornavn'
+            // onFocus={() => setIsRendering(false)}
           />
           <HeadInput
-            value={basicInformation.lastName}
+            value={`${lastName}`}
             onChange={(e) => {
-              changeBasicInfo(e.target.value, 'lastName')
+              // changeBasicInfo(e.target.value, 'lastName')
+              setLastName(e.target.value)
+              // setIsRendering(false)
             }}
             heading='Etternavn'
             inputPlaceholder='etternavn'
+            // onFocus={() => setIsRendering(false)}
           />
         </div>
       </div>
       <div className='cv-form-numberpost'>
         <HeadInput
-          value={basicInformation.email}
+          value={`${email}`}
           onChange={(e) => {
-            changeBasicInfo(e.target.value, 'email')
+            // changeBasicInfo(e.target.value, 'email')
+            setEmail(e.target.value)
+            // setIsRendering(false)
           }}
           heading='E-post'
           inputPlaceholder=''
+          // onFocus={() => setIsRendering(false)}
         />
         <HeadInput
-          value={basicInformation.phone}
+          value={`${phone}`}
           onChange={(e) => {
-            changeBasicInfo(e.target.value, 'phone')
+            // changeBasicInfo(e.target.value, 'phone')
+            setPhone(e.target.value)
+            // setIsRendering(false)
           }}
           heading='Telefonnummer'
           inputPlaceholder=''
+          // onFocus={() => setIsRendering(false)}
         />
         {/* <HeadInput
  value={basicInformation.jobTitle}
@@ -613,9 +662,13 @@ const CvForm = (props) => {
               ref={dateRef}
               type='date'
               className='headinput-container date-container'
-              value={basicInformation.DOB}
+              value={`${DOB}`}
+              // onFocus={() => setIsRendering(false)}
               onChange={(date) => {
-                changeBasicInfo(date.target.value, 'DOB')
+                // console.log(date.target.value, 'lll')
+                // changeBasicInfo(date.target.value, 'DOB')
+                setDOB(date.target.value)
+                // setIsRendering(false)
               }}
               yearDropdownItemNumber={100}
               scrollableYearDropdown={true}
@@ -632,10 +685,13 @@ const CvForm = (props) => {
           </div>
         </div>
         <HeadInput
-          value={basicInformation.jobTitle}
+          value={jobTitle}
           onChange={(e) => {
-            changeBasicInfo(e.target.value, 'jobTitle')
+            // changeBasicInfo(e.target.value, 'jobTitle')
+            setJobTitle(e.target.value)
+            // setIsRendering(false)
           }}
+          // onFocus={() => setIsRendering(false)}
           heading='Jobbtittel'
           inputPlaceholder='Jobbtittel'
         />
@@ -643,20 +699,30 @@ const CvForm = (props) => {
       <div className='cv-form-numberpost'>
         {moreDetails.Adresse ? (
           <HeadInput
-            value={basicInformation.physicalAddress}
+            value={physicalAddress}
             onChange={(e) => {
-              changeBasicInfo(e.target.value, 'physicalAddress')
+              {
+                // changeBasicInfo(e.target.value, 'physicalAddress')
+                setPhysicalAddress(e.target.value)
+                // setIsRendering(false)
+              }
             }}
             heading='Adresse'
             inputPlaceholder='Adresse'
+            // onFocus={() => setIsRendering(false)}
           />
         ) : null}
         {moreDetails?.By ? (
           <HeadInput
-            value={basicInformation.country}
+            value={country}
             onChange={(e) => {
-              changeBasicInfo(e.target.value, 'country')
+              {
+                // changeBasicInfo(e.target.value, 'country')
+                setCountry(e.target.value)
+                // setIsRendering(false)
+              }
             }}
+            // onFocus={() => setIsRendering(false)}
             heading='By'
             inputPlaceholder='By'
           />
@@ -665,26 +731,33 @@ const CvForm = (props) => {
       <div className='cv-form-numberpost'>
         {moreDetails.PostNummer ? (
           <HeadInput
-            value={basicInformation.zipCode}
+            value={zipCode}
             onChange={(e) => {
-              changeBasicInfo(e.target.value, 'zipCode')
+              {
+                // changeBasicInfo(e.target.value, 'zipCode')
+                setZipCode(e.target.value)
+                // setIsRendering(false)
+              }
             }}
+            // onFocus={() => setIsRendering(false)}
             heading='PostNummer'
             inputPlaceholder='PostNummer'
           />
         ) : null}
         {moreDetails.Førerkort ? (
           <HeadInput
-            value={basicInformation.drivingLicense}
+            value={drivingLicense}
             onChange={(e) => {
-              changeBasicInfo(e.target.value, 'drivingLicense')
+              {
+                // changeBasicInfo(e.target.value, 'drivingLicense')
+                setDrivingLiscense(e.target.value)
+              }
             }}
             heading='Førerkort'
             inputPlaceholder='Førerkort'
           />
         ) : null}
       </div>
-
       <div className='cv-form-addmoredetails'>
         {!moreDetails.Adresse &&
         !moreDetails.Land &&
@@ -1895,7 +1968,7 @@ const CvForm = (props) => {
       <div className='preview-button'>
         <button
           onClick={() => {
-            // updateStore()
+            updateStore()
             addEducation()
             addExperiance()
             addInternship()

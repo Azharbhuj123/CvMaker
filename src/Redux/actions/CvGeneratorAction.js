@@ -13,7 +13,14 @@ export const cvGenerator = (payload) => {
     payload,
   }
 }
-
+// NEW EDUCATION ACTONS ADDED
+export const cvNewGenerator = (payload) => {
+  return {
+    type: actionTypes.CVNEWGENERATORDATA,
+    payload,
+  }
+}
+//
 export const addEducationData = (payload) => {
   return {
     type: actionTypes.ADDEDUCATION,
