@@ -51,7 +51,6 @@ import {
   View,
 } from '@react-pdf/renderer'
 import PdfViewer from '../../pages/PdfViewer'
-import { IsRenderingContext } from '../../context/IsRenderingContext'
 
 const TemplateFourteen = (props) => {
   const [page, setPage] = useState(1)
@@ -130,13 +129,13 @@ const TemplateFourteen = (props) => {
     pageLeftHeading: {
       backgroundColor: '#4bacc6',
       paddingVertical: 30,
-      paddingHorizontal: 30,
+      paddingHorizontal: 25,
     },
     pageLeftHeadingTitle: {
       color: '#fff',
       fontFamily: 'Calibri',
       fontWeight: 900,
-      fontSize: 32,
+      fontSize: 30,
       wordBreak: 'break-all',
     },
     pageLeftHeadingDate: {
@@ -162,7 +161,7 @@ const TemplateFourteen = (props) => {
       width: '40%',
     },
     pageLeftContent: {
-      paddingHorizontal: 16,
+      paddingHorizontal: 10,
       paddingTop: 16,
     },
     pageLeftContentHeading: {
@@ -173,19 +172,19 @@ const TemplateFourteen = (props) => {
     },
     pageLeftContentHeadingColor: {
       backgroundColor: '#4bacc6',
-      height: 32,
-      width: 16,
+      height: 28,
+      width: 14,
     },
     pageLeftContentHeadingTitle: {
       fontFamily: 'Calibri',
       fontSize: 16,
       fontWeight: 500,
-      marginLeft: 25,
+      marginLeft: 20,
       marginTop: 8,
       width: 200,
     },
     pageLeftContentJobTitle: {
-      marginVertical: 16,
+      marginVertical: 12,
       marginHorizontal: 16,
       display: 'flex',
       flexDirection: 'row',
@@ -195,11 +194,12 @@ const TemplateFourteen = (props) => {
       display: 'flex',
       // flexDirection: 'row',
       justifyContent: 'space-between',
+      wordBreak: 'break-all',
     },
     pageLeftContentJobTitleHeaderText: {
       textTransform: 'uppercase',
       fontWeight: 700,
-      fontSize: 14,
+      fontSize: 13,
       wordBreak: 'break-all',
       color: 'gray',
       fontFamily: 'Calibri',
@@ -210,6 +210,7 @@ const TemplateFourteen = (props) => {
       gap: 5,
       marginLeft: 150,
       marginRight: 30,
+      justifyContent: 'flex-end',
     },
     pageLeftContentJobTitleDateText: {
       marginTop: 1,
@@ -223,8 +224,10 @@ const TemplateFourteen = (props) => {
       color: 'gray',
       wordBreak: 'break-all',
       fontSize: 12,
-      marginTop: -15,
+      marginTop: -10,
       marginBottom: 20,
+      marginLeft: 15,
+      color: 'black',
     },
     pageLeftContentEnd: {
       width: '100%',
@@ -275,43 +278,43 @@ const TemplateFourteen = (props) => {
       width: '80%',
     },
     pageRightProfile: {
-      marginTop: 20,
+      marginTop: 15,
     },
     pageRightProfileCircle: {
       alignItems: 'center',
       backgroundColor: 'gray',
-      borderRadius: 160,
-      display: 'flex',
-      height: 160,
-      justifyContent: 'center',
-      width: 160,
-    },
-    pageRightProfileCircleTwo: {
-      alignItems: 'center',
-      backgroundColor: '#ede7e7',
-      borderRadius: 160,
+      borderRadius: 140,
       display: 'flex',
       height: 140,
       justifyContent: 'center',
       width: 140,
     },
+    pageRightProfileCircleTwo: {
+      alignItems: 'center',
+      backgroundColor: '#ede7e7',
+      borderRadius: 140,
+      display: 'flex',
+      height: 120,
+      justifyContent: 'center',
+      width: 120,
+    },
     pageRightProfileCircleThree: {
       alignItems: 'center',
       backgrounColor: 'grey',
-      borderRadius: 160,
+      borderRadius: 150,
       display: 'flex',
-      height: 160,
+      height: 140,
       justifyContent: 'center',
-      width: 160,
+      width: 140,
     },
     pageRightProfileCircleFour: {
       alignItems: 'center',
       backgroundColor: 'gray',
-      borderRadius: 160,
+      borderRadius: 140,
       display: 'flex',
-      height: 125,
+      height: 105,
       justifyContent: 'center',
-      width: 125,
+      width: 105,
     },
     pageRightSectionContent: {
       alignItems: 'center',
@@ -324,22 +327,22 @@ const TemplateFourteen = (props) => {
     pageRightSectionContentTitle: {
       borderBottom: '4px solid #4bacc6',
       fontFamily: 'Calibri',
-      fontWeight: 700,
-      fontSize: 18,
-      letterSpacing: 1,
+      fontWeight: 800,
+      fontSize: 16,
+      letterSpacing: 0.7,
       marginTop: 12,
-      paddingBottom: 4,
+      paddingBottom: 2,
       width: 'auto',
       wordBreak: 'break-all',
     },
     pageRightSectionContentText: {
       fontFamily: 'Calibri',
-      fontSize: 10,
+      fontSize: 9,
       marginTop: 16,
       paddingBottom: 8,
       textAlign: 'center',
       wordBreak: 'break-all',
-      color: 'gray',
+      color: 'grey',
     },
     pageRightSectionContentList: {
       alignItems: 'center',
@@ -363,7 +366,7 @@ const TemplateFourteen = (props) => {
     },
     pageRightSectionContenttext: {
       fontFamily: 'Calibri',
-      fontSize: 12,
+      fontSize: 11,
       marginBottom: 8,
       textAlign: 'center',
       width: '80%',
@@ -383,7 +386,6 @@ const TemplateFourteen = (props) => {
       fontWeight: 700,
       fontSize: 18,
       letterSpacing: 1,
-
       paddingBottom: 4,
       width: 'auto',
       wordBreak: 'break-all',
@@ -402,7 +404,7 @@ const TemplateFourteen = (props) => {
     },
     pageRightSectionReferenceBoxLeftText: {
       fontFamily: 'Calibri',
-      fontSize: 14,
+      fontSize: 13,
       fontWeight: 500,
       wordBreak: 'break-all',
       margin: 0,
@@ -413,7 +415,7 @@ const TemplateFourteen = (props) => {
     },
     pageRightSectionReferenceBoxRightText: {
       fontFamily: 'Calibri',
-      fontSize: 12,
+      fontSize: 11,
       wordBreak: 'break-all',
       margin: 0,
       padding: 0,
@@ -422,7 +424,7 @@ const TemplateFourteen = (props) => {
     pageRightSectionReferenceBoxLeftHeading: {
       textAlign: 'left',
       fontWeight: 600,
-      fontSize: 14,
+      fontSize: 12,
       wordbreak: 'break-all',
       fontFamily: 'Calibri',
     },
@@ -439,12 +441,11 @@ const TemplateFourteen = (props) => {
       width: '100%',
     },
   })
-  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
+
   return (
     <>
       <PDFViewer style={styles.document}>
         <Document style={styles.document}>
-          {isRendering ? (
             <Page size='A4' style={styles.page}>
               <View style={styles.pageLeftSection}>
                 <View style={styles.pageLeftHeading}>
@@ -698,11 +699,11 @@ const TemplateFourteen = (props) => {
                             style={{
                               alignItems: 'center',
                               backgroundColor: '#ede7e7',
-                              borderRadius: 160,
+                              borderRadius: 140,
                               display: 'flex',
-                              height: 140,
+                              height: 120,
                               justifyContent: 'center',
-                              width: 140,
+                              width: 120,
                             }}
                           />
                         ) : (
@@ -891,8 +892,9 @@ const TemplateFourteen = (props) => {
                         <Text
                           style={{
                             textAlign: 'left',
-                            fontSize: '14px',
+                            fontSize: '10px',
                             color: 'grey',
+                            marginTop: '15px',
                           }}
                         >
                           Oppgis ved forespørsel
@@ -933,7 +935,6 @@ const TemplateFourteen = (props) => {
                 </View>
               </View>
             </Page>
-          ) : null}
         </Document>
       </PDFViewer>
       {/* <div className='preview-button'>

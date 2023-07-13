@@ -39,9 +39,6 @@ import {
   Font,
   StyleSheet,
 } from '@react-pdf/renderer'
-import Html from 'react-pdf-html'
-import { IsRenderingContext } from '../../context/IsRenderingContext'
-import { useContext } from 'react'
 
 const TemplateNine = () => {
   let printButtonRef = useRef()
@@ -174,7 +171,7 @@ const TemplateNine = () => {
     detailTitle: {
       fontFamily: 'Times New Roman',
       fontWeight: 900,
-      fontSize: 20,
+      fontSize: 18,
       position: 'relative',
       paddingBottom: 5,
       textDecoration: 'none',
@@ -182,7 +179,7 @@ const TemplateNine = () => {
     addressTitle: {
       fontFamily: 'Times New Roman',
       fontWeight: 900,
-      fontSize: 14,
+      fontSize: 12,
       paddingVertical: 10,
       paddingHorizontal: 0,
     },
@@ -241,7 +238,7 @@ const TemplateNine = () => {
     },
     languageTitle: {
       fontFamily: 'Times New Roman',
-      fontSize: 20,
+      fontSize: 16,
       fontWeight: 700,
       color: 'white',
       paddingTop: 10,
@@ -250,7 +247,7 @@ const TemplateNine = () => {
     },
     languageText: {
       fontFamily: 'Calibri',
-      fontSize: 12,
+      fontSize: 11,
       color: 'white',
     },
     pageRightSection: {
@@ -263,12 +260,17 @@ const TemplateNine = () => {
     },
     profileTitle: {
       fontFamily: 'Times New Roman',
-      fontSize: 20,
+      fontSize: 16,
       color: 'black',
       fontWeight: 'bold',
       position: 'relative',
-      paddingBottom: 5,
+      paddingBottom: 10,
       textDecoration: 'none',
+    },
+    profileTitleToggle: {
+      fontSize: 14,
+      fontWeight: 'Bold',
+      fontFamily: 'Calibri',
     },
     profilePara: {
       fontFamily: 'Calibri',
@@ -306,12 +308,12 @@ const TemplateNine = () => {
       marginTop: 8,
     },
   })
-  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
+
   return (
     <>
       <PDFViewer style={styles.document}>
         <Document style={styles.document}>
-          {isRendering ? (
+
             <Page size='A4' style={styles.page}>
               <View style={styles.pageLeftSection}>
                 <View style={styles.titleBox}>
@@ -363,9 +365,10 @@ const TemplateNine = () => {
                             key={index}
                             style={{
                               width: '100%',
-                              textAlign: 'center',
-                              fontFamily: 'Oswald',
+                              textAlign: 'left',
+                              fontFamily: 'Calibri',
                               fontWeight: 'bold',
+                              marginTop: '10px',
                             }}
                           >
                             {console.log(
@@ -566,7 +569,7 @@ const TemplateNine = () => {
                   <View style={styles.experienceSectionWrapper}>
                     <Text style={styles.profileTitle}>REFERANSER</Text>
                     {newToggleData ? (
-                      <Text style={{ fontWeight: 'bold', fontSize: 12 }}>
+                      <Text style={styles.profileTitleToggle}>
                         Oppgis ved forespørsel
                       </Text>
                     ) : (
@@ -584,12 +587,10 @@ const TemplateNine = () => {
                 ) : null}
               </View>
             </Page>
-          ) : null}
+
         </Document>
       </PDFViewer>
-      {/* <div className='preview-button'>
-        <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
-      </div> */}
+
     </>
   )
 }

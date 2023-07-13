@@ -52,7 +52,7 @@ import {
   Image,
 } from '@react-pdf/renderer'
 import { useContext } from 'react'
-import { IsRenderingContext } from '../../context/IsRenderingContext'
+
 
 Font.register({
   family: 'Oswald',
@@ -320,13 +320,11 @@ const TemplateFive = () => {
       printButtonRef.current.click()
     }
   }, [displayTemplate])
-  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
 
   return (
     <>
       <PDFViewer style={styles.document}>
         <Document style={styles.document}>
-          {isRendering ? (
             <Page size='A4' style={styles.page}>
               <View style={styles.container}>
                 <View style={styles.headingSection}>
@@ -854,7 +852,6 @@ const TemplateFive = () => {
                 </View>
               </View>
             </Page>
-          ) : null}
         </Document>
       </PDFViewer>
       {/* <div className='preview-button'>

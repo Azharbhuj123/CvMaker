@@ -42,7 +42,6 @@ const Templatetwelve = () => {
   const hobbies = useSelector(getHobbies)
   const internships = useSelector(getInternships)
   const enabledAccordians = useSelector(getAdditionalAccordian)
-  const [isRendering, setIsRendering] = useState(false)
   
   if (displayTemplate && displayTemplate === true) {
     console.log(

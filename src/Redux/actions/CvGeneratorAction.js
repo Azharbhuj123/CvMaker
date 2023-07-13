@@ -301,6 +301,12 @@ export const editAdditonalAccordian = (payload) => {
     payload,
   }
 }
+export const editNewAdditonalAccordian = (payload) => {
+  return {
+    type: actionTypes.EDITNEWADDITIONALACCORDIAN,
+    payload,
+  }
+}
 
 export const editInternship = (payload) => {
   return {

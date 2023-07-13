@@ -378,9 +378,9 @@
 }
 
 .swal2-default-outline {
-  color: black!important;
+  color: black !important;
   font-size: 14px;
-    font-family: Montserrat;
+  font-family: Montserrat;
 }
 
 @media only screen and (max-width: 760px) and (min-width: 280px) {
@@ -433,7 +433,6 @@
   .generator-container-left-content {
     margin: 2rem;
   }
-
   .generator-accordian-textfields {
     display: flex;
     flex-direction: column;
@@ -604,14 +603,13 @@
   .mobilescreenfooter-container {
     display: none;
   }
-
 }
 
 @media only screen and (max-width: 768px) and (min-width: 320px) {
-  .quill{
+  .quill {
     resize: none;
   }
-  .ql-container{
+  .ql-container {
     height: max-content !important;
   }
 }
@@ -778,5 +776,3 @@
     width: 100%;
   }
 }
-
-

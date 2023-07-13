@@ -37,7 +37,6 @@ const MobileScreenHeader = () => {
       ) : (
         <GiHamburgerMenu id="burerbtn"
           style={{ color: "#EEB856", }}
-         
           onClick={() => setOpen(!open)}
         />
       )}

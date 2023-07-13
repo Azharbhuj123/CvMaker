@@ -50,7 +50,7 @@ const initialState = {
     telephone: 'Telefon:',
   },
   saveData: '',
-  
+
   newSaveData: '',
   education: [
     // {
@@ -92,6 +92,12 @@ const initialState = {
     { name: '', companyName: '', email: '', enableAccordian: true },
   ],
   additionalAccordian: {
+    Kurs: false,
+    Praksisplasser: false,
+    Hobbyer: false,
+    Referanser: false,
+  },
+  newAdditionalAccordian: {
     Kurs: false,
     Praksisplasser: false,
     Hobbyer: false,
@@ -140,6 +146,8 @@ export const newReferenceData = (state) =>
 export const configData = (state) => state.CvGeneratorReducer.config
 export const getAdditionalAccordian = (state) =>
   state.CvGeneratorReducer.additionalAccordian
+export const getNewAdditionalAccordian = (state) =>
+  state.CvGeneratorReducer.newAdditionalAccordian
 export const getInternships = (state) => state.CvGeneratorReducer.internships
 export const getNewInternships = (state) =>
   state.CvGeneratorReducer.newInternship
@@ -455,6 +463,12 @@ export default function CvGeneratorReducer(state = initialState, action) {
         cvData: { ...state.cvData, lastModified: new Date() },
       }
     case actionTypes.EDITADDITIONALACCORDIAN:
+      return {
+        ...state,
+        additionalAccordian: action.payload,
+        cvData: { ...state.cvData, lastModified: new Date() },
+      }
+      case actionTypes.EDITNEWADDITIONALACCORDIAN:
       return {
         ...state,
         additionalAccordian: action.payload,

@@ -13,30 +13,30 @@ html {
   background-color: #ffffff;
 }
 
-$font: "Montserrat";
+$font: 'Montserrat';
 
 @font-face {
-  font-family: "Montserrat";
-  src: url("../assests/fonts/Montserrat.ttf");
+  font-family: 'Montserrat';
+  src: url('../assests/fonts/Montserrat.ttf');
 }
 *::-webkit-scrollbar {
 }
 @font-face {
-  font-family: "Myriad Pro";
-  src: url("../assests/fonts/myriad-pro/MYRIADPRO-REGULAR.OTF");
+  font-family: 'Myriad Pro';
+  src: url('../assests/fonts/myriad-pro/MYRIADPRO-REGULAR.OTF');
 }
 
-ol{
+ol {
   margin-left: 40px;
 }
-ul{
+ul {
   margin-left: 40px;
 }
 
 div > ul {
   margin-left: 40px;
 }
-.template-eight-container-content-right-content{
+.template-eight-container-content-right-content {
   font-weight: 300;
 }
 
@@ -59,7 +59,11 @@ div > ul {
     width: 90%;
   }
 }
-
+@media screen and (max-width: 768px) {
+  .preview-button {
+    display: none !important;
+  }
+}
 .modal {
   position: fixed;
   top: 0;

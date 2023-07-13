@@ -37,7 +37,6 @@ import robotoBold from '../../assests/fonts/roboto/Roboto-Bold.ttf'
 import robotoItalic from '../../assests/fonts/roboto/Roboto-Italic.ttf'
 import robotoRegular from '../../assests/fonts/roboto/Roboto-Regular.ttf'
 import robotoBoldItalic from '../../assests/fonts/roboto/Roboto-BoldItalic.ttf'
-import { IsRenderingContext } from '../../context/IsRenderingContext'
 import { useContext } from 'react'
 
 const TemplateThree = () => {
@@ -290,13 +289,10 @@ const TemplateThree = () => {
     },
   })
 
-  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
-
   return (
     <>
       <PDFViewer style={styles.document}>
         <Document style={styles.document}>
-          {isRendering ? (
             <Page size='A4' style={styles.page}>
               <View style={styles.container}>
                 <View style={styles.header}>
@@ -691,7 +687,6 @@ const TemplateThree = () => {
                 </View>
               </View>
             </Page>
-          ) : null}
         </Document>
       </PDFViewer>
       {/* <div className='preview-button'>

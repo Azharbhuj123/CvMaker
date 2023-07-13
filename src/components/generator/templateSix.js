@@ -32,13 +32,13 @@ import {
 import EndreMaalButton from '../endreMaalButton/EndreMaalButton'
 import { sendFileToBackend } from '../../helper/helperFunctions'
 import arialRegular from '../../assests/fonts/Arial/arial.ttf'
+import arialBold from '../../assests/fonts/Arial/Arial-bold.ttf'
 import profileImg from '../../assests/images/pr.png'
 import { useContext } from 'react'
-import { IsRenderingContext } from '../../context/IsRenderingContext'
 
 Font.register({
   family: 'Arial',
-  fonts: [{ src: arialRegular }],
+  fonts: [{ src: arialRegular }, { src: arialBold }],
 })
 
 const styles = StyleSheet.create({
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     fontWeight: 300,
     color: 'rgb(79, 129, 189)',
-    fontSize: 32,
+    fontSize: 30,
     wordBreak: 'break-word',
   },
   headerHeadingJobtitle: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerHeadingJobtitleText: {
-    fontSize: 14,
+    fontSize: 13,
     fontFamily: 'Arial',
   },
   headerHeadingOne: {
@@ -104,8 +104,9 @@ const styles = StyleSheet.create({
   headerHeadingOneLeftText: {
     marginTop: 2,
     fontFamily: 'Arial',
-    fontSize: 12,
+    fontSize: 11,
     overflowWrap: 'break-word',
+    fontWeight: 'light',
   },
   headerHeadingOneRight: {
     display: 'flex',
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
   },
   profileSection: {
     width: '100%',
-    margintop: 10,
+    marginTop: 10,
     display: 'flex',
     flexDirection: 'column',
     gap: 8,
@@ -133,14 +134,14 @@ const styles = StyleSheet.create({
   profileSectionTitle: {
     textTransform: 'uppercase',
     fontFamily: 'Arial',
-    fontSize: 20,
-    fontWeight: 400,
+    fontSize: 18,
+    fontWeight: 'light',
     color: 'rgb(79, 129, 189)',
     wordBreak: 'break-word',
   },
   profileSectionPara: {
     fontFamily: 'Arial',
-    fontSize: 10,
+    fontSize: 9,
     textTransform: 'uppercase',
     paddingBottom: 30,
     wordBreak: 'break-word',
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
     width: '35%',
   },
   contentSectionHeadingLeftTitle: {
-    fontSize: 20,
+    fontSize: 18,
     color: 'rgb(79, 129, 189)',
     fontFamily: 'Arial',
   },
@@ -175,11 +176,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   contentSectionHeadingRightText: {
-    marginLeft: 15,
+    marginLeft: 14,
     marginTop: 8,
     fontSize: 14,
     fontFamily: 'Arial',
-    fontWeight: 'bold',
+    fontWeight: 700,
+  },
+  contentSectionHeadingRightTextToggle: {
+    marginLeft: 14,
+    marginTop: 8,
+    fontSize: 11,
+    fontFamily: 'Arial',
+  },
+  sparkSectionHeadingRightText: {
+    marginLeft: 14,
+    fontSize: 12,
+    fontFamily: 'Arial',
   },
   contentSectionHeadingRightPara: {
     overflowWrap: 'break-word',
@@ -198,25 +210,20 @@ const styles = StyleSheet.create({
     width: 5,
     height: 5,
     borderRadius: 4,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
+    border: '1px solid black',
     marginRight: 8,
   },
   markerText: {
     fontFamily: 'Arial',
-    fontSize: 14,
+    fontSize: 12,
     wordBreak: 'break-all',
   },
   contentSectionHeadingRightTitle: {
-    marginLeft: 20,
+    marginLeft: 14,
     marginTop: 10,
     fontFamily: 'Arial',
     fontSize: 16,
-    fontWeight: 'bold',
-  },
-  contentSectionHeadingRightText: {
-    fontSize: 12,
-    marginLeft: 20,
-    fontFamily: 'Arial',
     fontWeight: 'bold',
   },
   contentSectionHeadingRightreference: {
@@ -280,12 +287,10 @@ const TemplateSix = () => {
     }
   }, [displayTemplate])
 
-  const { isRendering, setIsRendering } = useContext(IsRenderingContext)
   return (
     <>
       <PDFViewer style={styles.document}>
         <Document style={styles.document}>
-          {isRendering && (
             <Page size='A4' style={styles.page}>
               <View style={styles.container}>
                 <View style={styles.header}>
@@ -545,7 +550,7 @@ const TemplateSix = () => {
                       </Text>
                       {languages.map((item, index) => (
                         <Text
-                          style={styles.contentSectionHeadingRightText}
+                          style={styles.sparkSectionHeadingRightText}
                           key={index}
                         >
                           {item.name} {item?.value}
@@ -562,7 +567,7 @@ const TemplateSix = () => {
                         </Text>
                         {hobbies.map((item, index) => (
                           <Text
-                            style={styles.contentSectionHeadingRightText}
+                            style={styles.sparkSectionHeadingRightText}
                             key={index}
                           >
                             {item.name}
@@ -581,7 +586,7 @@ const TemplateSix = () => {
                         </Text>
                         {courses.map((item, index) => (
                           <Text
-                            style={styles.contentSectionHeadingRightText}
+                            style={styles.sparkSectionHeadingRightText}
                             key={index}
                           >
                             {item.name}
@@ -610,7 +615,9 @@ const TemplateSix = () => {
                           <View style={styles.contentSectionHeadingRight}>
                             {newToggleData ? (
                               <Text
-                                style={styles.contentSectionHeadingRightText}
+                                style={
+                                  styles.contentSectionHeadingRightTextToggle
+                                }
                               >
                                 Oppgis ved forespørsel
                               </Text>
@@ -622,7 +629,7 @@ const TemplateSix = () => {
                                   {item?.name} - {item?.companyName}
                                 </Text>
                                 <Text
-                                  style={styles.contentSectionHeadingRightText}
+                                  style={styles.sparkSectionHeadingRightText}
                                 >
                                   {item?.email}
                                 </Text>
@@ -636,7 +643,6 @@ const TemplateSix = () => {
                 </View>
               </View>
             </Page>
-          )}
         </Document>
       </PDFViewer>
       {/* <div className='preview-button'>
