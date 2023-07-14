@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { AltHeadInput, HeadInput } from './primaryInput'
 import { FaCamera } from 'react-icons/fa'
-import GeneratorAccordian from './generatorAccordian'
 import ClosedGeneratorAccordian from './closedGeneratorAccordian'
 import { useDispatch, useSelector } from 'react-redux'
 import { HiPlus } from 'react-icons/hi'
@@ -53,8 +52,6 @@ import {
   addNewProperty,
   editNewProperty,
   saveData,
-  editNewAdditonalAccordian,
-  cvNewGenerator,
 } from '../../Redux/actions/CvGeneratorAction'
 import {
   coursesData,
@@ -78,8 +75,6 @@ import {
   newReferenceData,
   getNewRefToggle,
   newPropertiesData,
-  getNewAdditionalAccordian,
-  New_CV_DATA,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import AddDetails from './addDetails'
 import ExperianceGeneratorAccordian from './experianceGeneratorAccordian'
@@ -153,7 +148,6 @@ const CvForm = (props) => {
   const internships = useSelector(getInternships)
   const hobbies = useSelector(getHobbies)
   const additionalAccordians = useSelector(getAdditionalAccordian)
-  const newAdditionalAccordians = useSelector(getNewAdditionalAccordian)
   const toggleData = useSelector(getRefToggle)
   const text = localStorage.getItem('uniqueText')
   // Utdanning
@@ -448,20 +442,10 @@ const CvForm = (props) => {
     console.log(basicInformation, 'basic information check')
     dispatch(cvGenerator({ ...basicInformation, [field]: value }))
   }
-
   const disableAccordian = (accordianName) => {
     dispatch(
       editAdditonalAccordian({
         ...additionalAccordians,
-        [accordianName]: false,
-      })
-    )
-  }
-
-  const newDisableAccordian = (accordianName) => {
-    dispatch(
-      editNewAdditonalAccordian({
-        ...newAdditionalAccordians,
         [accordianName]: false,
       })
     )
@@ -536,7 +520,7 @@ const CvForm = (props) => {
       drivingLicense: drivingLicense,
       jobTitle: jobTitle,
       profileImage: profileImage,
-      // progressBar: basicInformation.progressBar,
+      progressBar: basicInformation.progressBar,
     }
     await dispatch(cvGenerator({ ...info }))
     console.log(updateStore, 'storeee')
@@ -548,7 +532,6 @@ const CvForm = (props) => {
       editAdditonalAccordian({ ...additionalAccordians, [accordianName]: true })
     )
   }
-  
 
   const onToggleChange = (nextChecked) => {
     dispatch(refrencNewToggle(nextChecked))
@@ -1266,13 +1249,17 @@ const CvForm = (props) => {
         <h2>Ferdigheter</h2>
         <div style={{ paddingTop: '8px' }} className='swtichbtnwithpara'>
           <Switch
-            checked={basicInformation.displayProgressBar}
+            checked={
+              basicInformation.displayProgressBar
+              // progressBar
+            }
             onColor='#EEB856'
             onChange={() => {
               changeBasicInfo(
                 !basicInformation.displayProgressBar,
                 'displayProgressBar'
               )
+              // setProgressBar(true)
             }}
           />
           <p>Vis ferdighetsgrad (anbefales av) </p>
@@ -1980,7 +1967,6 @@ const CvForm = (props) => {
             addReference()
             addProperty()
             profileUpdate()
-            disableAccordian()
           }}
         >
           Forhåndsvisning CV

@@ -243,7 +243,7 @@ const TemplateThree = () => {
       width: '12%',
       borderBottom: '3px solid black',
       position: 'absolute',
-      top: 22,
+      top: 23,
       left: '0%',
     },
     experienceSection: {
@@ -293,400 +293,376 @@ const TemplateThree = () => {
     <>
       <PDFViewer style={styles.document}>
         <Document style={styles.document}>
-            <Page size='A4' style={styles.page}>
-              <View style={styles.container}>
-                <View style={styles.header}>
-                  <Text style={styles.headerTitle}>
-                    {cvData?.firstName + ' ' + cvData?.lastName}
-                  </Text>
-                  <Text style={styles.headerSubtitle}>{cvData.jobTitle}</Text>
-                </View>
+          <Page size='A4' style={styles.page}>
+            <View style={styles.container}>
+              <View style={styles.header}>
+                <Text style={styles.headerTitle}>
+                  {cvData?.firstName + ' ' + cvData?.lastName}
+                </Text>
+                <Text style={styles.headerSubtitle}>{cvData.jobTitle}</Text>
+              </View>
 
-                <View style={styles.containerWrapper}>
-                  <View style={styles.containerWrapperLeft}>
-                    <View style={styles.containerWrapperLeftContent}>
-                      <Text style={styles.containerWrapperLeftContentTitle}>
-                        DETALJER
-                      </Text>
-                      <Text
-                        style={styles.containerWrapperLeftContentTitleLine}
-                      ></Text>
-                      {cvData.physicalAddress === '' ? null : (
-                        <View
-                          style={styles.containerWrapperLeftContentSubtitle}
+              <View style={styles.containerWrapper}>
+                <View style={styles.containerWrapperLeft}>
+                  <View style={styles.containerWrapperLeftContent}>
+                    <Text style={styles.containerWrapperLeftContentTitle}>
+                      DETALJER
+                    </Text>
+                    <Text
+                      style={styles.containerWrapperLeftContentTitleLine}
+                    ></Text>
+                    {cvData.physicalAddress === '' ? null : (
+                      <View style={styles.containerWrapperLeftContentSubtitle}>
+                        <Text
+                          style={
+                            styles.containerWrapperLeftContentSubtitleHeading
+                          }
                         >
-                          <Text
-                            style={
-                              styles.containerWrapperLeftContentSubtitleHeading
-                            }
-                          >
-                            Adresse
-                          </Text>
-                          <Text
-                            style={
-                              styles.containerWrapperLeftContentSubtitleText
-                            }
-                          >
-                            {cvData?.physicalAddress}
-                          </Text>
-                        </View>
-                      )}
-
-                      {cvData.phone === '' ? null : (
-                        <View
-                          style={styles.containerWrapperLeftContentSubtitle}
+                          Adresse
+                        </Text>
+                        <Text
+                          style={styles.containerWrapperLeftContentSubtitleText}
                         >
-                          <Text
-                            style={
-                              styles.containerWrapperLeftContentSubtitleHeading
-                            }
-                          >
-                            TELEFON
-                          </Text>
-                          <Text
-                            style={
-                              styles.containerWrapperLeftContentSubtitleText
-                            }
-                          >
-                            {cvData?.phone}
-                          </Text>
-                        </View>
-                      )}
+                          {cvData?.physicalAddress}
+                        </Text>
+                      </View>
+                    )}
 
-                      {cvData?.email === '' ? null : (
-                        <View
-                          style={styles.containerWrapperLeftContentSubtitle}
+                    {cvData.phone === '' ? null : (
+                      <View style={styles.containerWrapperLeftContentSubtitle}>
+                        <Text
+                          style={
+                            styles.containerWrapperLeftContentSubtitleHeading
+                          }
                         >
-                          <Text
-                            style={
-                              styles.containerWrapperLeftContentSubtitleHeading
-                            }
-                          >
-                            E-POST
-                          </Text>
-                          <Text
-                            style={
-                              styles.containerWrapperLeftContentSubtitleText
-                            }
-                          >
-                            {cvData?.email}
-                          </Text>
-                        </View>
-                      )}
-
-                      {cvData.DOB === '' ? null : (
-                        <View
-                          style={styles.containerWrapperLeftContentSubtitle}
+                          TELEFON
+                        </Text>
+                        <Text
+                          style={styles.containerWrapperLeftContentSubtitleText}
                         >
-                          <Text
-                            style={
-                              styles.containerWrapperLeftContentSubtitleHeading
-                            }
-                          >
-                            FØDSELSDATO
-                          </Text>
-                          <Text
-                            style={
-                              styles.containerWrapperLeftContentSubtitleText
-                            }
-                          >
-                            {moment(cvData?.DOB).format('DD,MM,YYYY')}
-                          </Text>
-                        </View>
-                      )}
+                          {cvData?.phone}
+                        </Text>
+                      </View>
+                    )}
 
-                      {cvData.country === '' ? null : (
-                        <View
-                          style={styles.containerWrapperLeftContentSubtitle}
+                    {cvData?.email === '' ? null : (
+                      <View style={styles.containerWrapperLeftContentSubtitle}>
+                        <Text
+                          style={
+                            styles.containerWrapperLeftContentSubtitleHeading
+                          }
                         >
-                          <Text
-                            style={
-                              styles.containerWrapperLeftContentSubtitleHeading
-                            }
-                          >
-                            BY
-                          </Text>
-                          <Text
-                            style={
-                              styles.containerWrapperLeftContentSubtitleText
-                            }
-                          >
-                            {cvData?.country}
-                          </Text>
-                        </View>
-                      )}
-
-                      {cvData.zipCode === '' ? null : (
-                        <View
-                          style={styles.containerWrapperLeftContentSubtitle}
+                          E-POST
+                        </Text>
+                        <Text
+                          style={styles.containerWrapperLeftContentSubtitleText}
                         >
-                          <Text
-                            style={
-                              styles.containerWrapperLeftContentSubtitleHeading
-                            }
-                          >
-                            POST KODE
-                          </Text>
-                          <Text
-                            style={
-                              styles.containerWrapperLeftContentSubtitleText
-                            }
-                          >
-                            {cvData?.zipCode}
-                          </Text>
-                        </View>
-                      )}
-                    </View>
+                          {cvData?.email}
+                        </Text>
+                      </View>
+                    )}
 
-                    <View style={styles.progressWrapper}>
-                      <Text style={styles.containerWrapperLeftContentTitle}>
-                        FERDIGHETER
-                      </Text>
-                      {skillData?.map((item, index) =>
-                        cvData.displayProgressBar === true ? (
-                          <View>
-                            <Text
-                              style={{
-                                fontSize: '10px',
-                                fontFamily: 'Roboto',
-                                fontWeight: 600,
-                                marginTop: '5px',
-                                width: '80%',
-                              }}
-                            >
-                              {item?.name}
-                            </Text>
-                            <View
-                              style={{
-                                color: 'white',
-                                width: `${item?.value}%`,
-                                borderBottom: 'dotted',
-                                marginTop: '5px',
-                                borderBottom: '2px dotted black',
-                              }}
-                            ></View>
-                          </View>
-                        ) : (
-                          // <Text
-                          //   style={styles.containerWrapperLeftContentTitleLine}
-                          // ></Text>
-                          <Text style={styles.progressWrapperText}>
+                    {cvData.DOB === '' ? null : (
+                      <View style={styles.containerWrapperLeftContentSubtitle}>
+                        <Text
+                          style={
+                            styles.containerWrapperLeftContentSubtitleHeading
+                          }
+                        >
+                          FØDSELSDATO
+                        </Text>
+                        <Text
+                          style={styles.containerWrapperLeftContentSubtitleText}
+                        >
+                          {moment(cvData?.DOB).format('DD,MM,YYYY')}
+                        </Text>
+                      </View>
+                    )}
+
+                    {cvData.country === '' ? null : (
+                      <View style={styles.containerWrapperLeftContentSubtitle}>
+                        <Text
+                          style={
+                            styles.containerWrapperLeftContentSubtitleHeading
+                          }
+                        >
+                          BY
+                        </Text>
+                        <Text
+                          style={styles.containerWrapperLeftContentSubtitleText}
+                        >
+                          {cvData?.country}
+                        </Text>
+                      </View>
+                    )}
+
+                    {cvData.zipCode === '' ? null : (
+                      <View style={styles.containerWrapperLeftContentSubtitle}>
+                        <Text
+                          style={
+                            styles.containerWrapperLeftContentSubtitleHeading
+                          }
+                        >
+                          POST KODE
+                        </Text>
+                        <Text
+                          style={styles.containerWrapperLeftContentSubtitleText}
+                        >
+                          {cvData?.zipCode}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+
+                  <View style={styles.progressWrapper}>
+                    <Text style={styles.containerWrapperLeftContentTitle}>
+                      FERDIGHETER
+                    </Text>
+                    <Text
+                      style={styles.containerWrapperLeftContentTitleLine}
+                    ></Text>
+                    {skillData?.map((item, index) =>
+                      cvData.displayProgressBar === true ? (
+                        <View>
+                          <Text
+                            style={{
+                              fontSize: '10px',
+                              fontFamily: 'Roboto',
+                              fontWeight: 600,
+                              marginTop: '5px',
+                              width: '80%',
+                            }}
+                          >
                             {item?.name}
                           </Text>
-                        )
-                      )}
-                    </View>
-
-                    <View style={styles.progressWrapper}>
-                      <Text style={styles.containerWrapperLeftContentTitle}>
-                        ANNET
-                      </Text>
-                      <Text
-                        style={styles.containerWrapperLeftContentTitleLine}
-                      ></Text>
-                      <View style={styles.otherSection}>
-                        <Text style={styles.otherSectionTitle}>Språk</Text>
-                        {lanuages?.map((item, index) => (
-                          <Text style={styles.otherSectionPara} key={index}>
-                            {item.name} {item?.value}
-                          </Text>
-                        ))}
-
-                        {accordiansEnabled.Hobbyer === true ? (
-                          <>
-                            <Text style={styles.otherSectionTitle}>Hobby</Text>
-                            {hobbies?.map((item, index) => (
-                              <Text style={styles.otherSectionPara} key={index}>
-                                {index === hobbies.length - 1
-                                  ? item.name + '.'
-                                  : item.name + ', '}
-                              </Text>
-                            ))}
-                          </>
-                        ) : null}
-
-                        {accordiansEnabled.Kurs === true ? (
-                          <>
-                            <Text style={styles.otherSectionTitle}>Kurs</Text>
-                            {courses?.map((item, index) => (
-                              <Text style={styles.otherSectionPara} key={index}>
-                                {item.name}
-                              </Text>
-                            ))}
-                          </>
-                        ) : null}
-                      </View>
-                    </View>
+                          <View
+                            style={{
+                              color: 'white',
+                              width: `${item?.value}%`,
+                              borderBottom: 'dotted',
+                              marginTop: '5px',
+                              borderBottom: '2px dotted black',
+                            }}
+                          ></View>
+                        </View>
+                      ) : (
+                        <Text style={styles.progressWrapperText}>
+                          {item?.name}
+                        </Text>
+                      )
+                    )}
                   </View>
 
-                  <View style={styles.containerWrapperRight}>
-                    {profileData !== ''? (
-                        <View style={styles.profileSection}>
-                          <Text style={styles.profileWrapperLeftContentTitle}>
-                            PROFIL
-                          </Text>
-                          <Text
-                            style={styles.profileWrapperLeftContentTitleLine}
-                          ></Text>
-
-                          <View style={styles.profileSectionPara}>
-                            <Text style={styles.profileSectionParaText}>
-                              {profileData.replace(/(<([^>]+)>)/gi, '')}
-                            </Text>
-                          </View>
-                        </View>
-                      ): null}
-
-                    <View style={styles.experienceSection}>
-                      <Text style={styles.profileWrapperLeftContentTitle}>
-                        ARBEIDSERFARING
-                      </Text>
-                      <Text
-                        style={styles.profileWrapperLeftContentTitleLine}
-                      ></Text>
-                      {experianceData?.map((item) => (
-                        <View style={styles.profileLeftContent}>
-                          <Text style={styles.profileLeftContentText}>
-                            {item?.jobTitle + ' - ' + item?.employer}
-                          </Text>
-
-                          <View style={styles.profileLeftContent}>
-                            <Text style={styles.profileLeftContentDate}>
-                              {item.startDate.length === 0
-                                ? 'Startdato -'
-                                : moment(item?.startDate).format('YYYY MM') +
-                                  ' -  '}{' '}
-                              {item.toggle
-                                ? 'dags dato'
-                                : item.endDate.length === 0
-                                ? ' Sluttdato'
-                                : moment(item?.endDate).format('YYYY-MM')}
-                            </Text>
-                          </View>
-
-                          <View style={styles.profileLeftPara}>
-                            <Text style={styles.profileLeftParaText}>
-                              {item.additionalInformation.replace(
-                                /(<([^>]+)>)/gi,
-                                ''
-                              )}
-                            </Text>
-                          </View>
-                        </View>
-                      ))}
-                    </View>
-
-                    <View style={styles.experienceSection}>
-                      <Text style={styles.profileWrapperLeftContentTitle}>
-                        UTDANNING
-                      </Text>
-                      <Text
-                        style={styles.profileWrapperLeftContentTitleLine}
-                      ></Text>
-                      {educationData?.map((item) => (
-                        <View style={styles.profileLeftContent}>
-                          <Text style={styles.profileLeftContentText}>
-                            {item?.study + ' - ' + item?.school}
-                          </Text>
-
-                          <View style={styles.profileLeftContent}>
-                            <Text style={styles.profileLeftContentDate}>
-                              {item.startDate.length === 0
-                                ? 'Startdato -'
-                                : moment(item?.startDate).format('YYYY MM') +
-                                  ' - '}
-                              {item.toggle
-                                ? 'dags dato'
-                                : item.endDate.length === 0
-                                ? ' Sluttdato'
-                                : moment(item?.endDate).format('YYYY-MM')}
-                            </Text>
-                          </View>
-
-                          <View style={styles.profileLeftPara}>
-                            <Text style={styles.profileLeftParaText}>
-                              {item.additionalInformation.replace(
-                                /(<([^>]+)>)/gi,
-                                ''
-                              )}
-                            </Text>
-                          </View>
-                        </View>
-                      ))}
-                    </View>
-
-                    {accordiansEnabled.Praksisplasser === true ? (
-                      <View style={styles.experienceSection}>
-                        <Text style={styles.profileWrapperLeftContentTitle}>
-                          PRAKSISPLASSER
+                  <View style={styles.progressWrapper}>
+                    <Text style={styles.containerWrapperLeftContentTitle}>
+                      ANNET
+                    </Text>
+                    <Text
+                      style={styles.containerWrapperLeftContentTitleLine}
+                    ></Text>
+                    <View style={styles.otherSection}>
+                      <Text style={styles.otherSectionTitle}>Språk</Text>
+                      {lanuages?.map((item, index) => (
+                        <Text style={styles.otherSectionPara} key={index}>
+                          {item.name} {item?.value}
                         </Text>
-                        <Text
-                          style={styles.profileWrapperLeftContentTitleLine}
-                        ></Text>
-                        {internships?.map((item, index) => (
-                          <View style={styles.profileLeftContent} key={index}>
-                            <Text style={styles.profileLeftContentText}>
-                              {item?.jobTitle} - {item?.employer}
+                      ))}
+
+                      {accordiansEnabled.Hobbyer === true ? (
+                        <>
+                          <Text style={styles.otherSectionTitle}>Hobby</Text>
+                          {hobbies?.map((item, index) => (
+                            <Text style={styles.otherSectionPara} key={index}>
+                              {index === hobbies.length - 1
+                                ? item.name + '.'
+                                : item.name + ', '}
                             </Text>
+                          ))}
+                        </>
+                      ) : null}
 
-                            <View style={styles.profileLeftContent}>
-                              <Text style={styles.profileLeftContentDate}>
-                                {moment(item?.startDate).format('YYYY MM') +
-                                  ' - '}{' '}
-                                {item.toggle
-                                  ? 'dags dato'
-                                  : item.endDate.length === 0
-                                  ? ' Sluttdato'
-                                  : moment(item?.endDate).format('YYYY-MM')}
-                              </Text>
-                            </View>
-
-                            <View style={styles.profileLeftPara}>
-                              <Text style={styles.profileLeftParaText}>
-                                {item.additionalInformation.replace(
-                                  /(<([^>]+)>)/gi,
-                                  ''
-                                )}
-                              </Text>
-                            </View>
-                          </View>
-                        ))}
-                      </View>
-                    ) : null}
-
-                    {accordiansEnabled.Referanser === true ? (
-                      <View style={styles.experienceSection}>
-                        <Text style={styles.profileWrapperLeftContentTitle}>
-                          REFERANSER
-                        </Text>
-                        <Text
-                          style={styles.profileWrapperLeftContentTitleLine}
-                        ></Text>
-
-                        {newToggleData ? (
-                          <Text style={styles.referenceSectionText}>
-                            Oppgis ved forespørsel
-                          </Text>
-                        ) : (
-                          <>
-                            {refrence?.map((item) => (
-                              <View style={styles.referenceSection}>
-                                <Text style={styles.referenceSectionText}>
-                                  {item?.name + ' , ' + item?.companyName}
-                                </Text>
-                                <Text style={styles.referenceSectionText}>
-                                  {item?.email}
-                                </Text>
-                              </View>
-                            ))}
-                          </>
-                        )}
-                      </View>
-                    ) : null}
+                      {accordiansEnabled.Kurs === true ? (
+                        <>
+                          <Text style={styles.otherSectionTitle}>Kurs</Text>
+                          {courses?.map((item, index) => (
+                            <Text style={styles.otherSectionPara} key={index}>
+                              {item.name}
+                            </Text>
+                          ))}
+                        </>
+                      ) : null}
+                    </View>
                   </View>
                 </View>
+
+                <View style={styles.containerWrapperRight}>
+                  {profileData !== '' ? (
+                    <View style={styles.profileSection}>
+                      <Text style={styles.profileWrapperLeftContentTitle}>
+                        PROFIL
+                      </Text>
+                      <Text
+                        style={styles.profileWrapperLeftContentTitleLine}
+                      ></Text>
+
+                      <View style={styles.profileSectionPara}>
+                        <Text style={styles.profileSectionParaText}>
+                          {profileData.replace(/(<([^>]+)>)/gi, '')}
+                        </Text>
+                      </View>
+                    </View>
+                  ) : null}
+
+                  <View style={styles.experienceSection}>
+                    <Text style={styles.profileWrapperLeftContentTitle}>
+                      ARBEIDSERFARING
+                    </Text>
+                    <Text
+                      style={styles.profileWrapperLeftContentTitleLine}
+                    ></Text>
+                    {experianceData?.map((item) => (
+                      <View style={styles.profileLeftContent}>
+                        <Text style={styles.profileLeftContentText}>
+                          {item?.jobTitle + ' - ' + item?.employer}
+                        </Text>
+
+                        <View style={styles.profileLeftContent}>
+                          <Text style={styles.profileLeftContentDate}>
+                            {item.startDate.length === 0
+                              ? 'Startdato -'
+                              : moment(item?.startDate).format('YYYY MM') +
+                                ' -  '}{' '}
+                            {item.toggle
+                              ? 'dags dato'
+                              : item.endDate.length === 0
+                              ? ' Sluttdato'
+                              : moment(item?.endDate).format('YYYY-MM')}
+                          </Text>
+                        </View>
+
+                        <View style={styles.profileLeftPara}>
+                          <Text style={styles.profileLeftParaText}>
+                            {item.additionalInformation.replace(
+                              /(<([^>]+)>)/gi,
+                              ''
+                            )}
+                          </Text>
+                        </View>
+                      </View>
+                    ))}
+                  </View>
+
+                  <View style={styles.experienceSection}>
+                    <Text style={styles.profileWrapperLeftContentTitle}>
+                      UTDANNING
+                    </Text>
+                    <Text
+                      style={styles.profileWrapperLeftContentTitleLine}
+                    ></Text>
+                    {educationData?.map((item) => (
+                      <View style={styles.profileLeftContent}>
+                        <Text style={styles.profileLeftContentText}>
+                          {item?.study + ' - ' + item?.school}
+                        </Text>
+
+                        <View style={styles.profileLeftContent}>
+                          <Text style={styles.profileLeftContentDate}>
+                            {item.startDate.length === 0
+                              ? 'Startdato -'
+                              : moment(item?.startDate).format('YYYY MM') +
+                                ' - '}
+                            {item.toggle
+                              ? 'dags dato'
+                              : item.endDate.length === 0
+                              ? ' Sluttdato'
+                              : moment(item?.endDate).format('YYYY-MM')}
+                          </Text>
+                        </View>
+
+                        <View style={styles.profileLeftPara}>
+                          <Text style={styles.profileLeftParaText}>
+                            {item.additionalInformation.replace(
+                              /(<([^>]+)>)/gi,
+                              ''
+                            )}
+                          </Text>
+                        </View>
+                      </View>
+                    ))}
+                  </View>
+
+                  {accordiansEnabled.Praksisplasser === true ? (
+                    <View style={styles.experienceSection}>
+                      <Text style={styles.profileWrapperLeftContentTitle}>
+                        PRAKSISPLASSER
+                      </Text>
+                      <Text
+                        style={styles.profileWrapperLeftContentTitleLine}
+                      ></Text>
+                      {internships?.map((item, index) => (
+                        <View style={styles.profileLeftContent} key={index}>
+                          <Text style={styles.profileLeftContentText}>
+                            {item?.jobTitle} - {item?.employer}
+                          </Text>
+
+                          <View style={styles.profileLeftContent}>
+                            <Text style={styles.profileLeftContentDate}>
+                              {moment(item?.startDate).format('YYYY MM') +
+                                ' - '}{' '}
+                              {item.toggle
+                                ? 'dags dato'
+                                : item.endDate.length === 0
+                                ? ' Sluttdato'
+                                : moment(item?.endDate).format('YYYY-MM')}
+                            </Text>
+                          </View>
+
+                          <View style={styles.profileLeftPara}>
+                            <Text style={styles.profileLeftParaText}>
+                              {item.additionalInformation.replace(
+                                /(<([^>]+)>)/gi,
+                                ''
+                              )}
+                            </Text>
+                          </View>
+                        </View>
+                      ))}
+                    </View>
+                  ) : null}
+
+                  {accordiansEnabled.Referanser === true ? (
+                    <View style={styles.experienceSection}>
+                      <Text style={styles.profileWrapperLeftContentTitle}>
+                        REFERANSER
+                      </Text>
+                      <Text
+                        style={styles.profileWrapperLeftContentTitleLine}
+                      ></Text>
+
+                      {newToggleData ? (
+                        <Text style={styles.referenceSectionText}>
+                          Oppgis ved forespørsel
+                        </Text>
+                      ) : (
+                        <>
+                          {refrence?.map((item) => (
+                            <View style={styles.referenceSection}>
+                              <Text style={styles.referenceSectionText}>
+                                {item?.name + ' , ' + item?.companyName}
+                              </Text>
+                              <Text style={styles.referenceSectionText}>
+                                {item?.email}
+                              </Text>
+                            </View>
+                          ))}
+                        </>
+                      )}
+                    </View>
+                  ) : null}
+                </View>
               </View>
-            </Page>
+            </View>
+          </Page>
         </Document>
       </PDFViewer>
       {/* <div className='preview-button'>
