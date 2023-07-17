@@ -95,7 +95,6 @@ import HobbyGeneratorAccordian from './hobbyGeneratorAccordian'
 import ClosedHobbyGeneratorAccordian from './closedHobbyGeneratorAccordian'
 import QuillTextEditor2 from '../QuillTextEditor/QuillTextEditor2'
 import { useContext } from 'react'
-import { IsRenderingContext } from '../../context/IsRenderingContext'
 import { forwardRef } from 'react'
 import { BiCalendarAlt } from 'react-icons/bi'
 //Udtanning  imports
@@ -692,10 +691,8 @@ const CvForm = (props) => {
             onChange={(e) => {
               {
                 setCountry(e.target.value)
-                // setIsRendering(false)
               }
             }}
-            // onFocus={() => setIsRendering(false)}
             heading='By'
             inputPlaceholder='By'
           />
@@ -707,12 +704,9 @@ const CvForm = (props) => {
             value={zipCode}
             onChange={(e) => {
               {
-                // changeBasicInfo(e.target.value, 'zipCode')
                 setZipCode(e.target.value)
-                // setIsRendering(false)
               }
             }}
-            // onFocus={() => setIsRendering(false)}
             heading='PostNummer'
             inputPlaceholder='PostNummer'
           />

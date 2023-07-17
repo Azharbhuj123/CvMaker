@@ -33,7 +33,6 @@ import {
   PDFViewer,
   PDFDownloadLink,
 } from '@react-pdf/renderer'
-import { IsRenderingContext } from '../../context/IsRenderingContext'
 import axios from 'axios'
 
 const TemplateEleven = () => {
