@@ -15,7 +15,6 @@ import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import PdfViewer from './PdfViewer'
-import TemplateEghtButton from '../DownloadButtons/templateEghtButton'
 
 const Generator = (props) => {
   // const { cvName, setCvName } = props;
@@ -40,8 +39,6 @@ const Generator = (props) => {
     resizeWindow()
   }, [windowWidth])
 
-  useEffect(() => {}, [displayTemplate])
-
   const changeBasicInfo = (value, field) => {
     dispatch(cvGenerator({ ...cvData, [field]: value }))
   }
@@ -59,16 +56,18 @@ const Generator = (props) => {
       showCloseButton: true,
       confirmButtonColor: '#eeb856',
 
-      inputPlaceholder: `Ved å trykke på laste ned, vil du laste ned CVen du har laget forplikte deg til å akseptere våre <a  href="/gdpr">vilkår og betingelser</a> og <a  href="/gdpr">personvernregler</a> <br>  <span style={{paddingTop:"1rem"}}>Om den ikke vil laste ned, last inn siden på nytt så fungerer det</span>`,
+      inputPlaceholder: `
+      for å laste ned denne CVen må du bruke fra skrivebordet.<a  href="/gdpr">vilkår og betingelser</a> og <a  href="/gdpr">personvernregler</a> <br>  
+      `,
       confirmButtonText: 'Fortsette <i class="fa fa-arrow-right"></i>',
 
       inputValidator: (result) => {
         return !result && 'Du må godta Vilkår og betingelser'
       },
     }).then((result) => {
-      if (result.isConfirmed) {
-        setDisplayTemplate(!displayTemplate)
-      }
+      // if (result.isConfirmed) {
+      //   setDisplayTemplate(!displayTemplate)
+      // }
     })
   }
 
@@ -132,9 +131,9 @@ const Generator = (props) => {
                 </p>
                 <img src={ArrowRight} alt="right-arrow"></img>
               </div> */}
-                <Outlet
-                  context={[editor, onEditChange, pageWidth, setPageWidth]}
-                />
+              <Outlet
+                context={[editor, onEditChange, pageWidth, setPageWidth]}
+              />
             </div>
           </div>
         </div>
@@ -210,7 +209,6 @@ const Generator = (props) => {
                   setPageWidth,
                 ]}
               />
-              <TemplateEghtButton/>
             </div>
           </div>
         </div>

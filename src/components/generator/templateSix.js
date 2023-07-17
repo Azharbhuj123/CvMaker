@@ -18,7 +18,6 @@ import {
   getNewRefToggle,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import moment from 'moment'
-import ReactToPrint from 'react-to-print'
 import {
   Document,
   Page,
@@ -28,13 +27,12 @@ import {
   Font,
   PDFViewer,
   Image,
+  PDFDownloadLink,
 } from '@react-pdf/renderer'
 import EndreMaalButton from '../endreMaalButton/EndreMaalButton'
-import { sendFileToBackend } from '../../helper/helperFunctions'
 import arialRegular from '../../assests/fonts/Arial/arial.ttf'
 import arialBold from '../../assests/fonts/Arial/Arial-bold.ttf'
-import profileImg from '../../assests/images/pr.png'
-import { useContext } from 'react'
+import axios from 'axios'
 
 Font.register({
   family: 'Arial',
@@ -236,12 +234,9 @@ const styles = StyleSheet.create({
 })
 
 const TemplateSix = () => {
-  let pdfComponent = useRef()
   let [displayTemplate, setDisplayTemplate, pageWidth, setPageWidth] =
     useOutletContext()
   let printButtonRef = useRef()
-  const [isChecked, setIsChecked] = useState(false)
-  const toggleData = useSelector(getRefToggle)
   const newToggleData = useSelector(getNewRefToggle)
   const cvData = useSelector(CV_DATA)
   const educationData = useSelector(Education_DATA)
@@ -255,27 +250,29 @@ const TemplateSix = () => {
   const languages = useSelector(languageData)
   const properties = useSelector(propertiesData)
   const profileData = useSelector(profileRichTextData)
-  const [changeOccured, setChangeOccured] = useState(false)
 
-  // if (displayTemplate && displayTemplate === true ) {
-  //   console.log(
-  //     "mobile screen detected the element will directly be printed now !!!!!!!!!!!11"
-  //   );
-  //   console.log("wow");
-  //   printButtonRef.current.click();
+  // const sendPrintedDocument = async () => {
+  //   await sendFileToBackend(
+  //     document.getElementsByClassName('function-hook'),
+  //     cvData.email,
+  //     displayTemplate
+  //   )
   // }
 
-  const sendPrintedDocument = async () => {
-    await sendFileToBackend(
-      document.getElementsByClassName('function-hook'),
-      cvData.email,
-      displayTemplate
-    )
+  const sendPDFToBackend = async (blob) => {
+    const formData = new FormData()
+    formData.append('cv', blob)
+    try {
+      console.log('try')
+      const response = await axios.post(
+        process.env.REACT_APP_BASE_URL + 'user/mail',
+        formData
+      )
+      console.log(response)
+    } catch (error) {
+      console.log(error, '<========= error')
+    }
   }
-
-  useEffect(() => {
-    console.log('re render!!!')
-  }, [changeOccured])
 
   useEffect(() => {
     if (displayTemplate == true && displayTemplate !== {}) {
@@ -289,365 +286,773 @@ const TemplateSix = () => {
 
   return (
     <>
-      <PDFViewer style={styles.document}>
+      <PDFViewer style={styles.document} showToolbar={false}>
         <Document style={styles.document}>
-            <Page size='A4' style={styles.page}>
-              <View style={styles.container}>
-                <View style={styles.header}>
-                  <View style={styles.headerHeading}>
-                    <Text style={styles.headerHeadingTitle}>
-                      {cvData.firstName ? cvData?.firstName + ' ' : 'Your Name'}
-                      {cvData.lastName ? cvData?.lastName : ' '}
+          <Page size='A4' style={styles.page}>
+            <View style={styles.container}>
+              <View style={styles.header}>
+                <View style={styles.headerHeading}>
+                  <Text style={styles.headerHeadingTitle}>
+                    {cvData.firstName ? cvData?.firstName + ' ' : 'Your Name'}
+                    {cvData.lastName ? cvData?.lastName : ' '}
+                  </Text>
+                  <View style={styles.headerHeadingJobtitle}>
+                    <Text style={styles.headerHeadingJobtitleText}>
+                      {cvData?.jobTitle}
                     </Text>
-                    <View style={styles.headerHeadingJobtitle}>
-                      <Text style={styles.headerHeadingJobtitleText}>
-                        {cvData?.jobTitle}
+                  </View>
+                  <View style={styles.headerHeadingOne}>
+                    <View style={styles.headerHeadingOneLeft}>
+                      {cvData?.DOB == '' ? null : (
+                        <Text style={styles.headerHeadingOneLeftText}>
+                          Fødselsdato:{' '}
+                          {moment(cvData?.DOB).format('DD,MM,YYYY')}
+                        </Text>
+                      )}
+                      <Text style={styles.headerHeadingOneLeftText}>
+                        Mail: {cvData.email ? cvData.email : 'din epost'}
+                      </Text>
+                      {cvData?.drivingLicense !== '' ? (
+                        <Text style={styles.headerHeadingOneLeftText}>
+                          Førerkort: {cvData?.drivingLicense}
+                        </Text>
+                      ) : null}
+                    </View>
+
+                    {/* <Text> */}
+                    <View style={styles.headerHeadingOneRight}>
+                      <Text style={styles.headerHeadingOneLeftText}>
+                        Telefon: {cvData.phone ? cvData.phone : 'din telefon'}
+                      </Text>
+                      <Text style={styles.headerHeadingOneLeftText}>
+                        Adresse:{' '}
+                        {cvData.physicalAddress !== ''
+                          ? cvData.physicalAddress + ', ' + cvData.zipCode
+                          : 'adressen din'}
+                      </Text>
+                      <Text style={styles.headerHeadingOneLeftText}>
+                        {cvData.country !== '' ? cvData.country : null}
                       </Text>
                     </View>
-                    <View style={styles.headerHeadingOne}>
-                      <View style={styles.headerHeadingOneLeft}>
-                        {cvData?.DOB == '' ? null : (
-                          <Text style={styles.headerHeadingOneLeftText}>
-                            Fødselsdato:{' '}
-                            {moment(cvData?.DOB).format('DD,MM,YYYY')}
-                          </Text>
-                        )}
-                        <Text style={styles.headerHeadingOneLeftText}>
-                          Mail: {cvData.email ? cvData.email : 'din epost'}
-                        </Text>
-                        {cvData?.drivingLicense !== '' ? (
-                          <Text style={styles.headerHeadingOneLeftText}>
-                            Førerkort: {cvData?.drivingLicense}
-                          </Text>
-                        ) : null}
-                      </View>
-
-                      {/* <Text> */}
-                      <View style={styles.headerHeadingOneRight}>
-                        <Text style={styles.headerHeadingOneLeftText}>
-                          Telefon: {cvData.phone ? cvData.phone : 'din telefon'}
-                        </Text>
-                        <Text style={styles.headerHeadingOneLeftText}>
-                          Adresse:{' '}
-                          {cvData.physicalAddress !== ''
-                            ? cvData.physicalAddress + ', ' + cvData.zipCode
-                            : 'adressen din'}
-                        </Text>
-                        <Text style={styles.headerHeadingOneLeftText}>
-                          {cvData.country !== '' ? cvData.country : null}
-                        </Text>
-                      </View>
-                      {/* </Text> */}
-                    </View>
-                  </View>
-
-                  <View style={styles.headerHeadingImage}>
-                    <Image
-                      src={
-                        cvData.profileImage ? cvData.profileImage : userprofile
-                      }
-                      alt=''
-                      style={
-                        cvData.profileImage
-                          ? {
-                              borderRadius: '60%',
-                              height: '100%',
-                              width: '100%',
-                            }
-                          : { display: 'none' }
-                      }
-                    />
+                    {/* </Text> */}
                   </View>
                 </View>
 
-                {profileData !== '' ? (
-                  <View style={styles.profileSection}>
-                    <Text style={styles.profileSectionTitle}>Profil</Text>
-                    <Text style={styles.profileSectionPara}>
-                      {profileData.replace(/(<([^>]+)>)/gi, '')}
+                <View style={styles.headerHeadingImage}>
+                  <Image
+                    src={
+                      cvData.profileImage ? cvData.profileImage : userprofile
+                    }
+                    alt=''
+                    style={
+                      cvData.profileImage
+                        ? {
+                            borderRadius: '60%',
+                            height: '100%',
+                            width: '100%',
+                          }
+                        : { display: 'none' }
+                    }
+                  />
+                </View>
+              </View>
+
+              {profileData !== '' ? (
+                <View style={styles.profileSection}>
+                  <Text style={styles.profileSectionTitle}>Profil</Text>
+                  <Text style={styles.profileSectionPara}>
+                    {profileData.replace(/(<([^>]+)>)/gi, '')}
+                  </Text>
+                </View>
+              ) : null}
+
+              <View style={styles.contentSection}>
+                <View style={styles.contentSectionHeading}>
+                  <View style={styles.contentSectionHeadingLeft}>
+                    <Text style={styles.contentSectionHeadingLeftTitle}>
+                      ERFARING
                     </Text>
                   </View>
+                  <View style={styles.contentSectionHeadingRight}></View>
+                </View>
+                {experianceData.map((item, index) => (
+                  <View style={styles.contentSectionHeading} key={index}>
+                    <View style={styles.contentSectionHeadingLeft}>
+                      <Text style={styles.contentSectionHeadingLeftText}>
+                        {item.startDate.length === 0
+                          ? 'Startdato'
+                          : moment(item.startDate).format('YYYY MM')}{' '}
+                        {' - '}
+                        {item.toggle
+                          ? 'dags dato'
+                          : item.endDate.length === 0
+                          ? ' Sluttdato'
+                          : moment(item?.endDate).format('YYYY-MM')}
+                      </Text>
+                    </View>
+                    <View style={styles.contentSectionHeadingRight}>
+                      <Text style={styles.contentSectionHeadingRightText}>
+                        {item?.jobTitle}, {item?.employer}
+                      </Text>
+                      <View style={styles.contentSectionHeadingRightPara}>
+                        <Text style={styles.contentSectionHeadingRightParaText}>
+                          {item.additionalInformation.replace(
+                            /(<([^>]+)>)/gi,
+                            ''
+                          )}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                ))}
+
+                <View style={styles.contentSectionHeading}>
+                  <View style={styles.contentSectionHeadingLeft}>
+                    <Text style={styles.contentSectionHeadingLeftTitle}>
+                      UTDANNING
+                    </Text>
+                  </View>
+                  <View style={styles.contentSectionHeadingRight}></View>
+                </View>
+                {educationData.map((item, index) => (
+                  <View style={styles.contentSectionHeading} key={index}>
+                    <View style={styles.contentSectionHeadingLeft}>
+                      <Text style={styles.contentSectionHeadingLeftText}>
+                        {item.startDate.length === 0
+                          ? 'Startdato'
+                          : moment(item.startDate).format('YYYY MM')}{' '}
+                        {item.toggle
+                          ? 'dags dato'
+                          : item.endDate.length === 0
+                          ? ' Sluttdato'
+                          : moment(item?.endDate).format('YYYY-MM')}
+                      </Text>
+                    </View>
+                    <View style={styles.contentSectionHeadingRight}>
+                      <Text style={styles.contentSectionHeadingRightText}>
+                        {item?.study}, {item.school}
+                      </Text>
+                      <View style={styles.contentSectionHeadingRightPara}>
+                        <Text style={styles.contentSectionHeadingRightParaText}>
+                          {item.additionalInformation.replace(
+                            /(<([^>]+)>)/gi,
+                            ''
+                          )}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                ))}
+
+                {accordiansEnabled.Praksisplasser === true ? (
+                  <>
+                    <View style={styles.contentSectionHeading}>
+                      <View style={styles.contentSectionHeadingLeft}>
+                        <Text style={styles.contentSectionHeadingLeftTitle}>
+                          PRAKSISPLASSER
+                        </Text>
+                      </View>
+                      <View style={styles.contentSectionHeadingRight}></View>
+                    </View>
+                    {internships.map((item, index) => {
+                      return (
+                        <View style={styles.contentSectionHeading} key={index}>
+                          <View style={styles.contentSectionHeadingLeft}>
+                            <Text style={styles.contentSectionHeadingLeftText}>
+                              {moment(item.startDate).format('YYYY MM')} {' - '}
+                              {item.toggle
+                                ? 'dags dato'
+                                : moment(item.endDate).format('YYYY MM')}
+                            </Text>
+                          </View>
+                          <View style={styles.contentSectionHeadingRight}>
+                            <Text style={styles.contentSectionHeadingRightText}>
+                              {item?.jobTitle} - {item?.employer}
+                            </Text>
+                            <View style={styles.contentSectionHeadingRightPara}>
+                              <Text
+                                style={
+                                  styles.contentSectionHeadingRightParaText
+                                }
+                              >
+                                {item.additionalInformation.replace(
+                                  /(<([^>]+)>)/gi,
+                                  ''
+                                )}
+                              </Text>
+                            </View>
+                          </View>
+                        </View>
+                      )
+                    })}
+                  </>
                 ) : null}
 
-                <View style={styles.contentSection}>
-                  <View style={styles.contentSectionHeading}>
-                    <View style={styles.contentSectionHeadingLeft}>
-                      <Text style={styles.contentSectionHeadingLeftTitle}>
-                        ERFARING
-                      </Text>
-                    </View>
-                    <View style={styles.contentSectionHeadingRight}></View>
+                <View style={styles.contentSectionHeading}>
+                  <View style={styles.contentSectionHeadingLeft}>
+                    <Text style={styles.contentSectionHeadingLeftTitle}>
+                      FERDIGHETER
+                    </Text>
                   </View>
-                  {experianceData.map((item, index) => (
-                    <View style={styles.contentSectionHeading} key={index}>
-                      <View style={styles.contentSectionHeadingLeft}>
-                        <Text style={styles.contentSectionHeadingLeftText}>
-                          {item.startDate.length === 0
-                            ? 'Startdato'
-                            : moment(item.startDate).format('YYYY MM')}{' '}
-                          {' - '}
-                          {item.toggle
-                            ? 'dags dato'
-                            : item.endDate.length === 0
-                            ? ' Sluttdato'
-                            : moment(item?.endDate).format('YYYY-MM')}
-                        </Text>
-                      </View>
-                      <View style={styles.contentSectionHeadingRight}>
-                        <Text style={styles.contentSectionHeadingRightText}>
-                          {item?.jobTitle}, {item?.employer}
-                        </Text>
-                        <View style={styles.contentSectionHeadingRightPara}>
-                          <Text
-                            style={styles.contentSectionHeadingRightParaText}
-                          >
-                            {item.additionalInformation.replace(
-                              /(<([^>]+)>)/gi,
-                              ''
-                            )}
-                          </Text>
+                  <View style={styles.contentSectionHeadingRight}></View>
+                </View>
+                <View style={styles.contentSectionHeading}>
+                  <View style={styles.contentSectionHeadingLeft}></View>
+                  <View style={styles.contentSectionHeadingRight}>
+                    <View style={styles.contentSectionHeadingRightList}>
+                      {properties.map((item, index) => (
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: '5px',
+                          }}
+                          key={index}
+                        >
+                          <View style={styles.marker} />
+                          <Text style={styles.markerText}>{item.name}</Text>
                         </View>
-                      </View>
+                      ))}
                     </View>
-                  ))}
+                  </View>
+                </View>
 
-                  <View style={styles.contentSectionHeading}>
-                    <View style={styles.contentSectionHeadingLeft}>
-                      <Text style={styles.contentSectionHeadingLeftTitle}>
-                        UTDANNING
+                <View style={styles.contentSectionHeading}>
+                  <View style={styles.contentSectionHeadingLeft}>
+                    <Text style={styles.contentSectionHeadingLeftTitle}>
+                      ANNET
+                    </Text>
+                  </View>
+                  <View style={styles.contentSectionHeadingRight}></View>
+                </View>
+                <View style={styles.contentSectionHeading}>
+                  <View style={styles.contentSectionHeadingLeft}></View>
+                  <View style={styles.contentSectionHeadingRight}>
+                    <Text style={styles.contentSectionHeadingRightTitle}>
+                      Språk
+                    </Text>
+                    {languages.map((item, index) => (
+                      <Text
+                        style={styles.sparkSectionHeadingRightText}
+                        key={index}
+                      >
+                        {item.name} {item?.value}
                       </Text>
-                    </View>
-                    <View style={styles.contentSectionHeadingRight}></View>
+                    ))}
                   </View>
-                  {educationData.map((item, index) => (
-                    <View style={styles.contentSectionHeading} key={index}>
-                      <View style={styles.contentSectionHeadingLeft}>
-                        <Text style={styles.contentSectionHeadingLeftText}>
-                          {item.startDate.length === 0
-                            ? 'Startdato'
-                            : moment(item.startDate).format('YYYY MM')}{' '}
-                          {item.toggle
-                            ? 'dags dato'
-                            : item.endDate.length === 0
-                            ? ' Sluttdato'
-                            : moment(item?.endDate).format('YYYY-MM')}
-                        </Text>
-                      </View>
-                      <View style={styles.contentSectionHeadingRight}>
-                        <Text style={styles.contentSectionHeadingRightText}>
-                          {item?.study}, {item.school}
-                        </Text>
-                        <View style={styles.contentSectionHeadingRightPara}>
-                          <Text
-                            style={styles.contentSectionHeadingRightParaText}
-                          >
-                            {item.additionalInformation.replace(
-                              /(<([^>]+)>)/gi,
-                              ''
-                            )}
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-                  ))}
-
-                  {accordiansEnabled.Praksisplasser === true ? (
-                    <>
-                      <View style={styles.contentSectionHeading}>
-                        <View style={styles.contentSectionHeadingLeft}>
-                          <Text style={styles.contentSectionHeadingLeftTitle}>
-                            PRAKSISPLASSER
-                          </Text>
-                        </View>
-                        <View style={styles.contentSectionHeadingRight}></View>
-                      </View>
-                      {internships.map((item, index) => {
-                        return (
-                          <View
-                            style={styles.contentSectionHeading}
-                            key={index}
-                          >
-                            <View style={styles.contentSectionHeadingLeft}>
-                              <Text
-                                style={styles.contentSectionHeadingLeftText}
-                              >
-                                {moment(item.startDate).format('YYYY MM')}{' '}
-                                {' - '}
-                                {item.toggle
-                                  ? 'dags dato'
-                                  : moment(item.endDate).format('YYYY MM')}
-                              </Text>
-                            </View>
-                            <View style={styles.contentSectionHeadingRight}>
-                              <Text
-                                style={styles.contentSectionHeadingRightText}
-                              >
-                                {item?.jobTitle} - {item?.employer}
-                              </Text>
-                              <View
-                                style={styles.contentSectionHeadingRightPara}
-                              >
-                                <Text
-                                  style={
-                                    styles.contentSectionHeadingRightParaText
-                                  }
-                                >
-                                  {item.additionalInformation.replace(
-                                    /(<([^>]+)>)/gi,
-                                    ''
-                                  )}
-                                </Text>
-                              </View>
-                            </View>
-                          </View>
-                        )
-                      })}
-                    </>
-                  ) : null}
-
-                  <View style={styles.contentSectionHeading}>
-                    <View style={styles.contentSectionHeadingLeft}>
-                      <Text style={styles.contentSectionHeadingLeftTitle}>
-                        FERDIGHETER
-                      </Text>
-                    </View>
-                    <View style={styles.contentSectionHeadingRight}></View>
-                  </View>
-                  <View style={styles.contentSectionHeading}>
-                    <View style={styles.contentSectionHeadingLeft}></View>
-                    <View style={styles.contentSectionHeadingRight}>
-                      <View style={styles.contentSectionHeadingRightList}>
-                        {properties.map((item, index) => (
-                          <View
-                            style={{
-                              flexDirection: 'row',
-                              alignItems: 'center',
-                              marginTop: '5px',
-                            }}
-                            key={index}
-                          >
-                            <View style={styles.marker} />
-                            <Text style={styles.markerText}>{item.name}</Text>
-                          </View>
-                        ))}
-                      </View>
-                    </View>
-                  </View>
-
-                  <View style={styles.contentSectionHeading}>
-                    <View style={styles.contentSectionHeadingLeft}>
-                      <Text style={styles.contentSectionHeadingLeftTitle}>
-                        ANNET
-                      </Text>
-                    </View>
-                    <View style={styles.contentSectionHeadingRight}></View>
-                  </View>
+                </View>
+                {accordiansEnabled.Hobbyer === true ? (
                   <View style={styles.contentSectionHeading}>
                     <View style={styles.contentSectionHeadingLeft}></View>
                     <View style={styles.contentSectionHeadingRight}>
                       <Text style={styles.contentSectionHeadingRightTitle}>
-                        Språk
+                        Hobby
                       </Text>
-                      {languages.map((item, index) => (
+                      {hobbies.map((item, index) => (
                         <Text
                           style={styles.sparkSectionHeadingRightText}
                           key={index}
                         >
-                          {item.name} {item?.value}
+                          {item.name}
                         </Text>
                       ))}
                     </View>
                   </View>
-                  {accordiansEnabled.Hobbyer === true ? (
-                    <View style={styles.contentSectionHeading}>
-                      <View style={styles.contentSectionHeadingLeft}></View>
-                      <View style={styles.contentSectionHeadingRight}>
-                        <Text style={styles.contentSectionHeadingRightTitle}>
-                          Hobby
-                        </Text>
-                        {hobbies.map((item, index) => (
-                          <Text
-                            style={styles.sparkSectionHeadingRightText}
-                            key={index}
-                          >
-                            {item.name}
-                          </Text>
-                        ))}
-                      </View>
-                    </View>
-                  ) : null}
+                ) : null}
 
-                  {accordiansEnabled.Kurs === true ? (
-                    <View style={styles.contentSectionHeading}>
-                      <View style={styles.contentSectionHeadingLeft}></View>
-                      <View style={styles.contentSectionHeadingRight}>
-                        <Text style={styles.contentSectionHeadingRightTitle}>
-                          Kurs
+                {accordiansEnabled.Kurs === true ? (
+                  <View style={styles.contentSectionHeading}>
+                    <View style={styles.contentSectionHeadingLeft}></View>
+                    <View style={styles.contentSectionHeadingRight}>
+                      <Text style={styles.contentSectionHeadingRightTitle}>
+                        Kurs
+                      </Text>
+                      {courses.map((item, index) => (
+                        <Text
+                          style={styles.sparkSectionHeadingRightText}
+                          key={index}
+                        >
+                          {item.name}
                         </Text>
-                        {courses.map((item, index) => (
-                          <Text
-                            style={styles.sparkSectionHeadingRightText}
-                            key={index}
-                          >
-                            {item.name}
-                          </Text>
-                        ))}
-                      </View>
+                      ))}
                     </View>
-                  ) : null}
+                  </View>
+                ) : null}
 
-                  {accordiansEnabled.Referanser === true ? (
-                    <>
-                      <View style={styles.contentSectionHeading}>
-                        <View style={styles.contentSectionHeadingLeft}>
-                          <Text style={styles.contentSectionHeadingLeftTitle}>
-                            REFERANSE
+                {accordiansEnabled.Referanser === true ? (
+                  <>
+                    <View style={styles.contentSectionHeading}>
+                      <View style={styles.contentSectionHeadingLeft}>
+                        <Text style={styles.contentSectionHeadingLeftTitle}>
+                          REFERANSE
+                        </Text>
+                      </View>
+                      <View style={styles.contentSectionHeadingRight}></View>
+                    </View>
+                    {refrence.map((item, index) => (
+                      <View style={styles.contentSectionHeading} key={index}>
+                        <View style={styles.contentSectionHeadingLeft}></View>
+                        <Text
+                          style={styles.contentSectionHeadingLeftTitle}
+                        ></Text>
+                        <View style={styles.contentSectionHeadingRight}>
+                          {newToggleData ? (
+                            <Text
+                              style={
+                                styles.contentSectionHeadingRightTextToggle
+                              }
+                            >
+                              Oppgis ved forespørsel
+                            </Text>
+                          ) : (
+                            <>
+                              <Text
+                                style={styles.contentSectionHeadingRightText}
+                              >
+                                {item?.name} - {item?.companyName}
+                              </Text>
+                              <Text style={styles.sparkSectionHeadingRightText}>
+                                {item?.email}
+                              </Text>
+                            </>
+                          )}
+                        </View>
+                      </View>
+                    ))}
+                  </>
+                ) : null}
+              </View>
+            </View>
+          </Page>
+        </Document>
+      </PDFViewer>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          backgroundColor: '#f6f3f1',
+          alignItems: 'center',
+        }}
+      >
+        <EndreMaalButton />
+        <div className='gdpr-image'>
+          <span>
+            Ved å trykke på "laste ned", vil du laste ned CVen du har laget
+            forplikte deg til å akseptere våre{' '}
+            <Link to='/gdpr'>
+              <span>vilkår og betingelser</span>
+            </Link>{' '}
+            og{' '}
+            <Link to='/gdpr'>
+              <span>personvernregler</span>
+            </Link>
+          </span>
+        </div>
+        <PDFDownloadLink
+          document={
+            <Document style={styles.document}>
+              <Page size='A4' style={styles.page}>
+                <View style={styles.container}>
+                  <View style={styles.header}>
+                    <View style={styles.headerHeading}>
+                      <Text style={styles.headerHeadingTitle}>
+                        {cvData.firstName
+                          ? cvData?.firstName + ' '
+                          : 'Your Name'}
+                        {cvData.lastName ? cvData?.lastName : ' '}
+                      </Text>
+                      <View style={styles.headerHeadingJobtitle}>
+                        <Text style={styles.headerHeadingJobtitleText}>
+                          {cvData?.jobTitle}
+                        </Text>
+                      </View>
+                      <View style={styles.headerHeadingOne}>
+                        <View style={styles.headerHeadingOneLeft}>
+                          {cvData?.DOB == '' ? null : (
+                            <Text style={styles.headerHeadingOneLeftText}>
+                              Fødselsdato:{' '}
+                              {moment(cvData?.DOB).format('DD,MM,YYYY')}
+                            </Text>
+                          )}
+                          <Text style={styles.headerHeadingOneLeftText}>
+                            Mail: {cvData.email ? cvData.email : 'din epost'}
+                          </Text>
+                          {cvData?.drivingLicense !== '' ? (
+                            <Text style={styles.headerHeadingOneLeftText}>
+                              Førerkort: {cvData?.drivingLicense}
+                            </Text>
+                          ) : null}
+                        </View>
+
+                        {/* <Text> */}
+                        <View style={styles.headerHeadingOneRight}>
+                          <Text style={styles.headerHeadingOneLeftText}>
+                            Telefon:{' '}
+                            {cvData.phone ? cvData.phone : 'din telefon'}
+                          </Text>
+                          <Text style={styles.headerHeadingOneLeftText}>
+                            Adresse:{' '}
+                            {cvData.physicalAddress !== ''
+                              ? cvData.physicalAddress + ', ' + cvData.zipCode
+                              : 'adressen din'}
+                          </Text>
+                          <Text style={styles.headerHeadingOneLeftText}>
+                            {cvData.country !== '' ? cvData.country : null}
                           </Text>
                         </View>
-                        <View style={styles.contentSectionHeadingRight}></View>
+                        {/* </Text> */}
                       </View>
-                      {refrence.map((item, index) => (
-                        <View style={styles.contentSectionHeading} key={index}>
-                          <View style={styles.contentSectionHeadingLeft}></View>
-                          <Text
-                            style={styles.contentSectionHeadingLeftTitle}
-                          ></Text>
-                          <View style={styles.contentSectionHeadingRight}>
-                            {newToggleData ? (
-                              <Text
-                                style={
-                                  styles.contentSectionHeadingRightTextToggle
-                                }
-                              >
-                                Oppgis ved forespørsel
-                              </Text>
-                            ) : (
-                              <>
+                    </View>
+
+                    <View style={styles.headerHeadingImage}>
+                      <Image
+                        src={
+                          cvData.profileImage
+                            ? cvData.profileImage
+                            : userprofile
+                        }
+                        alt=''
+                        style={
+                          cvData.profileImage
+                            ? {
+                                borderRadius: '60%',
+                                height: '100%',
+                                width: '100%',
+                              }
+                            : { display: 'none' }
+                        }
+                      />
+                    </View>
+                  </View>
+
+                  {profileData !== '' ? (
+                    <View style={styles.profileSection}>
+                      <Text style={styles.profileSectionTitle}>Profil</Text>
+                      <Text style={styles.profileSectionPara}>
+                        {profileData.replace(/(<([^>]+)>)/gi, '')}
+                      </Text>
+                    </View>
+                  ) : null}
+
+                  <View style={styles.contentSection}>
+                    <View style={styles.contentSectionHeading}>
+                      <View style={styles.contentSectionHeadingLeft}>
+                        <Text style={styles.contentSectionHeadingLeftTitle}>
+                          ERFARING
+                        </Text>
+                      </View>
+                      <View style={styles.contentSectionHeadingRight}></View>
+                    </View>
+                    {experianceData.map((item, index) => (
+                      <View style={styles.contentSectionHeading} key={index}>
+                        <View style={styles.contentSectionHeadingLeft}>
+                          <Text style={styles.contentSectionHeadingLeftText}>
+                            {item.startDate.length === 0
+                              ? 'Startdato'
+                              : moment(item.startDate).format('YYYY MM')}{' '}
+                            {' - '}
+                            {item.toggle
+                              ? 'dags dato'
+                              : item.endDate.length === 0
+                              ? ' Sluttdato'
+                              : moment(item?.endDate).format('YYYY-MM')}
+                          </Text>
+                        </View>
+                        <View style={styles.contentSectionHeadingRight}>
+                          <Text style={styles.contentSectionHeadingRightText}>
+                            {item?.jobTitle}, {item?.employer}
+                          </Text>
+                          <View style={styles.contentSectionHeadingRightPara}>
+                            <Text
+                              style={styles.contentSectionHeadingRightParaText}
+                            >
+                              {item.additionalInformation.replace(
+                                /(<([^>]+)>)/gi,
+                                ''
+                              )}
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    ))}
+
+                    <View style={styles.contentSectionHeading}>
+                      <View style={styles.contentSectionHeadingLeft}>
+                        <Text style={styles.contentSectionHeadingLeftTitle}>
+                          UTDANNING
+                        </Text>
+                      </View>
+                      <View style={styles.contentSectionHeadingRight}></View>
+                    </View>
+                    {educationData.map((item, index) => (
+                      <View style={styles.contentSectionHeading} key={index}>
+                        <View style={styles.contentSectionHeadingLeft}>
+                          <Text style={styles.contentSectionHeadingLeftText}>
+                            {item.startDate.length === 0
+                              ? 'Startdato'
+                              : moment(item.startDate).format('YYYY MM')}{' '}
+                            {item.toggle
+                              ? 'dags dato'
+                              : item.endDate.length === 0
+                              ? ' Sluttdato'
+                              : moment(item?.endDate).format('YYYY-MM')}
+                          </Text>
+                        </View>
+                        <View style={styles.contentSectionHeadingRight}>
+                          <Text style={styles.contentSectionHeadingRightText}>
+                            {item?.study}, {item.school}
+                          </Text>
+                          <View style={styles.contentSectionHeadingRightPara}>
+                            <Text
+                              style={styles.contentSectionHeadingRightParaText}
+                            >
+                              {item.additionalInformation.replace(
+                                /(<([^>]+)>)/gi,
+                                ''
+                              )}
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    ))}
+
+                    {accordiansEnabled.Praksisplasser === true ? (
+                      <>
+                        <View style={styles.contentSectionHeading}>
+                          <View style={styles.contentSectionHeadingLeft}>
+                            <Text style={styles.contentSectionHeadingLeftTitle}>
+                              PRAKSISPLASSER
+                            </Text>
+                          </View>
+                          <View
+                            style={styles.contentSectionHeadingRight}
+                          ></View>
+                        </View>
+                        {internships.map((item, index) => {
+                          return (
+                            <View
+                              style={styles.contentSectionHeading}
+                              key={index}
+                            >
+                              <View style={styles.contentSectionHeadingLeft}>
+                                <Text
+                                  style={styles.contentSectionHeadingLeftText}
+                                >
+                                  {moment(item.startDate).format('YYYY MM')}{' '}
+                                  {' - '}
+                                  {item.toggle
+                                    ? 'dags dato'
+                                    : moment(item.endDate).format('YYYY MM')}
+                                </Text>
+                              </View>
+                              <View style={styles.contentSectionHeadingRight}>
                                 <Text
                                   style={styles.contentSectionHeadingRightText}
                                 >
-                                  {item?.name} - {item?.companyName}
+                                  {item?.jobTitle} - {item?.employer}
                                 </Text>
-                                <Text
-                                  style={styles.sparkSectionHeadingRightText}
+                                <View
+                                  style={styles.contentSectionHeadingRightPara}
                                 >
-                                  {item?.email}
-                                </Text>
-                              </>
-                            )}
-                          </View>
+                                  <Text
+                                    style={
+                                      styles.contentSectionHeadingRightParaText
+                                    }
+                                  >
+                                    {item.additionalInformation.replace(
+                                      /(<([^>]+)>)/gi,
+                                      ''
+                                    )}
+                                  </Text>
+                                </View>
+                              </View>
+                            </View>
+                          )
+                        })}
+                      </>
+                    ) : null}
+
+                    <View style={styles.contentSectionHeading}>
+                      <View style={styles.contentSectionHeadingLeft}>
+                        <Text style={styles.contentSectionHeadingLeftTitle}>
+                          FERDIGHETER
+                        </Text>
+                      </View>
+                      <View style={styles.contentSectionHeadingRight}></View>
+                    </View>
+                    <View style={styles.contentSectionHeading}>
+                      <View style={styles.contentSectionHeadingLeft}></View>
+                      <View style={styles.contentSectionHeadingRight}>
+                        <View style={styles.contentSectionHeadingRightList}>
+                          {properties.map((item, index) => (
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                marginTop: '5px',
+                              }}
+                              key={index}
+                            >
+                              <View style={styles.marker} />
+                              <Text style={styles.markerText}>{item.name}</Text>
+                            </View>
+                          ))}
                         </View>
-                      ))}
-                    </>
-                  ) : null}
+                      </View>
+                    </View>
+
+                    <View style={styles.contentSectionHeading}>
+                      <View style={styles.contentSectionHeadingLeft}>
+                        <Text style={styles.contentSectionHeadingLeftTitle}>
+                          ANNET
+                        </Text>
+                      </View>
+                      <View style={styles.contentSectionHeadingRight}></View>
+                    </View>
+                    <View style={styles.contentSectionHeading}>
+                      <View style={styles.contentSectionHeadingLeft}></View>
+                      <View style={styles.contentSectionHeadingRight}>
+                        <Text style={styles.contentSectionHeadingRightTitle}>
+                          Språk
+                        </Text>
+                        {languages.map((item, index) => (
+                          <Text
+                            style={styles.sparkSectionHeadingRightText}
+                            key={index}
+                          >
+                            {item.name} {item?.value}
+                          </Text>
+                        ))}
+                      </View>
+                    </View>
+                    {accordiansEnabled.Hobbyer === true ? (
+                      <View style={styles.contentSectionHeading}>
+                        <View style={styles.contentSectionHeadingLeft}></View>
+                        <View style={styles.contentSectionHeadingRight}>
+                          <Text style={styles.contentSectionHeadingRightTitle}>
+                            Hobby
+                          </Text>
+                          {hobbies.map((item, index) => (
+                            <Text
+                              style={styles.sparkSectionHeadingRightText}
+                              key={index}
+                            >
+                              {item.name}
+                            </Text>
+                          ))}
+                        </View>
+                      </View>
+                    ) : null}
+
+                    {accordiansEnabled.Kurs === true ? (
+                      <View style={styles.contentSectionHeading}>
+                        <View style={styles.contentSectionHeadingLeft}></View>
+                        <View style={styles.contentSectionHeadingRight}>
+                          <Text style={styles.contentSectionHeadingRightTitle}>
+                            Kurs
+                          </Text>
+                          {courses.map((item, index) => (
+                            <Text
+                              style={styles.sparkSectionHeadingRightText}
+                              key={index}
+                            >
+                              {item.name}
+                            </Text>
+                          ))}
+                        </View>
+                      </View>
+                    ) : null}
+
+                    {accordiansEnabled.Referanser === true ? (
+                      <>
+                        <View style={styles.contentSectionHeading}>
+                          <View style={styles.contentSectionHeadingLeft}>
+                            <Text style={styles.contentSectionHeadingLeftTitle}>
+                              REFERANSE
+                            </Text>
+                          </View>
+                          <View
+                            style={styles.contentSectionHeadingRight}
+                          ></View>
+                        </View>
+                        {refrence.map((item, index) => (
+                          <View
+                            style={styles.contentSectionHeading}
+                            key={index}
+                          >
+                            <View
+                              style={styles.contentSectionHeadingLeft}
+                            ></View>
+                            <Text
+                              style={styles.contentSectionHeadingLeftTitle}
+                            ></Text>
+                            <View style={styles.contentSectionHeadingRight}>
+                              {newToggleData ? (
+                                <Text
+                                  style={
+                                    styles.contentSectionHeadingRightTextToggle
+                                  }
+                                >
+                                  Oppgis ved forespørsel
+                                </Text>
+                              ) : (
+                                <>
+                                  <Text
+                                    style={
+                                      styles.contentSectionHeadingRightText
+                                    }
+                                  >
+                                    {item?.name} - {item?.companyName}
+                                  </Text>
+                                  <Text
+                                    style={styles.sparkSectionHeadingRightText}
+                                  >
+                                    {item?.email}
+                                  </Text>
+                                </>
+                              )}
+                            </View>
+                          </View>
+                        ))}
+                      </>
+                    ) : null}
+                  </View>
                 </View>
-              </View>
-            </Page>
-        </Document>
-      </PDFViewer>
-      {/* <div className='preview-button'>
-        <button onClick={() => setIsRendering(true)}>Forhåndsvisning CV</button>
-      </div> */}
+              </Page>
+            </Document>
+          }
+          fileName={`${cvData.firstName}.pdf`}
+        >
+          {({ blob, url, loading, error }) =>
+            loading ? (
+              'Loading Pdf...'
+            ) : (
+              <button
+                style={{
+                  marginTop: '10px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '160px',
+                  borderRadius: '5px',
+                  gap: '5px',
+                  background: '#F6F3F1',
+                  padding: '10px',
+                  fontFamily: 'Montserrat',
+                  fontWeight: '600',
+                  fontSize: '16px',
+                  border: '1px solid #F6F3F1',
+                  backgroundColor: '#eeb856',
+                  margin: '10px 20px 20px 0px',
+                }}
+                onClick={() => sendPDFToBackend(blob)}
+              >
+                Last ned CV
+              </button>
+            )
+          }
+        </PDFDownloadLink>
+      </div>
     </>
   )
 }
