@@ -56,6 +56,7 @@ const PropertyClosedGeneratorAccordian = ({ accordianIndex }) => {
             position="center"
           >
             <div
+            style={{cursor: "pointer"}}
               onClick={() =>
                 handleChange(
                   "enableAccordian",
@@ -66,7 +67,7 @@ const PropertyClosedGeneratorAccordian = ({ accordianIndex }) => {
               Rediger tekstF
             </div>
             <div
-              style={{ color: "red" }}
+              style={{ color: "red", cursor: "pointer" }}
               onClick={() => handleDelete(accordianIndex)}
             >
               Slett

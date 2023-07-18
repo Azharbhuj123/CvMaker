@@ -307,6 +307,7 @@ const TemplateThirteen = () => {
             fontSize: "16px",
             border: "1px solid #F6F3F1",
             backgroundColor: "#eeb856",
+            cursor: 'pointer',
           }}
         >
           Endre mal

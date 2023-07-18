@@ -417,7 +417,7 @@ const TemplateEight = (props) => {
                             <View>
                               <Text
                                 style={{
-                                  fontSize: '9px',
+                                  fontSize: '10px',
                                   fontFamily: 'Roboto',
                                   marginTop: '15px',
                                   width: `${item?.value}%`,
@@ -462,7 +462,7 @@ const TemplateEight = (props) => {
                 {accordiansEnabled.Hobbyer === true ? (
                   <>
                     <Text style={styles.hobbySection}>HOBBY</Text>
-                    <View style={{ display: 'flex' }}>
+                    <View style={{ display: 'flex', flexDirection: 'row' }}>
                       {hobbies?.map((item, index) => (
                         <Text style={styles.languageSectionText} key={index}>
                           {index === hobbies.length - 1
@@ -760,7 +760,7 @@ const TemplateEight = (props) => {
                                 <View>
                                   <Text
                                     style={{
-                                      fontSize: '9px',
+                                      fontSize: '12px',
                                       fontFamily: 'Roboto',
                                       marginTop: '15px',
                                       width: `${item?.value}%`,
@@ -1034,6 +1034,7 @@ const TemplateEight = (props) => {
                   border: '1px solid #F6F3F1',
                   backgroundColor: '#eeb856',
                   margin: '10px 20px 20px 0px',
+                  cursor: 'pointer',
                 }}
                 onClick={() => sendPDFToBackend(blob)}
               >

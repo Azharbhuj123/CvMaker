@@ -66,13 +66,14 @@ const ClosedReferenceGeneratorAccordian = ({
             position="center"
           >
             <div
+            style={{cursor: "pointer"}}
               onClick={() =>
                 handleChange("enableAccordian", !newReferences[accordianIndex].enableAccordian)
               }
             >
               Rediger tekst
             </div>
-            <div style={{ color: "red" }} onClick={() => handleDelete(accordianIndex)}>
+            <div style={{ color: "red", cursor: "pointer" }} onClick={() => handleDelete(accordianIndex)}>
               Slett
             </div>
           </Popup>

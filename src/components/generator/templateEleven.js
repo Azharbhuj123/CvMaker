@@ -421,7 +421,7 @@ const TemplateEleven = () => {
                       )}
                       {cvData?.DOB === '' ? null : (
                         <>
-                          <Text> Førerkort: </Text>
+                          <Text> Fødselsdato: </Text>
                           <Text
                             style={{
                               fontWeight: 'light',
@@ -1278,6 +1278,7 @@ const TemplateEleven = () => {
                   border: '1px solid #F6F3F1',
                   backgroundColor: '#eeb856',
                   margin: '10px 20px 20px 0px',
+                  cursor: 'pointer',
                 }}
                 onClick={() => sendPDFToBackend(blob)}
               >

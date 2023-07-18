@@ -53,13 +53,14 @@ const LanguageClosedGeneratorAccordian = ({ accordianIndex }) => {
             position="center"
           >
             <div
+            style={{cursor: "pointer"}}
               onClick={() =>
                 handleChange("enableAccordian", !newLanguages[accordianIndex].enableAccordian)
               }
             >
               Rediger tekst
             </div>
-            <div style={{ color: "red" }} onClick={() => handleDelete(accordianIndex)}>
+            <div style={{ color: "red", cursor: "pointer" }} onClick={() => handleDelete(accordianIndex)}>
               Slett
             </div>
           </Popup>

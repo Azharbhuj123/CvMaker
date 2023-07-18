@@ -1,13 +1,13 @@
-import React, { useState, useRef } from "react";
-import UserProfile from "../../assests/images/userProfile.jpg";
-import { BsTelephone } from "react-icons/bs";
-import { FiLinkedin } from "react-icons/fi";
-import { AiOutlineMail } from "react-icons/ai";
-import { useOutletContext, Link } from "react-router-dom";
-import Modal from "react-modal";
-import { EditorState } from "draft-js";
+import React, { useState, useRef } from 'react'
+import UserProfile from '../../assests/images/userProfile.jpg'
+import { BsTelephone } from 'react-icons/bs'
+import { FiLinkedin } from 'react-icons/fi'
+import { AiOutlineMail } from 'react-icons/ai'
+import { useOutletContext, Link } from 'react-router-dom'
+import Modal from 'react-modal'
+import { EditorState } from 'draft-js'
 
-import { FiTwitter, FiGithub } from "react-icons/fi";
+import { FiTwitter, FiGithub } from 'react-icons/fi'
 import {
   CV_DATA,
   Education_DATA,
@@ -21,101 +21,101 @@ import {
   propertiesData,
   languageData,
   referenceData,
-} from "../../Redux/reducers/CvGeneratorReducer";
-import moment from "moment";
-import { useSelector } from "react-redux";
-import ReactToPrint from "react-to-print";
+} from '../../Redux/reducers/CvGeneratorReducer'
+import moment from 'moment'
+import { useSelector } from 'react-redux'
+import ReactToPrint from 'react-to-print'
 
 import {
   Editor,
   getDefaultKeyBinding,
   RichUtils,
   convertFromRaw,
-} from "draft-js";
-import ProgressBar from "./progressBar";
-import { useEffect } from "react";
+} from 'draft-js'
+import ProgressBar from './progressBar'
+import { useEffect } from 'react'
 const TemplateSeven = () => {
-  let pdfComponent = useRef();
-  let printButtonRef = useRef();
-  const cvData = useSelector(CV_DATA);
-  const educationData = useSelector(Education_DATA);
-  const experianceData = useSelector(Experiance_Data);
-  const progressData = useSelector(sliderData);
-  const [isChecked, setIsChecked] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  let [displayTemplate, setDisplayTemplate] = useOutletContext();
-  const reference = useSelector(referenceData);
+  let pdfComponent = useRef()
+  let printButtonRef = useRef()
+  const cvData = useSelector(CV_DATA)
+  const educationData = useSelector(Education_DATA)
+  const experianceData = useSelector(Experiance_Data)
+  const progressData = useSelector(sliderData)
+  const [isChecked, setIsChecked] = useState(false)
+  const [startDate, setStartDate] = useState(new Date())
+  let [displayTemplate, setDisplayTemplate] = useOutletContext()
+  const reference = useSelector(referenceData)
 
-  const courses = useSelector(coursesData);
+  const courses = useSelector(coursesData)
 
-  const properties = useSelector(propertiesData);
-  const hobbies = useSelector(getHobbies);
-  const accordiansEnabled = useSelector(getAdditionalAccordian);
-  const internships = useSelector(getInternships);
-  const profileData = useSelector(profileRichTextData);
-  const dob = moment(cvData?.DOB).format("DD,MM,YYYY");
+  const properties = useSelector(propertiesData)
+  const hobbies = useSelector(getHobbies)
+  const accordiansEnabled = useSelector(getAdditionalAccordian)
+  const internships = useSelector(getInternships)
+  const profileData = useSelector(profileRichTextData)
+  const dob = moment(cvData?.DOB).format('DD,MM,YYYY')
   const customStyles = {
     content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
     },
-  };
-  let subtitle;
-  const [modalIsOpen, setIsOpen] = useState(false);
+  }
+  let subtitle
+  const [modalIsOpen, setIsOpen] = useState(false)
   function openModal() {
-    setIsOpen(true);
+    setIsOpen(true)
   }
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = "#f00";
+    subtitle.style.color = '#f00'
   }
 
   function closeModal() {
-    setIsOpen(false);
+    setIsOpen(false)
   }
 
-  let [editorState, setEditorState, contexxt] = useOutletContext();
-  const languages = useSelector(languageData);
+  let [editorState, setEditorState, contexxt] = useOutletContext()
+  const languages = useSelector(languageData)
 
   if (displayTemplate && displayTemplate === true) {
     console.log(
-      "mobile screen detected the element will directly be printed now !!!!!!!!!!!11"
-    );
-    console.log("wow", printButtonRef);
-    printButtonRef.current.click();
+      'mobile screen detected the element will directly be printed now !!!!!!!!!!!11'
+    )
+    console.log('wow', printButtonRef)
+    printButtonRef.current.click()
   }
   return (
     <div
       style={{
-        display: displayTemplate === true ? "none" : "flex",
-        width: "100%",
-        alignItems: "center",
-        overflowWrap: "break-word",
-        flexDirection: "column",
+        display: displayTemplate === true ? 'none' : 'flex',
+        width: '100%',
+        alignItems: 'center',
+        overflowWrap: 'break-word',
+        flexDirection: 'column',
       }}
     >
       <div
         style={{
-          width: displayTemplate === true ? "100%" : "95%",
-          margin: displayTemplate === true ? "0px" : "10px",
-          padding: displayTemplate === true ? "0px" : "10px",
+          width: displayTemplate === true ? '100%' : '95%',
+          margin: displayTemplate === true ? '0px' : '10px',
+          padding: displayTemplate === true ? '0px' : '10px',
         }}
         ref={(el) => (pdfComponent = el)}
-        className="template-seven-container"
+        className='template-seven-container'
       >
-        <div className="template-seven-container-header">
-          <div className="template-seven-container-header-wrapper">
-            <div className="template-seven-container-header-wrapper-image">
+        <div className='template-seven-container-header'>
+          <div className='template-seven-container-header-wrapper'>
+            <div className='template-seven-container-header-wrapper-image'>
               <img
                 src={cvData.profileImage ? cvData.profileImage : UserProfile}
               />
             </div>
             <div>
-              <h1>{cvData?.firstName + " " + cvData?.lastName}</h1>
+              <h1>{cvData?.firstName + ' ' + cvData?.lastName}</h1>
               <p>{cvData?.jobTitle}</p>
               {/* <p>
               {" "}
@@ -131,16 +131,16 @@ const TemplateSeven = () => {
             </div>
           </div>
         </div>
-        <div className="template-seven-container-content">
-          <div className="template-seven-container-content-left">
-            <h1 className="template-seven-container-content-left-heading">
+        <div className='template-seven-container-content'>
+          <div className='template-seven-container-content-left'>
+            <h1 className='template-seven-container-content-left-heading'>
               DETALJER
             </h1>
-            <div className="template-seven-container-content-left-content">
+            <div className='template-seven-container-content-left-content'>
               {cvData && cvData.email ? (
                 <>
-                  <div className="template-seven-container-content-left-content-icon">
-                    <AiOutlineMail size={22} color={"#CA9B51"} />
+                  <div className='template-seven-container-content-left-content-icon'>
+                    <AiOutlineMail size={22} color={'#CA9B51'} />
                   </div>
                   <p>{cvData?.email}</p>
                 </>
@@ -149,8 +149,8 @@ const TemplateSeven = () => {
               {cvData && cvData.phone ? (
                 <>
                   <span />
-                  <div className="template-seven-container-content-left-content-icon">
-                    <BsTelephone size={22} color={"#CA9B51"} />
+                  <div className='template-seven-container-content-left-content-icon'>
+                    <BsTelephone size={22} color={'#CA9B51'} />
                   </div>
                   <p>{cvData?.phone}</p>
                 </>
@@ -191,57 +191,57 @@ const TemplateSeven = () => {
               <span />
               <span />
               <h3>Talen</h3>
-              <div className="template-seven-container-content-left-content-divider" />
+              <div className='template-seven-container-content-left-content-divider' />
               {languages?.map((item, index) => {
-                return <p> ■ {item?.name}</p>;
+                return <p> ■ {item?.name}</p>
               })}
             </div>
-            <div className="template-seven-container-content-left-content">
+            <div className='template-seven-container-content-left-content'>
               <h3>Eigenschappen</h3>
-              <div className="template-seven-container-content-left-content-divider" />
+              <div className='template-seven-container-content-left-content-divider' />
 
               {properties?.map((item, index) => {
                 return (
                   <p key={index} style={{ marginTop: 10 }}>
                     ■ {item?.name}
                   </p>
-                );
+                )
               })}
             </div>
             {accordiansEnabled.Hobbyer === true ? (
-              <div className="template-seven-container-content-left-content">
+              <div className='template-seven-container-content-left-content'>
                 <h3>Hobbyer</h3>
-                <div className="template-seven-container-content-left-content-divider" />
+                <div className='template-seven-container-content-left-content-divider' />
 
                 {hobbies?.map((item, index) => {
                   return (
                     <p key={index} style={{ marginTop: 10 }}>
                       ■ {item?.name}
                     </p>
-                  );
+                  )
                 })}
               </div>
             ) : null}
             {accordiansEnabled.Referanser === true ? (
-              <div className="template-seven-container-content-left-content">
+              <div className='template-seven-container-content-left-content'>
                 <h3>Referanser</h3>
-                <div className="template-seven-container-content-left-content-divider" />
+                <div className='template-seven-container-content-left-content-divider' />
 
                 {reference?.map((item, index) => {
                   return (
                     <p key={index} style={{ marginTop: 10 }}>
                       ■ {item?.name}
                     </p>
-                  );
+                  )
                 })}
               </div>
             ) : null}
           </div>
-          <div className="template-seven-container-content-right">
-            <h1 className="template-seven-container-content-right-heading">
+          <div className='template-seven-container-content-right'>
+            <h1 className='template-seven-container-content-right-heading'>
               PROFIL
             </h1>
-            <div className="template-seven-container-spacing" />
+            <div className='template-seven-container-spacing' />
             <span>
               <Editor
                 editorState={
@@ -252,10 +252,10 @@ const TemplateSeven = () => {
                 readOnly={true}
               ></Editor>
 
-              <div className="template-seven-container-spacing" />
+              <div className='template-seven-container-spacing' />
             </span>
 
-            <h1 className="template-seven-container-content-right-heading">
+            <h1 className='template-seven-container-content-right-heading'>
               Werkervaring
             </h1>
             {/* {experianceData?.map((item) => (
@@ -278,18 +278,18 @@ const TemplateSeven = () => {
               </div>
             ))} */}
             {experianceData.map((item) => (
-              <div className="template-seven-container-content-right-content">
+              <div className='template-seven-container-content-right-content'>
                 <h3>{item?.jobTitle}</h3>
-                <div className="" style={{ display: "flex", gap: "1rem" }}>
+                <div className='' style={{ display: 'flex', gap: '1rem' }}>
                   <p>
                     {item.startDate.length > 1
-                      ? moment(item?.startDate).format("DD MM YYYY")
-                      : "Startdato "}
+                      ? moment(item?.startDate).format('DD MM YYYY')
+                      : 'Startdato '}
                   </p>
                   <p>
                     {item.endDate.length > 1
-                      ? moment(item?.endDate).format("DD MM YYYY")
-                      : "Enddato "}
+                      ? moment(item?.endDate).format('DD MM YYYY')
+                      : 'Enddato '}
                   </p>
                 </div>
                 <span />
@@ -299,23 +299,23 @@ const TemplateSeven = () => {
             ))}
             {accordiansEnabled.Praksisplasser === true ? (
               <>
-                <h1 className="template-seven-container-content-right-heading">
+                <h1 className='template-seven-container-content-right-heading'>
                   Praksisplasser
                 </h1>
                 {internships.map((item) => (
-                  <div className="template-seven-container-content-right-content">
+                  <div className='template-seven-container-content-right-content'>
                     <h3>{item?.jobTitle}</h3>
-                    <div className="" style={{ display: "flex", gap: "1rem" }}>
+                    <div className='' style={{ display: 'flex', gap: '1rem' }}>
                       <p>
                         {item.startDate.length > 1
-                          ? moment(item?.startDate).format("DD MM YYYY")
-                          : "Startdato "}
+                          ? moment(item?.startDate).format('DD MM YYYY')
+                          : 'Startdato '}
                       </p>
                       -
                       <p>
                         {item.endDate.length > 1
-                          ? moment(item?.endDate).format("DD MM YYYY")
-                          : "Enddato "}
+                          ? moment(item?.endDate).format('DD MM YYYY')
+                          : 'Enddato '}
                       </p>
                     </div>
                     <span />
@@ -325,11 +325,11 @@ const TemplateSeven = () => {
                 ))}
               </>
             ) : null}
-            <h1 className="template-seven-container-content-right-heading">
+            <h1 className='template-seven-container-content-right-heading'>
               UTDANNING
             </h1>
             {educationData?.map((item) => (
-              <div className="template-seven-container-content-right-content">
+              <div className='template-seven-container-content-right-content'>
                 <h3>{item?.study}</h3>
                 <p>{item?.school}</p>
                 <span />
@@ -340,19 +340,19 @@ const TemplateSeven = () => {
             ))}
             {accordiansEnabled.Kurs === true ? (
               <>
-                <h1 className="template-seven-container-content-right-heading">
+                <h1 className='template-seven-container-content-right-heading'>
                   Cursessen
                 </h1>
-                <div className="template-seven-container-content-right-content">
+                <div className='template-seven-container-content-right-content'>
                   {courses?.map((item) => (
                     <div style={{ marginTop: 10 }}>
                       <span>
-                        {" ● " +
+                        {' ● ' +
                           item?.name +
-                          " " +
-                          moment(item?.startDate).format("DD MM YYYY") +
-                          " til " +
-                          moment(item?.endDate).format("DD MM YYYY")}
+                          ' ' +
+                          moment(item?.startDate).format('DD MM YYYY') +
+                          ' til ' +
+                          moment(item?.endDate).format('DD MM YYYY')}
                       </span>
                     </div>
                   ))}
@@ -364,48 +364,48 @@ const TemplateSeven = () => {
       </div>
       <div
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          width: "90%",
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '90%',
         }}
       >
         <button
           style={{
-            margin: "15px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "180px",
-            borderRadius: "5px",
-            gap: "5px",
-            background: "#F6F3F1",
-            padding: "10px",
-            fontFamily: "Montserrat",
-            fontWeight: "600",
-            fontSize: "16px",
-            border: "1px solid #F6F3F1",
-            backgroundColor: "#eeb856",
-            margin: "10px",
+            margin: '15px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '180px',
+            borderRadius: '5px',
+            gap: '5px',
+            background: '#F6F3F1',
+            padding: '10px',
+            fontFamily: 'Montserrat',
+            fontWeight: '600',
+            fontSize: '16px',
+            border: '1px solid #F6F3F1',
+            backgroundColor: '#eeb856',
+            margin: '10px',
+            cursor: 'pointer'
           }}
         >
           Endre mal
         </button>
-        
 
-        <div className="gdpr-image">
-        <input
-                type="checkbox"
-                value={isChecked}
-                onChange={() => setIsChecked(!isChecked)}
-              />
+        <div className='gdpr-image'>
+          <input
+            type='checkbox'
+            value={isChecked}
+            onChange={() => setIsChecked(!isChecked)}
+          />
           <span>
             Ved å trykke på "laste ned", vil du laste ned CVen du har laget
-            forplikte deg til å akseptere våre{" "}
-            <Link to="/gdpr">
+            forplikte deg til å akseptere våre{' '}
+            <Link to='/gdpr'>
               <span>vilkår og betingelser</span>
-            </Link>{" "}
-            og{" "}
-            <Link to="/gdpr">
+            </Link>{' '}
+            og{' '}
+            <Link to='/gdpr'>
               <span>personvernregler</span>
             </Link>
           </span>
@@ -415,21 +415,21 @@ const TemplateSeven = () => {
             <button
               ref={printButtonRef}
               style={{
-                marginTop: "10px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "180px",
-                borderRadius: "5px",
-                gap: "5px",
-                background: "#F6F3F1",
-                padding: "10px",
-                fontFamily: "Montserrat",
-                fontWeight: "600",
-                fontSize: "16px",
-                border: "1px solid #F6F3F1",
-                backgroundColor: "#eeb856",
-                margin: "10px",
+                marginTop: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '180px',
+                borderRadius: '5px',
+                gap: '5px',
+                background: '#F6F3F1',
+                padding: '10px',
+                fontFamily: 'Montserrat',
+                fontWeight: '600',
+                fontSize: '16px',
+                border: '1px solid #F6F3F1',
+                backgroundColor: '#eeb856',
+                margin: '10px',
                 cursor: 'pointer',
               }}
               disabled={!isChecked}
@@ -550,7 +550,7 @@ const TemplateSeven = () => {
         </Modal> */}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TemplateSeven;
+export default TemplateSeven

@@ -300,6 +300,7 @@ const TemplateTwo = () => {
             border: "1px solid #F6F3F1",
             backgroundColor: "#eeb856",
             margin: "10px",
+            cursor: 'pointer',
           }}
         >
           Endre mal

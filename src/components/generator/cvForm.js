@@ -1631,6 +1631,7 @@ const CvForm = (props) => {
           <div className='cv-form-study-header-container'>
             <h2>Praksisplasser</h2>
             <button
+            
               onClick={() => {
                 disableAccordian('Praksisplasser')
               }}
@@ -1963,7 +1964,7 @@ const CvForm = (props) => {
             profileUpdate()
           }}
         >
-          Forhåndsvisning CV
+          Oppdater Tekst
         </button>
       </div>
     </div>
