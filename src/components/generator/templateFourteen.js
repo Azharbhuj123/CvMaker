@@ -177,9 +177,9 @@ const TemplateFourteen = (props) => {
       flexDirection: 'row',
     },
     pageLeftContentJobTitleHeader: {
-      // alignItems: 'center',
+      alignItems: 'center',
       display: 'flex',
-      // flexDirection: 'row',
+      flexDirection: 'row',
       justifyContent: 'space-between',
       wordBreak: 'break-all',
     },
@@ -190,13 +190,15 @@ const TemplateFourteen = (props) => {
       wordBreak: 'break-all',
       color: 'gray',
       fontFamily: 'Calibri',
+      width: '75%',
     },
     pageLeftContentJobTitleDate: {
       display: 'flex',
+      flexDirection: 'row',
       alignItems: 'center',
-      gap: 5,
+      gap: 10,
       marginLeft: 150,
-      marginRight: 30,
+      marginRight: 40,
       justifyContent: 'flex-end',
     },
     pageLeftContentJobTitleDateText: {
@@ -909,6 +911,10 @@ const TemplateFourteen = (props) => {
             <Link to='/gdpr'>
               <span>personvernregler</span>
             </Link>
+            <span style={{ color: 'red' }}>
+              {' '}
+              Husk å trykke på 'Oppdater tekst' før du laster ned CV-en din
+            </span>
           </span>
         </div>
         <PDFDownloadLink

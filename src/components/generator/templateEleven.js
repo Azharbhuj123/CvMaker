@@ -404,21 +404,7 @@ const TemplateEleven = () => {
                           {',' + cvData?.zipCode} /{' '}
                         </Text>
                       )}
-                      {cvData?.drivingLicense === '' ? null : (
-                        <>
-                          <Text> Førerkort: </Text>
-                          <Text
-                            style={{
-                              fontWeight: 'light',
-                              color: 'black',
-                              fontSize: 10,
-                              wordBreak: 'break-all',
-                            }}
-                          >
-                            {cvData?.drivingLicense} /{' '}
-                          </Text>
-                        </>
-                      )}
+
                       {cvData?.DOB === '' ? null : (
                         <>
                           <Text> Fødselsdato: </Text>
@@ -431,6 +417,21 @@ const TemplateEleven = () => {
                             }}
                           >
                             {moment(cvData?.DOB).format('DD,MM,YYYY')}
+                          </Text>
+                        </>
+                      )}
+                      {cvData?.drivingLicense === '' ? null : (
+                        <>
+                          <Text> Førerkort: </Text>
+                          <Text
+                            style={{
+                              fontWeight: 'light',
+                              color: 'black',
+                              fontSize: 10,
+                              wordBreak: 'break-all',
+                            }}
+                          >
+                            {cvData?.drivingLicense} /{' '}
                           </Text>
                         </>
                       )}

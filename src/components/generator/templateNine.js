@@ -621,6 +621,10 @@ const TemplateNine = () => {
             <Link to='/gdpr'>
               <span>personvernregler</span>
             </Link>
+            <span style={{ color: 'red' }}>
+              {' '}
+              Husk å trykke på 'Oppdater tekst' før du laster ned CV-en din
+            </span>
           </span>
         </div>
         <PDFDownloadLink

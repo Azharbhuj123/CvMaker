@@ -189,7 +189,7 @@ const TemplateEight = (props) => {
       color: '#b19c7d',
       fontFamily: 'Roboto',
       fontSize: 16,
-      fontWeight: 700,
+      fontWeight: 'bold',
       paddingBottom: 8,
       textAlign: 'left',
       textTransform: 'uppercase',
@@ -202,7 +202,7 @@ const TemplateEight = (props) => {
     skillSectionContentText: {
       fontFamily: 'Roboto',
       fontSize: 10,
-      fontWeight: 200,
+      fontWeight: 700,
       textAlign: 'left',
       width: ' 80%',
       marginTop: 5,
@@ -669,6 +669,10 @@ const TemplateEight = (props) => {
             <Link to='/gdpr'>
               <span>personvernregler</span>
             </Link>
+            <span style={{ color: 'red' }}>
+              {' '}
+              Husk å trykke på 'Oppdater tekst' før du laster ned CV-en din
+            </span>
           </span>
         </div>
         <PDFDownloadLink

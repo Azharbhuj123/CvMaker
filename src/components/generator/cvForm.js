@@ -1631,7 +1631,6 @@ const CvForm = (props) => {
           <div className='cv-form-study-header-container'>
             <h2>Praksisplasser</h2>
             <button
-            
               onClick={() => {
                 disableAccordian('Praksisplasser')
               }}
@@ -1948,6 +1947,18 @@ const CvForm = (props) => {
             }
           })}
         </div>
+      </div>
+      <div style={{ marginTop: '20px' }}>
+        <p
+          style={{
+            color: 'red',
+            fontSize: '16px',
+            fontFamily: 'Montserrat',
+            fontWeight: 'bold',
+          }}
+        >
+          Husk å trykke på 'Oppdater tekst' før du laster ned CV-en din
+        </p>
       </div>
       <div className='preview-button'>
         <button
