@@ -471,7 +471,7 @@ export default function CvGeneratorReducer(state = initialState, action) {
       case actionTypes.EDITNEWADDITIONALACCORDIAN:
       return {
         ...state,
-        additionalAccordian: action.payload,
+        newAdditionalAccordian: action.payload,
         cvData: { ...state.cvData, lastModified: new Date() },
       }
     case actionTypes.EDITHOBBIES:

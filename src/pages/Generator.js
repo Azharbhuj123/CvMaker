@@ -9,12 +9,9 @@ import { Outlet } from 'react-router-dom'
 import { editConfig } from '../Redux/actions/CvGeneratorAction'
 import { cvGenerator } from '../Redux/actions/CvGeneratorAction'
 import moment from 'moment'
-import ArrowLeft from '../assests/icons/arrowLeft.png'
-import ArrowRight from '../assests/icons/arrowRight.png'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import PdfViewer from './PdfViewer'
 
 const Generator = (props) => {
   // const { cvName, setCvName } = props;
@@ -56,9 +53,7 @@ const Generator = (props) => {
       showCloseButton: true,
       confirmButtonColor: '#eeb856',
 
-      inputPlaceholder: `
-      for å laste ned denne CVen må du bruke fra skrivebordet.<a  href="/gdpr">vilkår og betingelser</a> og <a  href="/gdpr">personvernregler</a> <br>  
-      `,
+      inputPlaceholder: `Ved å trykke på laste ned, vil du laste ned CVen du har laget forplikte deg til å akseptere våre <a  href="/gdpr">vilkår og betingelser</a> og <a  href="/gdpr">personvernregler</a> <br>  <span style={{paddingTop:"1rem"}}>Om den ikke vil laste ned, last inn siden på nytt så fungerer det</span>`,
       confirmButtonText: 'Fortsette <i class="fa fa-arrow-right"></i>',
 
       inputValidator: (result) => {
@@ -139,14 +134,14 @@ const Generator = (props) => {
         </div>
       ) : (
         <div className='generator'>
-          <button
+          {/* <button
             className='proceed-button'
             onClick={() => {
               alertFunction()
             }}
           >
             {displayTemplate ? <MdArrowBackIosNew /> : <MdArrowForwardIos />}
-          </button>
+          </button> */}
           <div style={{ display: 'relative' }} className='generator-container'>
             <div
               className='generator-container-left'
@@ -194,11 +189,11 @@ const Generator = (props) => {
               </div>
             </div>
             <div
-              style={{
-                display: displayTemplate ? 'flex' : 'none',
-                width: displayTemplate ? '100%' : '0%',
-                height: displayTemplate ? '100%' : '0%',
-              }}
+              // style={{
+              //   display: displayTemplate ? 'flex' : 'none',
+              //   width: displayTemplate ? '100%' : '0%',
+              //   height: displayTemplate ? '100%' : '0%',
+              // }}
               className='generator-container-right'
             >
               <Outlet

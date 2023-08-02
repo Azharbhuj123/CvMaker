@@ -32,10 +32,7 @@ import {
   View,
   Font,
   StyleSheet,
-  PDFViewer,
 } from '@react-pdf/renderer'
-import PdfRapper from '../components/PdfRapper'
-
 const TemplateEightPdf = () => {
   const cvData = useSelector(CV_DATA)
   const educationData = useSelector(Education_DATA)

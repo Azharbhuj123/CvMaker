@@ -61,7 +61,21 @@ div > ul {
 }
 @media screen and (max-width: 768px) {
   .preview-button {
-    display: none !important;
+    right: -10px !important;
+    // display: none !important;
+    button {
+      background-color: #eeb856;
+      border: none;
+      color: black;
+      padding: 1em 0.1em;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-family: 'Roboto';
+      font-size: 0.8em;
+      font-weight: bold;
+      text-align: center;
+      width: 80%;
+    }
   }
 }
 .modal {
@@ -100,4 +114,59 @@ div > ul {
       width: 20%;
     }
   }
+}
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+:-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(246, 243, 241);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  /* background: gray;  */
+}
+/* end */
+
+/* Modal styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9;
+}
+
+.modalContent {
+  background-color: #fff;
+  padding: 20px;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* end */
+
+.proceed-button {
+  display: block;
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  bottom: 50px;
+  right: 10px;
+  border-radius: 50px;
+  text-align: center;
+  background-color: #eeb856;
+  z-index: 9;
+  border: 1px solid #fff;
 }

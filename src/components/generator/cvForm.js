@@ -16,6 +16,7 @@ import {
   cvGenerator,
   addReference,
   editAdditonalAccordian,
+  editNewAdditonalAccordian,
   addToInternship,
   addToHobby,
   refrenceToggle,
@@ -48,6 +49,7 @@ import {
   addNewReference,
   editNewReference,
   refrencNewToggle,
+  referenceToggle,
   editProperty,
   addNewProperty,
   editNewProperty,
@@ -75,6 +77,7 @@ import {
   newReferenceData,
   getNewRefToggle,
   newPropertiesData,
+  getNewAdditionalAccordian,
 } from '../../Redux/reducers/CvGeneratorReducer'
 import AddDetails from './addDetails'
 import ExperianceGeneratorAccordian from './experianceGeneratorAccordian'
@@ -116,13 +119,14 @@ const CvForm = (props) => {
     setZipCode(basicInformation.zipCode)
     setDrivingLiscense(basicInformation.drivingLicense)
     setPreviewData(editorData)
+    setToggle(basicInformation.displayProgressBar)
+    console.log(basicInformation.displayProgressBar,"in use")
   }, [])
 
   const dispatch = useDispatch()
   const [firstName, setFirstName] = useState('Fornavn')
   // const [profileImage, setProfileImage] = useState()
   const [lastName, setLastName] = useState('Etternavn')
-  const [progressBar, setProgressBar] = useState(false)
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('+090078601')
   const [DOB, setDOB] = useState('')
@@ -131,8 +135,7 @@ const CvForm = (props) => {
   const [drivingLicense, setDrivingLiscense] = useState('')
   const [zipCode, setZipCode] = useState('')
   const [jobTitle, setJobTitle] = useState('')
-  const [value, setValue] = useState('')
-  const [toggle, setToggle] = useState('')
+  const [toggle, setToggle] = useState({displayProgressBar: false})
   const [test, setTest] = useState('')
   const [isChecked, setIsChecked] = useState(false)
   const workExperiannce = useSelector(Experiance_Data)
@@ -147,6 +150,7 @@ const CvForm = (props) => {
   const internships = useSelector(getInternships)
   const hobbies = useSelector(getHobbies)
   const additionalAccordians = useSelector(getAdditionalAccordian)
+  const newAdditionalAccodrdian = useSelector(getNewAdditionalAccordian)
   const toggleData = useSelector(getRefToggle)
   const text = localStorage.getItem('uniqueText')
   // Utdanning
@@ -161,6 +165,8 @@ const CvForm = (props) => {
   const education = useSelector(Education_DATA)
   const newEducation = useSelector(New_Education_Data)
   const experiance = useSelector(Experiance_Data)
+
+  console.log(toggle,"toggle")
 
   const store = useSelector((state) => state)
   console.log(store, 'store check')
@@ -374,13 +380,6 @@ const CvForm = (props) => {
   }
   const editorData = useSelector(profileRichTextData)
 
-  // const handleChange = (event) => {
-  //   console.log(editorData, '<===== data')
-  //   dispatch(saveData(event.target.value))
-  // }
-
-  // End
-
   const [skillSet, setSkillSet] = useState([
     'Kundeservice',
     'Prosjektledelse',
@@ -396,23 +395,6 @@ const CvForm = (props) => {
     Førerkort: false,
   })
 
-  // const addIntoProperty = (propertyName = null) => {
-  //   if (propertyName) {
-  //     let updatedpersonalProperty = personalProperty.filter(
-  //       (i) => propertyName !== i
-  //     )
-  //     setPersonalProperty(updatedpersonalProperty)
-  //   }
-
-  //   dispatch(
-  //     addProperty({
-  //       name: propertyName ? propertyName : '',
-  //       value: '',
-  //       enableAccordian: true,
-  //     })
-  //   )
-  // }
-
   const addSkill = (item = null) => {
     dispatch(
       addSlider({
@@ -426,21 +408,11 @@ const CvForm = (props) => {
     setSkillSet(updatedSkillSet)
   }
 
-  // const addToReference = () => {
-  //   dispatch(
-  //     addReference({
-  //       name: '',
-  //       email: '',
-  //       companyName: '',
-  //       enableAccordian: true,
-  //     })
-  //   )
-  // }
-
   const changeBasicInfo = (value, field) => {
     console.log(basicInformation, 'basic information check')
     dispatch(cvGenerator({ ...basicInformation, [field]: value }))
   }
+
   const disableAccordian = (accordianName) => {
     dispatch(
       editAdditonalAccordian({
@@ -458,6 +430,7 @@ const CvForm = (props) => {
     field4: 'Start dato - slutt dato (Trykk på kalender)',
     field5: 'Utfyllende informasjon',
   }
+
   const clickToChangeProfile = () => {
     console.log('ref found')
     profileImageRef.current.click()
@@ -506,7 +479,7 @@ const CvForm = (props) => {
   const updateStore = async () => {
     const info = {
       startDate: startDate,
-      displayProgressBar: basicInformation.displayProgressBar,
+      displayProgressBar: toggle,
       endDate: endDate,
       firstName: firstName,
       lastName: lastName,
@@ -519,10 +492,21 @@ const CvForm = (props) => {
       drivingLicense: drivingLicense,
       jobTitle: jobTitle,
       profileImage: profileImage,
-      progressBar: basicInformation.progressBar,
     }
     await dispatch(cvGenerator({ ...info }))
-    console.log(updateStore, 'storeee')
+  }
+
+  const changeToggleInfo = (newValue, key) => {
+    setToggle((prevInfo) => ({
+      ...prevInfo,
+      [key]: newValue,
+    }))
+  }
+
+  const handleToggleClick = async () => {
+    // Update the displayProgressBar value
+    toggle(!basicInformation.displayProgressBar, 'displayProgressBar')
+    
   }
 
   const enableAccordian = (accordianName) => {
@@ -531,6 +515,24 @@ const CvForm = (props) => {
       editAdditonalAccordian({ ...additionalAccordians, [accordianName]: true })
     )
   }
+
+  // const enableAccordian = (accordianName) => {
+  //   console.log(accordianName, '<=====')
+  //   dispatch(
+  //      editAdditonalAccordian({
+  //       ...newAdditionalAccodrdian
+  //     })
+  //   )
+  // }
+
+  // const newEnableAccordian = (accordianName) => {
+  //   dispatch(
+  //     editNewAdditonalAccordian({
+  //       ...additionalAccordians,
+  //       [accordianName]: true,
+  //     })
+  //   )
+  // }
 
   const onToggleChange = (nextChecked) => {
     dispatch(refrencNewToggle(nextChecked))
@@ -1244,16 +1246,12 @@ const CvForm = (props) => {
         <div style={{ paddingTop: '8px' }} className='swtichbtnwithpara'>
           <Switch
             checked={
-              basicInformation.displayProgressBar
+              toggle
               // progressBar
             }
             onColor='#EEB856'
             onChange={() => {
-              changeBasicInfo(
-                !basicInformation.displayProgressBar,
-                'displayProgressBar'
-              )
-              // setProgressBar(true)
+              setToggle((pre)=>!pre)
             }}
           />
           <p>Vis ferdighetsgrad (anbefales av) </p>
@@ -1923,10 +1921,10 @@ const CvForm = (props) => {
         className='cv-form-study'
         style={{
           display:
-            additionalAccordians.Kurs &&
-            additionalAccordians.Referanser &&
-            additionalAccordians.Praksisplasser &&
-            additionalAccordians.Hobbyer
+          additionalAccordians.Kurs &&
+          additionalAccordians.Referanser &&
+          additionalAccordians.Praksisplasser &&
+          additionalAccordians.Hobbyer
               ? 'none'
               : 'block',
         }}
