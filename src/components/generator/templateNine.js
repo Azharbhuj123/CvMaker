@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useOutletContext, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import ProgressBar from './progressBar'
 import {
   coursesData,
   CV_DATA,
@@ -288,7 +287,7 @@ const TemplateNine = () => {
       color: 'black',
       fontWeight: 'bold',
       position: 'relative',
-      paddingBottom: 10,
+      // paddingBottom: 10,
       textDecoration: 'none',
     },
     profileTitleToggle: {
@@ -297,6 +296,13 @@ const TemplateNine = () => {
       fontFamily: 'Calibri',
     },
     profilePara: {
+      fontFamily: 'Calibri',
+      fontSize: 14,
+      color: 'black',
+      fontWeight: 700,
+      wordBreak: 'break-all',
+    },
+    experiencePara: {
       fontFamily: 'Calibri',
       fontSize: 14,
       color: 'black',
@@ -319,7 +325,7 @@ const TemplateNine = () => {
       fontFamily: 'Calibri',
       fontSize: 14,
       fontWeight: 700,
-      marginBottom: 8,
+      // marginBottom: 8,
       wordBreak: 'break-all',
       color: 'gray',
     },
@@ -380,7 +386,7 @@ const TemplateNine = () => {
                     {cvData.drivingLicense !== '' ? (
                       <>
                         <Text style={styles.addressTitle}>Førerkort</Text>
-                        <Text style={styles.addressText}>liscence</Text>
+                        <Text style={styles.addressText}>{cvData?.drivingLicense}</Text>
                       </>
                     ) : null}
                   </View>
@@ -495,7 +501,7 @@ const TemplateNine = () => {
                     <View style={styles.profileSection}>
                       <View style={styles.profileSectionWrapper}>
                         <Text style={styles.profileTitle}>PROFIL</Text>
-                        <View>
+                        <View style={{ marginTop: '10px' }}>
                           <Text style={styles.profilePara}>
                             {profileData.replace(/(<([^>]+)>)/gi, '')}
                           </Text>
@@ -510,18 +516,16 @@ const TemplateNine = () => {
                   {experianceData.map((item, index) => {
                     return (
                       <>
-                        <View key={index}>
+                        <View key={index} style={{ marginTop: '10px' }}>
                           <Text style={styles.experienceFrom}>
-                            {' '}
                             {item?.jobTitle} - {item?.employer}
                           </Text>
                           <Text style={styles.experienceDate}>
-                            {' '}
                             {item?.startDate} -{' '}
                             {item.toggle ? 'dags dato' : item?.endDate}
                           </Text>
                           <View>
-                            <Text style={styles.profilePara}>
+                            <Text style={styles.experiencePara}>
                               {item.additionalInformation.replace(
                                 /(<([^>]+)>)/gi,
                                 ''
@@ -540,10 +544,8 @@ const TemplateNine = () => {
                     {internships.map((item, index) => {
                       return (
                         <>
-                          {' '}
-                          <View key={index}>
+                          <View key={index} style={{ marginTop: '10px' }}>
                             <Text style={styles.experienceFrom}>
-                              {' '}
                               {item?.jobTitle} - {item?.employer}{' '}
                             </Text>
                             <Text style={styles.experienceDate}>
@@ -553,7 +555,7 @@ const TemplateNine = () => {
                                 : moment(item?.endDate).format('YYYY-MM')}
                             </Text>
                             <View>
-                              <Text style={styles.profilePara}>
+                              <Text style={styles.experiencePara}>
                                 {item.additionalInformation.replace(
                                   /(<([^>]+)>)/gi,
                                   ''
@@ -572,18 +574,16 @@ const TemplateNine = () => {
                   {educationData.map((item, index) => {
                     return (
                       <>
-                        <View key={index}>
+                        <View key={index} style={{ marginTop: '10px' }}>
                           <Text style={styles.experienceFrom}>
-                            {' '}
                             {item?.study} - {item?.school}
                           </Text>
                           <Text style={styles.experienceDate}>
-                            {' '}
                             {item?.startDate + ' -'}{' '}
                             {item.toggle ? 'dags dato' : item?.endDate}{' '}
                           </Text>
                           <View>
-                            <Text style={styles.profilePara}>
+                            <Text style={styles.experiencePara}>
                               {item.additionalInformation.replace(
                                 /(<([^>]+)>)/gi,
                                 ''
@@ -670,6 +670,9 @@ const TemplateNine = () => {
                         <Text style={styles.addressText}>
                           {cvData?.physicalAddress}
                         </Text>
+                        {/* </View>
+
+            <View style={styles.detail}> */}
                         <Text style={styles.addressTitle}>Telefon</Text>
                         <Text style={styles.addressText}>{cvData?.phone}</Text>
 
@@ -803,7 +806,7 @@ const TemplateNine = () => {
                         <View style={styles.profileSection}>
                           <View style={styles.profileSectionWrapper}>
                             <Text style={styles.profileTitle}>PROFIL</Text>
-                            <View>
+                            <View style={{ marginTop: '10px' }}>
                               <Text style={styles.profilePara}>
                                 {profileData.replace(/(<([^>]+)>)/gi, '')}
                               </Text>
@@ -818,18 +821,16 @@ const TemplateNine = () => {
                       {experianceData.map((item, index) => {
                         return (
                           <>
-                            <View key={index}>
+                            <View key={index} style={{ marginTop: '10px' }}>
                               <Text style={styles.experienceFrom}>
-                                {' '}
                                 {item?.jobTitle} - {item?.employer}
                               </Text>
                               <Text style={styles.experienceDate}>
-                                {' '}
                                 {item?.startDate} -{' '}
                                 {item.toggle ? 'dags dato' : item?.endDate}
                               </Text>
                               <View>
-                                <Text style={styles.profilePara}>
+                                <Text style={styles.experiencePara}>
                                   {item.additionalInformation.replace(
                                     /(<([^>]+)>)/gi,
                                     ''
@@ -848,10 +849,8 @@ const TemplateNine = () => {
                         {internships.map((item, index) => {
                           return (
                             <>
-                              {' '}
-                              <View key={index}>
+                              <View key={index} style={{ marginTop: '10px' }}>
                                 <Text style={styles.experienceFrom}>
-                                  {' '}
                                   {item?.jobTitle} - {item?.employer}{' '}
                                 </Text>
                                 <Text style={styles.experienceDate}>
@@ -861,7 +860,7 @@ const TemplateNine = () => {
                                     : moment(item?.endDate).format('YYYY-MM')}
                                 </Text>
                                 <View>
-                                  <Text style={styles.profilePara}>
+                                  <Text style={styles.experiencePara}>
                                     {item.additionalInformation.replace(
                                       /(<([^>]+)>)/gi,
                                       ''
@@ -880,18 +879,16 @@ const TemplateNine = () => {
                       {educationData.map((item, index) => {
                         return (
                           <>
-                            <View key={index}>
+                            <View key={index} style={{ marginTop: '10px' }}>
                               <Text style={styles.experienceFrom}>
-                                {' '}
                                 {item?.study} - {item?.school}
                               </Text>
                               <Text style={styles.experienceDate}>
-                                {' '}
                                 {item?.startDate + ' -'}{' '}
                                 {item.toggle ? 'dags dato' : item?.endDate}{' '}
                               </Text>
                               <View>
-                                <Text style={styles.profilePara}>
+                                <Text style={styles.experiencePara}>
                                   {item.additionalInformation.replace(
                                     /(<([^>]+)>)/gi,
                                     ''
@@ -1035,8 +1032,8 @@ const TemplateNine = () => {
                             {cvData?.physicalAddress}
                           </Text>
                           {/* </View>
-
-            <View style={styles.detail}> */}
+    
+                <View style={styles.detail}> */}
                           <Text style={styles.addressTitle}>Telefon</Text>
                           <Text style={styles.addressText}>
                             {cvData?.phone}
@@ -1176,7 +1173,7 @@ const TemplateNine = () => {
                           <View style={styles.profileSection}>
                             <View style={styles.profileSectionWrapper}>
                               <Text style={styles.profileTitle}>PROFIL</Text>
-                              <View>
+                              <View style={{ marginTop: '10px' }}>
                                 <Text style={styles.profilePara}>
                                   {profileData.replace(/(<([^>]+)>)/gi, '')}
                                 </Text>
@@ -1191,18 +1188,16 @@ const TemplateNine = () => {
                         {experianceData.map((item, index) => {
                           return (
                             <>
-                              <View key={index}>
+                              <View key={index} style={{ marginTop: '10px' }}>
                                 <Text style={styles.experienceFrom}>
-                                  {' '}
                                   {item?.jobTitle} - {item?.employer}
                                 </Text>
                                 <Text style={styles.experienceDate}>
-                                  {' '}
                                   {item?.startDate} -{' '}
                                   {item.toggle ? 'dags dato' : item?.endDate}
                                 </Text>
                                 <View>
-                                  <Text style={styles.profilePara}>
+                                  <Text style={styles.experiencePara}>
                                     {item.additionalInformation.replace(
                                       /(<([^>]+)>)/gi,
                                       ''
@@ -1223,10 +1218,8 @@ const TemplateNine = () => {
                           {internships.map((item, index) => {
                             return (
                               <>
-                                {' '}
-                                <View key={index}>
+                                <View key={index} style={{ marginTop: '10px' }}>
                                   <Text style={styles.experienceFrom}>
-                                    {' '}
                                     {item?.jobTitle} - {item?.employer}{' '}
                                   </Text>
                                   <Text style={styles.experienceDate}>
@@ -1237,7 +1230,7 @@ const TemplateNine = () => {
                                       : moment(item?.endDate).format('YYYY-MM')}
                                   </Text>
                                   <View>
-                                    <Text style={styles.profilePara}>
+                                    <Text style={styles.experiencePara}>
                                       {item.additionalInformation.replace(
                                         /(<([^>]+)>)/gi,
                                         ''
@@ -1256,18 +1249,16 @@ const TemplateNine = () => {
                         {educationData.map((item, index) => {
                           return (
                             <>
-                              <View key={index}>
+                              <View key={index} style={{ marginTop: '10px' }}>
                                 <Text style={styles.experienceFrom}>
-                                  {' '}
                                   {item?.study} - {item?.school}
                                 </Text>
                                 <Text style={styles.experienceDate}>
-                                  {' '}
                                   {item?.startDate + ' -'}{' '}
                                   {item.toggle ? 'dags dato' : item?.endDate}{' '}
                                 </Text>
                                 <View>
-                                  <Text style={styles.profilePara}>
+                                  <Text style={styles.experiencePara}>
                                     {item.additionalInformation.replace(
                                       /(<([^>]+)>)/gi,
                                       ''

@@ -67,7 +67,7 @@ const MobileScreenHeader = () => {
             <span onClick={() => setOpen(!open)}>GDPR</span>
           </Link>
 
-          <a style={{ textDecoration: "none", color: "black" }} href="https://cvhjelperen.recman.no/" target="_blank">
+          <a style={{ textDecoration: "none", color: "black" }} href="https://karrieresenteret.recman.no/" target="_blank">
             <span onClick={() => setOpen(!open)}>Ledige stillinger</span>
           </a>
           <Link style={{ textDecoration: "none", color: "black" }} to="/maler">

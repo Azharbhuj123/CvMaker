@@ -23,7 +23,7 @@ const Footer = () => {
             </Link>
           </div>
           <div className="footer-container-wrapper-headinglinks-link">
-            <a style={{ textDecoration: "none", color: "black" }} href="https://cvhjelperen.recman.no/" target="_blank">
+            <a style={{ textDecoration: "none", color: "black" }} href="https://karrieresenteret.recman.no/" target="_blank">
               <span>Ledige stillinger</span>
             </a>
           </div>

@@ -195,7 +195,7 @@ const Illustration = () => {
             </div>
           )}
           <div className="cvm-container-wrapper-heading-btn">
-            <a href="https://cvhjelperen.recman.no/" target="_blank">
+            <a href="https://karrieresenteret.recman.no/" target="_blank">
               <button>Ledige stillinger</button>
             </a>
             <Link to="/maler">

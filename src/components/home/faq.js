@@ -41,7 +41,7 @@ const FAQ = ({ faqState }) => {
           <Accordian
             heading="Kan CV hjelperen hjelpe meg ut i jobb?"
             content="Ja. Vi har samlet en rekke ledige stillinger du kan søke på"
-            link="https://cvhjelperen.recman.no/"
+            link="https://karrieresenteret.recman.no/"
             linkText="Ledige stillinger"
           />
 

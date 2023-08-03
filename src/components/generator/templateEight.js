@@ -545,7 +545,7 @@ const TemplateEight = (props) => {
                         style={styles.experienceSectionContentText}
                         key={index}
                       >
-                        {item?.jobTitle + ' - ' + item?.employer}{' '}
+                        {item?.jobTitle + ' - ' + item?.employer}
                       </Text>
                       <View style={styles.experienceSectionContentDate}>
                         <Text style={styles.experienceSectionContentDateText}>
@@ -573,7 +573,6 @@ const TemplateEight = (props) => {
 
                 <Text style={styles.experienceSection}>UTDANNING</Text>
                 {educationData?.map((item, index) => {
-                  console.log(item, 'iiiiiiiiiiii')
                   return (
                     <View style={styles.experienceSectionContent}>
                       {item?.study ? (
@@ -581,8 +580,7 @@ const TemplateEight = (props) => {
                           style={styles.experienceSectionContentText}
                           keys={index}
                         >
-                          {' '}
-                          {item?.study + ', ' + item?.school}{' '}
+                          {item?.study + ', ' + item?.school}
                         </Text>
                       ) : null}
                       <View style={styles.experienceSectionContentDate}>
@@ -762,9 +760,11 @@ const TemplateEight = (props) => {
                       <Text style={styles.detailSectionContentAdress}>
                         E-Post
                       </Text>
-                      <Text style={styles.detailSectionContentAddressText}>
-                        {cvData?.email}
-                      </Text>
+                      <View>
+                        <Text style={styles.detailSectionContentAddressText}>
+                          {cvData?.email}
+                        </Text>
+                      </View>
 
                       <Text style={styles.detailSectionContentAdress}>
                         TELEFON
@@ -796,7 +796,7 @@ const TemplateEight = (props) => {
                                   <View>
                                     <Text
                                       style={{
-                                        fontSize: '12px',
+                                        fontSize: '10px',
                                         fontFamily: 'Roboto',
                                         marginTop: '15px',
                                         width: `${item?.value}%`,
@@ -842,7 +842,9 @@ const TemplateEight = (props) => {
                       {accordiansEnabled.Hobbyer === true ? (
                         <>
                           <Text style={styles.hobbySection}>HOBBY</Text>
-                          <View style={{ display: 'flex' }}>
+                          <View
+                            style={{ display: 'flex', flexDirection: 'row' }}
+                          >
                             {hobbies?.map((item, index) => (
                               <Text
                                 style={styles.languageSectionText}
@@ -892,7 +894,12 @@ const TemplateEight = (props) => {
                         {console.log('profileData', profileData)}
                         <Text style={styles.profileSection}>PROFIL</Text>
                         <View>
-                          <Text style={styles.profileSectionText}>
+                          <Text
+                            style={styles.profileSectionText}
+                            // dangerouslySetInnerHTML={{
+                            //   __html: profileData,
+                            // }}
+                          >
                             {profileData.replace(/(<([^>]+)>)/gi, '')}
                           </Text>
                         </View>
@@ -909,7 +916,7 @@ const TemplateEight = (props) => {
                             style={styles.experienceSectionContentText}
                             key={index}
                           >
-                            {item?.jobTitle + ' - ' + item?.employer}{' '}
+                            {item?.jobTitle + ' - ' + item?.employer}
                           </Text>
                           <View style={styles.experienceSectionContentDate}>
                             <Text
@@ -942,7 +949,6 @@ const TemplateEight = (props) => {
 
                     <Text style={styles.experienceSection}>UTDANNING</Text>
                     {educationData?.map((item, index) => {
-                      console.log(item, 'iiiiiiiiiiii')
                       return (
                         <View style={styles.experienceSectionContent}>
                           {item?.study ? (
@@ -950,8 +956,7 @@ const TemplateEight = (props) => {
                               style={styles.experienceSectionContentText}
                               keys={index}
                             >
-                              {' '}
-                              {item?.study + ', ' + item?.school}{' '}
+                              {item?.study + ', ' + item?.school}
                             </Text>
                           ) : null}
                           <View style={styles.experienceSectionContentDate}>
@@ -1203,9 +1208,11 @@ const TemplateEight = (props) => {
                         <Text style={styles.detailSectionContentAdress}>
                           E-Post
                         </Text>
-                        <Text style={styles.detailSectionContentAddressText}>
-                          {cvData?.email}
-                        </Text>
+                        <View>
+                          <Text style={styles.detailSectionContentAddressText}>
+                            {cvData?.email}
+                          </Text>
+                        </View>
 
                         <Text style={styles.detailSectionContentAdress}>
                           TELEFON
@@ -1239,7 +1246,7 @@ const TemplateEight = (props) => {
                                     <View>
                                       <Text
                                         style={{
-                                          fontSize: '12px',
+                                          fontSize: '10px',
                                           fontFamily: 'Roboto',
                                           marginTop: '15px',
                                           width: `${item?.value}%`,
@@ -1285,7 +1292,9 @@ const TemplateEight = (props) => {
                         {accordiansEnabled.Hobbyer === true ? (
                           <>
                             <Text style={styles.hobbySection}>HOBBY</Text>
-                            <View style={{ display: 'flex' }}>
+                            <View
+                              style={{ display: 'flex', flexDirection: 'row' }}
+                            >
                               {hobbies?.map((item, index) => (
                                 <Text
                                   style={styles.languageSectionText}
@@ -1335,7 +1344,12 @@ const TemplateEight = (props) => {
                           {console.log('profileData', profileData)}
                           <Text style={styles.profileSection}>PROFIL</Text>
                           <View>
-                            <Text style={styles.profileSectionText}>
+                            <Text
+                              style={styles.profileSectionText}
+                              // dangerouslySetInnerHTML={{
+                              //   __html: profileData,
+                              // }}
+                            >
                               {profileData.replace(/(<([^>]+)>)/gi, '')}
                             </Text>
                           </View>
@@ -1352,7 +1366,7 @@ const TemplateEight = (props) => {
                               style={styles.experienceSectionContentText}
                               key={index}
                             >
-                              {item?.jobTitle + ' - ' + item?.employer}{' '}
+                              {item?.jobTitle + ' - ' + item?.employer}
                             </Text>
                             <View style={styles.experienceSectionContentDate}>
                               <Text
@@ -1385,7 +1399,6 @@ const TemplateEight = (props) => {
 
                       <Text style={styles.experienceSection}>UTDANNING</Text>
                       {educationData?.map((item, index) => {
-                        console.log(item, 'iiiiiiiiiiii')
                         return (
                           <View style={styles.experienceSectionContent}>
                             {item?.study ? (
@@ -1393,8 +1406,7 @@ const TemplateEight = (props) => {
                                 style={styles.experienceSectionContentText}
                                 keys={index}
                               >
-                                {' '}
-                                {item?.study + ', ' + item?.school}{' '}
+                                {item?.study + ', ' + item?.school}
                               </Text>
                             ) : null}
                             <View style={styles.experienceSectionContentDate}>

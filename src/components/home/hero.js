@@ -20,7 +20,7 @@ const Hero = () => {
                 Lag gratis CV
               </button>
             </Link>
-            <a href="https://cvhjelperen.recman.no/" target={"_blank"} >
+            <a href="https://karrieresenteret.recman.no/" target={"_blank"} >
               <button
                 style={{ paddingBottom: "10px", cursor: "pointer" }}
             

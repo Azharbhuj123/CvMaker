@@ -57,7 +57,7 @@ const Header = ({ setFaqState, faqState }) => {
             </span>
           </HashLink>
 
-          <a style={{ textDecoration: "none", color: "black" }} href="https://cvhjelperen.recman.no/" target="_blank">
+          <a style={{ textDecoration: "none", color: "black" }} href="https://karrieresenteret.recman.no/" target="_blank">
             <span>Ledige stillinger</span>
           </a>
           <Link to="/maler">
