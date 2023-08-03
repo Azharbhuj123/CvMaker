@@ -598,7 +598,7 @@
 
 @media only screen and (max-width: 768px) {
   .generator-container-right {
-    width: 10% !important;
+    width: 0% !important;
     position: absolute;
   }
 
@@ -752,11 +752,11 @@
     font-size: 1.3rem;
   }
 }
-@media only screen and (max-width: 1024px) {
-  .generator-container-right {
-    width: 50% !important;
-  }
-}
+// @media only screen and (max-width: 1024px) {
+//   .generator-container-right {
+//     width: 50% !important;
+//   }
+// }
 
 @media only screen and (max-width: 424px) and (min-width: 300px) {
   .generator-container-left-header {
