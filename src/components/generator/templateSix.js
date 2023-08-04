@@ -36,204 +36,6 @@ import axios from 'axios'
 import close from '../../../src/assests/images/circle-xmark.png'
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md'
 
-Font.register({
-  family: 'Arial',
-  fonts: [{ src: arialRegular }, { src: arialBold }],
-})
-
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'row',
-    paddingTop: 10,
-  },
-  document: {
-    width: '100%',
-    height: '100vh',
-  },
-  container: {
-    padding: 16,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    overflowWrap: 'break-word',
-  },
-  headerHeading: {
-    width: '80%',
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: 14,
-    overflowWrap: 'break-word',
-  },
-  headerHeadingTitle: {
-    fontFamily: 'Arial',
-    fontWeight: 300,
-    color: 'rgb(79, 129, 189)',
-    fontSize: 30,
-    wordBreak: 'break-word',
-  },
-  headerHeadingJobtitle: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  headerHeadingJobtitleText: {
-    fontSize: 13,
-    fontFamily: 'Arial',
-  },
-  headerHeadingOne: {
-    fontFamily: 'Arial',
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 16,
-    flex: 1,
-  },
-  headerHeadingOneLeft: {
-    display: 'flex',
-    flexDirection: 'column',
-    overflowWrap: 'break-word',
-  },
-  headerHeadingOneLeftText: {
-    marginTop: 2,
-    fontFamily: 'Arial',
-    fontSize: 11,
-    overflowWrap: 'break-word',
-    fontWeight: 'light',
-  },
-  headerHeadingOneRight: {
-    display: 'flex',
-    flexDirection: 'column',
-    // justifyContent: 'right',
-    overflowWrap: 'break-word',
-  },
-  headerHeadingImage: {
-    width: 100,
-    height: 100,
-    borderRadius: '60%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 24,
-  },
-  profileSection: {
-    width: '100%',
-    marginTop: 10,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 8,
-  },
-  profileSectionTitle: {
-    textTransform: 'uppercase',
-    fontFamily: 'Arial',
-    fontSize: 18,
-    fontWeight: 'light',
-    color: 'rgb(79, 129, 189)',
-    wordBreak: 'break-word',
-  },
-  profileSectionPara: {
-    fontFamily: 'Arial',
-    fontSize: 9,
-    textTransform: 'uppercase',
-    paddingBottom: 30,
-    wordBreak: 'break-word',
-  },
-  contentSection: {
-    width: '100%',
-    wordBreak: 'break-word',
-  },
-  contentSectionHeading: {
-    display: 'flex',
-    width: '100%',
-    flexDirection: 'row',
-  },
-  contentSectionHeadingLeft: {
-    display: 'flex',
-    width: '35%',
-  },
-  contentSectionHeadingLeftTitle: {
-    fontSize: 18,
-    color: 'rgb(79, 129, 189)',
-    fontFamily: 'Arial',
-  },
-  contentSectionHeadingRight: {
-    width: '65%',
-    borderLeft: '2px solid lightgray',
-  },
-  contentSectionHeadingLeftText: {
-    marginLeft: 8,
-    marginTop: 8,
-    fontFamily: 'Arial',
-    fontWeight: 300,
-    fontSize: 14,
-  },
-  contentSectionHeadingRightText: {
-    marginLeft: 14,
-    marginTop: 8,
-    fontSize: 14,
-    fontFamily: 'Arial',
-    fontWeight: 700,
-  },
-  contentSectionHeadingRightTextToggle: {
-    marginLeft: 14,
-    marginTop: 8,
-    fontSize: 11,
-    fontFamily: 'Arial',
-  },
-  sparkSectionHeadingRightText: {
-    marginLeft: 14,
-    fontSize: 12,
-    fontFamily: 'Arial',
-  },
-  contentSectionHeadingRightPara: {
-    overflowWrap: 'break-word',
-  },
-  contentSectionHeadingRightParaText: {
-    fontFamily: 'Arial',
-    fontSize: 12,
-    overflowWrap: 'break-word',
-    marginLeft: 15,
-  },
-  contentSectionHeadingRightList: {
-    marginLeft: 40,
-    fontFamily: 'Arial',
-  },
-  marker: {
-    width: 5,
-    height: 5,
-    borderRadius: 4,
-    backgroundColor: 'white',
-    border: '1px solid black',
-    marginRight: 8,
-  },
-  markerText: {
-    fontFamily: 'Arial',
-    fontSize: 12,
-    wordBreak: 'break-all',
-  },
-  contentSectionHeadingRightTitle: {
-    marginLeft: 14,
-    marginTop: 10,
-    fontFamily: 'Arial',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  contentSectionHeadingRightreference: {
-    marginLeft: 20,
-    marginTop: 30,
-    fontSize: 14,
-    fontFamily: 'Arial',
-    fontWeight: 'bold',
-  },
-})
 
 const TemplateSix = () => {
   let [displayTemplate, setDisplayTemplate, pageWidth, setPageWidth] =
@@ -293,6 +95,205 @@ const TemplateSix = () => {
       console.log(error, '<========= error')
     }
   }
+
+  Font.register({
+    family: 'Arial',
+    fonts: [{ src: arialRegular }, { src: arialBold }],
+  })
+  
+  const styles = StyleSheet.create({
+    page: {
+      flexDirection: 'row',
+      paddingTop: 10,
+    },
+    document: {
+      width: '100%',
+      height: '100vh',
+    },
+    container: {
+      padding: 16,
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    header: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      justifyContent: 'space-between',
+      overflowWrap: 'break-word',
+    },
+    headerHeading: {
+      width: '80%',
+      display: 'flex',
+      flexDirection: 'column',
+      marginTop: 14,
+      overflowWrap: 'break-word',
+    },
+    headerHeadingTitle: {
+      fontFamily: 'Arial',
+      fontWeight: 300,
+      color: 'rgb(79, 129, 189)',
+      fontSize: 30,
+      wordBreak: 'break-word',
+    },
+    headerHeadingJobtitle: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    headerHeadingJobtitleText: {
+      fontSize: 13,
+      fontFamily: 'Arial',
+    },
+    headerHeadingOne: {
+      fontFamily: 'Arial',
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginTop: 16,
+      flex: 1,
+    },
+    headerHeadingOneLeft: {
+      display: 'flex',
+      flexDirection: 'column',
+      overflowWrap: 'break-word',
+    },
+    headerHeadingOneLeftText: {
+      marginTop: 2,
+      fontFamily: 'Arial',
+      fontSize: 11,
+      overflowWrap: 'break-word',
+      fontWeight: 'light',
+    },
+    headerHeadingOneRight: {
+      display: 'flex',
+      flexDirection: 'column',
+      // justifyContent: 'right',
+      overflowWrap: 'break-word',
+    },
+    headerHeadingImage: {
+      width: 100,
+      height: 100,
+      borderRadius: '60%',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 24,
+    },
+    profileSection: {
+      width: '100%',
+      marginTop: 10,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 8,
+    },
+    profileSectionTitle: {
+      textTransform: 'uppercase',
+      fontFamily: 'Arial',
+      fontSize: 18,
+      fontWeight: 'light',
+      color: 'rgb(79, 129, 189)',
+      wordBreak: 'break-word',
+    },
+    profileSectionPara: {
+      fontFamily: 'Arial',
+      fontSize: 9,
+      textTransform: 'uppercase',
+      paddingBottom: 30,
+      wordBreak: 'break-word',
+    },
+    contentSection: {
+      width: '100%',
+      wordBreak: 'break-word',
+    },
+    contentSectionHeading: {
+      display: 'flex',
+      width: '100%',
+      flexDirection: 'row',
+    },
+    contentSectionHeadingLeft: {
+      display: 'flex',
+      width: '35%',
+    },
+    contentSectionHeadingLeftTitle: {
+      fontSize: 18,
+      color: 'rgb(79, 129, 189)',
+      fontFamily: 'Arial',
+    },
+    contentSectionHeadingRight: {
+      width: '65%',
+      borderLeft: '2px solid lightgray',
+    },
+    contentSectionHeadingLeftText: {
+      marginLeft: 8,
+      marginTop: 8,
+      fontFamily: 'Arial',
+      fontWeight: 300,
+      fontSize: 14,
+    },
+    contentSectionHeadingRightText: {
+      marginLeft: 14,
+      marginTop: 8,
+      fontSize: 14,
+      fontFamily: 'Arial',
+      fontWeight: 700,
+    },
+    contentSectionHeadingRightTextToggle: {
+      marginLeft: 14,
+      marginTop: 8,
+      fontSize: 11,
+      fontFamily: 'Arial',
+    },
+    sparkSectionHeadingRightText: {
+      marginLeft: 14,
+      fontSize: 12,
+      fontFamily: 'Arial',
+    },
+    contentSectionHeadingRightPara: {
+      overflowWrap: 'break-word',
+    },
+    contentSectionHeadingRightParaText: {
+      fontFamily: 'Arial',
+      fontSize: 12,
+      overflowWrap: 'break-word',
+      marginLeft: 15,
+    },
+    contentSectionHeadingRightList: {
+      marginLeft: 40,
+      fontFamily: 'Arial',
+    },
+    marker: {
+      width: 5,
+      height: 5,
+      borderRadius: 4,
+      backgroundColor: 'white',
+      border: '1px solid black',
+      marginRight: 8,
+    },
+    markerText: {
+      fontFamily: 'Arial',
+      fontSize: 12,
+      wordBreak: 'break-all',
+    },
+    contentSectionHeadingRightTitle: {
+      marginLeft: 14,
+      marginTop: 10,
+      fontFamily: 'Arial',
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+    contentSectionHeadingRightreference: {
+      marginLeft: 20,
+      marginTop: 30,
+      fontSize: 14,
+      fontFamily: 'Arial',
+      fontWeight: 'bold',
+    },
+  })
 
   const Proceed = () => {
     return (

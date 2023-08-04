@@ -172,26 +172,6 @@ const Illustration = () => {
                   </span>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flex: 1,
-                  gap: "1rem",
-                  marginTop: 15,
-                  alignItems: "center",
-                }}
-              >
-                <img
-                  style={{ height: "1.5rem", width: 30 }}
-                  src={CheckIcon}
-                ></img>
-                <div>
-                  <h3 style={{ flex: 1 }}>Blogginnlegg:</h3>
-                  <span style={{ flex: 1 }}>
-                    Vi har laget en rekke artikler om tips til jobbsøking
-                  </span>
-                </div>
-              </div>
             </div>
           )}
           <div className="cvm-container-wrapper-heading-btn">

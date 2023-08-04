@@ -1166,7 +1166,6 @@ const TemplateTen = () => {
           </PDFDownloadLink>
         </div>
       ) : null}
-
 {isModalOpen && (
         <div className='modalOverlay'>
           {/* <div className='modalContent'> */}

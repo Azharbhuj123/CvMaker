@@ -386,7 +386,9 @@ const TemplateNine = () => {
                     {cvData.drivingLicense !== '' ? (
                       <>
                         <Text style={styles.addressTitle}>Førerkort</Text>
-                        <Text style={styles.addressText}>{cvData?.drivingLicense}</Text>
+                        <Text style={styles.addressText}>
+                          {cvData?.drivingLicense}
+                        </Text>
                       </>
                     ) : null}
                   </View>
@@ -671,8 +673,8 @@ const TemplateNine = () => {
                           {cvData?.physicalAddress}
                         </Text>
                         {/* </View>
-
-            <View style={styles.detail}> */}
+  
+              <View style={styles.detail}> */}
                         <Text style={styles.addressTitle}>Telefon</Text>
                         <Text style={styles.addressText}>{cvData?.phone}</Text>
 
@@ -691,7 +693,9 @@ const TemplateNine = () => {
                         {cvData.drivingLicense !== '' ? (
                           <>
                             <Text style={styles.addressTitle}>Førerkort</Text>
-                            <Text style={styles.addressText}>liscence</Text>
+                            <Text style={styles.addressText}>
+                              {cvData?.drivingLicense}
+                            </Text>
                           </>
                         ) : null}
                       </View>
@@ -1032,8 +1036,8 @@ const TemplateNine = () => {
                             {cvData?.physicalAddress}
                           </Text>
                           {/* </View>
-    
-                <View style={styles.detail}> */}
+
+            <View style={styles.detail}> */}
                           <Text style={styles.addressTitle}>Telefon</Text>
                           <Text style={styles.addressText}>
                             {cvData?.phone}
@@ -1056,7 +1060,9 @@ const TemplateNine = () => {
                           {cvData.drivingLicense !== '' ? (
                             <>
                               <Text style={styles.addressTitle}>Førerkort</Text>
-                              <Text style={styles.addressText}>liscence</Text>
+                              <Text style={styles.addressText}>
+                                {cvData?.drivingLicense}
+                              </Text>
                             </>
                           ) : null}
                         </View>
