@@ -101,7 +101,10 @@ const TemplateNine = () => {
 
   Font.register({
     family: 'Times New Roman',
-    fonts: [{ src: TimesNewRomanRegular }, { src: TimesNewRomanBold }],
+    fonts: [
+      { src: TimesNewRomanRegular },
+      { src: TimesNewRomanBold, fontWeight: 'bold' },
+    ],
   })
 
   const sendPDFToBackend = async (blob) => {
