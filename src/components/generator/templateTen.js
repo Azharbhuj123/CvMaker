@@ -1133,7 +1133,7 @@ const TemplateTen = () => {
                 </Page>
               </Document>
             }
-            fileName={`${cvData.firstName}.pdf`}
+            fileName={`Skriv inn CV-navn.pdf`}
           >
             {({ blob, url, loading, error }) =>
               loading ? (
@@ -1585,7 +1585,7 @@ const TemplateTen = () => {
                 </Page>
               </Document>
               }
-              fileName={`${cvData.firstName}.pdf`}
+              fileName={`Skriv inn CV-navn.pdf`}
             >
               {({ blob, url, loading, error }) =>
                 loading ? (

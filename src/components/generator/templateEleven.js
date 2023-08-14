@@ -1279,7 +1279,7 @@ const TemplateEleven = () => {
             </Page>
           </Document>
             }
-            fileName={`${cvData.firstName}.pdf`}
+            fileName={`Skriv inn CV-navn.pdf`}
           >
             {({ blob, url, loading, error }) =>
               loading ? (
@@ -1812,7 +1812,7 @@ const TemplateEleven = () => {
                 </Page>
               </Document>
               }
-              fileName={`${cvData.firstName}.pdf`}
+              fileName={`Skriv inn CV-navn.pdf`}
             >
               {({ blob, url, loading, error }) =>
                 loading ? (
