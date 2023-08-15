@@ -64,7 +64,7 @@ const PropertyClosedGeneratorAccordian = ({ accordianIndex }) => {
                 )
               }
             >
-              Rediger tekstF
+              Rediger tekst
             </div>
             <div
               style={{ color: "red", cursor: "pointer" }}

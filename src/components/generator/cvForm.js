@@ -1330,7 +1330,7 @@ const CvForm = (props) => {
       </div>
       <div onClick={() => addIntoProperty()} style={buttonDesign}>
         <HiPlus size={25} style={{ color: '#EEB856' }} />
-        Leg til ferdigheter
+        Legg til ferdigheter
       </div>
       <div className='cv-form-study'>
         <h2>Språk</h2>
