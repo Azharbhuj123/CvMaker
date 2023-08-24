@@ -43,6 +43,16 @@ import close from '../../../src/assests/images/circle-xmark.png'
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md'
 
 const TemplateThree = () => {
+
+ const api = axios.create(
+    {
+            baseURL: process.env.REACT_APP_BASE_URL,
+            withCredentials: true,
+            headers: {
+              'Access-Control-Allow-Origin' : '*',
+              // 'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',   
+          }
+      })
   let pdfComponent = useRef()
   let printButtonRef = useRef()
   const cvData = useSelector(CV_DATA)
@@ -86,7 +96,24 @@ const TemplateThree = () => {
   const handleModalClose = () => {
     setIsModalOpen(false)
   }
-
+  const testFunction=async(blob)=>{
+    
+    const formData = new FormData()
+    formData.append('cv', blob)
+    // alert(blob.size)
+    try {
+      
+      // console.log('try')
+      const response = await api.post('user/mail',
+        formData
+      )
+      
+      console.log(response)
+    } catch (error) {
+      alert(JSON.stringify(error))
+      console.log(error, '<========= error')
+    }
+  }
   // const sendPrintedDocument = async () => {
   //   await sendFileToBackend(
   //     document.getElementsByClassName('template-three-container'),
@@ -96,6 +123,7 @@ const TemplateThree = () => {
   // }
 
   const sendPDFToBackend = async (blob) => {
+  
     const formData = new FormData()
     formData.append('cv', blob)
     try {
@@ -1097,7 +1125,7 @@ const TemplateThree = () => {
                             </View>
                           ))}
                         </View>
-
+                              {console.log}
                         {accordiansEnabled.Praksisplasser === true ? (
                           <View style={styles.experienceSection}>
                             <Text style={styles.profileWrapperLeftContentTitle}>
@@ -1175,7 +1203,8 @@ const TemplateThree = () => {
                 </Page>
               </Document>
             }
-            fileName={`Skriv inn CV-navn.pdf`}
+            
+            fileName={cvData.saveAs}
           >
             {({ blob, url, loading, error }) =>
               loading ? (
@@ -1199,7 +1228,7 @@ const TemplateThree = () => {
                     margin: '10px 20px 20px 0px',
                     cursor: 'pointer',
                   }}
-                  onClick={() => sendPDFToBackend(blob)}
+                  onClick={() =>{console.log(blob,"in desktop");sendPDFToBackend(blob)}}
                 >
                   Last ned CV
                 </button>
@@ -1719,13 +1748,14 @@ const TemplateThree = () => {
                   </Page>
                 </Document>
               }
-              fileName={`Skriv inn CV-navn.pdf`}
+              fileName={cvData.saveAs}
             >
               {({ blob, url, loading, error }) =>
                 loading ? (
                   'Loading Pdf...'
                 ) : (
                   <button
+                    onClick={()=>testFunction(blob)}
                     style={{
                       marginTop: '10px',
                       display: 'flex',
@@ -1743,7 +1773,7 @@ const TemplateThree = () => {
                       margin: '10px 20px 20px 0px',
                       cursor: 'pointer',
                     }}
-                    onClick={() => sendPDFToBackend(blob)}
+                    
                   >
                     Last ned CV
                   </button>
