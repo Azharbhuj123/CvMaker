@@ -366,7 +366,7 @@ const CvForm = (props) => {
     dispatch(
       addNewProperty({
         name: propertyName ? propertyName : '',
-        value: '',
+        value: '50',
         enableAccordian: true,
       })
     )
@@ -494,19 +494,6 @@ const CvForm = (props) => {
       profileImage: profileImage,
     }
     await dispatch(cvGenerator({ ...info }))
-  }
-
-  const changeToggleInfo = (newValue, key) => {
-    setToggle((prevInfo) => ({
-      ...prevInfo,
-      [key]: newValue,
-    }))
-  }
-
-  const handleToggleClick = async () => {
-    // Update the displayProgressBar value
-    toggle(!basicInformation.displayProgressBar, 'displayProgressBar')
-    
   }
 
   const enableAccordian = (accordianName) => {
@@ -1258,7 +1245,8 @@ const CvForm = (props) => {
         </div>
         {newProperties?.map((item, accordianIndex) => {
           const handleChange = (field, value) => {
-            console.log(field, value, accordianIndex)
+
+           
             let change = newProperties.map((item, index) => {
               if (index === accordianIndex) {
                 return {
@@ -1268,6 +1256,7 @@ const CvForm = (props) => {
               }
               return item
             })
+             console.log(change,"changes check")
             dispatch(editNewProperty(change))
           }
           return newProperties[accordianIndex].enableAccordian ? (
@@ -1280,7 +1269,7 @@ const CvForm = (props) => {
                   onClick={() => {
                     handleChange(
                       'enableAccordian',
-                      !newProperties[accordianIndex].enableAccordian
+                      newProperties[accordianIndex].enableAccordian
                     )
                   }}
                 />
@@ -1289,7 +1278,7 @@ const CvForm = (props) => {
               <div className='generator-accordian-textfields'>
                 <HeadInput
                   value={newProperties[accordianIndex]?.name}
-                  onChange={(e) => handleChange('name', e.target.value)}
+                  onChange={(e) =>{ handleChange('name', e.target.value)}}
                   heading='ferdighetsnavn'
                 />
                 <input
@@ -1320,7 +1309,7 @@ const CvForm = (props) => {
               return (
                 <AddDetails
                   key={index}
-                  onClick={() => addIntoProperty(item)}
+                  onClick={() =>{ addIntoProperty(item)}}
                   heading={item}
                 />
               )
