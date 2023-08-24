@@ -1066,7 +1066,7 @@ const TemplateEight = (props) => {
                 </Page>
               </Document>
             }
-            fileName={`Skriv inn CV-navn.pdf`}
+            fileName={cvData.saveAs}
             // ${cvData.firstName}
           >
             {({ blob, url, loading, error }) =>
@@ -1524,7 +1524,7 @@ const TemplateEight = (props) => {
                   </Page>
                 </Document>
               }
-              fileName={`Skriv inn CV-navn.pdf`}
+              fileName={cvData.saveAs}
             >
               {({ blob, url, loading, error }) =>
                 loading ? (

@@ -1085,7 +1085,7 @@ const TemplateSix = () => {
                 </Page>
               </Document>
             }
-            fileName={`Skriv inn CV-navn.pdf`}
+            fileName={cvData.saveAs}
           >
             {({ blob, url, loading, error }) =>
               loading ? (
@@ -1609,7 +1609,7 @@ const TemplateSix = () => {
                   </Page>
                 </Document>
               }
-              fileName={`Skriv inn CV-navn.pdf`}
+              fileName={cvData.saveAs}
             >
               {({ blob, url, loading, error }) =>
                 loading ? (
