@@ -163,6 +163,7 @@ const InternshipGeneratorAccordian = ({
                     handleChange('endDate', moment(date).format('YYYY-MM'))
                   }
                 }}
+                
               >
                 <div
                   style={{
