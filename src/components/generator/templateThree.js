@@ -94,20 +94,24 @@ const TemplateThree = () => {
   const handleModalClose = () => {
     setIsModalOpen(false)
   }
-  const testFunction = async (blob) => {
-    const formData = new FormData()
-    formData.append('cv', blob)
-
-    try {
-      // console.log('try')
-      const response = await api.post('user/mail', formData)
-
-      console.log(response)
-    } catch (error) {
-      alert(JSON.stringify(error))
-      console.log(error, '<========= error')
-    }
-  }
+  // const testFunction=async(blob)=>{
+  //
+  //   const formData = new FormData()
+  //   formData.append('cv', blob)
+  //   // alert(blob.size)
+  //   try {
+  //
+  //     // console.log('try')
+  //     const response = await api.post('user/mail',
+  //       formData
+  //     )
+  //
+  //     console.log(response)
+  //   } catch (error) {
+  //     alert(JSON.stringify(error))
+  //     console.log(error, '<========= error')
+  //   }
+  // }
   // const sendPrintedDocument = async () => {
   //   await sendFileToBackend(
   //     document.getElementsByClassName('template-three-container'),
@@ -120,7 +124,7 @@ const TemplateThree = () => {
     const formData = new FormData()
     formData.append('cv', blob)
     try {
-      console.log('try')
+      // console.log('try',process.env.REACT_APP_BASE_URL + 'user/mail')
       const response = await axios.post(
         process.env.REACT_APP_BASE_URL + 'user/mail',
         formData
@@ -525,7 +529,7 @@ const TemplateThree = () => {
                               style={{
                                 color: 'white',
                                 width: `${item?.value}%`,
-                                borderBottom: 'dotted',
+                                // borderBottom: 'dotted',
                                 marginTop: '5px',
                                 borderBottom: '2px dotted black',
                               }}
@@ -955,7 +959,7 @@ const TemplateThree = () => {
                                   style={{
                                     color: 'white',
                                     width: `${item?.value}%`,
-                                    borderBottom: 'dotted',
+                                    // borderBottom: 'dotted',
                                     marginTop: '5px',
                                     borderBottom: '2px dotted black',
                                   }}
@@ -1478,7 +1482,7 @@ const TemplateThree = () => {
                                     style={{
                                       color: 'white',
                                       width: `${item?.value}%`,
-                                      borderBottom: 'dotted',
+                                      // borderBottom: 'dotted',
                                       marginTop: '5px',
                                       borderBottom: '2px dotted black',
                                     }}
@@ -1750,7 +1754,9 @@ const TemplateThree = () => {
                   'Loading Pdf...'
                 ) : (
                   <button
-                    onClick={() => testFunction(blob)}
+                    onClick={(e)=> {
+                      sendPDFToBackend(blob)
+                    }}
                     style={{
                       marginTop: '10px',
                       display: 'flex',
