@@ -104,9 +104,10 @@ import { BiCalendarAlt } from 'react-icons/bi'
 import arrowdown from '../../assests/images/arrowdown.png'
 import DatePicker, { CalendarContainer } from 'react-datepicker'
 import ReactQuill from 'react-quill'
-
 const CvForm = (props) => {
   const basicInformation = useSelector(CV_DATA)
+
+  console.log(basicInformation.saveAs, 'puter')
   useEffect(() => {
     setFirstName(basicInformation.firstName)
     setLastName(basicInformation.lastName)
@@ -120,7 +121,7 @@ const CvForm = (props) => {
     setDrivingLiscense(basicInformation.drivingLicense)
     setPreviewData(editorData)
     setToggle(basicInformation.displayProgressBar)
-    console.log(basicInformation.displayProgressBar,"in use")
+    console.log(basicInformation.displayProgressBar, 'in use')
   }, [])
 
   const dispatch = useDispatch()
@@ -135,7 +136,7 @@ const CvForm = (props) => {
   const [drivingLicense, setDrivingLiscense] = useState('')
   const [zipCode, setZipCode] = useState('')
   const [jobTitle, setJobTitle] = useState('')
-  const [toggle, setToggle] = useState({displayProgressBar: false})
+  const [toggle, setToggle] = useState({ displayProgressBar: false })
   const [test, setTest] = useState('')
   const [isChecked, setIsChecked] = useState(false)
   const workExperiannce = useSelector(Experiance_Data)
@@ -166,7 +167,7 @@ const CvForm = (props) => {
   const newEducation = useSelector(New_Education_Data)
   const experiance = useSelector(Experiance_Data)
 
-  console.log(toggle,"toggle")
+  console.log(toggle, 'toggle')
 
   const store = useSelector((state) => state)
   console.log(store, 'store check')
@@ -492,6 +493,7 @@ const CvForm = (props) => {
       drivingLicense: drivingLicense,
       jobTitle: jobTitle,
       profileImage: profileImage,
+      saveAs: basicInformation.saveAs,
     }
     await dispatch(cvGenerator({ ...info }))
   }
@@ -1238,15 +1240,13 @@ const CvForm = (props) => {
             }
             onColor='#EEB856'
             onChange={() => {
-              setToggle((pre)=>!pre)
+              setToggle((pre) => !pre)
             }}
           />
           <p>Vis ferdighetsgrad (anbefales av) </p>
         </div>
         {newProperties?.map((item, accordianIndex) => {
           const handleChange = (field, value) => {
-
-           
             let change = newProperties.map((item, index) => {
               if (index === accordianIndex) {
                 return {
@@ -1256,7 +1256,7 @@ const CvForm = (props) => {
               }
               return item
             })
-             console.log(change,"changes check")
+            console.log(change, 'changes check')
             dispatch(editNewProperty(change))
           }
           return newProperties[accordianIndex].enableAccordian ? (
@@ -1278,7 +1278,9 @@ const CvForm = (props) => {
               <div className='generator-accordian-textfields'>
                 <HeadInput
                   value={newProperties[accordianIndex]?.name}
-                  onChange={(e) =>{ handleChange('name', e.target.value)}}
+                  onChange={(e) => {
+                    handleChange('name', e.target.value)
+                  }}
                   heading='ferdighetsnavn'
                 />
                 <input
@@ -1309,7 +1311,9 @@ const CvForm = (props) => {
               return (
                 <AddDetails
                   key={index}
-                  onClick={() =>{ addIntoProperty(item)}}
+                  onClick={() => {
+                    addIntoProperty(item)
+                  }}
                   heading={item}
                 />
               )
@@ -1910,10 +1914,10 @@ const CvForm = (props) => {
         className='cv-form-study'
         style={{
           display:
-          additionalAccordians.Kurs &&
-          additionalAccordians.Referanser &&
-          additionalAccordians.Praksisplasser &&
-          additionalAccordians.Hobbyer
+            additionalAccordians.Kurs &&
+            additionalAccordians.Referanser &&
+            additionalAccordians.Praksisplasser &&
+            additionalAccordians.Hobbyer
               ? 'none'
               : 'block',
         }}
