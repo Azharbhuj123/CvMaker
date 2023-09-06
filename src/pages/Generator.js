@@ -165,7 +165,7 @@ const Generator = (props) => {
                     Skriv inn CV-navn'
                   onChange={(e) => {
                     changeBasicInfo(e.target.value, 'saveAs')
-                    localStorage.setItem("title",e.target.value)
+                    localStorage.setItem('title', e.target.value)
                   }}
                 ></input>
                 <p>
